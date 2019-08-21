@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "React Navigation Stack Example",
+    "description": "Demonstrates the various capabilities of react-navigation-stack",
+    "slug": "react-navigation-stack-sharedelement-demo",
+    "sdkVersion": "33.0.0",
+    "version": "1.0.0",
+    "primaryColor": "#2196f3",
+    "packagerOpts": {
+      "config": "./metro.config.js",
+      "projectRoots": ""
+    },
+    "platforms": ["android", "ios"],
+    "isDetached": true,
+    "detach": {
+      "iosExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/ios-v2.11.2-sdk33.0.0-76da9dd8-735b-43b3-9682-b386811f4e5f.tar.gz",
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.11.4-sdk33.0.0-6a4f0f3e-1f1b-4c33-9155-d0237f6d7c34.tar.gz"
+    },
+    "scheme": "exp2f09432b3cd9490aa691f67f2636bd17",
+    "ios": {
+      "bundleIdentifier": "com.ijzerenhein.sharedelement.rnstack",
+      "publishBundlePath": "ios/react-navigation-stack-example/Supporting/shell-app.bundle",
+      "publishManifestPath": "ios/react-navigation-stack-example/Supporting/shell-app-manifest.json"
+    },
+    "android": {
+      "package": "com.ijzerenhein.sharedelement.rnstack",
+      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
+      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
+    }
+  }
+}

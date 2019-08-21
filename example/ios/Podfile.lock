@@ -1,0 +1,712 @@
+PODS:
+  - Amplitude-iOS (3.14.1)
+  - Analytics (3.7.0)
+  - AppAuth (0.95.1)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - boost-for-react-native (1.63.0)
+  - Branch (0.24.2):
+    - Branch/Core (= 0.24.2)
+  - Branch/Core (0.24.2)
+  - CocoaLumberjack (3.2.1):
+    - CocoaLumberjack/Default (= 3.2.1)
+    - CocoaLumberjack/Extensions (= 3.2.1)
+  - CocoaLumberjack/Default (3.2.1)
+  - CocoaLumberjack/Extensions (3.2.1):
+    - CocoaLumberjack/Default
+  - Crashlytics (3.13.4):
+    - Fabric (~> 1.10.2)
+  - DoubleConversion (1.1.6)
+  - EXAdsAdMob (5.0.1):
+    - Google-Mobile-Ads-SDK
+    - UMCore
+  - EXAdsFacebook (5.0.1):
+    - FBAudienceNetwork
+    - UMCore
+  - EXAmplitude (5.0.1):
+    - Amplitude-iOS
+    - UMConstantsInterface
+    - UMCore
+  - EXAppAuth (5.0.1):
+    - AppAuth
+    - UMCore
+  - EXAppLoaderProvider (5.0.1)
+  - EXAV (5.0.2):
+    - UMCore
+    - UMPermissionsInterface
+  - EXBackgroundFetch (5.0.1):
+    - UMCore
+    - UMTaskManagerInterface
+  - EXBarCodeScanner (5.0.1):
+    - UMCore
+    - UMImageLoaderInterface
+  - EXBlur (5.0.1):
+    - UMCore
+  - EXBrightness (5.0.1):
+    - UMCore
+  - EXCalendar (5.0.1):
+    - UMCore
+    - UMPermissionsInterface
+  - EXCamera (5.0.1):
+    - UMBarCodeScannerInterface
+    - UMCore
+    - UMFaceDetectorInterface
+    - UMFileSystemInterface
+    - UMImageLoaderInterface
+    - UMPermissionsInterface
+  - EXConstants (5.0.1):
+    - UMConstantsInterface
+    - UMCore
+  - EXContacts (5.0.2):
+    - UMCore
+    - UMFileSystemInterface
+    - UMPermissionsInterface
+  - EXCrypto (5.0.1):
+    - UMCore
+  - EXDocumentPicker (5.0.1):
+    - UMCore
+    - UMFileSystemInterface
+  - EXFacebook (5.0.1):
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - UMConstantsInterface
+    - UMCore
+  - EXFaceDetector (5.0.1):
+    - GoogleMobileVision/FaceDetector (~> 1.1.0)
+    - GoogleMobileVision/MVDataOutput (~> 1.1.0)
+    - UMCore
+    - UMFaceDetectorInterface
+  - EXFileSystem (5.0.1):
+    - UMCore
+    - UMFileSystemInterface
+  - EXFont (5.0.1):
+    - UMCore
+    - UMFontInterface
+  - EXGL (5.0.1):
+    - EXGL-CPP
+    - UMCameraInterface
+    - UMCore
+    - UMFileSystemInterface
+  - EXGL-CPP (5.0.1):
+    - EXGL-CPP/UEXGL (= 5.0.1)
+  - EXGL-CPP/UEXGL (5.0.1)
+  - EXGoogleSignIn (5.0.1):
+    - GoogleSignIn (~> 4.4)
+    - UMCore
+  - EXHaptics (5.0.1):
+    - UMCore
+  - EXImageManipulator (5.0.1):
+    - UMCore
+    - UMFileSystemInterface
+    - UMImageLoaderInterface
+  - EXImagePicker (5.0.2):
+    - UMCore
+    - UMFileSystemInterface
+  - EXKeepAwake (5.0.1):
+    - UMCore
+  - EXLinearGradient (5.0.1):
+    - UMCore
+  - EXLocalAuthentication (5.0.1):
+    - UMConstantsInterface
+    - UMCore
+  - EXLocalization (5.0.1):
+    - UMCore
+  - EXLocation (5.0.1):
+    - UMCore
+    - UMPermissionsInterface
+    - UMTaskManagerInterface
+  - EXMailComposer (5.0.1):
+    - UMCore
+    - UMFileSystemInterface
+  - EXMediaLibrary (5.0.1):
+    - UMCore
+    - UMPermissionsInterface
+  - EXPermissions (5.0.1):
+    - UMCore
+    - UMPermissionsInterface
+  - ExpoKit/Core (33.0.0):
+    - Amplitude-iOS (~> 3.8)
+    - Analytics (~> 3.5)
+    - AppAuth (~> 0.4)
+    - Branch (~> 0.24.2)
+    - CocoaLumberjack (~> 3.2.1)
+    - Crashlytics (~> 3.8)
+    - Fabric (~> 1.6)
+    - FBAudienceNetwork (= 5.1.1)
+    - FBSDKCoreKit (= 4.40.0)
+    - FBSDKLoginKit (= 4.40.0)
+    - Google-Maps-iOS-Utils (~> 2.1.0)
+    - Google-Mobile-Ads-SDK (~> 7.22.0)
+    - GoogleMaps (~> 2.5.0)
+    - GoogleSignIn (~> 4.1)
+    - JKBigInteger2 (= 0.0.5)
+    - lottie-ios (~> 2.5.0)
+    - React
+    - UMCameraInterface
+    - UMConstantsInterface
+    - UMCore
+    - UMFileSystemInterface
+    - UMPermissionsInterface
+    - UMReactNativeAdapter
+    - UMSensorsInterface
+  - EXPrint (5.0.1):
+    - UMCore
+    - UMFileSystemInterface
+  - EXRandom (5.0.1):
+    - UMCore
+  - EXSecureStore (5.0.1):
+    - UMCore
+  - EXSegment (5.0.1):
+    - Analytics (~> 3.5)
+    - UMConstantsInterface
+    - UMCore
+  - EXSensors (5.0.1):
+    - UMCore
+    - UMSensorsInterface
+  - EXSharing (5.0.1):
+    - UMCore
+    - UMFileSystemInterface
+  - EXSMS (5.0.1):
+    - UMCore
+    - UMPermissionsInterface
+  - EXSpeech (5.0.2):
+    - UMCore
+  - EXSQLite (5.0.1):
+    - UMCore
+    - UMFileSystemInterface
+  - EXTaskManager (5.0.1):
+    - EXAppLoaderProvider
+    - UMConstantsInterface
+    - UMCore
+    - UMTaskManagerInterface
+  - EXWebBrowser (5.0.3):
+    - UMCore
+  - Fabric (1.10.2)
+  - FBAudienceNetwork (5.1.1)
+  - FBSDKCoreKit (4.40.0):
+    - Bolts (~> 1.9)
+  - FBSDKLoginKit (4.40.0):
+    - FBSDKCoreKit
+  - Folly (2018.10.22.00):
+    - boost-for-react-native
+    - DoubleConversion
+    - glog
+  - glog (0.3.5)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
+    - GoogleMaps
+  - Google-Mobile-Ads-SDK (7.22.0)
+  - GoogleInterchangeUtilities (1.2.2):
+    - GoogleSymbolUtilities (~> 1.1)
+  - GoogleMaps (2.5.0):
+    - GoogleMaps/Maps (= 2.5.0)
+  - GoogleMaps/Base (2.5.0)
+  - GoogleMaps/Maps (2.5.0):
+    - GoogleMaps/Base
+  - GoogleMobileVision/Detector (1.1.0):
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleNetworkingUtilities (~> 1.2)
+    - GoogleUtilities (~> 1.3)
+  - GoogleMobileVision/FaceDetector (1.1.0):
+    - GoogleMobileVision/Detector
+  - GoogleMobileVision/MVDataOutput (1.1.0):
+    - GoogleMobileVision/Detector
+  - GoogleNetworkingUtilities (1.2.2):
+    - GoogleSymbolUtilities (~> 1.1)
+  - GoogleSignIn (4.4.0):
+    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
+    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleSymbolUtilities (1.1.2)
+  - GoogleToolboxForMac/DebugUtils (2.2.1):
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+  - GoogleToolboxForMac/Defines (2.2.1)
+  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.2.1)":
+    - GoogleToolboxForMac/DebugUtils (= 2.2.1)
+    - GoogleToolboxForMac/Defines (= 2.2.1)
+    - "GoogleToolboxForMac/NSString+URLArguments (= 2.2.1)"
+  - "GoogleToolboxForMac/NSString+URLArguments (2.2.1)"
+  - GoogleUtilities (1.3.2):
+    - GoogleSymbolUtilities (~> 1.1)
+  - GTMSessionFetcher/Core (1.2.2)
+  - JKBigInteger2 (0.0.5)
+  - lottie-ios (2.5.3)
+  - React (0.59.8):
+    - React/Core (= 0.59.8)
+  - React/ART (0.59.8):
+    - React/Core
+  - React/Core (0.59.8):
+    - yoga (= 0.59.8.React)
+  - React/CxxBridge (0.59.8):
+    - Folly (= 2018.10.22.00)
+    - React/Core
+    - React/cxxreact
+    - React/jsiexecutor
+  - React/cxxreact (0.59.8):
+    - boost-for-react-native (= 1.63.0)
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/jsinspector
+  - React/DevSupport (0.59.8):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.59.8)
+  - React/jsi (0.59.8):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+  - React/jsiexecutor (0.59.8):
+    - DoubleConversion
+    - Folly (= 2018.10.22.00)
+    - glog
+    - React/cxxreact
+    - React/jsi
+  - React/jsinspector (0.59.8)
+  - React/RCTActionSheet (0.59.8):
+    - React/Core
+  - React/RCTAnimation (0.59.8):
+    - React/Core
+  - React/RCTBlob (0.59.8):
+    - React/Core
+  - React/RCTCameraRoll (0.59.8):
+    - React/Core
+    - React/RCTImage
+  - React/RCTGeolocation (0.59.8):
+    - React/Core
+  - React/RCTImage (0.59.8):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTNetwork (0.59.8):
+    - React/Core
+  - React/RCTText (0.59.8):
+    - React/Core
+  - React/RCTVibration (0.59.8):
+    - React/Core
+  - React/RCTWebSocket (0.59.8):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - UMBarCodeScannerInterface (2.0.1)
+  - UMCameraInterface (2.0.1)
+  - UMConstantsInterface (2.0.1)
+  - UMCore (2.0.1)
+  - UMFaceDetectorInterface (2.0.1)
+  - UMFileSystemInterface (2.0.1)
+  - UMFontInterface (2.0.1)
+  - UMImageLoaderInterface (2.0.1)
+  - UMPermissionsInterface (2.0.1)
+  - UMReactNativeAdapter (2.0.1):
+    - React
+    - UMCore
+    - UMFontInterface
+  - UMSensorsInterface (2.0.1)
+  - UMTaskManagerInterface (2.0.1)
+  - yoga (0.59.8.React)
+
+DEPENDENCIES:
+  - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - EXAdsAdMob (from `../node_modules/expo-ads-admob/ios`)
+  - EXAdsFacebook (from `../node_modules/expo-ads-facebook/ios`)
+  - EXAmplitude (from `../node_modules/expo-analytics-amplitude/ios`)
+  - EXAppAuth (from `../node_modules/expo-app-auth/ios`)
+  - EXAppLoaderProvider (from `../node_modules/expo-app-loader-provider/ios`)
+  - EXAV (from `../node_modules/expo-av/ios`)
+  - EXBackgroundFetch (from `../node_modules/expo-background-fetch/ios`)
+  - EXBarCodeScanner (from `../node_modules/expo-barcode-scanner/ios`)
+  - EXBlur (from `../node_modules/expo-blur/ios`)
+  - EXBrightness (from `../node_modules/expo-brightness/ios`)
+  - EXCalendar (from `../node_modules/expo-calendar/ios`)
+  - EXCamera (from `../node_modules/expo-camera/ios`)
+  - EXConstants (from `../node_modules/expo-constants/ios`)
+  - EXContacts (from `../node_modules/expo-contacts/ios`)
+  - EXCrypto (from `../node_modules/expo-crypto/ios`)
+  - EXDocumentPicker (from `../node_modules/expo-document-picker/ios`)
+  - EXFacebook (from `../node_modules/expo-facebook/ios`)
+  - EXFaceDetector (from `../node_modules/expo-face-detector/ios`)
+  - EXFileSystem (from `../node_modules/expo-file-system/ios`)
+  - EXFont (from `../node_modules/expo-font/ios`)
+  - EXGL (from `../node_modules/expo-gl/ios`)
+  - EXGL-CPP (from `../node_modules/expo-gl-cpp/cpp`)
+  - EXGoogleSignIn (from `../node_modules/expo-google-sign-in/ios`)
+  - EXHaptics (from `../node_modules/expo-haptics/ios`)
+  - EXImageManipulator (from `../node_modules/expo-image-manipulator/ios`)
+  - EXImagePicker (from `../node_modules/expo-image-picker/ios`)
+  - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
+  - EXLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
+  - EXLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
+  - EXLocalization (from `../node_modules/expo-localization/ios`)
+  - EXLocation (from `../node_modules/expo-location/ios`)
+  - EXMailComposer (from `../node_modules/expo-mail-composer/ios`)
+  - EXMediaLibrary (from `../node_modules/expo-media-library/ios`)
+  - EXPermissions (from `../node_modules/expo-permissions/ios`)
+  - ExpoKit/Core (from `http://github.com/expo/expo.git`, tag `ios/2.11.2`)
+  - EXPrint (from `../node_modules/expo-print/ios`)
+  - EXRandom (from `../node_modules/expo-random/ios`)
+  - EXSecureStore (from `../node_modules/expo-secure-store/ios`)
+  - EXSegment (from `../node_modules/expo-analytics-segment/ios`)
+  - EXSensors (from `../node_modules/expo-sensors/ios`)
+  - EXSharing (from `../node_modules/expo-sharing/ios`)
+  - EXSMS (from `../node_modules/expo-sms/ios`)
+  - EXSpeech (from `../node_modules/expo-speech/ios`)
+  - EXSQLite (from `../node_modules/expo-sqlite/ios`)
+  - EXTaskManager (from `../node_modules/expo-task-manager/ios`)
+  - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
+  - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
+  - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - React/ART (from `../node_modules/react-native`)
+  - React/Core (from `../node_modules/react-native`)
+  - React/CxxBridge (from `../node_modules/react-native`)
+  - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTCameraRoll (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
+  - UMBarCodeScannerInterface (from `../node_modules/unimodules-barcode-scanner-interface/ios`)
+  - UMCameraInterface (from `../node_modules/unimodules-camera-interface/ios`)
+  - UMConstantsInterface (from `../node_modules/unimodules-constants-interface/ios`)
+  - "UMCore (from `../node_modules/@unimodules/core/ios`)"
+  - UMFaceDetectorInterface (from `../node_modules/unimodules-face-detector-interface/ios`)
+  - UMFileSystemInterface (from `../node_modules/unimodules-file-system-interface/ios`)
+  - UMFontInterface (from `../node_modules/unimodules-font-interface/ios`)
+  - UMImageLoaderInterface (from `../node_modules/unimodules-image-loader-interface/ios`)
+  - UMPermissionsInterface (from `../node_modules/unimodules-permissions-interface/ios`)
+  - "UMReactNativeAdapter (from `../node_modules/@unimodules/react-native-adapter/ios`)"
+  - UMSensorsInterface (from `../node_modules/unimodules-sensors-interface/ios`)
+  - UMTaskManagerInterface (from `../node_modules/unimodules-task-manager-interface/ios`)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Amplitude-iOS
+    - Analytics
+    - AppAuth
+    - Bolts
+    - boost-for-react-native
+    - Branch
+    - CocoaLumberjack
+    - Crashlytics
+    - Fabric
+    - FBAudienceNetwork
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - Google-Maps-iOS-Utils
+    - Google-Mobile-Ads-SDK
+    - GoogleInterchangeUtilities
+    - GoogleMaps
+    - GoogleMobileVision
+    - GoogleNetworkingUtilities
+    - GoogleSignIn
+    - GoogleSymbolUtilities
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - JKBigInteger2
+    - lottie-ios
+
+EXTERNAL SOURCES:
+  DoubleConversion:
+    :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
+  EXAdsAdMob:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-ads-admob/ios"
+  EXAdsFacebook:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-ads-facebook/ios"
+  EXAmplitude:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-analytics-amplitude/ios"
+  EXAppAuth:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-app-auth/ios"
+  EXAppLoaderProvider:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-app-loader-provider/ios"
+  EXAV:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-av/ios"
+  EXBackgroundFetch:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-background-fetch/ios"
+  EXBarCodeScanner:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-barcode-scanner/ios"
+  EXBlur:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-blur/ios"
+  EXBrightness:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-brightness/ios"
+  EXCalendar:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-calendar/ios"
+  EXCamera:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-camera/ios"
+  EXConstants:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-constants/ios"
+  EXContacts:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-contacts/ios"
+  EXCrypto:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-crypto/ios"
+  EXDocumentPicker:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-document-picker/ios"
+  EXFacebook:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-facebook/ios"
+  EXFaceDetector:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-face-detector/ios"
+  EXFileSystem:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-file-system/ios"
+  EXFont:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-font/ios"
+  EXGL:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-gl/ios"
+  EXGL-CPP:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-gl-cpp/cpp"
+  EXGoogleSignIn:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-google-sign-in/ios"
+  EXHaptics:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-haptics/ios"
+  EXImageManipulator:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-image-manipulator/ios"
+  EXImagePicker:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-image-picker/ios"
+  EXKeepAwake:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-keep-awake/ios"
+  EXLinearGradient:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-linear-gradient/ios"
+  EXLocalAuthentication:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-local-authentication/ios"
+  EXLocalization:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-localization/ios"
+  EXLocation:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-location/ios"
+  EXMailComposer:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-mail-composer/ios"
+  EXMediaLibrary:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-media-library/ios"
+  EXPermissions:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-permissions/ios"
+  ExpoKit:
+    :git: http://github.com/expo/expo.git
+    :tag: ios/2.11.2
+  EXPrint:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-print/ios"
+  EXRandom:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-random/ios"
+  EXSecureStore:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-secure-store/ios"
+  EXSegment:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-analytics-segment/ios"
+  EXSensors:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-sensors/ios"
+  EXSharing:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-sharing/ios"
+  EXSMS:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-sms/ios"
+  EXSpeech:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-speech/ios"
+  EXSQLite:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-sqlite/ios"
+  EXTaskManager:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-task-manager/ios"
+  EXWebBrowser:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-web-browser/ios"
+  Folly:
+    :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+  glog:
+    :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  React:
+    :path: "../node_modules/react-native"
+  UMBarCodeScannerInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-barcode-scanner-interface/ios"
+  UMCameraInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-camera-interface/ios"
+  UMConstantsInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-constants-interface/ios"
+  UMCore:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/@unimodules/core/ios"
+  UMFaceDetectorInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-face-detector-interface/ios"
+  UMFileSystemInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-file-system-interface/ios"
+  UMFontInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-font-interface/ios"
+  UMImageLoaderInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-image-loader-interface/ios"
+  UMPermissionsInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-permissions-interface/ios"
+  UMReactNativeAdapter:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/@unimodules/react-native-adapter/ios"
+  UMSensorsInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-sensors-interface/ios"
+  UMTaskManagerInterface:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/unimodules-task-manager-interface/ios"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga"
+
+CHECKOUT OPTIONS:
+  ExpoKit:
+    :git: http://github.com/expo/expo.git
+    :tag: ios/2.11.2
+
+SPEC CHECKSUMS:
+  Amplitude-iOS: 4a3c8807b2ea5369dc11e87e23825bff01e5a922
+  Analytics: 77fd5fb102a4a5eedafa2c2b0245ceb7b7c15e45
+  AppAuth: cd34aac431e5c77c46ec7f03935377faa8c5808b
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  Branch: 0d98d22745a9b68bcb4fa6dc1c6a92b64d4fdd7b
+  CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
+  Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
+  DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
+  EXAdsAdMob: 197d75bf2d0210472f4b1403e7b2adbab19389f6
+  EXAdsFacebook: 66e85ffe5bd96a77c57a60588f9d1fb7cb9b1343
+  EXAmplitude: bd3626f5692d5ded1bb9774505da7bc0a3aa0992
+  EXAppAuth: f2f80de117c5cf2695b9b980af032f0c9729a001
+  EXAppLoaderProvider: 8f2c04a0a8d9be91f7c37c2b8824077ee5d4bc01
+  EXAV: 2db19c20f2b194904c411b8a1f25bbc7d4f253a0
+  EXBackgroundFetch: 4eee07f8c3de33f6c0b70509a059f6714d3ff943
+  EXBarCodeScanner: cf3ebfef605cec340474b1c049c084bd7dfe924b
+  EXBlur: ea9b8f87d79ad044050f16a168dd369fcb7183ca
+  EXBrightness: dde362c411123aed17177903e891786cc3ae0b61
+  EXCalendar: c6d085f7cbe91b3c59b57e62fc9b6b0201264766
+  EXCamera: 2f0087efe2bf3c59f78405bcb766f5d938bf4d56
+  EXConstants: 9fe56eec8bf0a3ee9beb8f3381fa91340a5b1e57
+  EXContacts: e1031c9104bfc7174445e81e6a3d5b7f58a4c542
+  EXCrypto: d90074bbd52df43f28651ff886d38d7a5007758e
+  EXDocumentPicker: 9b396809145ba8cbc0b1187cdd037776fb7b52a1
+  EXFacebook: a20b3a8bcc1658c1f7a593b7dd76e849e3fdcf73
+  EXFaceDetector: 42deb762dfdc7eb2054ab0f2c3a7b106f14fef95
+  EXFileSystem: 96624bd4b93a0684335c421a6567a92b25bd7ddb
+  EXFont: 3e55fdd433fe24717f61315fbb07e8f71ddd98bc
+  EXGL: 6bb9a8a2928d523eb191072ec2e0081d2af9062a
+  EXGL-CPP: a0e6c321607ee211057202f0d17124f5f2457788
+  EXGoogleSignIn: c9ca75d6f3e1058bf2329a64d9db112538461db6
+  EXHaptics: 6d594612afa321bfc8e167bdfb0b47f940f8f537
+  EXImageManipulator: 8038764aace4dd73af5e7d34869b12116a801ea4
+  EXImagePicker: 80ebecae5905b1d642ef5b12a592cf8af9f051dc
+  EXKeepAwake: 54eeb7ab22c9b29cba61f8c298a90e51925ec5d1
+  EXLinearGradient: 347f119afc85232c91537b43bd26cbc1e29588ff
+  EXLocalAuthentication: fef9ec75c648c38ebcb35d4061bb052c22acfb1c
+  EXLocalization: aeade2d056f913f7a4f5042d16a2ab0e83ed8451
+  EXLocation: d9bbd9ff37ea80dcf094cacccc0134a7b512bcb3
+  EXMailComposer: 5e62f305138052862bbe2a462849d538f8333a4c
+  EXMediaLibrary: 82ef81d52d18b93c34b3b4958ff87d3ef53d1ca8
+  EXPermissions: 8e05008ed4fc8c9be6c17ea95301fc3f3f005a7b
+  ExpoKit: bdec1ac1b8ed550cb95c434d0c5e443e73e17382
+  EXPrint: 41b486ecb1ce3cad5b74668a4a0dfac78a833b8d
+  EXRandom: 97cc2ce7e467fb7dcf29825977c992cceca5a23c
+  EXSecureStore: 32410487aae714d3fd4d4afb9b3208490fc19a37
+  EXSegment: b413562b37825f8f8f2addc22a675f566c2b3ad8
+  EXSensors: 668e70afe75588c8b875fa68d19371b6676d2d0e
+  EXSharing: 97047a9a0b61fbe8f07ca529a3320405eef00c0b
+  EXSMS: 7db2c4d285ed550c1b5cf2e4305c220edcfb58eb
+  EXSpeech: 94fe58cac4e79d3defe11589a7cd3b000686ee0d
+  EXSQLite: 89472a581b34dde9a433dbab25b56e9fe7265368
+  EXTaskManager: adb41d8a4687c6ff44ace1d095a8fa9323007fcf
+  EXWebBrowser: e03894b4583bb726e5ea05d01b341ba00134c2b5
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
+  FBAudienceNetwork: 56c2dc9b5f075f4a9757d7dc8a83d3972270f645
+  FBSDKCoreKit: ae214474b25033399c131dc81d258e412582a2ba
+  FBSDKLoginKit: 7a1e411d46acc8834588eca437daf34de42e1d52
+  Folly: de497beb10f102453a1afa9edbf8cf8a251890de
+  glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  Google-Mobile-Ads-SDK: 1bdf1a4244d0553b1840239874c209c01aef055f
+  GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
+  GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
+  GoogleMobileVision: d344d69c8987ee239c8a47257e2039084682d181
+  GoogleNetworkingUtilities: 3edd3a8161347494f2da60ea0deddc8a472d94cb
+  GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
+  GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
+  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
+  GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
+  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
+  UMBarCodeScannerInterface: d5602e23de37f95bb4ee49ee3b2711e128058ae9
+  UMCameraInterface: dde8491778ed062348e569bad33a890e60c32c9d
+  UMConstantsInterface: de48a63a5af572fc4dcc0e68051b00503b83e301
+  UMCore: 047dc01ae4ccdd0c993f2c190f2489e5409c3ad0
+  UMFaceDetectorInterface: badd9e3d206f5ba254c85a26afa43da06638575f
+  UMFileSystemInterface: ff9a18c26ee6321dc21a3f9663efe3a55313d4db
+  UMFontInterface: 0575f33184974a38f3528a4750729c7f5256b848
+  UMImageLoaderInterface: ee8642347161d66272e841377a888957feb1f48e
+  UMPermissionsInterface: 2238fe9d7f99457a5cfe7f3140c2521c5bf453a6
+  UMReactNativeAdapter: 110be971ff044f8cfd37cbf565a264cd79858391
+  UMSensorsInterface: cda3ec177c7ff0a138e3135414b4a29013389358
+  UMTaskManagerInterface: 296793ab2a7e181fe5ebe2ba9b40ae208ab4b8fa
+  yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
+
+PODFILE CHECKSUM: 8bc0d3465e3c3f8ff9a31ecfe80fb765d5ad101b
+
+COCOAPODS: 1.7.5

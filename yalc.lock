@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-native-shared-element": {
+      "signature": "57af3eba4dbad43d9d69ed184959c557",
+      "file": true
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "packages": {
+    "react-native-shared-element": {
+      "signature": "4e0602b5162ad0bc1e798006e852064b",
+      "file": true
+    },
+    "@react-navigation/core": {
+      "signature": "f84d6ffb0d19547b3a5ac5282509295b",
+      "file": true,
+      "replaced": "3.4.2"
+    }
+  }
+}
