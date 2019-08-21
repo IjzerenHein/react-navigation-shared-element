@@ -23,7 +23,7 @@ const stackNavigator = createStackNavigator(
     Detail: createSharedElementScene(DetailScreen)
   },
   {
-    initialRouteName: "Stack"
+    initialRouteName: "List"
   }
 );
 
