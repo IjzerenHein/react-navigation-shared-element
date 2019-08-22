@@ -42,8 +42,7 @@
   },
   "homepage": "https://github.com/IjzerenHein/react-navigation-sharedelement#readme",
   "dependencies": {
-    "hoist-non-react-statics": "^3.3.0",
-    "react-native-shared-element": "file:.yalc/react-native-shared-element"
+    "hoist-non-react-statics": "^3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
@@ -75,7 +74,8 @@
   "peerDependencies": {
     "@react-navigation/core": "^3.0.0",
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-shared-element": "*"
   },
   "jest": {
     "preset": "react-native",
