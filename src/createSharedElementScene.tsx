@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Platform, Easing } from 'react-native';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { nodeFromRef } from 'react-native-shared-element';
 import SharedElementSceneData from './SharedElementSceneData';
@@ -9,8 +9,11 @@ import {
   SharedElementItemConfig,
   SharedElementConfig,
   SharedElementEventSubscription,
+  NavigationTransitionSpec,
+  NavigationLegacyTransitionSpec,
 } from './types';
 import SharedElementRendererData from './SharedElementRendererData';
+import { fromLegacyNavigationTransitionSpec } from './utils';
 //import invariant from '../utils/invariant';
 
 const styles = StyleSheet.create({
@@ -61,8 +64,32 @@ type PropsType = {
   navigation: any;
 };
 
+const DefaultTransitionSpec: NavigationTransitionSpec =
+  Platform.OS === 'android'
+    ? {
+        timing: 'timing',
+        config: {
+          duration: 350,
+          easing: Easing.out(Easing.poly(5)),
+        },
+      }
+    : {
+        timing: 'spring',
+        config: {
+          stiffness: 1000,
+          damping: 500,
+          mass: 3,
+          overshootClamping: true,
+          restDisplacementThreshold: 0.01,
+          restSpeedThreshold: 0.01,
+        },
+      };
+
 function createSharedElementScene(
-  Component: React.ComponentType<any>
+  Component: React.ComponentType<any>,
+  config?: {
+    transitionSpec?: NavigationTransitionSpec | NavigationLegacyTransitionSpec;
+  }
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
@@ -75,9 +102,9 @@ function createSharedElementScene(
       const { navigation } = this.props;
       this.subscriptions = {
         willFocus: navigation.addListener('willFocus', this.onWillFocus),
-        //willBlur: navigation.addListener('willBlur', this.onWillBlur),
+        willBlur: navigation.addListener('willBlur', this.onWillBlur),
         didFocus: navigation.addListener('didFocus', this.onDidFocus),
-        //didBlur: navigation.addListener('didBlur', this.onDidBlur),
+        didBlur: navigation.addListener('didBlur', this.onDidBlur),
       };
     }
 
@@ -118,40 +145,63 @@ function createSharedElementScene(
     };
 
     private onWillFocus = () => {
-      // console.log('SharedElementSceneView.onWillFocus');
+      const { navigation } = this.props;
+      /*console.log(
+        'SharedElementSceneView.onWillFocus: ',
+        navigation,
+        this.props
+      );*/
       const animValue = new Animated.Value(0);
+      const transitionConfig = navigation.getParam('transitionConfig');
+      const transitionSpec =
+        (transitionConfig ? transitionConfig.transitionSpec : undefined) ||
+        (config ? config.transitionSpec : undefined) ||
+        DefaultTransitionSpec;
+      const transitionSpec2 = transitionSpec.config
+        ? transitionSpec
+        : fromLegacyNavigationTransitionSpec(transitionSpec);
       const sharedElements = normalizeSharedElementsConfig(
-        this.props.navigation.getParam('sharedElements')
+        navigation.getParam('sharedElements')
       );
       if (this.rendererData && sharedElements) {
-        Animated.timing(animValue, {
-          // TEMP
-          toValue: 1,
-          duration: 400,
-          useNativeDriver: true,
-        }).start();
+        const { timing, config } = transitionSpec2;
         this.rendererData.willActivateScene(
           this.sceneData,
           sharedElements,
           animValue
         );
+        // @ts-ignore
+        Animated[timing](animValue, {
+          useNativeDriver: true,
+          ...config,
+          toValue: 1,
+        }).start(() => {
+          if (this.rendererData) {
+            this.rendererData.didActivateScene(this.sceneData);
+          }
+        });
       }
     };
 
     private onDidFocus = () => {
       // console.log('SharedElementSceneView.onDidFocus');
       if (this.rendererData) {
-        this.rendererData.didActivateScene(this.sceneData);
+        const sharedElements = normalizeSharedElementsConfig(
+          this.props.navigation.getParam('sharedElements')
+        );
+        if (!sharedElements) {
+          this.rendererData.didActivateScene(this.sceneData);
+        }
       }
     };
 
-    /*onWillBlur = () => {
-      console.log('onWillBlur');
+    onWillBlur = () => {
+      //console.log('onWillBlur');
     };
 
     onDidBlur = () => {
-      console.log('onDidBlur');
-    };*/
+      //console.log('onDidBlur');
+    };
   }
 
   hoistNonReactStatics(SharedElementSceneView, Component);
