@@ -21,27 +21,33 @@ export default class SharedElementRendererData {
     sharedElements: SharedElementConfig,
     animValue: SharedElementAnimatedValue
   ): void {
+    // console.log('SharedElementRendererData.willActivateScene');
     if (!this.prevSceneData) return;
     this.sceneData = sceneData;
     this.sharedElements = sharedElements;
     this.animValue = animValue;
-    this.sceneSubscription = this.sceneData.addUpdateListener(() => {
-      // TODO optimize
+    if (sharedElements.length) {
+      this.sceneSubscription = this.sceneData.addUpdateListener(() => {
+        // TODO optimize
+        this.emitUpdateEvent();
+      });
       this.emitUpdateEvent();
-    });
-    this.emitUpdateEvent();
+    }
   }
 
   didActivateScene(sceneData: SharedElementSceneData): void {
+    //console.log('SharedElementRendererData.didActivateScene');
     if (this.sceneSubscription) {
       this.sceneSubscription.remove();
       this.sceneSubscription = null;
     }
     this.prevSceneData = sceneData;
     if (this.sceneData) {
-      this.sharedElements = [];
       this.sceneData = null;
-      this.emitUpdateEvent();
+      if (this.sharedElements.length) {
+        this.sharedElements = [];
+        this.emitUpdateEvent();
+      }
     }
   }
 

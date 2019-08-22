@@ -23,17 +23,20 @@ export default class SharedElementSceneData {
   }
 
   setAncestor(ancestorNode: SharedElementNode | null) {
+    // console.log('SharedElementSceneData.setAncestor');
     if (this.ancestorNode === ancestorNode) return;
     this.ancestorNode = ancestorNode || undefined;
     this.emitUpdateEvent('ancestor', this.ancestorNode, '');
   }
 
   addNode(id: string, node: SharedElementNode): void {
+    // console.log('SharedElementSceneData.addNode: ', id);
     this.nodes[id] = node;
     this.emitUpdateEvent('add', node, id);
   }
 
   removeNode(id: string, node: SharedElementNode): void {
+    // console.log('SharedElementSceneData.removeNode: ', id);
     delete this.nodes[id];
     this.emitUpdateEvent('remove', node, id);
   }

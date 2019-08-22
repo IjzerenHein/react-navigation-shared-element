@@ -88,6 +88,7 @@ function createSharedElementScene(
     }
 
     render() {
+      // console.log('SharedElementSceneView.render');
       return (
         <SharedElementRendererContext.Consumer>
           {rendererData => {
@@ -117,7 +118,7 @@ function createSharedElementScene(
     };
 
     private onWillFocus = () => {
-      console.log('onWillFocus');
+      // console.log('SharedElementSceneView.onWillFocus');
       const animValue = new Animated.Value(0);
       const sharedElements = normalizeSharedElementsConfig(
         this.props.navigation.getParam('sharedElements')
@@ -138,7 +139,7 @@ function createSharedElementScene(
     };
 
     private onDidFocus = () => {
-      console.log('onDidFocus');
+      // console.log('SharedElementSceneView.onDidFocus');
       if (this.rendererData) {
         this.rendererData.didActivateScene(this.sceneData);
       }
