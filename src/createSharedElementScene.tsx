@@ -8,6 +8,7 @@ import SharedElementRendererContext from './SharedElementRendererContext';
 import {
   SharedElementItemConfig,
   SharedElementConfig,
+  SharedElementAnimationConfig,
   SharedElementEventSubscription,
   NavigationTransitionSpec,
   NavigationLegacyTransitionSpec,
@@ -22,19 +23,39 @@ const styles = StyleSheet.create({
   },
 });
 
+function normalizeSharedElementAnimationConfig(
+  animationConfig: any
+): SharedElementAnimationConfig {
+  if (animationConfig === true) {
+    return {
+      animation: 'move',
+    };
+  } else if (typeof animationConfig === 'string') {
+    return {
+      // @ts-ignore
+      animation: animationConfig,
+    };
+  } else {
+    return animationConfig;
+  }
+}
+
 function normalizeSharedElementConfig(
   sharedElementConfig: any
 ): SharedElementItemConfig {
   if (typeof sharedElementConfig === 'string') {
     return {
       id: sharedElementConfig,
-      animation: 'move',
+      animation: normalizeSharedElementAnimationConfig('move'),
       sourceId: sharedElementConfig,
     };
   } else {
     return {
-      animation: 'move',
-      ...sharedElementConfig,
+      id: sharedElementConfig.id,
+      sourceId: sharedElementConfig.sourceId || sharedElementConfig.id,
+      animation: normalizeSharedElementAnimationConfig(
+        sharedElementConfig.animation || 'move'
+      ),
     };
   }
 }
@@ -50,11 +71,12 @@ function normalizeSharedElementsConfig(
     const keys = Object.keys(sharedElementsConfig);
     if (!keys.length) return null;
     return keys.map(id => {
-      const value = sharedElementsConfig[id];
       return {
         id,
         sourceId: id,
-        ...(typeof value === 'string' ? { animation: value } : value),
+        animation: normalizeSharedElementAnimationConfig(
+          sharedElementsConfig[id]
+        ),
       };
     });
   }

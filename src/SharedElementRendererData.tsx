@@ -76,7 +76,7 @@ export default class SharedElementRendererData {
         ancestor: sceneData ? sceneData.getAncestor() : undefined,
         node: sceneData ? sceneData.getNode(id) : undefined,
       },
-      animation,
+      ...animation,
     }));
   }
 }
