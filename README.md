@@ -2,6 +2,8 @@
 
 Experimental [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) bindings for React Navigation
 
+# Work in progress, docs may not be up to date
+
 ## Installation
 
 Open a Terminal in your project's folder and run,
