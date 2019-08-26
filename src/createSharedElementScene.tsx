@@ -166,6 +166,19 @@ function createSharedElementScene(
       this.sceneData.setAncestor(nodeFromRef(ref));
     };
 
+    private getSharedElements(): SharedElementsConfig | null {
+      const { navigation } = this.props;
+      // @ts-ignore
+      let sharedElements = navigation.getParam('sharedElements') || Component.sharedElements;
+      if (!sharedElements) return null;
+      if (typeof sharedElements === 'function') {
+        sharedElements = sharedElements(navigation);
+      }
+      return sharedElements
+        ? normalizeSharedElementsConfig(sharedElements)
+        : null;
+    }
+
     private onWillFocus = () => {
       const { navigation } = this.props;
       /*console.log(
@@ -182,9 +195,7 @@ function createSharedElementScene(
       const transitionSpec2 = transitionSpec.config
         ? transitionSpec
         : fromLegacyNavigationTransitionSpec(transitionSpec);
-      const sharedElements = normalizeSharedElementsConfig(
-        navigation.getParam('sharedElements')
-      );
+      const sharedElements = this.getSharedElements();
       if (this.rendererData && sharedElements) {
         const { timing, config } = transitionSpec2;
         this.rendererData.willActivateScene(
