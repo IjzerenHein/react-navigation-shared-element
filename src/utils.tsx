@@ -58,6 +58,7 @@ export function normalizeSharedElementConfig(
     return {
       id: sharedElementConfig.id,
       sourceId: sharedElementConfig.sourceId || sharedElementConfig.id,
+      debug: sharedElementConfig.debug || false,
       animation: normalizeSharedElementAnimationConfig(
         sharedElementConfig.animation || 'move'
       ),

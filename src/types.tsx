@@ -26,6 +26,7 @@ export type SharedElementConfig = {
   readonly id: string;
   readonly sourceId: string;
   readonly animation: SharedElementAnimationConfig;
+  readonly debug?: boolean;
 };
 
 export type SharedElementsConfig = SharedElementConfig[];

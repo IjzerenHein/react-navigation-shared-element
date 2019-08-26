@@ -77,7 +77,7 @@ export default class SharedElementRendererData {
 
   getTransitions(): SharedElementTransitionProps[] {
     const { prevSceneData, sceneData } = this;
-    return this.sharedElements.map(({ id, sourceId, animation }) => ({
+    return this.sharedElements.map(({ id, sourceId, animation, debug }) => ({
       position: this.animValue,
       start: {
         ancestor: prevSceneData ? prevSceneData.getAncestor() : undefined,
@@ -88,6 +88,7 @@ export default class SharedElementRendererData {
         node: sceneData ? sceneData.getNode(id) : undefined,
       },
       ...animation,
+      debug,
     }));
   }
 }
