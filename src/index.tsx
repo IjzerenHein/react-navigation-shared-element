@@ -1,11 +1,11 @@
 export * from './types';
 
 export {
-  default as createSharedElementRenderer,
-} from './createSharedElementRenderer';
+  default as createSharedElementTransitioner,
+} from './createSharedElementTransitioner';
 
 export {
-  default as createSharedElementScene,
-} from './createSharedElementScene';
+  default as enableSharedElementTransitions,
+} from './createSharedElementTransitioner';
 
 export { default as SharedElement } from './SharedElement';

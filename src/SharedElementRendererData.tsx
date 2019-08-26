@@ -16,16 +16,27 @@ export default class SharedElementRendererData {
   private sharedElements: SharedElementsConfig = [];
   private animValue: SharedElementAnimatedValue;
 
+  startTransition(animValue: SharedElementAnimatedValue) {
+    this.animValue = animValue;
+  }
+
+  endTransition() {
+    // Nothing to do
+  }
+
   willActivateScene(
     sceneData: SharedElementSceneData,
     sharedElements: SharedElementsConfig,
-    animValue: SharedElementAnimatedValue
+    animValue?: SharedElementAnimatedValue
   ): void {
-    // console.log('SharedElementRendererData.willActivateScene');
-    if (!this.prevSceneData) return;
+    /*console.log(
+      'SharedElementRendererData.willActivateScene: ',
+      this.prevSceneData
+    );*/
     this.sceneData = sceneData;
+    if (!this.prevSceneData) return;
     this.sharedElements = sharedElements;
-    this.animValue = animValue;
+    if (animValue) this.animValue = animValue;
     if (sharedElements.length) {
       this.sceneSubscription = this.sceneData.addUpdateListener(() => {
         // TODO optimize
