@@ -1,7 +1,7 @@
 import SharedElementSceneData from './SharedElementSceneData';
 import {
   SharedElementEventSubscription,
-  SharedElementConfig,
+  SharedElementsConfig,
   SharedElementAnimatedValue,
   SharedElementTransitionProps,
 } from './types';
@@ -13,12 +13,12 @@ export default class SharedElementRendererData {
   private prevSceneData: SharedElementSceneData | null = null;
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
   private sceneSubscription: SharedElementEventSubscription | null = null;
-  private sharedElements: SharedElementConfig = [];
+  private sharedElements: SharedElementsConfig = [];
   private animValue: SharedElementAnimatedValue;
 
   willActivateScene(
     sceneData: SharedElementSceneData,
-    sharedElements: SharedElementConfig,
+    sharedElements: SharedElementsConfig,
     animValue: SharedElementAnimatedValue
   ): void {
     // console.log('SharedElementRendererData.willActivateScene');

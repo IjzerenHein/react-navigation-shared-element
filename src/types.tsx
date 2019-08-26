@@ -22,13 +22,13 @@ export type SharedElementAnimationConfig = {
   align?: SharedElementTransitionAlign;
 };
 
-export type SharedElementItemConfig = {
+export type SharedElementConfig = {
   readonly id: string;
   readonly sourceId: string;
   readonly animation: SharedElementAnimationConfig;
 };
 
-export type SharedElementConfig = SharedElementItemConfig[];
+export type SharedElementsConfig = SharedElementConfig[];
 
 export type SharedElementAnimatedValue = any;
 

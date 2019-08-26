@@ -6,7 +6,7 @@ import SharedElementSceneData from './SharedElementSceneData';
 import SharedElementSceneContext from './SharedElementSceneContext';
 import SharedElementRendererContext from './SharedElementRendererContext';
 import {
-  SharedElementItemConfig,
+  SharedElementsConfig,
   SharedElementConfig,
   SharedElementAnimationConfig,
   SharedElementEventSubscription,
@@ -42,7 +42,7 @@ function normalizeSharedElementAnimationConfig(
 
 function normalizeSharedElementConfig(
   sharedElementConfig: any
-): SharedElementItemConfig {
+): SharedElementConfig {
   if (typeof sharedElementConfig === 'string') {
     return {
       id: sharedElementConfig,
@@ -62,7 +62,7 @@ function normalizeSharedElementConfig(
 
 function normalizeSharedElementsConfig(
   sharedElementsConfig: any
-): SharedElementConfig | null {
+): SharedElementsConfig | null {
   if (!sharedElementsConfig) return null;
   if (Array.isArray(sharedElementsConfig)) {
     if (!sharedElementsConfig.length) return null;
