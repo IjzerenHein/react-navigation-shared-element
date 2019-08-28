@@ -80,12 +80,14 @@ export default class SharedElementRendererData {
     return this.sharedElements.map(({ id, sourceId, animation, debug }) => ({
       position: this.animValue,
       start: {
-        ancestor: prevSceneData ? prevSceneData.getAncestor() : undefined,
-        node: prevSceneData ? prevSceneData.getNode(sourceId) : undefined,
+        ancestor:
+          (prevSceneData ? prevSceneData.getAncestor() : undefined) || null,
+        node:
+          (prevSceneData ? prevSceneData.getNode(sourceId) : undefined) || null,
       },
       end: {
-        ancestor: sceneData ? sceneData.getAncestor() : undefined,
-        node: sceneData ? sceneData.getNode(id) : undefined,
+        ancestor: (sceneData ? sceneData.getAncestor() : undefined) || null,
+        node: (sceneData ? sceneData.getNode(id) : undefined) || null,
       },
       ...animation,
       debug,
