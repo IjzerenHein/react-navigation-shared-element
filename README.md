@@ -41,12 +41,21 @@ import { SharedElement } from 'react-navigation-sharedelement';
 class ListScreen extends React.Component {
   renderItem(item) {
     return (
-      <TouchableOpacity onPress={() => this.props.navigation.push('Detail', {sharedElements: [`itemPhoto.${item.id}`]})}
+      <TouchableOpacity onPress={() => this.onPressItem(item)}>
         <SharedElement id={`itemPhoto.${item.id}`}>
           <Image source={...} />
         </SharedElement>
       </TouchableOpacity>
     )
+  }
+
+  onPressItem(item) {
+    const { navigation } = this.props;
+    navigation.push('Detail', {
+      sharedElements: [
+        `itemPhoto.${item.id}`
+      ]
+    });
   }
 }
 ```
