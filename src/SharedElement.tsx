@@ -22,7 +22,7 @@ class SharedElement extends React.Component<SharedElementProps> {
 
   render() {
     const {
-      id, //eslint-disable-line no-unused-vars
+      id, //eslint-disable-line @typescript-eslint/no-unused-vars
       ...otherProps
     } = this.props;
     return (

@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies, import/no-commonjs */
-
 const path = require('path');
 const blacklist = require('metro-config/src/defaults/blacklist');
 const project = require('../package.json');
