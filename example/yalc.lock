@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "react-native-shared-element": {
-      "signature": "4e0602b5162ad0bc1e798006e852064b",
+      "signature": "65ec034c823c06291536c3ef76c73226",
       "file": true
     },
     "@react-navigation/core": {
