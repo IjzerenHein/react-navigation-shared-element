@@ -56,3 +56,4 @@ lib/
 
 # used for Shared Element development
 .yalc
+yalc.lock
