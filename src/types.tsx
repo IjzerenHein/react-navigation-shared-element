@@ -1,14 +1,14 @@
 import {
   SharedElementNode,
-  SharedElementTransitionAnimation,
-  SharedElementTransitionResize,
-  SharedElementTransitionAlign,
+  SharedElementAnimation,
+  SharedElementResize,
+  SharedElementAlign,
   SharedElementTransitionProps,
 } from 'react-native-shared-element';
 
 export {
   SharedElementNode,
-  SharedElementTransitionAnimation,
+  SharedElementAnimation,
   SharedElementTransitionProps,
 };
 
@@ -17,9 +17,9 @@ export type SharedElementEventSubscription = {
 };
 
 export type SharedElementAnimationConfig = {
-  animation: SharedElementTransitionAnimation;
-  resize?: SharedElementTransitionResize;
-  align?: SharedElementTransitionAlign;
+  animation: SharedElementAnimation;
+  resize?: SharedElementResize;
+  align?: SharedElementAlign;
 };
 
 export type SharedElementConfig = {
