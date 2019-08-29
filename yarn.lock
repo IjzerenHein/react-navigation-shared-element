@@ -1409,9 +1409,9 @@ JSONStream@^1.0.4:
     through ">=2.2.7 <3"
 
 abab@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
-  integrity sha512-sY5AXXVZv4Y1VACTtR11UJCPHHudgY5i26Qj5TypE6DKlIApbwb5uqhXcJ5UUGbvZNRh7EeIoW+LrJumBsKp7w==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.1.tgz#3fa17797032b71410ec372e11668f4b4ffc86a82"
+  integrity sha512-1zSbbCuoIjafKZ3mblY5ikvAb0ODUbqBnFuUb7f6uLeQhhGJ0vEV4ntmtxKLT2WgXCO94E07BjunsIw1jOMPZw==
 
 abbrev@1:
   version "1.1.1"
@@ -3069,7 +3069,7 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-prettier@^6.0.0:
+eslint-config-prettier@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.1.0.tgz#e6f678ba367fbd1273998d5510f76f004e9dce7b"
   integrity sha512-k9fny9sPjIBQ2ftFTesJV21Rg4R/7a7t7LCtZVrYQiHEp8Nnuk3EGaDmsKSAnsPj0BYcgB2zxzHa2NTkIxcOLg==
@@ -6046,9 +6046,9 @@ minimist@~0.0.1:
   integrity sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
 
 minipass@^2.2.1, minipass@^2.3.5:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.4.0.tgz#38f0af94f42fb6f34d3d7d82a90e2c99cd3ff485"
-  integrity sha512-6PmOuSP4NnZXzs2z6rbwzLJu/c5gdzYg1mRI/WIYdx45iiX7T+a4esOzavD6V/KmBzAaopFSTZPZcUx73bqKWA==
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.5.0.tgz#dddb1d001976978158a05badfcbef4a771612857"
+  integrity sha512-9FwMVYhn6ERvMR8XFdOavRz4QK/VJV8elU1x50vYexf9lslDcWe/f4HBRxCPd185ekRSjU6CfYyJCECa/CQy7Q==
   dependencies:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
@@ -7056,9 +7056,9 @@ react-native-safe-area-view@^0.14.1:
     debounce "^1.2.0"
 
 react-native-shared-element@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.4.0.tgz#38d8118f903fc5afbd996949463a61bb00fac6dd"
-  integrity sha512-N9A1LnQ8Q/eBSfg9f2sKiSbhOlJjzgyJTEXiCPgXTqQBEvVY9yDOpWKZPb/774cd/gSnpKGmccJPqh68On+IDQ==
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.4.1.tgz#1f9fd6ee2f81b81b07b0c10db2b1f4e98851c8b6"
+  integrity sha512-pvDwZuOC6A6fv6Py4VJNcs4QHD7OcRI0Ko4qiZElHxsdkXMLyVwoQBkKoPcbfSnAKBVPXPkRaiNS8osJW56bCw==
 
 react-native@~0.60.5:
   version "0.60.5"
@@ -8426,9 +8426,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typescript@^3.5.3:
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
-  integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.2.tgz#105b0f1934119dde543ac8eb71af3a91009efe54"
+  integrity sha512-lmQ4L+J6mnu3xweP8+rOrUwzmN+MRAj7TgtJtDaXE5PMyX2kCrklhg3rvOsOIfNeAWMQWO2F1GPc1kMD2vLAfw==
 
 ua-parser-js@^0.7.18:
   version "0.7.20"
