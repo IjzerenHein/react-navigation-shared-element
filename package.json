@@ -18,7 +18,8 @@
     "prepare": "bob build",
     "release": "release-it",
     "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn"
+    "bootstrap": "yarn example && yarn",
+    "changelog": "yarn conventional-changelog -i CHANGELOG.md -s"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -58,6 +59,7 @@
     "@types/react-native": "^0.60.8",
     "@types/react-test-renderer": "^16.9.0",
     "commitlint": "^8.1.0",
+    "conventional-changelog-cli": "^2.0.23",
     "eslint": "^6.2.2",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
