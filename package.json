@@ -69,7 +69,7 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-native": "~0.60.5",
-    "react-native-shared-element": "file:.yalc/react-native-shared-element",
+    "react-native-shared-element": "^0.4.0",
     "react-test-renderer": "16.9.0",
     "release-it": "^12.3.6",
     "scheduler": "^0.15.0",
