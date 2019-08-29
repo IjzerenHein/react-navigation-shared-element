@@ -41,7 +41,7 @@ function createSharedElementEnabledNavigator(
   });
 }
 
-function createSharedElementTransitioner(
+function createSharedElementStackNavigator(
   createNavigator: any,
   RouteConfigs: any,
   NavigatorConfig: any
@@ -68,4 +68,4 @@ function createSharedElementTransitioner(
   return SharedElementRenderer;
 }
 
-export default createSharedElementTransitioner;
+export default createSharedElementStackNavigator;

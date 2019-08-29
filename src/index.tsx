@@ -1,11 +1,7 @@
 export * from './types';
 
 export {
-  default as createSharedElementTransitioner,
-} from './createSharedElementTransitioner';
-
-export {
-  default as enableSharedElementTransitions,
-} from './createSharedElementTransitioner';
+  default as createSharedElementStackNavigator,
+} from './createSharedElementStackNavigator';
 
 export { default as SharedElement } from './SharedElement';
