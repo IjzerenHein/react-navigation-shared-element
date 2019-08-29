@@ -17,6 +17,11 @@ export default class SharedElementSceneData {
   private nodes: {
     [key: string]: SharedElementNode;
   } = {};
+  public readonly name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
 
   getAncestor(): SharedElementNode | undefined {
     return this.ancestorNode;

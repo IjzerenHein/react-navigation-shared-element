@@ -8,7 +8,19 @@ import {
 
 export type SharedElementRendererUpdateHandler = () => any;
 
-export default class SharedElementRendererData {
+export interface ISharedElementRendererData {
+  startTransition(animValue: SharedElementAnimatedValue): void;
+  endTransition(): void;
+  willActivateScene(
+    sceneData: SharedElementSceneData,
+    sharedElements: SharedElementsConfig,
+    animValue?: SharedElementAnimatedValue
+  ): void;
+  didActivateScene(sceneData: SharedElementSceneData): void;
+}
+
+export default class SharedElementRendererData
+  implements ISharedElementRendererData {
   private sceneData: SharedElementSceneData | null = null;
   private prevSceneData: SharedElementSceneData | null = null;
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
@@ -31,7 +43,11 @@ export default class SharedElementRendererData {
   ): void {
     /*console.log(
       'SharedElementRendererData.willActivateScene: ',
-      this.prevSceneData
+      sceneData.name,
+      ', previous: ',
+      this.prevSceneData ? this.prevSceneData.name : '',
+      ', sharedElements: ',
+      sharedElements
     );*/
     this.sceneData = sceneData;
     if (!this.prevSceneData) return;
@@ -47,7 +63,7 @@ export default class SharedElementRendererData {
   }
 
   didActivateScene(sceneData: SharedElementSceneData): void {
-    //console.log('SharedElementRendererData.didActivateScene');
+    // console.log('SharedElementRendererData.didActivateScene: ', sceneData.name);
     if (this.sceneSubscription) {
       this.sceneSubscription.remove();
       this.sceneSubscription = null;

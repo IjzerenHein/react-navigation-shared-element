@@ -5,7 +5,7 @@ import { nodeFromRef } from 'react-native-shared-element';
 import SharedElementSceneData from './SharedElementSceneData';
 import SharedElementSceneContext from './SharedElementSceneContext';
 import { SharedElementsConfig, SharedElementEventSubscription } from './types';
-import SharedElementRendererData from './SharedElementRendererData';
+import { ISharedElementRendererData } from './SharedElementRendererData';
 import { normalizeSharedElementsConfig } from './utils';
 
 const styles = StyleSheet.create({
@@ -20,13 +20,18 @@ type PropsType = {
 
 function createSharedElementScene(
   Component: React.ComponentType<any>,
-  rendererData: SharedElementRendererData
+  rendererData: ISharedElementRendererData
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
       [key: string]: SharedElementEventSubscription;
     } = {};
-    private sceneData: SharedElementSceneData = new SharedElementSceneData();
+    private sceneData: SharedElementSceneData = new SharedElementSceneData(
+      Component.displayName ||
+        Component.name ||
+        (Component.constructor ? Component.constructor.name : undefined) ||
+        ''
+    );
 
     componentDidMount() {
       const { navigation } = this.props;
