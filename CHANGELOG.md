@@ -1,3 +1,13 @@
+## [0.3.2](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.3.1...v0.3.2) (2019-08-30)
+
+
+### Bug Fixes
+
+* fixed funky transition stuff from happening when popping a route ([4567dc6](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/4567dc6))
+* fixed routeConfigs that used {screen: Component} style config ([00c74a5](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/00c74a5))
+
+
+
 ## [0.3.1](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.3.0...v0.3.1) (2019-08-29)
 
 
