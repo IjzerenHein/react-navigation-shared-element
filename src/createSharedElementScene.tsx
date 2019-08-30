@@ -23,6 +23,7 @@ function createSharedElementScene(
   rendererData: ISharedElementRendererData
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
+    private initial: boolean = true;
     private subscriptions: {
       [key: string]: SharedElementEventSubscription;
     } = {};
@@ -82,7 +83,8 @@ function createSharedElementScene(
 
     private onWillFocus = () => {
       const sharedElements = this.getSharedElements();
-      if (sharedElements) {
+      if (sharedElements && this.initial) {
+        this.initial = false;
         rendererData.willActivateScene(this.sceneData, sharedElements);
       }
     };
