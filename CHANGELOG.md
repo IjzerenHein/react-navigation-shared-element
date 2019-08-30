@@ -1,3 +1,12 @@
+## [0.3.3](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.3.2...v0.3.3) (2019-08-30)
+
+
+### Bug Fixes
+
+* fixed transitions not triggering in release builds ([56b11d3](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/56b11d3))
+
+
+
 ## [0.3.2](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.3.1...v0.3.2) (2019-08-30)
 
 
