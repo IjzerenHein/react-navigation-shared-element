@@ -19,17 +19,26 @@ function createSharedElementEnabledNavigator(
     ...routeConfigs,
   };
   for (const key in routeConfigs) {
-    const component = wrappedRouteConfigs[key];
-    if (component.name === 'Navigator') {
+    let routeConfig = wrappedRouteConfigs[key];
+    const component = ((typeof routeConfig === 'object') && routeConfig.screen) ? routeConfig.screen : routeConfig;
+    if (component.name !== 'Navigator') {
       // console.log('Navigator detected, ignoring: ', component);
-      wrappedRouteConfigs[key] = component;
-    } else {
-      wrappedRouteConfigs[key] = createSharedElementScene(
+      const wrappedComponent = createSharedElementScene(
         component,
         rendererData
       );
+      if (component === routeConfig) {
+        wrappedRouteConfigs[key] = wrappedComponent;
+      }
+      else {
+        wrappedRouteConfigs[key] = {
+          ...routeConfig,
+          screen: wrappedComponent
+        };
+      }
     }
   }
+  
   return createNavigator(wrappedRouteConfigs, {
     ...navigatorConfig,
     onTransitionStart: (transitionProps: any, prevTransitionProps: any) => {
