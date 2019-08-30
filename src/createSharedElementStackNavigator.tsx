@@ -24,20 +24,17 @@ function createSharedElementEnabledNavigator(
       typeof routeConfig === 'object' && routeConfig.screen
         ? routeConfig.screen
         : routeConfig;
-    if (component.name !== 'Navigator') {
-      // console.log('Navigator detected, ignoring: ', component);
-      const wrappedComponent = createSharedElementScene(
-        component,
-        rendererData
-      );
-      if (component === routeConfig) {
-        wrappedRouteConfigs[key] = wrappedComponent;
-      } else {
-        wrappedRouteConfigs[key] = {
-          ...routeConfig,
-          screen: wrappedComponent,
-        };
-      }
+    const wrappedComponent = createSharedElementScene(
+      component,
+      rendererData
+    );
+    if (component === routeConfig) {
+      wrappedRouteConfigs[key] = wrappedComponent;
+    } else {
+      wrappedRouteConfigs[key] = {
+        ...routeConfig,
+        screen: wrappedComponent,
+      };
     }
   }
 
@@ -81,7 +78,6 @@ function createSharedElementStackNavigator(
   );
 
   class SharedElementRenderer extends React.Component {
-    static displayName = 'SharedElementRenderer';
     private rendererData?: SharedElementRendererData;
     render() {
       return (

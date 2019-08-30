@@ -18,6 +18,14 @@ type PropsType = {
   navigation: any;
 };
 
+function getActiveRouteState(route: any): any {
+  if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
+      return route;
+  } else {
+    return getActiveRouteState(route.routes[route.index]);
+  }
+}
+
 function createSharedElementScene(
   Component: React.ComponentType<any>,
   rendererData: ISharedElementRendererData
@@ -90,7 +98,12 @@ function createSharedElementScene(
     };
 
     private onDidFocus = () => {
-      rendererData.didActivateScene(this.sceneData);
+      const { navigation } = this.props;
+      const activeRoute = getActiveRouteState(navigation.state);
+      if (navigation.state.routeName === activeRoute.routeName) {
+        // console.log('onDidFocus: ', this.sceneData.name, activeRoute, this.props.navigation.state.routeName);
+        rendererData.didActivateScene(this.sceneData);
+      }
     };
   }
 
