@@ -24,10 +24,7 @@ function createSharedElementEnabledNavigator(
       typeof routeConfig === 'object' && routeConfig.screen
         ? routeConfig.screen
         : routeConfig;
-    const wrappedComponent = createSharedElementScene(
-      component,
-      rendererData
-    );
+    const wrappedComponent = createSharedElementScene(component, rendererData);
     if (component === routeConfig) {
       wrappedRouteConfigs[key] = wrappedComponent;
     } else {

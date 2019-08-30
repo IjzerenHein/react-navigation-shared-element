@@ -19,8 +19,12 @@ type PropsType = {
 };
 
 function getActiveRouteState(route: any): any {
-  if (!route.routes || route.routes.length === 0 || route.index >= route.routes.length) {
-      return route;
+  if (
+    !route.routes ||
+    route.routes.length === 0 ||
+    route.index >= route.routes.length
+  ) {
+    return route;
   } else {
     return getActiveRouteState(route.routes[route.index]);
   }
