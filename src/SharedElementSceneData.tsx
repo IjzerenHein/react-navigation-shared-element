@@ -2,6 +2,7 @@ import {
   SharedElementNode,
   SharedElementEventSubscription,
   SharedElementSceneComponent,
+  NavigationProp,
 } from './types';
 
 export type SharedElementSceneUpdateHandlerEventType =
@@ -23,9 +24,14 @@ export default class SharedElementSceneData {
   } = {};
   public readonly Component: SharedElementSceneComponent;
   public readonly name: string;
+  public navigation: NavigationProp;
 
-  constructor(Component: SharedElementSceneComponent) {
+  constructor(
+    Component: SharedElementSceneComponent,
+    navigation: NavigationProp
+  ) {
     this.Component = Component;
+    this.navigation = navigation;
     this.name =
       Component.displayName ||
       Component.name ||

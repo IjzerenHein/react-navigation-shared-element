@@ -42,7 +42,8 @@ function createSharedElementScene(
       [key: string]: SharedElementEventSubscription;
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
-      Component
+      Component,
+      this.props.navigation
     );
 
     componentDidMount() {
@@ -74,13 +75,16 @@ function createSharedElementScene(
       );
     }
 
+    componentDidUpdate() {
+      this.sceneData.navigation = this.props.navigation;
+    }
+
     private onSetRef = (ref: any) => {
       this.sceneData.setAncestor(nodeFromRef(ref));
     };
 
     private onWillFocus = () => {
-      const { navigation } = this.props;
-      rendererData.willActivateScene(this.sceneData, navigation);
+      rendererData.willActivateScene(this.sceneData);
     };
 
     private onDidFocus = () => {
@@ -88,7 +92,7 @@ function createSharedElementScene(
       const activeRoute = getActiveRouteState(navigation.state);
       if (navigation.state.routeName === activeRoute.routeName) {
         // console.log('onDidFocus: ', this.sceneData.name, navigation);
-        rendererData.didActivateScene(this.sceneData, navigation);
+        rendererData.didActivateScene(this.sceneData);
       }
     };
   }
