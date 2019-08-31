@@ -1,7 +1,7 @@
 import SharedElementRendererData, {
   ISharedElementRendererData,
 } from './SharedElementRendererData';
-import { SharedElementAnimatedValue, SharedElementsConfig } from './types';
+import { SharedElementAnimatedValue, NavigationProp } from './types';
 import SharedElementSceneData from './SharedElementSceneData';
 
 export class SharedElementRendererProxy implements ISharedElementRendererData {
@@ -29,8 +29,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
 
   willActivateScene(
     sceneData: SharedElementSceneData,
-    sharedElements: SharedElementsConfig,
-    animValue?: SharedElementAnimatedValue
+    navigation: NavigationProp
   ) {
     if (!this.data) {
       console.warn(
@@ -38,17 +37,20 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
       );
       return;
     }
-    return this.data.willActivateScene(sceneData, sharedElements, animValue);
+    return this.data.willActivateScene(sceneData, navigation);
   }
 
-  didActivateScene(sceneData: SharedElementSceneData) {
+  didActivateScene(
+    sceneData: SharedElementSceneData,
+    navigation: NavigationProp
+  ) {
     if (!this.data) {
       console.warn(
         'SharedElementRendererProxy.didActivateScene called before Proxy was initialized'
       );
       return;
     }
-    return this.data.didActivateScene(sceneData);
+    return this.data.didActivateScene(sceneData, navigation);
   }
 
   get source(): SharedElementRendererData | null {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Animated } from 'react-native';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import SharedElementRendererView from './SharedElementRendererView';
 import SharedElementRendererData, {
@@ -38,10 +37,14 @@ function createSharedElementEnabledNavigator(
   return createNavigator(wrappedRouteConfigs, {
     ...navigatorConfig,
     onTransitionStart: (transitionProps: any, prevTransitionProps: any) => {
-      if (transitionProps.index === prevTransitionProps.index) return;
-      // console.log('onTransitionStart: ', transitionProps, prevTransitionProps);
+      const { index, position } = transitionProps;
+      const prevIndex = prevTransitionProps.index;
+      if (index === prevIndex) return;
       rendererData.startTransition(
-        Animated.subtract(transitionProps.position, transitionProps.index - 1)
+        position.interpolate({
+          inputRange: [index - 1, index],
+          outputRange: index > prevIndex ? [0, 1] : [2, 1],
+        })
       );
       if (navigatorConfig.onTransitionStart) {
         navigatorConfig.onTransitionStart(transitionProps, prevTransitionProps);

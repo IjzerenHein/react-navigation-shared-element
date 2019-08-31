@@ -4,9 +4,12 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import { nodeFromRef } from 'react-native-shared-element';
 import SharedElementSceneData from './SharedElementSceneData';
 import SharedElementSceneContext from './SharedElementSceneContext';
-import { SharedElementsConfig, SharedElementEventSubscription } from './types';
+import {
+  SharedElementEventSubscription,
+  NavigationProp,
+  SharedElementSceneComponent,
+} from './types';
 import { ISharedElementRendererData } from './SharedElementRendererData';
-import { normalizeSharedElementsConfig } from './utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +18,7 @@ const styles = StyleSheet.create({
 });
 
 type PropsType = {
-  navigation: any;
+  navigation: NavigationProp;
 };
 
 function getActiveRouteState(route: any): any {
@@ -31,19 +34,15 @@ function getActiveRouteState(route: any): any {
 }
 
 function createSharedElementScene(
-  Component: React.ComponentType<any>,
+  Component: SharedElementSceneComponent,
   rendererData: ISharedElementRendererData
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
-    private initial: boolean = true;
     private subscriptions: {
       [key: string]: SharedElementEventSubscription;
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
-      Component.displayName ||
-        Component.name ||
-        (Component.constructor ? Component.constructor.name : undefined) ||
-        ''
+      Component
     );
 
     componentDidMount() {
@@ -79,34 +78,17 @@ function createSharedElementScene(
       this.sceneData.setAncestor(nodeFromRef(ref));
     };
 
-    private getSharedElements(): SharedElementsConfig | null {
-      const { navigation } = this.props;
-      let sharedElements =
-        // @ts-ignore
-        navigation.getParam('sharedElements') || Component.sharedElements;
-      if (!sharedElements) return null;
-      if (typeof sharedElements === 'function') {
-        sharedElements = sharedElements(navigation);
-      }
-      return sharedElements
-        ? normalizeSharedElementsConfig(sharedElements)
-        : null;
-    }
-
     private onWillFocus = () => {
-      const sharedElements = this.getSharedElements();
-      if (sharedElements && this.initial) {
-        this.initial = false;
-        rendererData.willActivateScene(this.sceneData, sharedElements);
-      }
+      const { navigation } = this.props;
+      rendererData.willActivateScene(this.sceneData, navigation);
     };
 
     private onDidFocus = () => {
       const { navigation } = this.props;
       const activeRoute = getActiveRouteState(navigation.state);
       if (navigation.state.routeName === activeRoute.routeName) {
-        // console.log('onDidFocus: ', this.sceneData.name, activeRoute, this.props.navigation.state.routeName);
-        rendererData.didActivateScene(this.sceneData);
+        // console.log('onDidFocus: ', this.sceneData.name, navigation);
+        rendererData.didActivateScene(this.sceneData, navigation);
       }
     };
   }

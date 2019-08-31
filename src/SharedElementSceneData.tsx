@@ -1,4 +1,8 @@
-import { SharedElementNode, SharedElementEventSubscription } from './types';
+import {
+  SharedElementNode,
+  SharedElementEventSubscription,
+  SharedElementSceneComponent,
+} from './types';
 
 export type SharedElementSceneUpdateHandlerEventType =
   | 'ancestor'
@@ -17,10 +21,16 @@ export default class SharedElementSceneData {
   private nodes: {
     [key: string]: SharedElementNode;
   } = {};
+  public readonly Component: SharedElementSceneComponent;
   public readonly name: string;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(Component: SharedElementSceneComponent) {
+    this.Component = Component;
+    this.name =
+      Component.displayName ||
+      Component.name ||
+      (Component.constructor ? Component.constructor.name : undefined) ||
+      '';
   }
 
   getAncestor(): SharedElementNode | undefined {

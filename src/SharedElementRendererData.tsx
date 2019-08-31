@@ -4,7 +4,9 @@ import {
   SharedElementsConfig,
   SharedElementAnimatedValue,
   SharedElementTransitionProps,
+  NavigationProp,
 } from './types';
+import { normalizeSharedElementsConfig } from './utils';
 
 export type SharedElementRendererUpdateHandler = () => any;
 
@@ -13,16 +15,33 @@ export interface ISharedElementRendererData {
   endTransition(): void;
   willActivateScene(
     sceneData: SharedElementSceneData,
-    sharedElements: SharedElementsConfig,
-    animValue?: SharedElementAnimatedValue
+    navigation: NavigationProp
   ): void;
-  didActivateScene(sceneData: SharedElementSceneData): void;
+  didActivateScene(
+    sceneData: SharedElementSceneData,
+    navigation: NavigationProp
+  ): void;
+}
+
+function getSharedElements(
+  sceneData: SharedElementSceneData,
+  navigation: NavigationProp,
+  otherNavigation: NavigationProp,
+  show: boolean
+): SharedElementsConfig | null {
+  const { sharedElements } = sceneData.Component;
+  if (!sharedElements) return null;
+  // TODO push/pop distinction?
+  return normalizeSharedElementsConfig(
+    sharedElements(navigation, otherNavigation, show)
+  );
 }
 
 export default class SharedElementRendererData
   implements ISharedElementRendererData {
   private sceneData: SharedElementSceneData | null = null;
   private prevSceneData: SharedElementSceneData | null = null;
+  private prevNavigation: NavigationProp | null = null;
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
   private sceneSubscription: SharedElementEventSubscription | null = null;
   private sharedElements: SharedElementsConfig = [];
@@ -38,22 +57,27 @@ export default class SharedElementRendererData
 
   willActivateScene(
     sceneData: SharedElementSceneData,
-    sharedElements: SharedElementsConfig,
-    animValue?: SharedElementAnimatedValue
+    navigation: NavigationProp
   ): void {
     /*console.log(
       'SharedElementRendererData.willActivateScene: ',
       sceneData.name,
       ', previous: ',
-      this.prevSceneData ? this.prevSceneData.name : '',
-      ', sharedElements: ',
-      sharedElements
+      this.prevSceneData ? this.prevSceneData.name : ''
     );*/
-    this.sceneData = sceneData;
-    if (!this.prevSceneData) return;
-    this.sharedElements = sharedElements;
-    if (animValue) this.animValue = animValue;
-    if (sharedElements.length) {
+    if (!this.prevSceneData || !this.prevNavigation) return;
+    const sharedElements =
+      getSharedElements(sceneData, navigation, this.prevNavigation, true) ||
+      getSharedElements(
+        this.prevSceneData,
+        this.prevNavigation,
+        navigation,
+        false
+      );
+    if (sharedElements && sharedElements.length) {
+      // console.log('sharedElements: ', sharedElements, sceneData);
+      this.sceneData = sceneData;
+      this.sharedElements = sharedElements;
       this.sceneSubscription = this.sceneData.addUpdateListener(() => {
         // TODO optimize
         this.emitUpdateEvent();
@@ -62,13 +86,17 @@ export default class SharedElementRendererData
     }
   }
 
-  didActivateScene(sceneData: SharedElementSceneData): void {
-    // console.log('SharedElementRendererData.didActivateScene: ', sceneData.name);
+  didActivateScene(
+    sceneData: SharedElementSceneData,
+    navigation: NavigationProp
+  ): void {
+    //console.log('SharedElementRendererData.didActivateScene: ', sceneData.name);
     if (this.sceneSubscription) {
       this.sceneSubscription.remove();
       this.sceneSubscription = null;
     }
     this.prevSceneData = sceneData;
+    this.prevNavigation = navigation;
     if (this.sceneData) {
       this.sceneData = null;
       if (this.sharedElements.length) {
@@ -93,20 +121,24 @@ export default class SharedElementRendererData
 
   getTransitions(): SharedElementTransitionProps[] {
     const { prevSceneData, sceneData } = this;
-    return this.sharedElements.map(({ id, sourceId, animation, debug }) => ({
-      position: this.animValue,
-      start: {
-        ancestor:
-          (prevSceneData ? prevSceneData.getAncestor() : undefined) || null,
-        node:
-          (prevSceneData ? prevSceneData.getNode(sourceId) : undefined) || null,
-      },
-      end: {
-        ancestor: (sceneData ? sceneData.getAncestor() : undefined) || null,
-        node: (sceneData ? sceneData.getNode(id) : undefined) || null,
-      },
-      ...animation,
-      debug,
-    }));
+    // console.log('getTransitions: ', sceneData, prevSceneData);
+    return this.sharedElements.map(({ id, sourceId, animation, debug }) => {
+      return {
+        position: this.animValue,
+        start: {
+          ancestor:
+            (prevSceneData ? prevSceneData.getAncestor() : undefined) || null,
+          node:
+            (prevSceneData ? prevSceneData.getNode(sourceId) : undefined) ||
+            null,
+        },
+        end: {
+          ancestor: (sceneData ? sceneData.getAncestor() : undefined) || null,
+          node: (sceneData ? sceneData.getNode(id) : undefined) || null,
+        },
+        ...animation,
+        debug,
+      };
+    });
   }
 }

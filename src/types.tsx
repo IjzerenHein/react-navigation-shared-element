@@ -12,6 +12,46 @@ export {
   SharedElementTransitionProps,
 };
 
+export type Route = {
+  key: string;
+  routeName: string;
+};
+
+export type NavigationEventName =
+  | 'willFocus'
+  | 'didFocus'
+  | 'willBlur'
+  | 'didBlur';
+
+export type NavigationState = {
+  key: string;
+  index: number;
+  routes: Route[];
+  routeName: string;
+  transitions: {
+    pushing: string[];
+    popping: string[];
+  };
+  params?: { [key: string]: unknown };
+};
+
+export type NavigationProp<RouteName = string, Params = object> = {
+  navigate(routeName: RouteName): void;
+  goBack(): void;
+  goBack(key: string | null): void;
+  addListener: (
+    event: NavigationEventName,
+    callback: () => void
+  ) => { remove: () => void };
+  isFocused(): boolean;
+  state: NavigationState;
+  setParams(params: Params): void;
+  getParam(): Params;
+  dispatch(action: { type: string }): void;
+  isFirstRouteInParent(): boolean;
+  dangerouslyGetParent(): NavigationProp | undefined;
+};
+
 export type SharedElementEventSubscription = {
   remove(): void;
 };
@@ -33,26 +73,12 @@ export type SharedElementsConfig = SharedElementConfig[];
 
 export type SharedElementAnimatedValue = any;
 
-export type NavigationSpringConfig = {
-  damping: number;
-  mass: number;
-  stiffness: number;
-  restSpeedThreshold: number;
-  restDisplacementThreshold: number;
-  overshootClamping: boolean;
-};
+export type SharedElementsComponentConfig = (
+  navigation: NavigationProp,
+  otherNavigation: NavigationProp,
+  show: boolean
+) => SharedElementsConfig | null;
 
-export type NavigationTimingConfig = {
-  duration: number;
-  easing: any; // Animated.EasingFunction;
-};
-
-export type NavigationTransitionSpec =
-  | { timing: 'spring'; config: NavigationSpringConfig }
-  | { timing: 'timing'; config: NavigationTimingConfig };
-
-export type NavigationLegacyTransitionSpec = {
-  timing: any;
-  duration?: number;
-  easing?: any;
+export type SharedElementSceneComponent = React.ComponentType<any> & {
+  sharedElements: SharedElementsComponentConfig;
 };
