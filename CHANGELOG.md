@@ -1,3 +1,7 @@
+## [0.4.1](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.0...v0.4.1) (2019-09-01)
+
+
+
 # [0.4.0](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.3.3...v0.4.0) (2019-09-01)
 
 
