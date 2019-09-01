@@ -75,7 +75,7 @@ class ListScreen extends React.Component {
 ```jsx
 // DetailScreen.js
 class DetailScreen extends React.Component {
-  static sharedElements = (navigation, prevNavigation, showing) => {
+  static sharedElements = (navigation, otherNavigation, showing) => {
     const item = navigation.getParam('item');
     return [`item.${item.id}.photo`];
   };
@@ -132,11 +132,11 @@ each screen transition, both screens are evaluated and checked whether they have
 
 The `sharedElements` function receives 3 arguments
 
-| Argument         | Type             | Description                                                                                                                                               |
-| ---------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `navigation`     | `NavigationProp` | Navigation prop of the current screen.  You can use this to get the params of the screen using `getParam`, or the route-name using `state.routeName`      |
-| `prevNavigation` | `NavigationProp` | The navigation-prop of the previous screen. You can use this to get the params of that screen using `getParam`, or the route-name using `state.routeName` |
-| `showing`        | `boolean`        | `true` when this screen is being shown, and `false` when this screen is being hidden.                                                                     |  |
+| Argument          | Type             | Description                                                                                                                                            |
+| ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `navigation`      | `NavigationProp` | Navigation prop of the current screen.  You can use this to get the params of the screen using `getParam`, or the route-name using `state.routeName`   |
+| `otherNavigation` | `NavigationProp` | The navigation-prop of the other screen. You can use this to get the params of that screen using `getParam`, or the route-name using `state.routeName` |
+| `showing`         | `boolean`        | `true` when this screen is being shown, and `false` when this screen is being hidden.                                                                  |  |
 
 The return value should be either `undefined` or an array of shared-element configs or identifiers. Specifying a string-identifier is shorthand for `{id: 'myid'}`.
 
@@ -145,9 +145,9 @@ The return value should be either `undefined` or an array of shared-element conf
 
 ```js
 class DetailScreen extends Component {
-  static sharedElements = (navigation, prevNavigation, showing) => {
+  static sharedElements = (navigation, otherNavigation, showing) => {
     // Transition element `item.${item.id}.photo` when either
-    // showing or hiding this screen
+    // showing or hiding this screen (coming from any route)
     const item = navigation.getParam('item');
     return [`item.${item.id}.photo`];
   }
@@ -158,12 +158,12 @@ class DetailScreen extends Component {
 
 **Only transition when coming from a specific route**
 
-If you only want to show a transition when transitioning from a particular screen, then check the route-name.
+If you only want to show a transition when pushing from a particular screen, then use the route-name and `showing` argument.
 
 ```js
 class DetailScreen extends Component {
-  static sharedElements = (navigation, prevNavigation, showing) => {
-    if (prevNavigation.state.routeName === 'List') {
+  static sharedElements = (navigation, otherNavigation, showing) => {
+    if ((otherNavigation.state.routeName === 'List') && showing) {
       const item = navigation.getParam('item');
       return [`item.${item.id}.photo`];
     }
@@ -178,7 +178,7 @@ If the source- and target elements are visually distinct, the consider using a c
 
 ```js
 class DetailScreen extends Component {
-  static sharedElements = (navigation, prevNavigation, showing) => {
+  static sharedElements = (navigation, otherNavigation, showing) => {
     const item = navigation.getParam('item');
     return [{
       id: `item.${item.id}.photo`,
