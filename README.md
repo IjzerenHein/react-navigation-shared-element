@@ -5,7 +5,7 @@ Experimental [react-native-shared-element](https://github.com/IjzerenHein/react-
 This library is under development and is subject to API changes. At the moment only the stack navigator is supported.
 As [react-navigation](https://reactnavigation.org) is alo undergoing development and possible API changes, this library provides a testing ground and working API for the v3 branch of react-navigation.
 It was written as a separate library which does not require any changes to react-navigation itself.
-As time progresses, the goal is to support the latest react-navigation version, a cleaner API, support `appear` and `disappear` transitions, and have the 
+As time progresses, the goal is to support the latest react-navigation version, support `appear` and `disappear` transitions, and have the 
 [native extensions](https://github.com/IjzerenHein/react-native-shared-element) land in [Expo](https://expo.io/).
 
 ## Index <!-- omit in toc -->
@@ -15,7 +15,7 @@ As time progresses, the goal is to support the latest react-navigation version, 
 - [Documentation](#documentation)
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
   - [SharedElement](#sharedelement)
-  - [Trigger shared element transitions](#trigger-shared-element-transitions)
+  - [SharedElementConfig](#sharedelementconfig)
 - [License](#license)
 
 ## Installation
@@ -34,7 +34,7 @@ In order to enable shared element transitions, the following steps need to be pe
 
 - Wrap stack-navigator with `createSharedElementStackNavigator`
 - Wrap your component with `<SharedElement>` and provide a unique `id`
-- When pushing a route, provide a `sharedElements` config
+- Define a static `sharedElements` config on the Screen that you want to animate
 
 ```jsx
 import { createStackNavigator } from 'react-navigation';
@@ -60,22 +60,14 @@ import { SharedElement } from 'react-navigation-sharedelement';
 
 class ListScreen extends React.Component {
   renderItem(item) {
+    const { navigation } = this.props;
     return (
-      <TouchableOpacity onPress={() => this.onPressItem(item)}>
+      <TouchableOpacity onPress={() => navigation.push('Detail', {item})}>
         <SharedElement id={`itemPhoto.${item.id}`}>
-          <Image source={...} />
+          <Image source={item.photoUrl} />
         </SharedElement>
       </TouchableOpacity>
     )
-  }
-
-  onPressItem(item) {
-    const { navigation } = this.props;
-    navigation.push('Detail', {
-      sharedElements: [
-        `item.${item.id}.photo`
-      ]
-    });
   }
 }
 ```
@@ -83,11 +75,16 @@ class ListScreen extends React.Component {
 ```jsx
 // DetailScreen.js
 class DetailScreen extends React.Component {
+  static sharedElements = (navigation, prevNavigation, show) => {
+    const item = navigation.getParam('item');
+    return [`item.${item.id}.photo`];
+  };
+
   render() {
     const item = this.props.navigation.getParam('item');
     return (
       <SharedElement id={`item.${item.id}.photo`}>
-        <Image source={...} />
+        <Image source={item.photoUrl} />
       </SharedElement>
     );
   }
@@ -98,7 +95,7 @@ class DetailScreen extends React.Component {
 
 ### createSharedElementStackNavigator
 
-The `createSharedElementStackNavigator` function wraps an existing stack-navigator and makes shared element transitions possible on it. 
+The `createSharedElementStackNavigator` function wraps an existing stack-navigator and enables shared element transitions for it. 
 
 It performs the following actions
 
@@ -116,11 +113,9 @@ It performs the following actions
 
 ### SharedElement
 
-The `<SharedElement>` component accepts a single child and a "shared" id. The child is the element that is then available for doing shared element transitions with.
-The `id` is the unique screen id by which the element an be identified.
+The `<SharedElement>` component accepts a single child and a *"shared"* id. The child is the element that is made available for doing shared element transitions. It can be any component, like a `<View>`, `<Text>` or `<Image>`. In case the wrapped view is an `<Image>`, special handling is performed to deal with image loading and resizing.
 
-This component is synonymous for the `<SharedElement>` component as defined in `react-native-shared-element`. Instead of a `node` it uses an `id` to create a higher
-lever API which automatically ties in with the scenes created by `createSharedElementTransitioner`.
+This component is synonymous for the `<SharedElement>` component as defined in `react-native-shared-element`. Instead of a `node` it uses an `id` to create a higher lever API which automatically ties in with the scenes created by `createSharedElementStackNavigator`.
 
 **Props**
 
@@ -130,59 +125,82 @@ lever API which automatically ties in with the scenes created by `createSharedEl
 | `id`            | `string`  | Unique id of the shared element                                                      |
 | `View props...` |           | Other props supported by View                                                        |
 
-### Trigger shared element transitions
+### SharedElementConfig
 
-In order to trigger a shared element transition, a `sharedElements` config needs to be provided to `navigate` or `push`.
+In order to trigger shared element transitions between screens, a static `sharedElements` config needs to be defined on one of the two screens. For
+each screen transition, both screens are evaluated and checked whether they have a `sharedElements` config. The screen that is being shown is **evaluated first**, followed by the screen that is being hidden. If `undefined` is returned, evaluation continues at the other screen.
 
-**Example**
+The `sharedElements` function receives 3 arguments
 
-```js
-navigation.push({
-  item,
-  sharedElements: [
-    `item.${item.id}.photo`,
-    {id: `item.${item.id}.name`, animation: 'fade'}
-  ]
-})
-```
+| Argument         | Type             | Description                                                                                                                                               |
+| ---------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `navigation`     | `NavigationProp` | Navigation prop of the current screen.  You can use this to get the params of the screen using `getParam`, or the route-name using `state.routeName`      |
+| `prevNavigation` | `NavigationProp` | The navigation-prop of the previous screen. You can use this to get the params of that screen using `getParam`, or the route-name using `state.routeName` |
+| `show`           | `boolean`        | `true` when this screen is being shown, and `false` when this screen is being hidden.                                                                     |  |
 
-> The order of the shared-elements is important as it defines in which order the transitions are rendered onto the screen.
+The return value should be either `undefined` or an array of shared-element configs or identifiers. Specifying a string-identifier is shorthand for `{id: 'myid'}`.
 
-**Full example**
+
+**Basic example**
 
 ```js
-navigation.push({
-  item,
-  sharedElements: [
-    `item.${item.id}.photo`, // <-- is synonymous for:
-    // {
-    //   id: `item.${item.id}.photo`
-    //   sourceId: `item.${item.id}.photo`,
-    //   animation: 'move',
-    //   resize: 'auto',
-    //   align: 'auto'
-    // }
-    {id: `item.${item.id}.name`, animation: 'fade'} // <-- is synonymous for:
-    // {
-    //   id: `item.${item.id}.name`
-    //   sourceId: `item.${item.id}.name`,
-    //   animation: 'fade',
-    //   resize: 'auto',
-    //   align: 'auto'
-    // }
-  ]
-})
+class DetailScreen extends Component {
+  static sharedElements = (navigation, prevNavigation, show) => {
+    // Transition element `item.${item.id}.photo` when either
+    // showing or hiding this screen
+    const item = navigation.getParam('item');
+    return [`item.${item.id}.photo`];
+  }
+
+  render() {...}
+}
 ```
 
-The following fields can be defined for each shared-element config
+**Only transition when coming from a specific route**
+
+If you only want to show a transition when transitioning from a particular screen, then check the route-name.
+
+```js
+class DetailScreen extends Component {
+  static sharedElements = (navigation, prevNavigation, show) => {
+    if (prevNavigation.state.routeName === 'List') {
+      const item = navigation.getParam('item');
+      return [`item.${item.id}.photo`];
+    }
+  }
+  ...
+}
+```
+
+**Customize the animation**
+
+If the source- and target elements are visually distinct, the consider using a cross-fade animation.
+
+```js
+class DetailScreen extends Component {
+  static sharedElements = (navigation, prevNavigation, show) => {
+    const item = navigation.getParam('item');
+    return [{
+      id: `item.${item.id}.photo`,
+      animation: 'fade'
+      // resize: 'clip'
+      // align: ''left-top'
+    }];
+  }
+  ...
+}
+```
+
+The following fields can be specified in a config item
 
 | Field       | Type                           | Description                                                                                                                                                      |
 | ----------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `id`        | `string`                       | Id that corresponds to the `id` specified in the `<SharedElement>` component                                                                                     |
-| `sourceId`  | `string`                       | Alternative id to use for the source element. This field an be used to create transitions between elements with different `id`s                                  |
+| `otherId`   | `string`                       | Optional id that corresponds to the `id` specified in the other screen.                                                                                          |
 | `animation` | `move | fade`                  | Type of animation to perform (default = `move`), [see SharedElementAnimation](https://github.com/IjzerenHein/react-native-shared-element#sharedelementanimation) |
 | `resize`    | `auto | stretch | clip | none` | Resize behavior of the transition (default = `auto`), [see SharedElementResize](https://github.com/IjzerenHein/react-native-shared-element#sharedelementresize)  |
 | `align`     | `auto | top-left | ...`        | Align behavior of the transition (default = `auto`), [see SharedElementAlign](https://github.com/IjzerenHein/react-native-shared-element#sharedelementalign)     |  |
+
 
 
 ## License
