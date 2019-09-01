@@ -76,7 +76,7 @@ export type SharedElementAnimatedValue = any;
 export type SharedElementsComponentConfig = (
   navigation: NavigationProp,
   otherNavigation: NavigationProp,
-  show: boolean
+  showing: boolean
 ) => SharedElementsConfig | null;
 
 export type SharedElementSceneComponent = React.ComponentType<any> & {

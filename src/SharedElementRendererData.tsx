@@ -19,13 +19,13 @@ export interface ISharedElementRendererData {
 function getSharedElements(
   sceneData: SharedElementSceneData,
   otherSceneData: SharedElementSceneData,
-  show: boolean
+  showing: boolean
 ): SharedElementsConfig | null {
   const { sharedElements } = sceneData.Component;
   if (!sharedElements) return null;
   // TODO push/pop distinction?
   return normalizeSharedElementsConfig(
-    sharedElements(sceneData.navigation, otherSceneData.navigation, show)
+    sharedElements(sceneData.navigation, otherSceneData.navigation, showing)
   );
 }
 
