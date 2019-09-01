@@ -193,13 +193,13 @@ class DetailScreen extends Component {
 
 The following fields can be specified in a config item
 
-| Field       | Type                           | Description                                                                                                                                                      |
-| ----------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`        | `string`                       | Id that corresponds to the `id` specified in the `<SharedElement>` component                                                                                     |
-| `otherId`   | `string`                       | Optional id that corresponds to the `id` specified in the other screen.                                                                                          |
-| `animation` | `move | fade`                  | Type of animation to perform (default = `move`), [see SharedElementAnimation](https://github.com/IjzerenHein/react-native-shared-element#sharedelementanimation) |
-| `resize`    | `auto | stretch | clip | none` | Resize behavior of the transition (default = `auto`), [see SharedElementResize](https://github.com/IjzerenHein/react-native-shared-element#sharedelementresize)  |
-| `align`     | `auto | top-left | ...`        | Align behavior of the transition (default = `auto`), [see SharedElementAlign](https://github.com/IjzerenHein/react-native-shared-element#sharedelementalign)     |  |
+| Field       | Type                                    | Description                                                                                                                                                      |
+| ----------- | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`        | `string`                                | Id that corresponds to the `id` specified in the `<SharedElement>` component                                                                                     |
+| `otherId`   | `string`                                | Optional id that corresponds to the `id` specified in the other screen.                                                                                          |
+| `animation` | `move` \| `fade`                        | Type of animation to perform (default = `move`), [see SharedElementAnimation](https://github.com/IjzerenHein/react-native-shared-element#sharedelementanimation) |
+| `resize`    | `auto` \| `stretch` \| `clip` \| `none` | Resize behavior of the transition (default = `auto`), [see SharedElementResize](https://github.com/IjzerenHein/react-native-shared-element#sharedelementresize)  |
+| `align`     | `auto` \| `top-left` \| `...`           | Align behavior of the transition (default = `auto`), [see SharedElementAlign](https://github.com/IjzerenHein/react-native-shared-element#sharedelementalign)     |  |
 
 
 
