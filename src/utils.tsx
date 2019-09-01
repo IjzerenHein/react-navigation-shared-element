@@ -27,13 +27,13 @@ export function normalizeSharedElementConfig(
   if (typeof sharedElementConfig === 'string') {
     return {
       id: sharedElementConfig,
+      otherId: sharedElementConfig,
       animation: normalizeSharedElementAnimationConfig('move'),
-      sourceId: sharedElementConfig,
     };
   } else {
     return {
       id: sharedElementConfig.id,
-      sourceId: sharedElementConfig.sourceId || sharedElementConfig.id,
+      otherId: sharedElementConfig.otherId || sharedElementConfig.id,
       debug: sharedElementConfig.debug || false,
       animation: normalizeSharedElementAnimationConfig(
         sharedElementConfig.animation || 'move'
@@ -55,7 +55,7 @@ export function normalizeSharedElementsConfig(
     return keys.map(id => {
       return {
         id,
-        sourceId: id,
+        otherId: id,
         animation: normalizeSharedElementAnimationConfig(
           sharedElementsConfig[id]
         ),

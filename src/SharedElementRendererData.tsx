@@ -36,6 +36,7 @@ export default class SharedElementRendererData
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
   private sceneSubscription: SharedElementEventSubscription | null = null;
   private sharedElements: SharedElementsConfig = [];
+  private isShowing: boolean = true;
   private animValue: SharedElementAnimatedValue;
 
   startTransition(animValue: SharedElementAnimatedValue) {
@@ -54,13 +55,17 @@ export default class SharedElementRendererData
       this.prevSceneData ? this.prevSceneData.name : ''
     );*/
     if (!this.prevSceneData) return;
-    const sharedElements =
-      getSharedElements(sceneData, this.prevSceneData, true) ||
-      getSharedElements(this.prevSceneData, sceneData, false);
+    let isShowing = true;
+    let sharedElements = getSharedElements(sceneData, this.prevSceneData, true);
+    if (!sharedElements) {
+      isShowing = false;
+      sharedElements = getSharedElements(this.prevSceneData, sceneData, false);
+    }
     if (sharedElements && sharedElements.length) {
       // console.log('sharedElements: ', sharedElements, sceneData);
       this.sceneData = sceneData;
       this.sharedElements = sharedElements;
+      this.isShowing = isShowing;
       this.sceneSubscription = this.sceneData.addUpdateListener(() => {
         // TODO optimize
         this.emitUpdateEvent();
@@ -99,21 +104,23 @@ export default class SharedElementRendererData
   }
 
   getTransitions(): SharedElementTransitionProps[] {
-    const { prevSceneData, sceneData } = this;
-    // console.log('getTransitions: ', sceneData, prevSceneData);
-    return this.sharedElements.map(({ id, sourceId, animation, debug }) => {
+    const { sharedElements, prevSceneData, sceneData, isShowing } = this;
+    // console.log('getTransitions: ', sharedElements);
+    return sharedElements.map(({ id, otherId, animation, debug }) => {
+      const startId = isShowing ? (otherId || id) : id;
+      const endId = isShowing ? id : (otherId || id);
       return {
         position: this.animValue,
         start: {
           ancestor:
             (prevSceneData ? prevSceneData.getAncestor() : undefined) || null,
           node:
-            (prevSceneData ? prevSceneData.getNode(sourceId) : undefined) ||
+            (prevSceneData ? prevSceneData.getNode(startId) : undefined) ||
             null,
         },
         end: {
           ancestor: (sceneData ? sceneData.getAncestor() : undefined) || null,
-          node: (sceneData ? sceneData.getNode(id) : undefined) || null,
+          node: (sceneData ? sceneData.getNode(endId) : undefined) || null,
         },
         ...animation,
         debug,
