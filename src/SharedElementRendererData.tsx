@@ -107,8 +107,8 @@ export default class SharedElementRendererData
     const { sharedElements, prevSceneData, sceneData, isShowing } = this;
     // console.log('getTransitions: ', sharedElements);
     return sharedElements.map(({ id, otherId, animation, debug }) => {
-      const startId = isShowing ? (otherId || id) : id;
-      const endId = isShowing ? id : (otherId || id);
+      const startId = isShowing ? otherId || id : id;
+      const endId = isShowing ? id : otherId || id;
       return {
         position: this.animValue,
         start: {
