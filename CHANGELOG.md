@@ -1,3 +1,22 @@
+# [0.4.0](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.3.3...v0.4.0) (2019-09-01)
+
+
+### Bug Fixes
+
+* fixed `navigation.setParams` not working ([c0a5f6a](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/c0a5f6a))
+
+
+### Features
+
+* added new API which supports pop as well ([9c4136d](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/9c4136d))
+
+
+### BREAKING CHANGES
+
+* The old API where the shared elements could be passed as props has been dropped. Instead you should define a static variable called `sharedElements` on your Screen component. That variable can be either a function or a static array. See the README for more details
+
+
+
 ## [0.3.3](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.3.2...v0.3.3) (2019-08-30)
 
 
