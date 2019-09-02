@@ -1,6 +1,6 @@
 {
   "name": "react-navigation-sharedelement",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Experimental react-native-shared-element bindings for React Navigation",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",

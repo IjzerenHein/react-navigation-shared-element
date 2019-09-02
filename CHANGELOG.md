@@ -1,3 +1,12 @@
+## [0.4.2](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.1...v0.4.2) (2019-09-02)
+
+
+### Bug Fixes
+
+* fixed `onTransitionStart` exception ([5adb650](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/5adb650))
+
+
+
 ## [0.4.1](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.0...v0.4.1) (2019-09-01)
 
 
