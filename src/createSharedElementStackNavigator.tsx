@@ -46,14 +46,14 @@ function createSharedElementEnabledNavigator(
           outputRange: index > prevIndex ? [0, 1] : [2, 1],
         })
       );
-      if (navigatorConfig.onTransitionStart) {
+      if (navigatorConfig && navigatorConfig.onTransitionStart) {
         navigatorConfig.onTransitionStart(transitionProps, prevTransitionProps);
       }
     },
     onTransitionEnd: (transitionProps: any, prevTransitionProps: any) => {
       // console.log('onTransitionEnd: ', transitionProps, prevTransitionProps);
       rendererData.endTransition();
-      if (navigatorConfig.onTransitionEnd) {
+      if (navigatorConfig && navigatorConfig.onTransitionEnd) {
         navigatorConfig.onTransitionEnd(transitionProps, prevTransitionProps);
       }
     },
