@@ -1,65 +1,33 @@
 import {
-  SharedElementAnimationConfig,
   SharedElementConfig,
   SharedElementsConfig,
+  SharedElementStrictConfig,
+  SharedElementsStrictConfig,
 } from './types';
 
-export function normalizeSharedElementAnimationConfig(
-  animationConfig: any
-): SharedElementAnimationConfig {
-  if (animationConfig === true) {
-    return {
-      animation: 'move',
-    };
-  } else if (typeof animationConfig === 'string') {
-    return {
-      // @ts-ignore
-      animation: animationConfig,
-    };
-  } else {
-    return animationConfig;
-  }
-}
-
 export function normalizeSharedElementConfig(
-  sharedElementConfig: any
-): SharedElementConfig {
+  sharedElementConfig: SharedElementConfig
+): SharedElementStrictConfig {
   if (typeof sharedElementConfig === 'string') {
     return {
       id: sharedElementConfig,
       otherId: sharedElementConfig,
-      animation: normalizeSharedElementAnimationConfig('move'),
+      animation: 'move',
     };
   } else {
+    const { id, otherId, animation, ...other } = sharedElementConfig;
     return {
-      id: sharedElementConfig.id,
-      otherId: sharedElementConfig.otherId || sharedElementConfig.id,
-      debug: sharedElementConfig.debug || false,
-      animation: normalizeSharedElementAnimationConfig(
-        sharedElementConfig.animation || 'move'
-      ),
+      id,
+      otherId: otherId || id,
+      animation: animation || 'move',
+      ...other,
     };
   }
 }
 
 export function normalizeSharedElementsConfig(
-  sharedElementsConfig: any
-): SharedElementsConfig | null {
-  if (!sharedElementsConfig) return null;
-  if (Array.isArray(sharedElementsConfig)) {
-    if (!sharedElementsConfig.length) return null;
-    return sharedElementsConfig.map(normalizeSharedElementConfig);
-  } else {
-    const keys = Object.keys(sharedElementsConfig);
-    if (!keys.length) return null;
-    return keys.map(id => {
-      return {
-        id,
-        otherId: id,
-        animation: normalizeSharedElementAnimationConfig(
-          sharedElementsConfig[id]
-        ),
-      };
-    });
-  }
+  sharedElementsConfig: SharedElementsConfig | undefined
+): SharedElementsStrictConfig | null {
+  if (!sharedElementsConfig || !sharedElementsConfig.length) return null;
+  return sharedElementsConfig.map(normalizeSharedElementConfig);
 }

@@ -56,18 +56,27 @@ export type SharedElementEventSubscription = {
   remove(): void;
 };
 
-export type SharedElementAnimationConfig = {
-  animation: SharedElementAnimation;
-  resize?: SharedElementResize;
-  align?: SharedElementAlign;
-};
-
-export type SharedElementConfig = {
+export type SharedElementStrictConfig = {
   readonly id: string;
   readonly otherId: string;
-  readonly animation: SharedElementAnimationConfig;
+  readonly animation: SharedElementAnimation;
+  readonly resize?: SharedElementResize;
+  readonly align?: SharedElementAlign;
   readonly debug?: boolean;
 };
+
+export type SharedElementsStrictConfig = SharedElementStrictConfig[];
+
+export type SharedElementConfig =
+  | {
+      readonly id: string;
+      readonly otherId?: string;
+      readonly animation?: SharedElementAnimation;
+      readonly resize?: SharedElementResize;
+      readonly align?: SharedElementAlign;
+      readonly debug?: boolean;
+    }
+  | string;
 
 export type SharedElementsConfig = SharedElementConfig[];
 
@@ -77,7 +86,7 @@ export type SharedElementsComponentConfig = (
   navigation: NavigationProp,
   otherNavigation: NavigationProp,
   showing: boolean
-) => SharedElementsConfig | null;
+) => SharedElementsConfig | undefined;
 
 export type SharedElementSceneComponent = React.ComponentType<any> & {
   sharedElements: SharedElementsComponentConfig;

@@ -1,7 +1,7 @@
 import SharedElementSceneData from './SharedElementSceneData';
 import {
   SharedElementEventSubscription,
-  SharedElementsConfig,
+  SharedElementsStrictConfig,
   SharedElementAnimatedValue,
   SharedElementTransitionProps,
 } from './types';
@@ -20,10 +20,9 @@ function getSharedElements(
   sceneData: SharedElementSceneData,
   otherSceneData: SharedElementSceneData,
   showing: boolean
-): SharedElementsConfig | null {
+): SharedElementsStrictConfig | null {
   const { sharedElements } = sceneData.Component;
   if (!sharedElements) return null;
-  // TODO push/pop distinction?
   return normalizeSharedElementsConfig(
     sharedElements(sceneData.navigation, otherSceneData.navigation, showing)
   );
@@ -35,7 +34,7 @@ export default class SharedElementRendererData
   private prevSceneData: SharedElementSceneData | null = null;
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
   private sceneSubscription: SharedElementEventSubscription | null = null;
-  private sharedElements: SharedElementsConfig = [];
+  private sharedElements: SharedElementsStrictConfig = [];
   private isShowing: boolean = true;
   private animValue: SharedElementAnimatedValue;
 
@@ -106,7 +105,7 @@ export default class SharedElementRendererData
   getTransitions(): SharedElementTransitionProps[] {
     const { sharedElements, prevSceneData, sceneData, isShowing } = this;
     // console.log('getTransitions: ', sharedElements);
-    return sharedElements.map(({ id, otherId, animation, debug }) => {
+    return sharedElements.map(({ id, otherId, ...other }) => {
       const startId = isShowing ? otherId || id : id;
       const endId = isShowing ? id : otherId || id;
       return {
@@ -122,8 +121,7 @@ export default class SharedElementRendererData
           ancestor: (sceneData ? sceneData.getAncestor() : undefined) || null,
           node: (sceneData ? sceneData.getNode(endId) : undefined) || null,
         },
-        ...animation,
-        debug,
+        ...other,
       };
     });
   }
