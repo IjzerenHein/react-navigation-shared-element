@@ -1,9 +1,9 @@
 # React Navigation Shared Element <!-- omit in toc -->
 
-Experimental [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) bindings for React Navigation 💫
+React Navigation bindings for [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) 💫
 
 This library is under development and is subject to API changes. At the moment only the stack navigator is supported.
-As [react-navigation](https://reactnavigation.org) is alo undergoing development and possible API changes, this library provides a testing ground and working API for the v3 branch of react-navigation.
+As [react-navigation](https://reactnavigation.org) is alo undergoing development and possible API changes, this library provides a testing ground and working API for the v3 branch of react-navigation (**UPDATE: Also works with v4)**.
 It was written as a separate library which does not require any changes to react-navigation itself.
 As time progresses, the goal is to support the latest react-navigation version, support `appear` and `disappear` transitions, and have the 
 [native extensions](https://github.com/IjzerenHein/react-native-shared-element) land in [Expo](https://expo.io/).
@@ -15,7 +15,7 @@ As time progresses, the goal is to support the latest react-navigation version, 
 - [Documentation](#documentation)
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
   - [SharedElement](#sharedelement)
-  - [SharedElementConfig](#sharedelementconfig)
+  - [sharedElements config](#sharedelements-config)
 - [License](#license)
 
 ## Installation
@@ -125,7 +125,7 @@ This component is synonymous for the `<SharedElement>` component as defined in `
 | `id`            | `string`  | Unique id of the shared element                                                      |
 | `View props...` |           | Other props supported by View                                                        |
 
-### SharedElementConfig
+### sharedElements config
 
 In order to trigger shared element transitions between screens, a static `sharedElements` config needs to be defined on one of the two screens. For
 each screen transition, both screens are evaluated and checked whether they have a `sharedElements` config. The screen that is being shown is **evaluated first**, followed by the screen that is being hidden. If `undefined` is returned, evaluation continues at the other screen.
