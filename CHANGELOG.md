@@ -1,3 +1,12 @@
+## [0.4.3](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.2...v0.4.3) (2019-09-02)
+
+
+### Bug Fixes
+
+* fixed animation/resize/align fields & typing information ([df11a0f](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/df11a0f))
+
+
+
 ## [0.4.2](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.1...v0.4.2) (2019-09-02)
 
 
