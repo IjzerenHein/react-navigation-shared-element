@@ -5,7 +5,7 @@ React Navigation bindings for [react-native-shared-element](https://github.com/I
 This library is under development and is subject to API changes. At the moment only the stack navigator is supported.
 As [react-navigation](https://reactnavigation.org) is alo undergoing development and possible API changes, this library provides a testing ground and working API for the v3 branch of react-navigation (**UPDATE: Also works with v4)**.
 It was written as a separate library which does not require any changes to react-navigation itself.
-As time progresses, the goal is to support the latest react-navigation version, support `appear` and `disappear` transitions, and have the 
+As time progresses, the goal is to support the latest react-navigation version, support `appear` and `disappear` transitions, and have the
 [native extensions](https://github.com/IjzerenHein/react-native-shared-element) land in [Expo](https://expo.io/).
 
 ## Index <!-- omit in toc -->
@@ -16,7 +16,7 @@ As time progresses, the goal is to support the latest react-navigation version, 
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
   - [SharedElement](#sharedelement)
   - [sharedElements config](#sharedelements-config)
-- [Test App](#test-app)
+- [Demo App](#demo-app)
 - [License](#license)
 
 ## Installation
@@ -45,10 +45,10 @@ const stackNavigator = createSharedElementStackNavigator(
   createStackNavigator,
   {
     List: ListScreen,
-    Detail: DetailScreen
+    Detail: DetailScreen,
   },
   {
-    initialRouteName: "List"
+    initialRouteName: 'List',
   }
 );
 
@@ -63,12 +63,12 @@ class ListScreen extends React.Component {
   renderItem(item) {
     const { navigation } = this.props;
     return (
-      <TouchableOpacity onPress={() => navigation.push('Detail', {item})}>
+      <TouchableOpacity onPress={() => navigation.push('Detail', { item })}>
         <SharedElement id={`itemPhoto.${item.id}`}>
           <Image source={item.photoUrl} />
         </SharedElement>
       </TouchableOpacity>
-    )
+    );
   }
 }
 ```
@@ -96,7 +96,7 @@ class DetailScreen extends React.Component {
 
 ### createSharedElementStackNavigator
 
-The `createSharedElementStackNavigator` function wraps an existing stack-navigator and enables shared element transitions for it. 
+The `createSharedElementStackNavigator` function wraps an existing stack-navigator and enables shared element transitions for it.
 
 It performs the following actions
 
@@ -114,7 +114,7 @@ It performs the following actions
 
 ### SharedElement
 
-The `<SharedElement>` component accepts a single child and a *"shared"* id. The child is the element that is made available for doing shared element transitions. It can be any component, like a `<View>`, `<Text>` or `<Image>`. In case the wrapped view is an `<Image>`, special handling is performed to deal with image loading and resizing.
+The `<SharedElement>` component accepts a single child and a _"shared"_ id. The child is the element that is made available for doing shared element transitions. It can be any component, like a `<View>`, `<Text>` or `<Image>`. In case the wrapped view is an `<Image>`, special handling is performed to deal with image loading and resizing.
 
 This component is synonymous for the `<SharedElement>` component as defined in `react-native-shared-element`. Instead of a `node` it uses an `id` to create a higher lever API which automatically ties in with the scenes created by `createSharedElementStackNavigator`.
 
@@ -135,12 +135,11 @@ The `sharedElements` function receives 3 arguments
 
 | Argument          | Type             | Description                                                                                                                                            |
 | ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `navigation`      | `NavigationProp` | Navigation prop of the current screen.  You can use this to get the params of the screen using `getParam`, or the route-name using `state.routeName`   |
+| `navigation`      | `NavigationProp` | Navigation prop of the current screen. You can use this to get the params of the screen using `getParam`, or the route-name using `state.routeName`    |
 | `otherNavigation` | `NavigationProp` | The navigation-prop of the other screen. You can use this to get the params of that screen using `getParam`, or the route-name using `state.routeName` |
 | `showing`         | `boolean`        | `true` when this screen is being shown, and `false` when this screen is being hidden.                                                                  |  |
 
 The return value should be either `undefined` or an array of shared-element configs or identifiers. Specifying a string-identifier is shorthand for `{id: 'myid'}`.
-
 
 **Basic example**
 
@@ -202,11 +201,9 @@ The following fields can be specified in a config item
 | `resize`    | `auto` \| `stretch` \| `clip` \| `none` | Resize behavior of the transition (default = `auto`), [see SharedElementResize](https://github.com/IjzerenHein/react-native-shared-element#sharedelementresize)  |
 | `align`     | `auto` \| `top-left` \| `...`           | Align behavior of the transition (default = `auto`), [see SharedElementAlign](https://github.com/IjzerenHein/react-native-shared-element#sharedelementalign)     |  |
 
+## Demo App
 
-## Test App
-
-- [react-navigation-sharedelement-rn60test](https://github.com/IjzerenHein/react-navigation-sharedelement-rn60test)
-
+- [react-navigation-sharedelement-rn60demo](https://github.com/IjzerenHein/react-navigation-sharedelement-rn60demo)
 
 ## License
 
