@@ -16,6 +16,7 @@ As time progresses, the goal is to support the latest react-navigation version, 
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
   - [SharedElement](#sharedelement)
   - [sharedElements config](#sharedelements-config)
+- [Test App](#test-app)
 - [License](#license)
 
 ## Installation
@@ -201,6 +202,10 @@ The following fields can be specified in a config item
 | `resize`    | `auto` \| `stretch` \| `clip` \| `none` | Resize behavior of the transition (default = `auto`), [see SharedElementResize](https://github.com/IjzerenHein/react-native-shared-element#sharedelementresize)  |
 | `align`     | `auto` \| `top-left` \| `...`           | Align behavior of the transition (default = `auto`), [see SharedElementAlign](https://github.com/IjzerenHein/react-native-shared-element#sharedelementalign)     |  |
 
+
+## Test App
+
+- [react-navigation-sharedelement-rn60test](https://github.com/IjzerenHein/react-navigation-sharedelement-rn60test)
 
 
 ## License
