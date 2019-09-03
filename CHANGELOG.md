@@ -1,3 +1,12 @@
+## [0.4.4](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.3...v0.4.4) (2019-09-03)
+
+
+### Bug Fixes
+
+* fixed no or stale transition when switching route (goBack) too fast ([f154a93](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/f154a93))
+
+
+
 ## [0.4.3](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.2...v0.4.3) (2019-09-02)
 
 
