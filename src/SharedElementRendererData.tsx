@@ -4,16 +4,21 @@ import {
   SharedElementsStrictConfig,
   SharedElementAnimatedValue,
   SharedElementTransitionProps,
+  Route,
 } from './types';
 import { normalizeSharedElementsConfig } from './utils';
 
 export type SharedElementRendererUpdateHandler = () => any;
 
 export interface ISharedElementRendererData {
-  startTransition(animValue: SharedElementAnimatedValue): void;
-  endTransition(): void;
-  willActivateScene(sceneData: SharedElementSceneData): void;
-  didActivateScene(sceneData: SharedElementSceneData): void;
+  startTransition(
+    animValue: SharedElementAnimatedValue,
+    route: Route,
+    prevRoute: Route
+  ): void;
+  endTransition(route: Route, prevRoute: Route): void;
+  willActivateScene(sceneData: SharedElementSceneData, route: Route): void;
+  didActivateScene(sceneData: SharedElementSceneData, route: Route): void;
 }
 
 function getSharedElements(
@@ -28,64 +33,135 @@ function getSharedElements(
   );
 }
 
+const NO_SHARED_ELEMENTS: any[] = [];
+
+type SceneRoute = {
+  scene: SharedElementSceneData;
+  route: Route;
+  subscription: SharedElementEventSubscription | null;
+};
+
 export default class SharedElementRendererData
   implements ISharedElementRendererData {
-  private sceneData: SharedElementSceneData | null = null;
-  private prevSceneData: SharedElementSceneData | null = null;
+  private scenes: SceneRoute[] = [];
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
-  private sceneSubscription: SharedElementEventSubscription | null = null;
-  private sharedElements: SharedElementsStrictConfig = [];
+  private sharedElements: SharedElementsStrictConfig | null = null;
   private isShowing: boolean = true;
   private animValue: SharedElementAnimatedValue;
+  private route: Route | null = null;
+  private prevRoute: Route | null = null;
+  private scene: SharedElementSceneData | null = null;
+  private prevScene: SharedElementSceneData | null = null;
 
-  startTransition(animValue: SharedElementAnimatedValue) {
+  startTransition(
+    animValue: SharedElementAnimatedValue,
+    route: Route,
+    // @ts-ignore
+    prevRoute: Route //eslint-disable-line @typescript-eslint/no-unused-vars
+  ) {
+    //console.log('startTransition, route: ', route.key);
     this.animValue = animValue;
+    this.prevRoute = this.route;
+    this.route = route;
+    this.updateSceneListeners();
+    this.updateSharedElements();
   }
 
-  endTransition() {
-    // Nothing to do
-  }
-
-  willActivateScene(sceneData: SharedElementSceneData): void {
-    /*console.log(
-      'SharedElementRendererData.willActivateScene: ',
-      sceneData.name,
-      ', previous: ',
-      this.prevSceneData ? this.prevSceneData.name : ''
-    );*/
-    if (!this.prevSceneData) return;
-    let isShowing = true;
-    let sharedElements = getSharedElements(sceneData, this.prevSceneData, true);
-    if (!sharedElements) {
-      isShowing = false;
-      sharedElements = getSharedElements(this.prevSceneData, sceneData, false);
+  endTransition(
+    // @ts-ignore
+    route: Route, //eslint-disable-line @typescript-eslint/no-unused-vars
+    // @ts-ignore
+    prevRoute: Route //eslint-disable-line @typescript-eslint/no-unused-vars
+  ) {
+    //console.log('endTransition, route: ', route.key);
+    if (this.prevRoute != null) {
+      this.prevRoute = null;
+      this.animValue = null;
+      this.updateSceneListeners();
+      this.updateSharedElements();
     }
-    if (sharedElements && sharedElements.length) {
-      // console.log('sharedElements: ', sharedElements, sceneData);
-      this.sceneData = sceneData;
+  }
+
+  willActivateScene(sceneData: SharedElementSceneData, route: Route): void {
+    //console.log('willActivateScene, route: ', route.key);
+    this.registerScene(sceneData, route);
+  }
+
+  didActivateScene(sceneData: SharedElementSceneData, route: Route): void {
+    //console.log('didActivateScene, route: ', route.key);
+    this.prevRoute = null;
+    this.registerScene(sceneData, route);
+  }
+
+  private registerScene(sceneData: SharedElementSceneData, route: Route) {
+    this.scenes.push({
+      scene: sceneData,
+      route,
+      subscription: null,
+    });
+    if (this.scenes.length > 5) {
+      const { subscription } = this.scenes[0];
+      this.scenes.splice(0, 1);
+      if (subscription) subscription.remove();
+    }
+    this.updateSceneListeners();
+    this.updateSharedElements();
+  }
+
+  private updateSceneListeners() {
+    this.scenes.forEach(sceneRoute => {
+      const { scene, route, subscription } = sceneRoute;
+      const isActive =
+        (this.route && this.route.key === route.key) ||
+        (this.prevRoute && this.prevRoute.key === route.key);
+      if (isActive && !subscription) {
+        sceneRoute.subscription = scene.addUpdateListener(() => {
+          // TODO optimize
+          this.emitUpdateEvent();
+        });
+      } else if (!isActive && subscription) {
+        sceneRoute.subscription = null;
+        subscription.remove();
+      }
+    });
+  }
+
+  private updateSharedElements() {
+    const { route, prevRoute, animValue } = this;
+    const sceneRoute = route
+      ? this.scenes.find(sc => sc.route.key === route.key)
+      : undefined;
+    const prevSceneRoute = prevRoute
+      ? this.scenes.find(sc => sc.route.key === prevRoute.key)
+      : undefined;
+    const scene = sceneRoute ? sceneRoute.scene : null;
+    const prevScene = prevSceneRoute ? prevSceneRoute.scene : null;
+
+    // Update current scene & previous scene
+    if (scene === this.scene && prevScene === this.prevScene) return;
+    this.scene = scene;
+    this.prevScene = prevScene;
+
+    // Update shared elements
+    let sharedElements: SharedElementsStrictConfig | null = null;
+    let isShowing = true;
+    if (animValue && scene && prevScene) {
+      sharedElements = getSharedElements(scene, prevScene, true);
+      if (!sharedElements) {
+        isShowing = false;
+        sharedElements = getSharedElements(prevScene, scene, false);
+      }
+    }
+    if (this.sharedElements !== sharedElements) {
       this.sharedElements = sharedElements;
       this.isShowing = isShowing;
-      this.sceneSubscription = this.sceneData.addUpdateListener(() => {
-        // TODO optimize
-        this.emitUpdateEvent();
-      });
+      /*console.log(
+        'updateSharedElements: ',
+        sharedElements,
+        ' ,isShowing: ',
+        isShowing
+      );*/
       this.emitUpdateEvent();
-    }
-  }
-
-  didActivateScene(sceneData: SharedElementSceneData): void {
-    //console.log('SharedElementRendererData.didActivateScene: ', sceneData.name);
-    if (this.sceneSubscription) {
-      this.sceneSubscription.remove();
-      this.sceneSubscription = null;
-    }
-    this.prevSceneData = sceneData;
-    if (this.sceneData) {
-      this.sceneData = null;
-      if (this.sharedElements.length) {
-        this.sharedElements = [];
-        this.emitUpdateEvent();
-      }
     }
   }
 
@@ -103,23 +179,21 @@ export default class SharedElementRendererData
   }
 
   getTransitions(): SharedElementTransitionProps[] {
-    const { sharedElements, prevSceneData, sceneData, isShowing } = this;
+    const { sharedElements, prevScene, scene, isShowing, animValue } = this;
     // console.log('getTransitions: ', sharedElements);
+    if (!sharedElements || !scene || !prevScene) return NO_SHARED_ELEMENTS;
     return sharedElements.map(({ id, otherId, ...other }) => {
       const startId = isShowing ? otherId || id : id;
       const endId = isShowing ? id : otherId || id;
       return {
-        position: this.animValue,
+        position: animValue,
         start: {
-          ancestor:
-            (prevSceneData ? prevSceneData.getAncestor() : undefined) || null,
-          node:
-            (prevSceneData ? prevSceneData.getNode(startId) : undefined) ||
-            null,
+          ancestor: (prevScene ? prevScene.getAncestor() : undefined) || null,
+          node: (prevScene ? prevScene.getNode(startId) : undefined) || null,
         },
         end: {
-          ancestor: (sceneData ? sceneData.getAncestor() : undefined) || null,
-          node: (sceneData ? sceneData.getNode(endId) : undefined) || null,
+          ancestor: (scene ? scene.getAncestor() : undefined) || null,
+          node: (scene ? scene.getNode(endId) : undefined) || null,
         },
         ...other,
       };

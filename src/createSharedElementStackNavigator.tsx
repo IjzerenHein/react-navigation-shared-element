@@ -7,6 +7,7 @@ import SharedElementRendererData, {
 import createSharedElementScene from './createSharedElementScene';
 import SharedElementRendererContext from './SharedElementRendererContext';
 import { SharedElementRendererProxy } from './SharedElementRendererProxy';
+import { getActiveRouteState } from './utils';
 
 function createSharedElementEnabledNavigator(
   createNavigator: any,
@@ -44,15 +45,22 @@ function createSharedElementEnabledNavigator(
         position.interpolate({
           inputRange: [index - 1, index],
           outputRange: index > prevIndex ? [0, 1] : [2, 1],
-        })
+        }),
+        getActiveRouteState(transitionProps.scene.route),
+        getActiveRouteState(prevTransitionProps.scene.route)
       );
       if (navigatorConfig && navigatorConfig.onTransitionStart) {
-        navigatorConfig.onTransitionStart(transitionProps, prevTransitionProps);
+        navigatorConfig.onTransitionStart(
+          getActiveRouteState(transitionProps.scene.route),
+          getActiveRouteState(prevTransitionProps.scene.route)
+        );
       }
     },
     onTransitionEnd: (transitionProps: any, prevTransitionProps: any) => {
-      // console.log('onTransitionEnd: ', transitionProps, prevTransitionProps);
-      rendererData.endTransition();
+      rendererData.endTransition(
+        transitionProps.scene.route,
+        prevTransitionProps.scene.route
+      );
       if (navigatorConfig && navigatorConfig.onTransitionEnd) {
         navigatorConfig.onTransitionEnd(transitionProps, prevTransitionProps);
       }

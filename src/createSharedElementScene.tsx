@@ -10,6 +10,7 @@ import {
   SharedElementSceneComponent,
 } from './types';
 import { ISharedElementRendererData } from './SharedElementRendererData';
+import { getActiveRouteState } from './utils';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,18 +21,6 @@ const styles = StyleSheet.create({
 type PropsType = {
   navigation: NavigationProp;
 };
-
-function getActiveRouteState(route: any): any {
-  if (
-    !route.routes ||
-    route.routes.length === 0 ||
-    route.index >= route.routes.length
-  ) {
-    return route;
-  } else {
-    return getActiveRouteState(route.routes[route.index]);
-  }
-}
 
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
@@ -84,7 +73,12 @@ function createSharedElementScene(
     };
 
     private onWillFocus = () => {
-      rendererData.willActivateScene(this.sceneData);
+      const { navigation } = this.props;
+      const activeRoute = getActiveRouteState(navigation.state);
+      if (navigation.state.routeName === activeRoute.routeName) {
+        // console.log('onWillFocus: ', navigation.state, activeRoute);
+        rendererData.willActivateScene(this.sceneData, navigation.state);
+      }
     };
 
     private onDidFocus = () => {
@@ -92,7 +86,7 @@ function createSharedElementScene(
       const activeRoute = getActiveRouteState(navigation.state);
       if (navigation.state.routeName === activeRoute.routeName) {
         // console.log('onDidFocus: ', this.sceneData.name, navigation);
-        rendererData.didActivateScene(this.sceneData);
+        rendererData.didActivateScene(this.sceneData, navigation.state);
       }
     };
   }
