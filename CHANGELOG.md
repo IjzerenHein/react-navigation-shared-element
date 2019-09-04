@@ -1,3 +1,12 @@
+## [0.4.5](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.4...v0.4.5) (2019-09-04)
+
+
+### Bug Fixes
+
+* fixed no transition on initial route ([edde1d1](https://github.com/IjzerenHein/react-navigation-sharedelement/commit/edde1d1))
+
+
+
 ## [0.4.4](https://github.com/IjzerenHein/react-navigation-sharedelement/compare/v0.4.3...v0.4.4) (2019-09-03)
 
 
