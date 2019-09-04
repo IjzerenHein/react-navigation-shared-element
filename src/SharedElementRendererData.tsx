@@ -89,6 +89,7 @@ export default class SharedElementRendererData
 
   didActivateScene(sceneData: SharedElementSceneData, route: Route): void {
     //console.log('didActivateScene, route: ', route.key);
+    this.route = route;
     this.prevRoute = null;
     this.registerScene(sceneData, route);
   }
