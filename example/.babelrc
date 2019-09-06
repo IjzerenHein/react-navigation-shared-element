@@ -5,7 +5,7 @@
       "module-resolver",
       {
         "alias": {
-          "react-navigation-sharedelement": "../src/index"
+          "react-navigation-shared-element": "../src/index"
         }
       }
     ]

@@ -24,7 +24,7 @@ As time progresses, the goal is to support the latest react-navigation version, 
 Open a Terminal in your project's folder and run,
 
 ```sh
-yarn add react-navigation-sharedelement react-native-shared-element
+yarn add react-navigation-shared-element react-native-shared-element
 ```
 
 Make sure to also link [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) into your project.
@@ -39,7 +39,7 @@ In order to enable shared element transitions, the following steps need to be pe
 
 ```jsx
 import { createStackNavigator } from 'react-navigation';
-import { createSharedElementStackNavigator } from 'react-navigation-sharedelement';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 const stackNavigator = createSharedElementStackNavigator(
   createStackNavigator,
@@ -57,7 +57,7 @@ const AppContainer = createAppContainer(stackNavigator);
 
 ```jsx
 // ListScreen.js
-import { SharedElement } from 'react-navigation-sharedelement';
+import { SharedElement } from 'react-navigation-shared-element';
 
 class ListScreen extends React.Component {
   renderItem(item) {
@@ -203,7 +203,7 @@ The following fields can be specified in a config item
 
 ## Demo App
 
-- [react-navigation-sharedelement-rn60demo](https://github.com/IjzerenHein/react-navigation-sharedelement-rn60demo)
+- [react-navigation-shared-element-rn60demo](https://github.com/IjzerenHein/react-navigation-shared-element-rn60demo)
 
 ## License
 

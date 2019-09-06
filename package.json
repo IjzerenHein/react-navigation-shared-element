@@ -1,5 +1,5 @@
 {
-  "name": "react-navigation-sharedelement",
+  "name": "react-navigation-shared-element",
   "version": "0.4.5",
   "description": "Experimental react-native-shared-element bindings for React Navigation",
   "main": "lib/commonjs/index.js",
@@ -34,14 +34,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IjzerenHein/react-navigation-sharedelement.git"
+    "url": "git+https://github.com/IjzerenHein/react-navigation-shared-element.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/IjzerenHein/react-navigation-sharedelement/issues"
+    "url": "https://github.com/IjzerenHein/react-navigation-shared-element/issues"
   },
-  "homepage": "https://github.com/IjzerenHein/react-navigation-sharedelement#readme",
+  "homepage": "https://github.com/IjzerenHein/react-navigation-shared-element#readme",
   "dependencies": {
     "hoist-non-react-statics": "^3.3.0"
   },
