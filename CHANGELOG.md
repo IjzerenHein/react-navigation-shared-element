@@ -1,3 +1,17 @@
+## [0.4.6](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v0.4.5...v0.4.6) (2019-09-06)
+
+
+### chore
+
+* renamed package to `react-navigation-shared-element` ([47f6a8a](https://github.com/IjzerenHein/react-navigation-shared-element/commit/47f6a8a))
+
+
+### BREAKING CHANGES
+
+* The package has been renamed to `react-navigation-shared-element`
+
+
+
 ## [0.4.5](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v0.4.4...v0.4.5) (2019-09-04)
 
 
