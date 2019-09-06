@@ -2,11 +2,11 @@
 
 React Navigation bindings for [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) 💫
 
-This library is under development and is subject to API changes. At the moment only the stack navigator is supported.
-As [react-navigation](https://reactnavigation.org) is alo undergoing development and possible API changes, this library provides a testing ground and working API for the v3 branch of react-navigation (**UPDATE: Also works with v4)**.
-It was written as a separate library which does not require any changes to react-navigation itself.
-As time progresses, the goal is to support the latest react-navigation version, support `appear` and `disappear` transitions, and have the
-[native extensions](https://github.com/IjzerenHein/react-native-shared-element) land in [Expo](https://expo.io/).
+This library is under development and is subject to API changes. At the moment it supports the **v3 and v4 versions of react-navigation**.
+Only the stack navigator is supported at the moment (the v2-alpha version of stack-navigator is not supported as it misses certain lifecycle events).
+
+As time progresses, the goal is also support the animated switch navigator, implement `appear` and `disappear` transitions, and have the
+[native extensions](https://github.com/IjzerenHein/react-native-shared-element) land in [Expo](https://expo.io/) (**UPDATE: Expo is working on including the native-extensions in SDK 35!**).
 
 ## Index <!-- omit in toc -->
 
