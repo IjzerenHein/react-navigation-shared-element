@@ -7055,10 +7055,10 @@ react-native-safe-area-view@^0.14.1:
   dependencies:
     debounce "^1.2.0"
 
-react-native-shared-element@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.4.1.tgz#1f9fd6ee2f81b81b07b0c10db2b1f4e98851c8b6"
-  integrity sha512-pvDwZuOC6A6fv6Py4VJNcs4QHD7OcRI0Ko4qiZElHxsdkXMLyVwoQBkKoPcbfSnAKBVPXPkRaiNS8osJW56bCw==
+react-native-shared-element@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.5.1.tgz#d6210c3c9e116b8f03692c4144b2d11e660bc49c"
+  integrity sha512-s4KiuNBHaVwjpezvtU2QaQ6c++XOWIcDrJHKSrVkEj9b0e5tQbJuDkqnrVH80o+y2vODV15jzu1yOZCo7ItIBA==
 
 react-native@~0.60.5:
   version "0.60.5"
