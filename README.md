@@ -75,21 +75,19 @@ class ListScreen extends React.Component {
 
 ```jsx
 // DetailScreen.js
-class DetailScreen extends React.Component {
-  static sharedElements = (navigation, otherNavigation, showing) => {
-    const item = navigation.getParam('item');
-    return [`item.${item.id}.photo`];
-  };
+const DetailScreen = (props) => {
+  const item = props.navigation.getParam('item');
+  return (
+    <SharedElement id={`item.${item.id}.photo`}>
+      <Image source={item.photoUrl} />
+    </SharedElement>
+  );
+};
 
-  render() {
-    const item = this.props.navigation.getParam('item');
-    return (
-      <SharedElement id={`item.${item.id}.photo`}>
-        <Image source={item.photoUrl} />
-      </SharedElement>
-    );
-  }
-}
+DetailScreen.sharedElements = (navigation, otherNavigation, showing) => {
+  const item = navigation.getParam('item');
+  return [`item.${item.id}.photo`];
+};
 ```
 
 ## Documentation
