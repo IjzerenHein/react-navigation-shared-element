@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { SharedElement as RawSharedElement } from 'react-native-shared-element';
+import { SharedElement as RawSharedElement, SharedElementProps as RawSharedElementProps } from 'react-native-shared-element';
 import { SharedElementNode } from './types';
 import SharedElementSceneContext from './SharedElementSceneContext';
 import SharedElementSceneData from './SharedElementSceneData';
 // import invariant from '../utils/invariant';
 
-export type SharedElementProps = {
+export type SharedElementProps = Omit<RawSharedElementProps,'onNode'> & {
   id: string;
-  children: React.ReactNode;
 };
 
 class SharedElement extends React.Component<SharedElementProps> {
