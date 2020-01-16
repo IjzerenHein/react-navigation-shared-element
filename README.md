@@ -2,11 +2,10 @@
 
 React Navigation bindings for [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) 💫
 
-This library is under development and is subject to API changes. At the moment it supports the **v3 and v4 versions of react-navigation**.
-Only the stack navigator is supported at the moment (the v2-alpha version of stack-navigator is not supported as it misses certain lifecycle events).
+This library currently only supports `react-navigation@4` and `react-navigation-stack@1`
 
-As time progresses, the goal is to also support the animated switch navigator, implement `appear` and `disappear` transitions, and have the
-[native extensions](https://github.com/IjzerenHein/react-native-shared-element) land in [Expo](https://expo.io/) (**UPDATE: Expo is working on including the native-extensions in SDK 35!**).
+> React-navigation v5 and react-navigation-stack v2 are **not yet supported**.
+
 
 ## Index <!-- omit in toc -->
 
@@ -24,10 +23,16 @@ As time progresses, the goal is to also support the animated switch navigator, i
 Open a Terminal in your project's folder and run,
 
 ```sh
-yarn add react-navigation-shared-element react-native-shared-element
+$ yarn add react-navigation-shared-element react-native-shared-element
 ```
 
-Make sure to also link [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) into your project.
+Enure that [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) is also linked into your project.
+
+Finally, make sure that the compatible react-navigation dependencies are installed:
+
+```sh
+$ yarn add react-navigation@4 react-navigation-stack@1
+```
 
 ## Usage
 
