@@ -2,6 +2,7 @@ import {
   SharedElementNode,
   SharedElementEventSubscription,
   SharedElementSceneComponent,
+  SharedElementAnimatedValue,
   NavigationProp,
 } from './types';
 
@@ -16,12 +17,18 @@ export type SharedElementSceneUpdateHandler = (
   id: string
 ) => any;
 
+const INVERT_OPTIONS = {
+  inputRange: [0, 1],
+  outputRange: [1, 0],
+};
+
 export default class SharedElementSceneData {
   private updateSubscribers = new Set<SharedElementSceneUpdateHandler>();
   private ancestorNode?: SharedElementNode = undefined;
   private nodes: {
     [key: string]: SharedElementNode;
   } = {};
+  private animationContextValue: any;
   public readonly Component: SharedElementSceneComponent;
   public readonly name: string;
   public navigation: NavigationProp;
@@ -37,6 +44,19 @@ export default class SharedElementSceneData {
       Component.name ||
       (Component.constructor ? Component.constructor.name : undefined) ||
       '';
+  }
+
+  setAnimimationContextValue(value: any) {
+    this.animationContextValue = value;
+  }
+
+  getAnimValue(closing: boolean): SharedElementAnimatedValue | undefined {
+    const { animationContextValue } = this;
+    if (!animationContextValue) return;
+    if (closing && animationContextValue.next) {
+      return animationContextValue.next.progress.interpolate(INVERT_OPTIONS);
+    }
+    return animationContextValue.current.progress;
   }
 
   getAncestor(): SharedElementNode | undefined {

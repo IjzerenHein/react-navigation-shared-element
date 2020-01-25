@@ -72,6 +72,7 @@
     "react-dom": "16.9.0",
     "react-native": "^0.61.5",
     "react-native-shared-element": "^0.5.5",
+    "react-navigation-stack": "^2",
     "react-test-renderer": "16.9.0",
     "release-it": "^12.4.3",
     "scheduler": "^0.18.0",
@@ -79,6 +80,7 @@
   },
   "peerDependencies": {
     "@react-navigation/core": "^3.0.0",
+    "react-navigation-stack": "^2",
     "react": "*",
     "react-native": "*",
     "react-native-shared-element": "*"

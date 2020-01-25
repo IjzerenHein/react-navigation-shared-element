@@ -24,7 +24,8 @@ type PropsType = {
 
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
-  rendererData: ISharedElementRendererData
+  rendererData: ISharedElementRendererData,
+  AnimationContext: any
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
@@ -58,11 +59,18 @@ function createSharedElementScene(
             collapsable={false}
             ref={this.onSetRef}
           >
-            <Component {...this.props} />
+            <AnimationContext.Consumer>
+              {this.onRenderAnimationContext}
+            </AnimationContext.Consumer>
           </View>
         </SharedElementSceneContext.Provider>
       );
     }
+
+    private onRenderAnimationContext = (value: any) => {
+      this.sceneData.setAnimimationContextValue(value);
+      return <Component {...this.props} />;
+    };
 
     componentDidUpdate() {
       this.sceneData.navigation = this.props.navigation;

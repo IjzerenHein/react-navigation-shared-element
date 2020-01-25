@@ -11,12 +11,8 @@ import { normalizeSharedElementsConfig } from './utils';
 export type SharedElementRendererUpdateHandler = () => any;
 
 export interface ISharedElementRendererData {
-  startTransition(
-    animValue: SharedElementAnimatedValue,
-    route: Route,
-    prevRoute: Route
-  ): void;
-  endTransition(route: Route, prevRoute: Route): void;
+  startTransition(closing: boolean): void;
+  endTransition(closing: boolean): void;
   willActivateScene(sceneData: SharedElementSceneData, route: Route): void;
   didActivateScene(sceneData: SharedElementSceneData, route: Route): void;
 }
@@ -52,28 +48,18 @@ export default class SharedElementRendererData
   private prevRoute: Route | null = null;
   private scene: SharedElementSceneData | null = null;
   private prevScene: SharedElementSceneData | null = null;
+  private isTransitionClosing: boolean = false;
 
-  startTransition(
-    animValue: SharedElementAnimatedValue,
-    route: Route,
-    // @ts-ignore
-    prevRoute: Route //eslint-disable-line @typescript-eslint/no-unused-vars
-  ) {
-    //console.log('startTransition, route: ', route.key);
-    this.animValue = animValue;
-    this.prevRoute = this.route;
-    this.route = route;
-    this.updateSceneListeners();
-    this.updateSharedElements();
+  startTransition(closing: boolean) {
+    //console.log('startTransition, closing: ', closing);
+    this.isTransitionClosing = closing;
   }
 
   endTransition(
     // @ts-ignore
-    route: Route, //eslint-disable-line @typescript-eslint/no-unused-vars
-    // @ts-ignore
-    prevRoute: Route //eslint-disable-line @typescript-eslint/no-unused-vars
+    closing: boolean
   ) {
-    //console.log('endTransition, route: ', route.key);
+    // console.log('endTransition, closing: ', closing);
     if (this.prevRoute != null) {
       this.prevRoute = null;
       this.animValue = null;
@@ -83,12 +69,25 @@ export default class SharedElementRendererData
   }
 
   willActivateScene(sceneData: SharedElementSceneData, route: Route): void {
-    //console.log('willActivateScene, route: ', route.key);
+    console.log(
+      'willActivateScene, route: ',
+      route.key,
+      ', scene: ',
+      sceneData
+    );
     this.registerScene(sceneData, route);
+
+    if (this.route) {
+      this.animValue = sceneData.getAnimValue(this.isTransitionClosing);
+      this.prevRoute = this.route;
+      this.route = route;
+      this.updateSceneListeners();
+      this.updateSharedElements();
+    }
   }
 
   didActivateScene(sceneData: SharedElementSceneData, route: Route): void {
-    //console.log('didActivateScene, route: ', route.key);
+    console.log('didActivateScene, route: ', route.key, ', scene: ', sceneData);
     this.route = route;
     this.prevRoute = null;
     this.registerScene(sceneData, route);
@@ -181,7 +180,7 @@ export default class SharedElementRendererData
 
   getTransitions(): SharedElementTransitionProps[] {
     const { sharedElements, prevScene, scene, isShowing, animValue } = this;
-    // console.log('getTransitions: ', sharedElements);
+
     if (!sharedElements || !scene || !prevScene) return NO_SHARED_ELEMENTS;
     return sharedElements.map(({ id, otherId, ...other }) => {
       const startId = isShowing ? otherId || id : id;
