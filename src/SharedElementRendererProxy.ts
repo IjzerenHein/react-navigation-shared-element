@@ -1,57 +1,61 @@
-import SharedElementRendererData, {
-  ISharedElementRendererData,
-} from './SharedElementRendererData';
+import { ISharedElementRendererData } from './SharedElementRendererData';
 import { Route } from './types';
-import SharedElementSceneData from './SharedElementSceneData';
+import SharedElementSceneData, {
+  SharedElementSceneEventType,
+} from './SharedElementSceneData';
 
 export class SharedElementRendererProxy implements ISharedElementRendererData {
-  private data: SharedElementRendererData | null = null;
+  private data: ISharedElementRendererData | null = null;
 
-  startTransition(closing: boolean) {
+  startTransition(closing: boolean, navigatorId: string) {
     if (!this.data) {
       console.warn(
         'SharedElementRendererProxy.startTransition called before Proxy was initialized'
       );
       return;
     }
-    return this.data.startTransition(closing);
+    return this.data.startTransition(closing, navigatorId);
   }
 
-  endTransition(closing: boolean) {
+  endTransition(closing: boolean, navigatorId: string) {
     if (!this.data) {
       console.warn(
         'SharedElementRendererProxy.endTransition called before Proxy was initialized'
       );
       return;
     }
-    return this.data.endTransition(closing);
+    return this.data.endTransition(closing, navigatorId);
   }
 
-  willActivateScene(sceneData: SharedElementSceneData, route: Route) {
+  updateSceneState(
+    sceneData: SharedElementSceneData,
+    route: Route,
+    sceneEvent: SharedElementSceneEventType
+  ) {
     if (!this.data) {
       console.warn(
-        'SharedElementRendererProxy.willActivateScene called before Proxy was initialized'
+        'SharedElementRendererProxy.updateSceneState called before Proxy was initialized'
       );
       return;
     }
-    return this.data.willActivateScene(sceneData, route);
+    return this.data.updateSceneState(sceneData, route, sceneEvent);
   }
 
-  didActivateScene(sceneData: SharedElementSceneData, route: Route) {
-    if (!this.data) {
-      console.warn(
-        'SharedElementRendererProxy.didActivateScene called before Proxy was initialized'
-      );
-      return;
-    }
-    return this.data.didActivateScene(sceneData, route);
-  }
-
-  get source(): SharedElementRendererData | null {
+  get source(): ISharedElementRendererData | null {
     return this.data;
   }
 
-  set source(data: SharedElementRendererData | null) {
+  set source(data: ISharedElementRendererData | null) {
     this.data = data;
+  }
+
+  get nestingDepth(): number {
+    if (!this.data) {
+      console.warn(
+        'SharedElementRendererProxy.nestingDepth called before Proxy was initialized'
+      );
+      return 0;
+    }
+    return this.data.nestingDepth + 1;
   }
 }

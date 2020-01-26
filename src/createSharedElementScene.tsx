@@ -25,7 +25,8 @@ type PropsType = {
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
   rendererData: ISharedElementRendererData,
-  AnimationContext: any
+  AnimationContext: any,
+  navigatorId: string
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
@@ -33,7 +34,9 @@ function createSharedElementScene(
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
       Component,
-      this.props.navigation
+      this.props.navigation,
+      navigatorId,
+      rendererData.nestingDepth
     );
 
     componentDidMount() {
@@ -41,6 +44,7 @@ function createSharedElementScene(
       this.subscriptions = {
         willFocus: navigation.addListener('willFocus', this.onWillFocus),
         didFocus: navigation.addListener('didFocus', this.onDidFocus),
+        willBlur: navigation.addListener('willBlur', this.onWillBlur),
       };
     }
 
@@ -85,7 +89,11 @@ function createSharedElementScene(
       const activeRoute = getActiveRouteState(navigation.state);
       if (navigation.state.routeName === activeRoute.routeName) {
         // console.log('onWillFocus: ', navigation.state, activeRoute);
-        rendererData.willActivateScene(this.sceneData, navigation.state);
+        rendererData.updateSceneState(
+          this.sceneData,
+          navigation.state,
+          'willFocus'
+        );
       }
     };
 
@@ -94,7 +102,24 @@ function createSharedElementScene(
       const activeRoute = getActiveRouteState(navigation.state);
       if (navigation.state.routeName === activeRoute.routeName) {
         // console.log('onDidFocus: ', this.sceneData.name, navigation);
-        rendererData.didActivateScene(this.sceneData, navigation.state);
+        rendererData.updateSceneState(
+          this.sceneData,
+          navigation.state,
+          'didFocus'
+        );
+      }
+    };
+
+    private onWillBlur = () => {
+      const { navigation } = this.props;
+      const activeRoute = getActiveRouteState(navigation.state);
+      if (navigation.state.routeName === activeRoute.routeName) {
+        // console.log('onWillFocus: ', navigation.state, activeRoute);
+        rendererData.updateSceneState(
+          this.sceneData,
+          navigation.state,
+          'willBlur'
+        );
       }
     };
   }

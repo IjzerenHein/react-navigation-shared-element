@@ -22,6 +22,12 @@ const INVERT_OPTIONS = {
   outputRange: [1, 0],
 };
 
+export type SharedElementSceneEventType =
+  | 'willFocus'
+  | 'didFocus'
+  | 'willBlur'
+  | 'didBlur';
+
 export default class SharedElementSceneData {
   private updateSubscribers = new Set<SharedElementSceneUpdateHandler>();
   private ancestorNode?: SharedElementNode = undefined;
@@ -31,14 +37,20 @@ export default class SharedElementSceneData {
   private animationContextValue: any;
   public readonly Component: SharedElementSceneComponent;
   public readonly name: string;
+  public readonly navigatorId: string;
+  public readonly nestingDepth: number;
   public navigation: NavigationProp;
 
   constructor(
     Component: SharedElementSceneComponent,
-    navigation: NavigationProp
+    navigation: NavigationProp,
+    navigatorId: string,
+    nestingDepth: number
   ) {
     this.Component = Component;
     this.navigation = navigation;
+    this.navigatorId = navigatorId;
+    this.nestingDepth = nestingDepth;
     this.name =
       Component.displayName ||
       Component.name ||
@@ -53,10 +65,11 @@ export default class SharedElementSceneData {
   getAnimValue(closing: boolean): SharedElementAnimatedValue | undefined {
     const { animationContextValue } = this;
     if (!animationContextValue) return;
-    if (closing && animationContextValue.next) {
+    const { progress } = animationContextValue.current;
+    /*if (closing && animationContextValue.next) {
       return animationContextValue.next.progress.interpolate(INVERT_OPTIONS);
-    }
-    return animationContextValue.current.progress;
+    }*/
+    return closing ? progress.interpolate(INVERT_OPTIONS) : progress;
   }
 
   getAncestor(): SharedElementNode | undefined {

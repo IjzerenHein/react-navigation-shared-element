@@ -80,10 +80,10 @@
   },
   "peerDependencies": {
     "@react-navigation/core": "^3.0.0",
-    "react-navigation-stack": "^2",
     "react": "*",
     "react-native": "*",
-    "react-native-shared-element": "*"
+    "react-native-shared-element": "*",
+    "react-navigation-stack": "^2"
   },
   "jest": {
     "preset": "react-native",

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import SharedElementRendererData from './SharedElementRendererData';
+import { ISharedElementRendererData } from './SharedElementRendererData';
 
-const SharedElementRendererContext = React.createContext<SharedElementRendererData | null>(
+const SharedElementRendererContext = React.createContext<ISharedElementRendererData | null>(
   null
 );
 

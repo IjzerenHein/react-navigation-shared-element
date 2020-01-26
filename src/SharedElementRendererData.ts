@@ -1,4 +1,6 @@
-import SharedElementSceneData from './SharedElementSceneData';
+import SharedElementSceneData, {
+  SharedElementSceneEventType,
+} from './SharedElementSceneData';
 import {
   SharedElementEventSubscription,
   SharedElementsStrictConfig,
@@ -11,10 +13,14 @@ import { normalizeSharedElementsConfig } from './utils';
 export type SharedElementRendererUpdateHandler = () => any;
 
 export interface ISharedElementRendererData {
-  startTransition(closing: boolean): void;
-  endTransition(closing: boolean): void;
-  willActivateScene(sceneData: SharedElementSceneData, route: Route): void;
-  didActivateScene(sceneData: SharedElementSceneData, route: Route): void;
+  startTransition(closing: boolean, navigatorId: string): void;
+  endTransition(closing: boolean, navigatorId: string): void;
+  updateSceneState(
+    sceneData: SharedElementSceneData,
+    route: Route,
+    sceneEvent: SharedElementSceneEventType
+  ): void;
+  readonly nestingDepth: number;
 }
 
 function getSharedElements(
@@ -37,6 +43,17 @@ type SceneRoute = {
   subscription: SharedElementEventSubscription | null;
 };
 
+/**
+ * TODO
+ *
+ * - [X] Start animation on `startTransition`
+ * - [X] Use animValue from started navigator
+ * - [X] Use route from deepest nested scene
+ * - [X] Support nesting
+ * - [ ] State gets messed up when transition hasnt ended yet (stops working)
+ * - [ ] Not all lifecycle events not emitted by stack when using gestures (close modal)
+ */
+
 export default class SharedElementRendererData
   implements ISharedElementRendererData {
   private scenes: SceneRoute[] = [];
@@ -48,18 +65,32 @@ export default class SharedElementRendererData
   private prevRoute: Route | null = null;
   private scene: SharedElementSceneData | null = null;
   private prevScene: SharedElementSceneData | null = null;
-  private isTransitionClosing: boolean = false;
 
-  startTransition(closing: boolean) {
-    //console.log('startTransition, closing: ', closing);
+  private isTransitionStarted: boolean = false;
+  private isTransitionClosing: boolean = false;
+  private transitionNavigatorId: string = '';
+
+  startTransition(closing: boolean, navigatorId: string) {
+    console.log(`startTransition[${navigatorId}], closing: ${closing}`);
+
+    this.prevRoute = this.route;
+    this.route = null;
+    this.animValue = null;
+
+    this.isTransitionStarted = true;
     this.isTransitionClosing = closing;
+    this.transitionNavigatorId = navigatorId;
   }
 
   endTransition(
     // @ts-ignore
-    closing: boolean
+    closing: boolean,
+    navigatorId: string
   ) {
-    // console.log('endTransition, closing: ', closing);
+    console.log(`endTransition[${navigatorId}], closing: ${closing}`);
+
+    this.isTransitionStarted = false;
+
     if (this.prevRoute != null) {
       this.prevRoute = null;
       this.animValue = null;
@@ -68,29 +99,93 @@ export default class SharedElementRendererData
     }
   }
 
-  willActivateScene(sceneData: SharedElementSceneData, route: Route): void {
+  updateSceneState(
+    sceneData: SharedElementSceneData,
+    route: Route,
+    sceneEvent: SharedElementSceneEventType
+  ): void {
+    switch (sceneEvent) {
+      case 'willFocus':
+        return this.willFocusScene(sceneData, route);
+      case 'didFocus':
+        return this.didFocusScene(sceneData, route);
+      case 'willBlur':
+        return this.willBlurScene(sceneData, route);
+    }
+  }
+
+  willFocusScene(sceneData: SharedElementSceneData, route: Route): void {
     console.log(
-      'willActivateScene, route: ',
-      route.key,
-      ', scene: ',
-      sceneData
+      `willFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
     );
     this.registerScene(sceneData, route);
 
-    if (this.route) {
+    // Wait for a transition start, before starting any animations
+    if (!this.isTransitionStarted) return;
+
+    // Use the animation value from the navigator that
+    // started the transition
+    if (
+      !this.isTransitionClosing &&
+      sceneData.navigatorId === this.transitionNavigatorId
+    ) {
       this.animValue = sceneData.getAnimValue(this.isTransitionClosing);
-      this.prevRoute = this.route;
+    }
+
+    // In case of nested navigators, multiple scenes will become
+    // activated. Make sure to use the scene that is nested most deeply,
+    // as this will be the one visible to the user
+    if (!this.route) {
       this.route = route;
+    } else {
+      const routeScene = this.getScene(this.route);
+      if (routeScene && routeScene.nestingDepth <= sceneData.nestingDepth) {
+        this.route = route;
+      }
+    }
+
+    // Update transition
+    if (this.prevRoute && this.route && this.animValue) {
       this.updateSceneListeners();
       this.updateSharedElements();
     }
   }
 
-  didActivateScene(sceneData: SharedElementSceneData, route: Route): void {
-    console.log('didActivateScene, route: ', route.key, ', scene: ', sceneData);
+  didFocusScene(sceneData: SharedElementSceneData, route: Route): void {
+    console.log(
+      `didFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
+    );
     this.route = route;
     this.prevRoute = null;
     this.registerScene(sceneData, route);
+  }
+
+  willBlurScene(
+    sceneData: SharedElementSceneData,
+    // @ts-ignore
+    route: Route
+  ): void {
+    console.log(
+      `willBlurScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
+    );
+
+    // Wait for a transition start, before starting any animations
+    if (!this.isTransitionStarted) return;
+
+    // Use the animation value from the navigator that
+    // started the transition
+    if (
+      this.isTransitionClosing &&
+      sceneData.navigatorId === this.transitionNavigatorId
+    ) {
+      this.animValue = sceneData.getAnimValue(this.isTransitionClosing);
+    }
+
+    // Update transition
+    if (this.prevRoute && this.route && this.animValue) {
+      this.updateSceneListeners();
+      this.updateSharedElements();
+    }
   }
 
   private registerScene(sceneData: SharedElementSceneData, route: Route) {
@@ -126,16 +221,17 @@ export default class SharedElementRendererData
     });
   }
 
-  private updateSharedElements() {
-    const { route, prevRoute, animValue } = this;
+  private getScene(route: Route | null): SharedElementSceneData | null {
     const sceneRoute = route
       ? this.scenes.find(sc => sc.route.key === route.key)
       : undefined;
-    const prevSceneRoute = prevRoute
-      ? this.scenes.find(sc => sc.route.key === prevRoute.key)
-      : undefined;
-    const scene = sceneRoute ? sceneRoute.scene : null;
-    const prevScene = prevSceneRoute ? prevSceneRoute.scene : null;
+    return sceneRoute ? sceneRoute.scene : null;
+  }
+
+  private updateSharedElements() {
+    const { route, prevRoute, animValue } = this;
+    const scene = this.getScene(route);
+    const prevScene = this.getScene(prevRoute);
 
     // Update current scene & previous scene
     if (scene === this.scene && prevScene === this.prevScene) return;
@@ -198,5 +294,9 @@ export default class SharedElementRendererData
         ...other,
       };
     });
+  }
+
+  get nestingDepth(): number {
+    return 0;
   }
 }

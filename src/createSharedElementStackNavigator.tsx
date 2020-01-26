@@ -12,12 +12,15 @@ import {
   CardAnimationContext,
 } from 'react-navigation-stack';
 
+let _navigatorId = 1;
+
 function createSharedElementStackSceneNavigator(
   routeConfigs: any,
   navigatorConfig: any,
-  rendererData: ISharedElementRendererData
+  rendererData: ISharedElementRendererData,
+  navigatorId: string
 ) {
-  console.log('createSharedElementStackSceneNavigator...');
+  //console.log('createSharedElementStackSceneNavigator...', navigatorId);
 
   const wrappedRouteConfigs = {
     ...routeConfigs,
@@ -31,7 +34,8 @@ function createSharedElementStackSceneNavigator(
     const wrappedComponent = createSharedElementScene(
       component,
       rendererData,
-      CardAnimationContext
+      CardAnimationContext,
+      navigatorId
     );
     if (component === routeConfig) {
       wrappedRouteConfigs[key] = wrappedComponent;
@@ -47,7 +51,7 @@ function createSharedElementStackSceneNavigator(
     ...navigatorConfig,
     defaultNavigationOptions: {
       onTransitionStart: (transitionProps: { closing: boolean }) => {
-        rendererData.startTransition(transitionProps.closing);
+        rendererData.startTransition(transitionProps.closing, navigatorId);
         if (
           navigatorConfig &&
           navigatorConfig.defaultNavigationOptions &&
@@ -59,7 +63,7 @@ function createSharedElementStackSceneNavigator(
         }
       },
       onTransitionEnd: (transitionProps: { closing: boolean }) => {
-        rendererData.endTransition(transitionProps.closing);
+        rendererData.endTransition(transitionProps.closing, navigatorId);
         if (
           navigatorConfig &&
           navigatorConfig.defaultNavigationOptions &&
@@ -76,8 +80,15 @@ function createSharedElementStackSceneNavigator(
 
 function createSharedElementStackNavigator(
   RouteConfigs: any,
-  NavigatorConfig: any
+  NavigatorConfig: any,
+  options?: {
+    name?: string;
+  }
 ): React.ComponentType<any> {
+  const navigatorId =
+    options && options.name ? options.name : `stack${_navigatorId}`;
+  _navigatorId++;
+
   // Create a proxy which is later updated to link
   // to the renderer
   const rendererDataProxy = new SharedElementRendererProxy();
@@ -86,7 +97,8 @@ function createSharedElementStackNavigator(
   const SharedElementNavigator = createSharedElementStackSceneNavigator(
     RouteConfigs,
     NavigatorConfig,
-    rendererDataProxy
+    rendererDataProxy,
+    navigatorId
   );
 
   class SharedElementRenderer extends React.Component {
@@ -97,24 +109,23 @@ function createSharedElementStackNavigator(
           {rendererData => {
             // In case a renderer is already present higher up in the chain
             // then don't bother creating a renderer here, but use that one instead
-            if (rendererData) {
-              rendererDataProxy.source = rendererData;
-              return <SharedElementNavigator {...this.props} />;
-
-              // Create/use our own renderer here
-            } else {
+            if (!rendererData) {
               this.rendererData =
                 this.rendererData || new SharedElementRendererData();
               rendererDataProxy.source = this.rendererData;
-              return (
-                <SharedElementRendererContext.Provider
-                  value={this.rendererData}
-                >
-                  <SharedElementNavigator {...this.props} />
-                  <SharedElementRendererView rendererData={this.rendererData} />
-                </SharedElementRendererContext.Provider>
-              );
+            } else {
+              rendererDataProxy.source = rendererData;
             }
+            return (
+              <SharedElementRendererContext.Provider value={rendererDataProxy}>
+                <SharedElementNavigator {...this.props} />
+                {this.rendererData ? (
+                  <SharedElementRendererView rendererData={this.rendererData} />
+                ) : (
+                  undefined
+                )}
+              </SharedElementRendererContext.Provider>
+            );
           }}
         </SharedElementRendererContext.Consumer>
       );
@@ -125,42 +136,3 @@ function createSharedElementStackNavigator(
 }
 
 export default createSharedElementStackNavigator;
-
-/*    // react-navigation-stack-v1
-    /*onTransitionStart: (transitionProps: any, prevTransitionProps: any) => {
-      console.log(
-        'onTransitionStart-v1: ',
-        transitionProps,
-        prevTransitionProps
-      );
-      const { index, position } = transitionProps;
-      const prevIndex = prevTransitionProps.index;
-      if (index === prevIndex) return;
-      rendererData.startTransition(
-        position.interpolate({
-          inputRange: [index - 1, index],
-          outputRange: index > prevIndex ? [0, 1] : [2, 1],
-        }),
-        getActiveRouteState(transitionProps.scene.route),
-        getActiveRouteState(prevTransitionProps.scene.route)
-      );
-      if (navigatorConfig && navigatorConfig.onTransitionStart) {
-        navigatorConfig.onTransitionStart(
-          getActiveRouteState(transitionProps.scene.route),
-          getActiveRouteState(prevTransitionProps.scene.route)
-        );
-      }
-    },
-    onTransitionEnd: (transitionProps: any, prevTransitionProps: any) => {
-      console.log('onTransitionEnd-v1: ', transitionProps, prevTransitionProps);
-      if (!transitionProps.scene) {
-        return;
-      }
-      rendererData.endTransition(
-        transitionProps.scene.route,
-        prevTransitionProps.scene.route
-      );
-      if (navigatorConfig && navigatorConfig.onTransitionEnd) {
-        navigatorConfig.onTransitionEnd(transitionProps, prevTransitionProps);
-      }
-    },*/
