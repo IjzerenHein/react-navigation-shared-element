@@ -2,10 +2,7 @@
 
 React Navigation bindings for [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) 💫
 
-This library currently only supports `react-navigation@4` and `react-navigation-stack@1`
-
-> React-navigation v5 and react-navigation-stack v2 are **not yet supported**.
-
+This version of the library supports `react-navigation@4` and `react-navigation-stack@1`
 
 ## Index <!-- omit in toc -->
 
@@ -23,7 +20,7 @@ This library currently only supports `react-navigation@4` and `react-navigation-
 Open a Terminal in your project's folder and run,
 
 ```sh
-$ yarn add react-navigation-shared-element react-native-shared-element
+$ yarn add react-navigation-shared-element@1 react-native-shared-element
 ```
 
 Enure that [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) is also linked into your project.
