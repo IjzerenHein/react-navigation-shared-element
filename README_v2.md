@@ -1,18 +1,16 @@
+## V2 branch <!-- omit in toc -->
+
+This library is currently being rewritten to support `react-navigation-stack@2` and `react-navigation@5`. Master contains a somewhat working version of stack@2, while navigation@5 is still further away.
+
+This readme contains the documentation for the new v2 branch. The most notable change (API-wise) is that `createSharedElementStackNavigator` no longer requires `createStackNavigator` as its first argument. Instead `react-navigation-stack@2` needs to be installed as a dependency.
+
 # React Navigation Shared Element <!-- omit in toc -->
 
 React Navigation bindings for [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) 💫
 
-## Current status
-
-This library currently only supports `react-navigation@4` and `react-navigation-stack@1`.
-The master branch is being rewritten to support `react-navigation-stack@2` and `react-navigation@5`. Master contains a somewhat working version of stack@2, while navigation@5 is still further away.
-
-[Check out this page if you are interesting in testing the v2 branch](./README_v2.md).
-
 
 ## Index <!-- omit in toc -->
 
-- [Current status](#current-status)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
@@ -27,7 +25,7 @@ The master branch is being rewritten to support `react-navigation-stack@2` and `
 Open a Terminal in your project's folder and run,
 
 ```sh
-$ yarn add react-navigation-shared-element react-native-shared-element
+$ yarn add react-navigation-shared-element@next react-native-shared-element
 ```
 
 Enure that [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) is also linked into your project.
@@ -35,23 +33,23 @@ Enure that [react-native-shared-element](https://github.com/IjzerenHein/react-na
 Finally, make sure that the compatible react-navigation dependencies are installed:
 
 ```sh
-$ yarn add react-navigation@4 react-navigation-stack@1
+$ yarn add react-navigation@4 react-navigation-stack@2
 ```
+
+> react-navigation@5 is not supported yet, so don't bother..
 
 ## Usage
 
 In order to enable shared element transitions, the following steps need to be performed
 
-- Wrap stack-navigator with `createSharedElementStackNavigator`
+- Create a stack-navigator using `createSharedElementStackNavigator`
 - Wrap your component with `<SharedElement>` and provide a unique `id`
 - Define a static `sharedElements` config on the Screen that you want to animate
 
 ```jsx
-import { createStackNavigator } from 'react-navigation';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 const stackNavigator = createSharedElementStackNavigator(
-  createStackNavigator,
   {
     List: ListScreen,
     Detail: DetailScreen,
@@ -113,11 +111,10 @@ It performs the following actions
 
 **Arguments**
 
-| Argument               | Type       | Description                          |
-| ---------------------- | ---------- | ------------------------------------ |
-| `createStackNavigator` | `function` | The stack-navigator function to wrap |
-| `routeConfig`          | `object`   | Routes-config                        |
-| `stackNavigatorConfig` | `object`   | Stack navigator config               |
+| Argument               | Type     | Description            |
+| ---------------------- | -------- | ---------------------- |
+| `routeConfig`          | `object` | Routes-config          |
+| `stackNavigatorConfig` | `object` | Stack navigator config |
 
 ### SharedElement
 
