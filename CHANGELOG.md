@@ -1,6 +1,7 @@
 ## [2.0.1](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.0.0...v2.0.1) (2020-02-09)
 
 * Add support for react-navigation-stack@2
+* Add support for nested navigators
 
 ### BREAKING CHANGES
 
