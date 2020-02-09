@@ -2,17 +2,27 @@
 
 React Navigation bindings for [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) 💫
 
-## Current status
+## Compatibility <!-- omit in toc -->
 
-This library currently only supports `react-navigation@4` and `react-navigation-stack@1`.
-The master branch is being rewritten to support `react-navigation-stack@2` and `react-navigation@5`. Master contains a somewhat working version of stack@2, while navigation@5 is still further away.
+This library is currently undergoing development to support the latest react-navigation & stack versions.
 
-[Check out this page if you are interesting in testing the v2 branch](./README_v2.md).
+Supported are:
+
+- [X] react-navigation 4 & 3
+- [X] react-navigation-stack 2 
+- [X] react-navigation-stack 1 [(use react-navigation-shared-element@1)](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1)
+
+Not yet supported:
+
+- [ ] [react-navigation 5](https://github.com/IjzerenHein/react-navigation-shared-element/issues/2)
+
+Unlikely to be supported:
+
+- [ ] [react-native-screens/createNativeStackNavigator](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14)
 
 
 ## Index <!-- omit in toc -->
 
-- [Current status](#current-status)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
