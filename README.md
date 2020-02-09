@@ -219,7 +219,7 @@ The following fields can be specified in a config item
 
 ## Demo App
 
-- [react-navigation-shared-element-rn60demo](https://github.com/IjzerenHein/react-navigation-shared-element-rn60demo)
+- [react-navigation-shared-element-demo](https://github.com/IjzerenHein/react-navigation-shared-element-demo)
 
 ## License
 
