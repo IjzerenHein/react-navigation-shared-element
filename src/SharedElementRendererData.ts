@@ -50,7 +50,6 @@ type SceneRoute = {
  * - [X] Use animValue from started navigator
  * - [X] Use route from deepest nested scene
  * - [X] Support nesting
- * - [ ] State gets messed up when transition hasnt ended yet (stops working)
  * - [ ] Not all lifecycle events not emitted by stack when using gestures (close modal)
  */
 
@@ -76,6 +75,15 @@ export default class SharedElementRendererData
     this.prevRoute = this.route;
     this.route = null;
     this.animValue = null;
+
+    // When a transition wasn't completely fully, but a new transition
+    // has already started, then the `willBlur` event is not called.
+    // For this particular case, we capture the animation-value of the
+    // last (previous) scene that is now being hidden.
+    if (this.isTransitionStarted && this.prevRoute) {
+      const scene = this.getScene(this.prevRoute);
+      if (scene) this.animValue = scene.getAnimValue(true);
+    }
 
     this.isTransitionStarted = true;
     this.isTransitionClosing = closing;
@@ -127,9 +135,11 @@ export default class SharedElementRendererData
     // started the transition
     if (
       !this.isTransitionClosing &&
-      sceneData.navigatorId === this.transitionNavigatorId
+      this.prevRoute &&
+      sceneData.navigatorId === this.transitionNavigatorId &&
+      !this.animValue
     ) {
-      this.animValue = sceneData.getAnimValue(this.isTransitionClosing);
+      this.animValue = sceneData.getAnimValue(false);
     }
 
     // In case of nested navigators, multiple scenes will become
@@ -176,9 +186,10 @@ export default class SharedElementRendererData
     // started the transition
     if (
       this.isTransitionClosing &&
-      sceneData.navigatorId === this.transitionNavigatorId
+      sceneData.navigatorId === this.transitionNavigatorId &&
+      !this.animValue
     ) {
-      this.animValue = sceneData.getAnimValue(this.isTransitionClosing);
+      this.animValue = sceneData.getAnimValue(true);
     }
 
     // Update transition
@@ -194,7 +205,7 @@ export default class SharedElementRendererData
       route,
       subscription: null,
     });
-    if (this.scenes.length > 5) {
+    if (this.scenes.length > 10) {
       const { subscription } = this.scenes[0];
       this.scenes.splice(0, 1);
       if (subscription) subscription.remove();
@@ -255,7 +266,9 @@ export default class SharedElementRendererData
         'updateSharedElements: ',
         sharedElements,
         ' ,isShowing: ',
-        isShowing
+        isShowing,
+        ', animValue: ',
+        animValue
       );*/
       this.emitUpdateEvent();
     }
@@ -275,13 +288,22 @@ export default class SharedElementRendererData
   }
 
   getTransitions(): SharedElementTransitionProps[] {
-    const { sharedElements, prevScene, scene, isShowing, animValue } = this;
+    const {
+      sharedElements,
+      prevScene,
+      scene,
+      isShowing,
+      animValue,
+      route,
+    } = this;
 
-    if (!sharedElements || !scene || !prevScene) return NO_SHARED_ELEMENTS;
+    if (!sharedElements || !scene || !prevScene || !route)
+      return NO_SHARED_ELEMENTS;
     return sharedElements.map(({ id, otherId, ...other }) => {
       const startId = isShowing ? otherId || id : id;
       const endId = isShowing ? id : otherId || id;
       return {
+        key: route.key,
         position: animValue,
         start: {
           ancestor: (prevScene ? prevScene.getAncestor() : undefined) || null,

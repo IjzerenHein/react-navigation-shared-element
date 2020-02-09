@@ -66,9 +66,6 @@ export default class SharedElementSceneData {
     const { animationContextValue } = this;
     if (!animationContextValue) return;
     const { progress } = animationContextValue.current;
-    /*if (closing && animationContextValue.next) {
-      return animationContextValue.next.progress.interpolate(INVERT_OPTIONS);
-    }*/
     return closing ? progress.interpolate(INVERT_OPTIONS) : progress;
   }
 

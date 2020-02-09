@@ -31,8 +31,8 @@ export default class SharedElementRendererView extends React.PureComponent<
     // console.log('SharedElementRendererView.render: ', transitions);
     return (
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
-        {transitions.map((transitionProps, index) => (
-          <SharedElementTransition key={index} {...transitionProps} />
+        {transitions.map(({ key, ...props }, index) => (
+          <SharedElementTransition key={`${key}:${index}`} {...props} />
         ))}
       </View>
     );
