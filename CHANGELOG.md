@@ -1,3 +1,7 @@
+# [2.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/2.0.0-alpha0...2.0.0) (2020-02-09)
+
+
+
 # [1.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v0.5.0...v1.0.0) (2020-01-26)
 
 - update major version to `1` to correspond to `react-navigation-stack@1`
