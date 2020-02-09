@@ -1,5 +1,10 @@
 # [2.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/2.0.0-alpha0...2.0.0) (2020-02-09)
 
+* Add support for react-navigation-stack@2
+
+### BREAKING CHANGES
+
+* The `createSharedElementStackNavigator` function has changed, in that it no longer takes the `createStackNavigator` function as an input.
 
 
 # [1.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v0.5.0...v1.0.0) (2020-01-26)
