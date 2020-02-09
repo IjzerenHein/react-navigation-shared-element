@@ -1,14 +1,40 @@
 ## [2.0.1](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.0.0...v2.0.1) (2020-02-09)
 
-
-
-# [2.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/2.0.0-alpha0...2.0.0) (2020-02-09)
-
 * Add support for react-navigation-stack@2
 
 ### BREAKING CHANGES
 
-* The `createSharedElementStackNavigator` function has changed, in that it no longer takes the `createStackNavigator` function as an input.
+* The `createSharedElementStackNavigator` function has changed. It no longer takes the `createStackNavigator` function as an input.
+
+Previous (v1):
+
+```js
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import { createStackNavigator } from 'react-navigation-stack';
+
+const stackNav = createSharedElementStackNavigator(
+  createStackNavigator,
+  {
+    Main: MainScreen,
+    ...
+  },
+  {...}
+);
+```
+
+Now (v2):
+
+```js
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+
+const stackNav = createSharedElementStackNavigator(
+  {
+    Main: MainScreen,
+    ...
+  },
+  {...}
+);
+```
 
 
 # [1.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v0.5.0...v1.0.0) (2020-01-26)
