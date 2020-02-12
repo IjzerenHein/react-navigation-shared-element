@@ -80,8 +80,8 @@ function createSharedElementStackSceneNavigator(
 }
 
 function createSharedElementStackNavigator(
-  RouteConfigs: any,
-  NavigatorConfig: any,
+  RouteConfigs: Parameters<typeof createStackNavigator>[0],
+  NavigatorConfig: Parameters<typeof createStackNavigator>[1],
   options?: {
     name?: string;
   }
