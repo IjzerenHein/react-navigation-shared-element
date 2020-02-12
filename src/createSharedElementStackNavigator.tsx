@@ -50,6 +50,7 @@ function createSharedElementStackSceneNavigator(
   return createStackNavigator(wrappedRouteConfigs, {
     ...navigatorConfig,
     defaultNavigationOptions: {
+      ...navigatorConfig?.defaultNavigationOptions,
       onTransitionStart: (transitionProps: { closing: boolean }) => {
         rendererData.startTransition(transitionProps.closing, navigatorId);
         if (
