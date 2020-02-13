@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.0.1...v2.0.2) (2020-02-13)
+
+### Bug Fixes
+
+- Fix `defaultNavigationOptions` settings not working for `createSharedElementStackNavigator`
+- Add missing typings to `createSharedElementStackNavigator` for routeConfig and navigatorConfig.
+
+
 ## [2.0.1](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.0.0...v2.0.1) (2020-02-09)
 
 * Add support for react-navigation-stack@2
