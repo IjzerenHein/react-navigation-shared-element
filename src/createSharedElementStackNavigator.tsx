@@ -50,6 +50,7 @@ function createSharedElementStackSceneNavigator(
   return createStackNavigator(wrappedRouteConfigs, {
     ...navigatorConfig,
     defaultNavigationOptions: {
+      ...navigatorConfig?.defaultNavigationOptions,
       onTransitionStart: (transitionProps: { closing: boolean }) => {
         rendererData.startTransition(transitionProps.closing, navigatorId);
         if (
@@ -79,8 +80,8 @@ function createSharedElementStackSceneNavigator(
 }
 
 function createSharedElementStackNavigator(
-  RouteConfigs: any,
-  NavigatorConfig: any,
+  RouteConfigs: Parameters<typeof createStackNavigator>[0],
+  NavigatorConfig: Parameters<typeof createStackNavigator>[1],
   options?: {
     name?: string;
   }
