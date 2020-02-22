@@ -66,6 +66,7 @@ function createSharedElementScene(
             <AnimationContext.Consumer>
               {this.onRenderAnimationContext}
             </AnimationContext.Consumer>
+            <Component {...this.props} />
           </View>
         </SharedElementSceneContext.Provider>
       );
@@ -73,7 +74,6 @@ function createSharedElementScene(
 
     private onRenderAnimationContext = (value: any) => {
       this.sceneData.setAnimimationContextValue(value);
-      return <Component {...this.props} />;
     };
 
     componentDidUpdate() {

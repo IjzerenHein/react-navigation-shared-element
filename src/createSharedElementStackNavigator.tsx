@@ -94,7 +94,6 @@ function createSharedElementStackNavigator(
   // to the renderer
   const rendererDataProxy = new SharedElementRendererProxy();
 
-  //const rendererData = new SharedElementRendererData();
   const SharedElementNavigator = createSharedElementStackSceneNavigator(
     RouteConfigs,
     NavigatorConfig,
