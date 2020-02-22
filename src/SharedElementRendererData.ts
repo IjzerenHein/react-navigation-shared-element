@@ -69,8 +69,11 @@ export default class SharedElementRendererData
   private isTransitionClosing: boolean = false;
   private transitionNavigatorId: string = '';
 
+  private isVerbose: boolean = false;
+
   startTransition(closing: boolean, navigatorId: string) {
-    //console.log(`startTransition[${navigatorId}], closing: ${closing}`);
+    if (this.isVerbose)
+      console.debug(`startTransition[${navigatorId}], closing: ${closing}`);
 
     this.prevRoute = this.route;
     this.route = null;
@@ -96,7 +99,8 @@ export default class SharedElementRendererData
     // @ts-ignore
     navigatorId: string
   ) {
-    //console.log(`endTransition[${navigatorId}], closing: ${closing}`);
+    if (this.isVerbose)
+      console.debug(`endTransition[${navigatorId}], closing: ${closing}`);
 
     this.isTransitionStarted = false;
 
@@ -124,9 +128,10 @@ export default class SharedElementRendererData
   }
 
   willFocusScene(sceneData: SharedElementSceneData, route: Route): void {
-    /*console.log(
-      `willFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
-    );*/
+    if (this.isVerbose)
+      console.debug(
+        `willFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
+      );
     this.registerScene(sceneData, route);
 
     // Wait for a transition start, before starting any animations
@@ -163,9 +168,10 @@ export default class SharedElementRendererData
   }
 
   didFocusScene(sceneData: SharedElementSceneData, route: Route): void {
-    /*console.log(
-      `didFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
-    );*/
+    if (this.isVerbose)
+      console.debug(
+        `didFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
+      );
     this.route = route;
     this.prevRoute = null;
     this.registerScene(sceneData, route);
@@ -176,9 +182,10 @@ export default class SharedElementRendererData
     // @ts-ignore
     route: Route
   ): void {
-    /*console.log(
-      `willBlurScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
-    );*/
+    if (this.isVerbose)
+      console.debug(
+        `willBlurScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
+      );
 
     // Wait for a transition start, before starting any animations
     if (!this.isTransitionStarted) return;
