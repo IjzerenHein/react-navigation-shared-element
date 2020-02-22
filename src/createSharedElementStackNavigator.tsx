@@ -52,7 +52,11 @@ function createSharedElementStackSceneNavigator(
     defaultNavigationOptions: {
       ...navigatorConfig?.defaultNavigationOptions,
       onTransitionStart: (transitionProps: { closing: boolean }) => {
-        rendererData.startTransition(transitionProps.closing, navigatorId);
+        rendererData.startTransition(
+          transitionProps.closing,
+          navigatorId,
+          rendererData.nestingDepth
+        );
         if (
           navigatorConfig &&
           navigatorConfig.defaultNavigationOptions &&
@@ -64,7 +68,11 @@ function createSharedElementStackSceneNavigator(
         }
       },
       onTransitionEnd: (transitionProps: { closing: boolean }) => {
-        rendererData.endTransition(transitionProps.closing, navigatorId);
+        rendererData.endTransition(
+          transitionProps.closing,
+          navigatorId,
+          rendererData.nestingDepth
+        );
         if (
           navigatorConfig &&
           navigatorConfig.defaultNavigationOptions &&

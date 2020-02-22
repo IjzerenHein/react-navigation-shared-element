@@ -87,8 +87,8 @@ function createSharedElementScene(
     private onWillFocus = () => {
       const { navigation } = this.props;
       const activeRoute = getActiveRouteState(navigation.state);
+      //console.log('onWillFocus: ', navigation.state, activeRoute);
       if (navigation.state.routeName === activeRoute.routeName) {
-        // console.log('onWillFocus: ', navigation.state, activeRoute);
         rendererData.updateSceneState(
           this.sceneData,
           navigation.state,
@@ -113,8 +113,8 @@ function createSharedElementScene(
     private onWillBlur = () => {
       const { navigation } = this.props;
       const activeRoute = getActiveRouteState(navigation.state);
+      //console.log('onWillBlur: ', navigation.state, activeRoute);
       if (navigation.state.routeName === activeRoute.routeName) {
-        // console.log('onWillFocus: ', navigation.state, activeRoute);
         rendererData.updateSceneState(
           this.sceneData,
           navigation.state,
