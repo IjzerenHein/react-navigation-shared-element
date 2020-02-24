@@ -1,16 +1,20 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, InteractionManager } from 'react-native';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import { nodeFromRef } from 'react-native-shared-element';
 import SharedElementSceneData from './SharedElementSceneData';
 import SharedElementSceneContext from './SharedElementSceneContext';
 import {
   SharedElementEventSubscription,
-  NavigationProp,
   SharedElementSceneComponent,
 } from './types';
 import { ISharedElementRendererData } from './SharedElementRendererData';
-import { getActiveRouteState } from './utils';
+import { getActiveRoute } from './utils';
+import {
+  StackNavigationProp,
+  StackCardInterpolationProps,
+} from '@react-navigation/stack';
+import { Route } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,13 +23,14 @@ const styles = StyleSheet.create({
 });
 
 type PropsType = {
-  navigation: NavigationProp;
+  navigation: StackNavigationProp<any>;
+  route: Route<any>;
 };
 
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
   rendererData: ISharedElementRendererData,
-  AnimationContext: any,
+  AnimationContext: React.Context<StackCardInterpolationProps | undefined>,
   navigatorId: string
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
@@ -35,6 +40,7 @@ function createSharedElementScene(
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
       Component,
       this.props.navigation,
+      this.props.route,
       navigatorId,
       rendererData.nestingDepth
     );
@@ -42,16 +48,30 @@ function createSharedElementScene(
     componentDidMount() {
       const { navigation } = this.props;
       this.subscriptions = {
-        willFocus: navigation.addListener('willFocus', this.onWillFocus),
-        didFocus: navigation.addListener('didFocus', this.onDidFocus),
-        willBlur: navigation.addListener('willBlur', this.onWillBlur),
+        willFocus: navigation.addListener('focus', this.onWillFocus),
+        // didFocus: navigation.addListener('didFocus', this.onDidFocus),
+        willBlur: navigation.addListener('blur', this.onWillBlur),
+        transitionStart: navigation.addListener(
+          'transitionStart',
+          this.transitionStart
+        ),
+        transitionEnd: navigation.addListener(
+          'transitionEnd',
+          this.transitionEnd
+        ),
       };
     }
 
+    transitionStart({ data: { closing } }: any) {
+      rendererData.startTransition(closing, navigatorId);
+    }
+
+    transitionEnd = ({ data: { closing } }: any) => {
+      rendererData.endTransition(closing, navigatorId);
+    };
+
     componentWillUnmount() {
-      Object.values(this.subscriptions).forEach(subscription =>
-        subscription.remove()
-      );
+      Object.values(this.subscriptions).forEach(unsubscribe => unsubscribe());
     }
 
     render() {
@@ -71,7 +91,9 @@ function createSharedElementScene(
       );
     }
 
-    private onRenderAnimationContext = (value: any) => {
+    private onRenderAnimationContext = (
+      value: StackCardInterpolationProps | undefined
+    ) => {
       this.sceneData.setAnimimationContextValue(value);
       return <Component {...this.props} />;
     };
@@ -85,47 +107,35 @@ function createSharedElementScene(
     };
 
     private onWillFocus = () => {
-      const { navigation } = this.props;
-      const activeRoute = getActiveRouteState(navigation.state);
-      if (navigation.state.routeName === activeRoute.routeName) {
-        // console.log('onWillFocus: ', navigation.state, activeRoute);
-        rendererData.updateSceneState(
-          this.sceneData,
-          navigation.state,
-          'willFocus'
-        );
-      }
-    };
+      const { navigation, route } = this.props;
 
-    private onDidFocus = () => {
-      const { navigation } = this.props;
-      const activeRoute = getActiveRouteState(navigation.state);
-      if (navigation.state.routeName === activeRoute.routeName) {
-        // console.log('onDidFocus: ', this.sceneData.name, navigation);
-        rendererData.updateSceneState(
-          this.sceneData,
-          navigation.state,
-          'didFocus'
-        );
+      if (isActiveRoute(navigation, route)) {
+        rendererData.updateSceneState(this.sceneData, route, 'willFocus');
+
+        InteractionManager.runAfterInteractions(() => {
+          rendererData.updateSceneState(this.sceneData, route, 'didFocus');
+        });
       }
     };
 
     private onWillBlur = () => {
-      const { navigation } = this.props;
-      const activeRoute = getActiveRouteState(navigation.state);
-      if (navigation.state.routeName === activeRoute.routeName) {
-        // console.log('onWillFocus: ', navigation.state, activeRoute);
-        rendererData.updateSceneState(
-          this.sceneData,
-          navigation.state,
-          'willBlur'
-        );
-      }
+      const { route } = this.props;
+
+      rendererData.updateSceneState(this.sceneData, route, 'willBlur');
     };
   }
 
   hoistNonReactStatics(SharedElementSceneView, Component);
   return SharedElementSceneView;
 }
+
+const isActiveRoute = (
+  navigation: StackNavigationProp<any>,
+  route: Route<any>
+): boolean => {
+  const state = navigation.dangerouslyGetState();
+  const activeRoute = getActiveRoute(state);
+  return route.name === activeRoute.name;
+};
 
 export default createSharedElementScene;

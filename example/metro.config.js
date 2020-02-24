@@ -1,33 +1,17 @@
-const path = require('path');
-const blacklist = require('metro-config/src/defaults/blacklist');
-const project = require('../package.json');
-const escape = require('escape-string-regexp');
-
-const projectDependencies = Object.keys({
-  ...project.dependencies,
-  ...project.peerDependencies,
-});
+/**
+ * Metro configuration for React Native
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
 module.exports = {
-  projectRoot: __dirname,
-  watchFolders: [path.resolve(__dirname, '..')],
-
-  resolver: {
-    blacklistRE: blacklist([
-      new RegExp(
-        `^${escape(
-          path.resolve(__dirname, 'node_modules', project.name)
-        )}\\/.*$`
-      ),
-      new RegExp(
-        `^${escape(path.resolve(__dirname, '..', 'node_modules'))}\\/.*$`
-      ),
-    ]),
-
-    providesModuleNodeModules: [
-      '@expo/vector-icons',
-      '@babel/runtime',
-      ...projectDependencies,
-    ],
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: false,
+      },
+    }),
   },
 };

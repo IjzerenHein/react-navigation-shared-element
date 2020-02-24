@@ -3,8 +3,8 @@ import {
   SharedElementsConfig,
   SharedElementStrictConfig,
   SharedElementsStrictConfig,
-  Route,
 } from './types';
+import { Route, NavigationState } from '@react-navigation/native';
 
 export function normalizeSharedElementConfig(
   sharedElementConfig: SharedElementConfig
@@ -33,14 +33,20 @@ export function normalizeSharedElementsConfig(
   return sharedElementsConfig.map(normalizeSharedElementConfig);
 }
 
-export function getActiveRouteState(route: any): Route {
-  if (
-    !route.routes ||
-    route.routes.length === 0 ||
-    route.index >= route.routes.length
-  ) {
-    return route;
-  } else {
-    return getActiveRouteState(route.routes[route.index]);
+function isValidNavigationState(
+  state: Partial<NavigationState>
+): state is NavigationState {
+  return 'index' in state && 'routes' in state;
+}
+
+// Gets the current screen from navigation state
+export function getActiveRoute(state: NavigationState): Route<any> {
+  const route = state.routes[state.index];
+
+  if (route.state && isValidNavigationState(route.state)) {
+    // Dive into nested navigators
+    return getActiveRoute(route.state);
   }
+
+  return route;
 }

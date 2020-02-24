@@ -1,213 +1,203 @@
-buildscript {
-  repositories {
-    google()
-    maven { url 'https://maven.fabric.io/public' }
-  }
+apply plugin: "com.android.application"
 
-  dependencies {
-    classpath 'io.fabric.tools:gradle:1.26.1'
-  }
-}
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
-apply plugin: 'devicefarm'
+import com.android.build.OutputFile
 
-repositories {
-  maven { url 'https://maven.fabric.io/public' }
-}
+/**
+ * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
+ * and bundleReleaseJsAndAssets).
+ * These basically call `react-native bundle` with the correct arguments during the Android build
+ * cycle. By default, bundleDebugJsAndAssets is skipped, as in debug/dev mode we prefer to load the
+ * bundle directly from the development server. Below you can see all the possible configurations
+ * and their defaults. If you decide to add a configuration block, make sure to add it before the
+ * `apply from: "../../node_modules/react-native/react.gradle"` line.
+ *
+ * project.ext.react = [
+ *   // the name of the generated asset file containing your JS bundle
+ *   bundleAssetName: "index.android.bundle",
+ *
+ *   // the entry file for bundle generation
+ *   entryFile: "index.android.js",
+ *
+ *   // https://facebook.github.io/react-native/docs/performance#enable-the-ram-format
+ *   bundleCommand: "ram-bundle",
+ *
+ *   // whether to bundle JS and assets in debug mode
+ *   bundleInDebug: false,
+ *
+ *   // whether to bundle JS and assets in release mode
+ *   bundleInRelease: true,
+ *
+ *   // whether to bundle JS and assets in another build variant (if configured).
+ *   // See http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Build-Variants
+ *   // The configuration property can be in the following formats
+ *   //         'bundleIn${productFlavor}${buildType}'
+ *   //         'bundleIn${buildType}'
+ *   // bundleInFreeDebug: true,
+ *   // bundleInPaidRelease: true,
+ *   // bundleInBeta: true,
+ *
+ *   // whether to disable dev mode in custom build variants (by default only disabled in release)
+ *   // for example: to disable dev mode in the staging build type (if configured)
+ *   devDisabledInStaging: true,
+ *   // The configuration property can be in the following formats
+ *   //         'devDisabledIn${productFlavor}${buildType}'
+ *   //         'devDisabledIn${buildType}'
+ *
+ *   // the root of your project, i.e. where "package.json" lives
+ *   root: "../../",
+ *
+ *   // where to put the JS bundle asset in debug mode
+ *   jsBundleDirDebug: "$buildDir/intermediates/assets/debug",
+ *
+ *   // where to put the JS bundle asset in release mode
+ *   jsBundleDirRelease: "$buildDir/intermediates/assets/release",
+ *
+ *   // where to put drawable resources / React Native assets, e.g. the ones you use via
+ *   // require('./image.png')), in debug mode
+ *   resourcesDirDebug: "$buildDir/intermediates/res/merged/debug",
+ *
+ *   // where to put drawable resources / React Native assets, e.g. the ones you use via
+ *   // require('./image.png')), in release mode
+ *   resourcesDirRelease: "$buildDir/intermediates/res/merged/release",
+ *
+ *   // by default the gradle tasks are skipped if none of the JS files or assets change; this means
+ *   // that we don't look at files in android/ or ios/ to determine whether the tasks are up to
+ *   // date; if you have any other folders that you want to ignore for performance reasons (gradle
+ *   // indexes the entire tree), add them here. Alternatively, if you have JS files in android/
+ *   // for example, you might want to remove it from here.
+ *   inputExcludes: ["android/**", "ios/**"],
+ *
+ *   // override which node gets called and with what additional arguments
+ *   nodeExecutableAndArgs: ["node"],
+ *
+ *   // supply additional arguments to the packager
+ *   extraPackagerArgs: []
+ * ]
+ */
 
-def safeExtGet(prop, fallback) {
-  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
+project.ext.react = [
+    entryFile: "index.js",
+    enableHermes: false,  // clean and rebuild if changing
+]
+
+apply from: "../../node_modules/react-native/react.gradle"
+
+/**
+ * Set this to true to create two separate APKs instead of one:
+ *   - An APK that only works on ARM devices
+ *   - An APK that only works on x86 devices
+ * The advantage is the size of the APK is reduced by about 4MB.
+ * Upload all the APKs to the Play Store and people will download
+ * the correct one based on the CPU architecture of their device.
+ */
+def enableSeparateBuildPerCPUArchitecture = false
+
+/**
+ * Run Proguard to shrink the Java bytecode in release builds.
+ */
+def enableProguardInReleaseBuilds = false
+
+/**
+ * The preferred build flavor of JavaScriptCore.
+ *
+ * For example, to use the international variant, you can use:
+ * `def jscFlavor = 'org.webkit:android-jsc-intl:+'`
+ *
+ * The international variant includes ICU i18n library and necessary data
+ * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
+ * give correct results when using with locales other than en-US.  Note that
+ * this variant is about 6MiB larger per architecture than default.
+ */
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+/**
+ * Whether to enable the Hermes VM.
+ *
+ * This should be set on project.ext.react and mirrored here.  If it is not set
+ * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
+ * and the benefits of using Hermes will therefore be sharply reduced.
+ */
+def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-  compileSdkVersion safeExtGet("compileSdkVersion", 28)
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
-  defaultConfig {
-    applicationId 'com.ijzerenhein.sharedelement.rnstack'
-    minSdkVersion safeExtGet("minSdkVersion", 21)
-    targetSdkVersion safeExtGet("targetSdkVersion", 28)
-    versionCode 1
-    versionName '1.0.0'
-    ndk {
-      abiFilters 'armeabi-v7a', 'x86'
-    } 
-    multiDexEnabled true
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    // Deprecated. Used by net.openid:appauth
-    manifestPlaceholders = [
-        'appAuthRedirectScheme': 'host.exp.exponent'
-    ]
-  }
-  dexOptions {
-    javaMaxHeapSize System.getenv("DISABLE_DEX_MAX_HEAP") ? null : "8g"
-  }
+    defaultConfig {
+        applicationId "com.example"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    splits {
+        abi {
+            reset()
+            enable enableSeparateBuildPerCPUArchitecture
+            universalApk false  // If true, also generate a universal APK
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // Caution! In production, you need to generate your own keystore file.
+            // see https://facebook.github.io/react-native/docs/signed-apk-android.
+            signingConfig signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+    // applicationVariants are e.g. debug, release
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            // For each separate APK per architecture, set a unique version code as described here:
+            // https://developer.android.com/studio/build/configure-apk-splits.html
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
+            def abi = output.getFilter(OutputFile.ABI)
+            if (abi != null) {  // null for the universal-debug, universal-release variants
+                output.versionCodeOverride =
+                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+            }
 
-  signingConfigs {
-    debug {
-      storeFile file('../debug.keystore')
+        }
     }
-    release {
-      storeFile file(System.getenv("ANDROID_KEYSTORE_PATH") ?: "release-key.jks")
-      storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-      keyAlias System.getenv("ANDROID_KEY_ALIAS")
-      keyPassword System.getenv("ANDROID_KEY_PASSWORD")
-    }
-  }
-  buildTypes {
-    debug {
-      debuggable true
-      ext.enableCrashlytics = false
-    }
-    release {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      signingConfig signingConfigs.release
-    }
-  }
-  lintOptions {
-    abortOnError false
-  }
-  packagingOptions {
-    pickFirst "**"
-  }
 }
-
-devicefarm {
-  projectName System.getenv("DEVICEFARM_PROJECT_NAME")
-  devicePool System.getenv("DEVICEFARM_DEVICE_POOL")
-  executionTimeoutMinutes 40
-  authentication {
-
-    accessKey System.getenv("AWS_ACCESS_KEY_ID")
-    secretKey System.getenv("AWS_SECRET_ACCESS_KEY")
-  }
-}
-
-configurations.all {
-  resolutionStrategy {
-    force 'org.webkit:android-jsc:r241213'
-  }
-}
-
-// WHEN_PREPARING_SHELL_REMOVE_FROM_HERE
-
-apply from: 'expo.gradle'
-
-// WHEN_PREPARING_SHELL_REMOVE_TO_HERE
-
-apply from: "../../node_modules/react-native-unimodules/gradle.groovy"
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 
-  implementation 'com.android.support:multidex:1.0.1'
-
-  // Our dependencies
-  implementation "com.android.support:appcompat-v7:$supportLibVersion"
-
-  // Our dependencies from ExpoView
-  // DON'T ADD ANYTHING HERE THAT ISN'T IN EXPOVIEW. ONLY COPY THINGS FROM EXPOVIEW TO HERE.
-  implementation "com.android.support:appcompat-v7:$supportLibVersion"
-  implementation 'com.facebook.android:facebook-android-sdk:5.0.1'
-  implementation('com.facebook.android:audience-network-sdk:5.1.1') {
-    exclude module: 'play-services-ads'
-  }
-  compileOnly 'org.glassfish:javax.annotation:3.1.1'
-  implementation 'com.jakewharton:butterknife:9.0.0'
-  implementation 'de.greenrobot:eventbus:2.4.0'
-
-  implementation 'com.squareup.picasso:picasso:2.5.2'
-  implementation 'com.google.android.gms:play-services-gcm:15.0.1'
-  implementation 'com.google.android.gms:play-services-analytics:16.0.1'
-  implementation 'com.google.android.gms:play-services-maps:15.0.1'
-  implementation 'com.google.android.gms:play-services-auth:15.0.1'
-  implementation 'com.google.android.gms:play-services-location:15.0.1'
-  implementation 'com.google.android.gms:play-services-ads:15.0.1'
-  annotationProcessor 'com.raizlabs.android:DBFlow-Compiler:2.2.1'
-  implementation "com.raizlabs.android:DBFlow-Core:2.2.1"
-  implementation "com.raizlabs.android:DBFlow:2.2.1"
-  implementation "com.madgag.spongycastle:core:1.53.0.0"
-  implementation "com.madgag.spongycastle:prov:1.53.0.0"
-  debugImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
-  // debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.4-beta1'
-  releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
-  implementation 'com.facebook.device.yearclass:yearclass:2.1.0'
-  implementation 'commons-io:commons-io:1.4'
-  implementation 'me.leolin:ShortcutBadger:1.1.4@aar'
-  implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
-  implementation 'commons-codec:commons-codec:1.10'
-  implementation 'com.segment.analytics.android:analytics:4.3.0'
-  implementation 'com.google.zxing:core:3.3.3'
-  implementation 'net.openid:appauth:0.4.1'
-  implementation 'com.airbnb.android:lottie:2.5.6'
-  implementation('io.nlopez.smartlocation:library:3.2.11') {
-    transitive = false
-  }
-  implementation "com.android.support:exifinterface:${safeExtGet("supportLibVersion", "28.0.0")}"
-  implementation 'com.squareup.okio:okio:1.9.0'
-  implementation 'com.facebook.soloader:soloader:0.6.0'
-
-  // expo-file-system
-  implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-  implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.10.0'
-
-  // Testing
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-  // We use a modified build of com.android.support.test:runner:1.0.1. Explanation in maven-test/README
-  androidTestImplementation 'com.android.support.test:runner:1.0.1'
-  androidTestImplementation "com.android.support:support-annotations:${safeExtGet("supportLibVersion", "28.0.0")}"
-  androidTestImplementation 'com.google.code.findbugs:jsr305:3.0.0'
-  androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
-  androidTestImplementation 'com.azimolabs.conditionwatcher:conditionwatcher:0.2'
-
-  testImplementation 'junit:junit:4.12'
-  testImplementation 'org.mockito:mockito-core:1.10.19'
-  testImplementation 'org.robolectric:robolectric:3.8'
-  testImplementation 'com.android.support.test:runner:1.0.2-alpha1'
-  testImplementation 'com.android.support.test:rules:1.0.2-alpha1'
-
-  
-  implementation('host.exp.exponent:expoview:33.0.0@aar') {
-    transitive = true
-    exclude group: 'com.squareup.okhttp3', module: 'okhttp'
-    exclude group: 'com.squareup.okhttp3', module: 'okhttp-urlconnection'
-  }
-  
-
-
-  
-  api 'org.webkit:android-jsc:r241213' // needs to be before react-native
-  api 'com.facebook.react:react-native:33.0.0'
-  
-
-
-  
-  addUnimodulesDependencies([
-      modulesPaths : [
-        '../../node_modules'
-      ],
-      configuration: 'api',
-      target       : 'react-native',
-      exclude      : [
-        // You can exclude unneeded modules here.
-        // By default we exclude FaceDetector
-        // and Stripe payments APIs.
-        'unimodules-face-detector-interface',
-        'expo-face-detector',
-        'expo-payments-stripe'
-
-        // Adding a name here will also remove the package
-        // from auto-generated BasePackageList.java
-      ]
-  ])
-  
+    if (enableHermes) {
+        def hermesPath = "../../node_modules/hermes-engine/android/";
+        debugImplementation files(hermesPath + "hermes-debug.aar")
+        releaseImplementation files(hermesPath + "hermes-release.aar")
+    } else {
+        implementation jscFlavor
+    }
 }
 
-// This has to be down here for some reason
-apply plugin: 'com.google.gms.google-services'
+// Run this once to be able to run the application with BUCK
+// puts all compile dependencies into folder libs for BUCK to use
+task copyDownloadableDepsToLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
+}
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)

@@ -4,11 +4,11 @@ import SharedElementSceneData, {
 import {
   SharedElementEventSubscription,
   SharedElementsStrictConfig,
-  SharedElementAnimatedValue,
   SharedElementTransitionProps,
-  Route,
+  SharedElementRoute,
 } from './types';
 import { normalizeSharedElementsConfig } from './utils';
+import { Animated } from 'react-native';
 
 export type SharedElementRendererUpdateHandler = () => any;
 
@@ -17,7 +17,7 @@ export interface ISharedElementRendererData {
   endTransition(closing: boolean, navigatorId: string): void;
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ): void;
   readonly nestingDepth: number;
@@ -31,7 +31,7 @@ function getSharedElements(
   const { sharedElements } = sceneData.Component;
   if (!sharedElements) return null;
   return normalizeSharedElementsConfig(
-    sharedElements(sceneData.navigation, otherSceneData.navigation, showing)
+    sharedElements(sceneData.route, otherSceneData.route, showing)
   );
 }
 
@@ -39,7 +39,7 @@ const NO_SHARED_ELEMENTS: any[] = [];
 
 type SceneRoute = {
   scene: SharedElementSceneData;
-  route: Route;
+  route: SharedElementRoute;
   subscription: SharedElementEventSubscription | null;
 };
 
@@ -59,9 +59,9 @@ export default class SharedElementRendererData
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
   private sharedElements: SharedElementsStrictConfig | null = null;
   private isShowing: boolean = true;
-  private animValue: SharedElementAnimatedValue;
-  private route: Route | null = null;
-  private prevRoute: Route | null = null;
+  private animValue?: Animated.AnimatedInterpolation | null;
+  private route: SharedElementRoute | null = null;
+  private prevRoute: SharedElementRoute | null = null;
   private scene: SharedElementSceneData | null = null;
   private prevScene: SharedElementSceneData | null = null;
 
@@ -70,7 +70,10 @@ export default class SharedElementRendererData
   private transitionNavigatorId: string = '';
 
   startTransition(closing: boolean, navigatorId: string) {
-    //console.log(`startTransition[${navigatorId}], closing: ${closing}`);
+    console.log(
+      `startTransition[${navigatorId}], closing: ${closing}, route: ${this.route}`,
+      this
+    );
 
     this.prevRoute = this.route;
     this.route = null;
@@ -96,7 +99,7 @@ export default class SharedElementRendererData
     // @ts-ignore
     navigatorId: string
   ) {
-    //console.log(`endTransition[${navigatorId}], closing: ${closing}`);
+    console.log(`endTransition[${navigatorId}], closing: ${closing}`);
 
     this.isTransitionStarted = false;
 
@@ -110,7 +113,7 @@ export default class SharedElementRendererData
 
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ): void {
     switch (sceneEvent) {
@@ -123,10 +126,13 @@ export default class SharedElementRendererData
     }
   }
 
-  willFocusScene(sceneData: SharedElementSceneData, route: Route): void {
-    /*console.log(
+  willFocusScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ): void {
+    console.log(
       `willFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
-    );*/
+    );
     this.registerScene(sceneData, route);
 
     // Wait for a transition start, before starting any animations
@@ -162,10 +168,13 @@ export default class SharedElementRendererData
     }
   }
 
-  didFocusScene(sceneData: SharedElementSceneData, route: Route): void {
-    /*console.log(
+  didFocusScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ): void {
+    console.log(
       `didFocusScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
-    );*/
+    );
     this.route = route;
     this.prevRoute = null;
     this.registerScene(sceneData, route);
@@ -174,11 +183,11 @@ export default class SharedElementRendererData
   willBlurScene(
     sceneData: SharedElementSceneData,
     // @ts-ignore
-    route: Route
+    route: SharedElementRoute
   ): void {
-    /*console.log(
+    console.log(
       `willBlurScene[${sceneData.navigatorId}], name: ${sceneData.name}, depth: ${sceneData.nestingDepth}`
-    );*/
+    );
 
     // Wait for a transition start, before starting any animations
     if (!this.isTransitionStarted) return;
@@ -200,7 +209,10 @@ export default class SharedElementRendererData
     }
   }
 
-  private registerScene(sceneData: SharedElementSceneData, route: Route) {
+  private registerScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ) {
     this.scenes.push({
       scene: sceneData,
       route,
@@ -209,7 +221,7 @@ export default class SharedElementRendererData
     if (this.scenes.length > 10) {
       const { subscription } = this.scenes[0];
       this.scenes.splice(0, 1);
-      if (subscription) subscription.remove();
+      if (subscription) subscription();
     }
     this.updateSceneListeners();
     this.updateSharedElements();
@@ -228,12 +240,14 @@ export default class SharedElementRendererData
         });
       } else if (!isActive && subscription) {
         sceneRoute.subscription = null;
-        subscription.remove();
+        subscription();
       }
     });
   }
 
-  private getScene(route: Route | null): SharedElementSceneData | null {
+  private getScene(
+    route: SharedElementRoute | null
+  ): SharedElementSceneData | null {
     const sceneRoute = route
       ? this.scenes.find(sc => sc.route.key === route.key)
       : undefined;
@@ -263,14 +277,14 @@ export default class SharedElementRendererData
     if (this.sharedElements !== sharedElements) {
       this.sharedElements = sharedElements;
       this.isShowing = isShowing;
-      /*console.log(
+      console.log(
         'updateSharedElements: ',
         sharedElements,
         ' ,isShowing: ',
         isShowing,
         ', animValue: ',
         animValue
-      );*/
+      );
       this.emitUpdateEvent();
     }
   }
@@ -279,9 +293,7 @@ export default class SharedElementRendererData
     handler: SharedElementRendererUpdateHandler
   ): SharedElementEventSubscription {
     this.updateSubscribers.add(handler);
-    return {
-      remove: () => this.updateSubscribers.delete(handler),
-    };
+    return () => this.updateSubscribers.delete(handler);
   }
 
   private emitUpdateEvent(): void {

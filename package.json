@@ -43,6 +43,8 @@
   },
   "homepage": "https://github.com/IjzerenHein/react-navigation-shared-element#readme",
   "dependencies": {
+    "@react-navigation/core": "^5.1.6",
+    "@react-navigation/routers": "^5.0.2",
     "hoist-non-react-statics": "^3.3.1"
   },
   "devDependencies": {
@@ -50,8 +52,8 @@
     "@commitlint/config-conventional": "^8.1.0",
     "@react-native-community/bob": "^0.8.0",
     "@react-native-community/eslint-config": "^0.0.6",
-    "@react-navigation/core": "^3.5.1",
-    "@react-navigation/native": "^3.6.2",
+    "@react-navigation/native": "^5.0.6",
+    "@react-navigation/stack": "^5.0.6",
     "@release-it/conventional-changelog": "^1.1.0",
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^24.9.0",
@@ -71,19 +73,16 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-native": "^0.61.5",
-    "react-native-shared-element": "^0.5.5",
-    "react-navigation-stack": "^2",
+    "react-native-shared-element": "0.5.3",
     "react-test-renderer": "16.9.0",
     "release-it": "^12.4.3",
     "scheduler": "^0.18.0",
     "typescript": "^3.7.4"
   },
   "peerDependencies": {
-    "@react-navigation/core": "^3.0.0",
     "react": "*",
     "react-native": "*",
-    "react-native-shared-element": "*",
-    "react-navigation-stack": "^2"
+    "react-native-shared-element": "*"
   },
   "jest": {
     "preset": "react-native",
