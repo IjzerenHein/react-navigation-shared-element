@@ -47,43 +47,65 @@ function createSharedElementStackSceneNavigator(
     }
   }
 
+  // default Navigation Options
+  let defaultNavigationOptionsNew = {}
+
+  let transitionOptions = {
+    onTransitionStart: (transitionProps: { closing: boolean }) => {
+      rendererData.startTransition(
+        transitionProps.closing,
+        navigatorId,
+        rendererData.nestingDepth
+      );
+      if (
+        navigatorConfig &&
+        navigatorConfig.defaultNavigationOptions &&
+        navigatorConfig.defaultNavigationOptions.onTransitionStart
+      ) {
+        navigatorConfig.defaultNavigationOptions.onTransitionStart(
+          transitionProps
+        );
+      }
+    },
+    onTransitionEnd: (transitionProps: { closing: boolean }) => {
+      rendererData.endTransition(
+        transitionProps.closing,
+        navigatorId,
+        rendererData.nestingDepth
+      );
+      if (
+        navigatorConfig &&
+        navigatorConfig.defaultNavigationOptions &&
+        navigatorConfig.defaultNavigationOptions.onTransitionEnd
+      ) {
+        navigatorConfig.defaultNavigationOptions.onTransitionEnd(
+          transitionProps
+        );
+      }
+    },
+  };
+
+  // handling default navigation options if they are function
+  if (navigatorConfig && navigatorConfig.defaultNavigationOptions) {
+    if (typeof navigatorConfig.defaultNavigationOptions === 'function') { 
+      defaultNavigationOptionsNew = (props: Object) => {
+        return {
+          ...navigatorConfig.defaultNavigationOptions(props),
+          ...transitionOptions,
+        };
+      };
+    } else {
+      defaultNavigationOptionsNew = {
+        ...navigatorConfig.defaultNavigationOptions,
+        ...transitionOptions,
+      };
+    }
+  }
+
+
   return createStackNavigator(wrappedRouteConfigs, {
     ...navigatorConfig,
-    defaultNavigationOptions: {
-      ...navigatorConfig?.defaultNavigationOptions,
-      onTransitionStart: (transitionProps: { closing: boolean }) => {
-        rendererData.startTransition(
-          transitionProps.closing,
-          navigatorId,
-          rendererData.nestingDepth
-        );
-        if (
-          navigatorConfig &&
-          navigatorConfig.defaultNavigationOptions &&
-          navigatorConfig.defaultNavigationOptions.onTransitionStart
-        ) {
-          navigatorConfig.defaultNavigationOptions.onTransitionStart(
-            transitionProps
-          );
-        }
-      },
-      onTransitionEnd: (transitionProps: { closing: boolean }) => {
-        rendererData.endTransition(
-          transitionProps.closing,
-          navigatorId,
-          rendererData.nestingDepth
-        );
-        if (
-          navigatorConfig &&
-          navigatorConfig.defaultNavigationOptions &&
-          navigatorConfig.defaultNavigationOptions.onTransitionEnd
-        ) {
-          navigatorConfig.defaultNavigationOptions.onTransitionEnd(
-            transitionProps
-          );
-        }
-      },
-    },
+    defaultNavigationOptions: defaultNavigationOptionsNew,
   });
 }
 
