@@ -30,6 +30,7 @@ Unlikely to be supported:
   - [SharedElement](#sharedelement)
   - [sharedElements config](#sharedelements-config)
 - [Demo App](#demo-app)
+- [Videos](#videos)
 - [License](#license)
 
 ## Installation
@@ -220,6 +221,10 @@ The following fields can be specified in a config item
 ## Demo App
 
 - [react-navigation-shared-element-demo](https://github.com/IjzerenHein/react-navigation-shared-element-demo)
+
+## Videos
+
+- [Airbnb Shared Transition - “Can it be done in React Native?”](https://www.youtube.com/watch?v=83GNiMp-qq0)
 
 ## License
 

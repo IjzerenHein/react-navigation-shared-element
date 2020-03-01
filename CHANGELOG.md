@@ -1,3 +1,11 @@
+# [2.1.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.0.2...v2.1.0) (2020-02-22)
+
+### Bug Fixes
+
+- Fix no transition when navigators are nested inside `createSharedElementStackNavigator`.
+- Fix exception when nesting a Navigator inside `createSharedElementStackNavigator`.
+
+
 ## [2.0.2](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.0.1...v2.0.2) (2020-02-13)
 
 ### Bug Fixes

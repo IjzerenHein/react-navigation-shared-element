@@ -63,11 +63,19 @@ function createSharedElementScene(
     }
 
     transitionStart({ data: { closing } }: any) {
-      rendererData.startTransition(closing, navigatorId);
+      rendererData.startTransition(
+        closing,
+        navigatorId,
+        rendererData.nestingDepth
+      );
     }
 
     transitionEnd = ({ data: { closing } }: any) => {
-      rendererData.endTransition(closing, navigatorId);
+      rendererData.endTransition(
+        closing,
+        navigatorId,
+        rendererData.nestingDepth
+      );
     };
 
     componentWillUnmount() {
@@ -86,6 +94,7 @@ function createSharedElementScene(
             <AnimationContext.Consumer>
               {this.onRenderAnimationContext}
             </AnimationContext.Consumer>
+            <Component {...this.props} />
           </View>
         </SharedElementSceneContext.Provider>
       );
@@ -95,7 +104,7 @@ function createSharedElementScene(
       value: StackCardInterpolationProps | undefined
     ) => {
       this.sceneData.setAnimimationContextValue(value);
-      return <Component {...this.props} />;
+      return null;
     };
 
     componentDidUpdate() {
@@ -109,9 +118,9 @@ function createSharedElementScene(
     private onWillFocus = () => {
       const { navigation, route } = this.props;
 
+      //console.log('onWillFocus: ', navigation.state, activeRoute);
       if (isActiveRoute(navigation, route)) {
         rendererData.updateSceneState(this.sceneData, route, 'willFocus');
-
         InteractionManager.runAfterInteractions(() => {
           rendererData.updateSceneState(this.sceneData, route, 'didFocus');
         });
@@ -121,6 +130,7 @@ function createSharedElementScene(
     private onWillBlur = () => {
       const { route } = this.props;
 
+      //console.log('onWillBlur: ', navigation.state, activeRoute);
       rendererData.updateSceneState(this.sceneData, route, 'willBlur');
     };
   }
