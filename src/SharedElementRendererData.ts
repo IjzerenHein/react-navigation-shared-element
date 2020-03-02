@@ -345,14 +345,14 @@ export default class SharedElementRendererData
     if (this.sharedElements !== sharedElements) {
       this.sharedElements = sharedElements;
       this.isShowing = isShowing;
-      // console.log(
-      //   'updateSharedElements: ',
-      //   sharedElements,
-      //   ' ,isShowing: ',
-      //   isShowing,
-      //   ', animValue: ',
-      //   animValue
-      // );
+      /*console.log(
+        'updateSharedElements: ',
+        sharedElements,
+        ' ,isShowing: ',
+        isShowing,
+        ', animValue: ',
+        animValue
+      );*/
       this.emitUpdateEvent();
     }
   }

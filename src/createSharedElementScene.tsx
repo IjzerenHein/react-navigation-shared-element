@@ -49,7 +49,6 @@ function createSharedElementScene(
       const { navigation } = this.props;
       this.subscriptions = {
         willFocus: navigation.addListener('focus', this.onWillFocus),
-        // didFocus: navigation.addListener('didFocus', this.onDidFocus),
         willBlur: navigation.addListener('blur', this.onWillBlur),
         transitionStart: navigation.addListener(
           'transitionStart',
