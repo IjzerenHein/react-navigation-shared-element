@@ -8,18 +8,14 @@ This library is currently undergoing development to support the latest react-nav
 
 Supported are:
 
-- [X] react-navigation 4 & 3
-- [X] react-navigation-stack 2 
-- [X] react-navigation-stack 1 [(use react-navigation-shared-element@1)](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1)
-
-Not yet supported:
-
-- [ ] [react-navigation 5](https://github.com/IjzerenHein/react-navigation-shared-element/issues/2)
+- [x] react-navigation 5 (v3)
+- [x] react-navigation 4 & 3 (use react-navigation-shared-element@2)
+- [x] react-navigation-stack 2 (use react-navigation-shared-element@2)
+- [x] react-navigation-stack 1 [(use react-navigation-shared-element@1)](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1)
 
 Unlikely to be supported:
 
 - [ ] [react-native-screens/createNativeStackNavigator](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14)
-
 
 ## Index <!-- omit in toc -->
 
@@ -41,15 +37,13 @@ Open a Terminal in your project's folder and run,
 $ yarn add react-navigation-shared-element react-native-shared-element
 ```
 
-Enure that [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) is also linked into your project.
+Ensure that [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) is also linked into your project.
 
 Finally, make sure that the compatible react-navigation dependencies are installed:
 
 ```sh
-$ yarn add react-navigation@4 react-navigation-stack@2
+$ yarn add @react-navigation/core@^5.2.0 @react-navigation/native@^5.0.9 @react-navigation/stack@^5.1.1
 ```
-
-> react-navigation@5 is not supported yet, so don't bother..
 
 ## Usage
 
@@ -57,22 +51,31 @@ In order to enable shared element transitions, the following steps need to be pe
 
 - Create a stack-navigator using `createSharedElementStackNavigator`
 - Wrap your component with `<SharedElement>` and provide a unique `id`
-- Define a static `sharedElements` config on the Screen that you want to animate
+- Define a `sharedElementsConfig` config on the Screen that you want to animate
 
 ```jsx
+import { NavigationContainer } from '@react-navigation/native';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
-const stackNavigator = createSharedElementStackNavigator(
-  {
-    List: ListScreen,
-    Detail: DetailScreen,
-  },
-  {
-    initialRouteName: 'List',
-  }
-);
+const Stack = createSharedElementStackNavigator();
 
-const AppContainer = createAppContainer(stackNavigator);
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="List">
+        <Stack.Screen name="List" component={ListScreen} />
+        <Stack.Screen
+          name="Detail"
+          component={DetailScreen}
+          sharedElementsConfig={(route, otherRoute, showing) => {
+            const { item } = route.params;
+            return [`item.${item.id}.photo`];
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 ```
 
 ```jsx
@@ -95,18 +98,13 @@ class ListScreen extends React.Component {
 
 ```jsx
 // DetailScreen.js
-const DetailScreen = (props) => {
-  const item = props.navigation.getParam('item');
+const DetailScreen = props => {
+  const { item } = props.route.params;
   return (
     <SharedElement id={`item.${item.id}.photo`}>
       <Image source={item.photoUrl} />
     </SharedElement>
   );
-};
-
-DetailScreen.sharedElements = (navigation, otherNavigation, showing) => {
-  const item = navigation.getParam('item');
-  return [`item.${item.id}.photo`];
 };
 ```
 
@@ -122,13 +120,6 @@ It performs the following actions
 - Wraps each route with a shared element scene
 - Detects route changes and trigger shared element transitions
 
-**Arguments**
-
-| Argument               | Type     | Description            |
-| ---------------------- | -------- | ---------------------- |
-| `routeConfig`          | `object` | Routes-config          |
-| `stackNavigatorConfig` | `object` | Stack navigator config |
-
 ### SharedElement
 
 The `<SharedElement>` component accepts a single child and a _"shared"_ id. The child is the element that is made available for doing shared element transitions. It can be any component, like a `<View>`, `<Text>` or `<Image>`. In case the wrapped view is an `<Image>`, special handling is performed to deal with image loading and resizing.
@@ -143,34 +134,46 @@ This component is synonymous for the `<SharedElement>` component as defined in `
 | `id`            | `string`  | Unique id of the shared element                                                      |
 | `View props...` |           | Other props supported by View                                                        |
 
-### sharedElements config
+### sharedElementsConfig
 
-In order to trigger shared element transitions between screens, a static `sharedElements` config needs to be defined on one of the two screens. For
-each screen transition, both screens are evaluated and checked whether they have a `sharedElements` config. The screen that is being shown is **evaluated first**, followed by the screen that is being hidden. If `undefined` is returned, evaluation continues at the other screen.
+In order to trigger shared element transitions between screens, a `sharedElementsConfig` function needs to be defined on one of the two screens. For
+each screen transition, both screens are evaluated and checked whether they have a `sharedElementsConfig`. The screen that is being shown is **evaluated first**, followed by the screen that is being hidden. If `undefined` is returned, evaluation continues at the other screen.
 
 The `sharedElements` function receives 3 arguments
 
-| Argument          | Type             | Description                                                                                                                                            |
-| ----------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `navigation`      | `NavigationProp` | Navigation prop of the current screen. You can use this to get the params of the screen using `getParam`, or the route-name using `state.routeName`    |
-| `otherNavigation` | `NavigationProp` | The navigation-prop of the other screen. You can use this to get the params of that screen using `getParam`, or the route-name using `state.routeName` |
-| `showing`         | `boolean`        | `true` when this screen is being shown, and `false` when this screen is being hidden.                                                                  |  |
+| Argument     | Type      | Description                                                                                                                                      |
+| ------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `route`      | `Route`   | Route prop of the current screen. You can use this to get the params of the screen using `route.params`, or the route-name using `route.name`    |
+| `otherRoute` | `Route`   | The route prop of the other screen. You can use this to get the params of that screen using `route.params`, or the route-name using `route.name` |
+| `showing`    | `boolean` | `true` when this screen is being shown, and `false` when this screen is being hidden.                                                            |  |
 
 The return value should be either `undefined` or an array of shared-element configs or identifiers. Specifying a string-identifier is shorthand for `{id: 'myid'}`.
 
 **Basic example**
 
 ```js
-class DetailScreen extends Component {
-  static sharedElements = (navigation, otherNavigation, showing) => {
-    // Transition element `item.${item.id}.photo` when either
-    // showing or hiding this screen (coming from any route)
-    const item = navigation.getParam('item');
-    return [`item.${item.id}.photo`];
-  }
+import { NavigationContainer } from '@react-navigation/native';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
-  render() {...}
-}
+const Stack = createSharedElementStackNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="List">
+        <Stack.Screen name="List" component={ListScreen} />
+        <Stack.Screen
+          name="Detail"
+          component={DetailScreen}
+          sharedElementsConfig={(route, otherRoute, showing) => {
+            const { item } = route.params;
+            return [`item.${item.id}.photo`];
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 ```
 
 **Only transition when coming from a specific route**
@@ -178,15 +181,16 @@ class DetailScreen extends Component {
 If you only want to show a transition when pushing from a particular screen, then use the route-name and `showing` argument.
 
 ```js
-class DetailScreen extends Component {
-  static sharedElements = (navigation, otherNavigation, showing) => {
-    if ((otherNavigation.state.routeName === 'List') && showing) {
-      const item = navigation.getParam('item');
+<Stack.Screen
+  name="Detail"
+  component={DetailScreen}
+  sharedElementsConfig={(route, otherRoute, showing) => {
+    if (otherRoute.name === 'List' && showing) {
+      const { item } = route.params;
       return [`item.${item.id}.photo`];
     }
-  }
-  ...
-}
+  }}
+/>
 ```
 
 **Customize the animation**
@@ -194,17 +198,35 @@ class DetailScreen extends Component {
 If the source- and target elements are visually distinct, the consider using a cross-fade animation.
 
 ```js
+<Stack.Screen
+  name="Detail"
+  component={DetailScreen}
+  sharedElementsConfig={(route, otherRoute, showing) => {
+    const { item } = route.params;
+    return [
+      {
+        id: `item.${item.id}.photo`,
+        animation: 'fade',
+        // resize: 'clip'
+        // align: ''left-top'
+      },
+    ];
+  }}
+/>
+```
+
+**Static shared elements config**
+
+A `sharedElements` function can also be defined on the component itself, instead of the `Screen`, but this is no longer considered good practice.
+
+```js
 class DetailScreen extends Component {
-  static sharedElements = (navigation, otherNavigation, showing) => {
-    const item = navigation.getParam('item');
-    return [{
-      id: `item.${item.id}.photo`,
-      animation: 'fade'
-      // resize: 'clip'
-      // align: ''left-top'
-    }];
+  static sharedElements = (route, otherRoute, showing) => {
+    const { item } = route.params;
+    return [`item.${item.id}.photo`];;
   }
-  ...
+
+  render() {...}
 }
 ```
 
