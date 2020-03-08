@@ -6,6 +6,7 @@ import {
   DefaultNavigatorOptions,
   RouteConfig,
   StackRouterOptions,
+  StackNavigationState,
 } from '@react-navigation/native';
 import {
   CardAnimationContext,
@@ -21,6 +22,10 @@ import {
   SharedElementSceneComponent,
   SharedElementsComponentConfig,
 } from './types';
+import {
+  StackNavigationConfig,
+  StackNavigationEventMap,
+} from '@react-navigation/stack/lib/typescript/src/types';
 
 let _navigatorId = 1;
 
@@ -34,7 +39,8 @@ export default function createSharedElementStackNavigator<
   const rendererDataProxy = new SharedElementRendererProxy();
 
   type Props = DefaultNavigatorOptions<StackNavigationOptions> &
-    StackRouterOptions;
+    StackRouterOptions &
+    StackNavigationConfig;
 
   function SharedElementStackNavigator({
     initialRouteName,
@@ -42,14 +48,16 @@ export default function createSharedElementStackNavigator<
     screenOptions,
     ...rest
   }: Props) {
-    const { state, descriptors, navigation } = useNavigationBuilder(
-      StackRouter,
-      {
-        initialRouteName,
-        children,
-        screenOptions,
-      }
-    );
+    const { state, descriptors, navigation } = useNavigationBuilder<
+      StackNavigationState,
+      StackRouterOptions,
+      StackNavigationOptions,
+      StackNavigationEventMap
+    >(StackRouter, {
+      initialRouteName,
+      children,
+      screenOptions,
+    });
 
     const rendererDataRef = React.useRef<SharedElementRendererData | null>(
       null
@@ -90,14 +98,22 @@ export default function createSharedElementStackNavigator<
   }
 
   const navigatorFactory = createNavigatorFactory<
+    StackNavigationState,
     StackNavigationOptions,
+    StackNavigationEventMap,
     typeof SharedElementStackNavigator
   >(SharedElementStackNavigator);
 
   const { Navigator, Screen } = navigatorFactory<ParamList>();
 
   type ScreenProps<RouteName extends keyof ParamList> = Omit<
-    RouteConfig<ParamList, RouteName, object>,
+    RouteConfig<
+      ParamList,
+      RouteName,
+      StackNavigationState,
+      StackNavigationOptions,
+      StackNavigationEventMap
+    >,
     'component' | 'children'
   > & {
     component: SharedElementSceneComponent;
@@ -139,8 +155,9 @@ export default function createSharedElementStackNavigator<
 
   // react-navigation only allows the Screen component as direct children
   // of Navigator, this is why we need to wrap the Navigator
-  function wrapNavigator(props: NavigatorProps) {
+  function WrapNavigator(props: NavigatorProps) {
     const { children, ...rest } = props;
+    const componentMapRef = React.useRef<Map<any, any>>(new Map());
     const screenChildrenProps = getSharedElementsChildrenProps(children);
 
     return (
@@ -150,11 +167,17 @@ export default function createSharedElementStackNavigator<
             if (sharedElementsConfig)
               component.sharedElements = sharedElementsConfig;
 
+            if (!componentMapRef.current.has(component)) {
+              componentMapRef.current.set(component, wrapComponent(component));
+            }
+
+            const wrappedComponent = componentMapRef.current.get(component);
+
             return (
               <Screen
                 key={childrenProps.name}
                 {...childrenProps}
-                component={wrapComponent(component)}
+                component={wrappedComponent}
               />
             );
           }
@@ -164,7 +187,7 @@ export default function createSharedElementStackNavigator<
   }
 
   return {
-    Navigator: wrapNavigator,
+    Navigator: WrapNavigator,
     Screen: wrapScreen,
   };
 }
