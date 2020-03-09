@@ -19,18 +19,6 @@ export type NavigationEventName =
   | 'transitionStart'
   | 'transitionEnd';
 
-export type NavigationState = {
-  key: string;
-  index: number;
-  routes: Route<any>[];
-  name: string;
-  transitions: {
-    pushing: string[];
-    popping: string[];
-  };
-  params?: { [key: string]: unknown };
-};
-
 export type SharedElementEventSubscription = () => void;
 
 export type SharedElementStrictConfig = {
