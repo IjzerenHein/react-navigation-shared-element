@@ -215,6 +215,33 @@ If the source- and target elements are visually distinct, the consider using a c
 />
 ```
 
+**TypeScript**
+
+The `createSharedElementStackNavigator` has a generic parameter which allows you to statically type the screens and route params just like with `createStackNavigator`:
+
+```tsx
+type SharedStackParams = {
+  List: undefined;
+  Details: {
+    id: number;
+    src: string;
+  };
+};
+
+const { Navigator, Screen } = createSharedElementStackNavigator<SharedStackParams>();
+
+export default () => (
+  <Navigator initialRouteName="List">
+    <Screen name="List" component={ListScreen} />
+    <Screen
+      name="Details"
+      component={DetailsScreen}
+      initialParams={{ id: 0, src: 'unknown' }} {/* route params are statically typed */}
+    />
+  </Navigator>
+);
+```
+
 **Static shared elements config**
 
 A `sharedElements` function can also be defined on the component itself, instead of the `Screen`, but this is no longer considered good practice.
