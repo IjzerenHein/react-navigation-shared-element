@@ -21,7 +21,7 @@ export default class SharedElementRendererView extends React.PureComponent<
 
   componentWillUnmount() {
     if (this.subscription) {
-      this.subscription.remove();
+      this.subscription();
       this.subscription = undefined;
     }
   }

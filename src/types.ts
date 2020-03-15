@@ -1,3 +1,4 @@
+import { Route } from '@react-navigation/native';
 import {
   SharedElementNode,
   SharedElementAnimation,
@@ -12,49 +13,13 @@ export {
   SharedElementTransitionProps,
 };
 
-export type Route = {
-  key: string;
-  routeName: string;
-};
-
 export type NavigationEventName =
-  | 'willFocus'
-  | 'didFocus'
-  | 'willBlur'
-  | 'didBlur';
+  | 'focus'
+  | 'blur'
+  | 'transitionStart'
+  | 'transitionEnd';
 
-export type NavigationState = {
-  key: string;
-  index: number;
-  routes: Route[];
-  routeName: string;
-  transitions: {
-    pushing: string[];
-    popping: string[];
-  };
-  params?: { [key: string]: unknown };
-};
-
-export type NavigationProp<RouteName = string, Params = object> = {
-  navigate(routeName: RouteName): void;
-  goBack(): void;
-  goBack(key: string | null): void;
-  addListener: (
-    event: NavigationEventName,
-    callback: () => void
-  ) => { remove: () => void };
-  isFocused(): boolean;
-  state: NavigationState;
-  setParams(params: Params): void;
-  getParam(): Params;
-  dispatch(action: { type: string }): void;
-  isFirstRouteInParent(): boolean;
-  dangerouslyGetParent(): NavigationProp | undefined;
-};
-
-export type SharedElementEventSubscription = {
-  remove(): void;
-};
+export type SharedElementEventSubscription = () => void;
 
 export type SharedElementStrictConfig = {
   readonly id: string;
@@ -80,14 +45,20 @@ export type SharedElementConfig =
 
 export type SharedElementsConfig = SharedElementConfig[];
 
-export type SharedElementAnimatedValue = any;
+export type SharedElementRoute<
+  RouteName extends string = any,
+  Params extends object = any
+> = Omit<Route<RouteName>, 'params'> & { params?: Params };
 
-export type SharedElementsComponentConfig = (
-  navigation: NavigationProp,
-  otherNavigation: NavigationProp,
+export type SharedElementsComponentConfig<
+  Route extends SharedElementRoute = SharedElementRoute<any, any>,
+  OtherRoute extends SharedElementRoute = SharedElementRoute<any, any>
+> = (
+  route: Route,
+  otherRoute: OtherRoute,
   showing: boolean
 ) => SharedElementsConfig | undefined;
 
 export type SharedElementSceneComponent = React.ComponentType<any> & {
-  sharedElements: SharedElementsComponentConfig;
+  sharedElements?: SharedElementsComponentConfig;
 };

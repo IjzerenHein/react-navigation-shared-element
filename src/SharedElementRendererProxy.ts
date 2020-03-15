@@ -1,5 +1,5 @@
 import { ISharedElementRendererData } from './SharedElementRendererData';
-import { Route } from './types';
+import { SharedElementRoute } from './types';
 import SharedElementSceneData, {
   SharedElementSceneEventType,
 } from './SharedElementSceneData';
@@ -29,7 +29,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
 
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ) {
     if (!this.data) {

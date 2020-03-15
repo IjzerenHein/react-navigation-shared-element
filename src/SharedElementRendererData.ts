@@ -4,11 +4,11 @@ import SharedElementSceneData, {
 import {
   SharedElementEventSubscription,
   SharedElementsStrictConfig,
-  SharedElementAnimatedValue,
   SharedElementTransitionProps,
-  Route,
+  SharedElementRoute,
 } from './types';
 import { normalizeSharedElementsConfig } from './utils';
+import { Animated } from 'react-native';
 
 export type SharedElementRendererUpdateHandler = () => any;
 
@@ -25,7 +25,7 @@ export interface ISharedElementRendererData {
   ): void;
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ): void;
   readonly nestingDepth: number;
@@ -39,7 +39,7 @@ function getSharedElements(
   const { sharedElements } = sceneData.Component;
   if (!sharedElements) return null;
   return normalizeSharedElementsConfig(
-    sharedElements(sceneData.navigation, otherSceneData.navigation, showing)
+    sharedElements(sceneData.route, otherSceneData.route, showing)
   );
 }
 
@@ -47,7 +47,7 @@ const NO_SHARED_ELEMENTS: any[] = [];
 
 type SceneRoute = {
   scene: SharedElementSceneData;
-  route: Route;
+  route: SharedElementRoute;
   subscription: SharedElementEventSubscription | null;
 };
 
@@ -68,13 +68,13 @@ export default class SharedElementRendererData
   private sharedElements: SharedElementsStrictConfig | null = null;
   private isShowing: boolean = true;
 
-  private route: Route | null = null;
-  private prevRoute: Route | null = null;
-  private routeAnimValue: SharedElementAnimatedValue;
+  private route: SharedElementRoute | null = null;
+  private prevRoute: SharedElementRoute | null = null;
+  private routeAnimValue?: Animated.AnimatedInterpolation | null;
 
   private scene: SharedElementSceneData | null = null;
   private prevScene: SharedElementSceneData | null = null;
-  private sceneAnimValue: SharedElementAnimatedValue;
+  private sceneAnimValue?: Animated.AnimatedInterpolation | null;
 
   private isTransitionStarted: boolean = false;
   private isTransitionClosing: boolean = false;
@@ -149,7 +149,7 @@ export default class SharedElementRendererData
 
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ): void {
     switch (sceneEvent) {
@@ -162,7 +162,10 @@ export default class SharedElementRendererData
     }
   }
 
-  willFocusScene(sceneData: SharedElementSceneData, route: Route): void {
+  willFocusScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ): void {
     if (this.isVerbose)
       console.debug(
         `willFocusScene[${sceneData.navigatorId}], name: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
@@ -206,7 +209,10 @@ export default class SharedElementRendererData
     }
   }
 
-  didFocusScene(sceneData: SharedElementSceneData, route: Route): void {
+  didFocusScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ): void {
     if (this.isVerbose)
       console.debug(
         `didFocusScene[${sceneData.navigatorId}], name: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
@@ -227,7 +233,7 @@ export default class SharedElementRendererData
   willBlurScene(
     sceneData: SharedElementSceneData,
     // @ts-ignore
-    route: Route // eslint-disable-line @typescript-eslint/no-unused-vars
+    route: SharedElementRoute // eslint-disable-line @typescript-eslint/no-unused-vars
   ): void {
     if (this.isVerbose)
       console.debug(
@@ -258,7 +264,10 @@ export default class SharedElementRendererData
     }
   }
 
-  private registerScene(sceneData: SharedElementSceneData, route: Route) {
+  private registerScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ) {
     this.scenes.push({
       scene: sceneData,
       route,
@@ -267,7 +276,7 @@ export default class SharedElementRendererData
     if (this.scenes.length > 10) {
       const { subscription } = this.scenes[0];
       this.scenes.splice(0, 1);
-      if (subscription) subscription.remove();
+      if (subscription) subscription();
     }
     this.updateSceneListeners();
     //this.updateSharedElements();
@@ -286,12 +295,14 @@ export default class SharedElementRendererData
         });
       } else if (!isActive && subscription) {
         sceneRoute.subscription = null;
-        subscription.remove();
+        subscription();
       }
     });
   }
 
-  private getScene(route: Route | null): SharedElementSceneData | null {
+  private getScene(
+    route: SharedElementRoute | null
+  ): SharedElementSceneData | null {
     const sceneRoute = route
       ? this.scenes.find(sc => sc.route.key === route.key)
       : undefined;
@@ -350,9 +361,7 @@ export default class SharedElementRendererData
     handler: SharedElementRendererUpdateHandler
   ): SharedElementEventSubscription {
     this.updateSubscribers.add(handler);
-    return {
-      remove: () => this.updateSubscribers.delete(handler),
-    };
+    return () => this.updateSubscribers.delete(handler);
   }
 
   private emitUpdateEvent(): void {

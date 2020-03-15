@@ -2,9 +2,13 @@ import {
   SharedElementNode,
   SharedElementEventSubscription,
   SharedElementSceneComponent,
-  SharedElementAnimatedValue,
-  NavigationProp,
+  SharedElementRoute,
 } from './types';
+import {
+  StackNavigationProp,
+  StackCardInterpolationProps,
+} from '@react-navigation/stack';
+import { Animated } from 'react-native';
 
 export type SharedElementSceneUpdateHandlerEventType =
   | 'ancestor'
@@ -34,21 +38,24 @@ export default class SharedElementSceneData {
   private nodes: {
     [key: string]: SharedElementNode;
   } = {};
-  private animationContextValue: any;
+  private animationContextValue?: StackCardInterpolationProps;
   public readonly Component: SharedElementSceneComponent;
   public readonly name: string;
   public readonly navigatorId: string;
   public readonly nestingDepth: number;
-  public navigation: NavigationProp;
+  public navigation: StackNavigationProp<any>;
+  public route: SharedElementRoute<any>;
 
   constructor(
     Component: SharedElementSceneComponent,
-    navigation: NavigationProp,
+    navigation: StackNavigationProp<any>,
+    route: SharedElementRoute,
     navigatorId: string,
     nestingDepth: number
   ) {
     this.Component = Component;
     this.navigation = navigation;
+    this.route = route;
     this.navigatorId = navigatorId;
     this.nestingDepth = nestingDepth;
     this.name =
@@ -58,11 +65,11 @@ export default class SharedElementSceneData {
       '';
   }
 
-  setAnimimationContextValue(value: any) {
+  setAnimimationContextValue(value: StackCardInterpolationProps | undefined) {
     this.animationContextValue = value;
   }
 
-  getAnimValue(closing: boolean): SharedElementAnimatedValue | undefined {
+  getAnimValue(closing: boolean): Animated.AnimatedInterpolation | undefined {
     const { animationContextValue } = this;
     if (!animationContextValue) return;
     const { progress } = animationContextValue.current;
@@ -100,9 +107,7 @@ export default class SharedElementSceneData {
     handler: SharedElementSceneUpdateHandler
   ): SharedElementEventSubscription {
     this.updateSubscribers.add(handler);
-    return {
-      remove: () => this.updateSubscribers.delete(handler),
-    };
+    return () => this.updateSubscribers.delete(handler);
   }
 
   private emitUpdateEvent(
