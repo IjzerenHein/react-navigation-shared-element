@@ -47,10 +47,16 @@ function createSharedElementStackSceneNavigator(
     }
   }
 
-  return createStackNavigator(wrappedRouteConfigs, {
-    ...navigatorConfig,
-    defaultNavigationOptions: {
-      ...navigatorConfig?.defaultNavigationOptions,
+  // Override `onTransitionStart` and `onTransitionEnd` and
+  // hook in into the transition lifecycle events.
+  const defaultNavigationOptions = navigatorConfig?.defaultNavigationOptions;
+  function defaultNavigationOptionsFn(props: any) {
+    let defaultNavigationOptionsResult =
+      typeof defaultNavigationOptions === 'function'
+        ? defaultNavigationOptions(props)
+        : defaultNavigationOptions;
+    return {
+      ...defaultNavigationOptionsResult,
       onTransitionStart: (transitionProps: { closing: boolean }) => {
         rendererData.startTransition(
           transitionProps.closing,
@@ -58,13 +64,10 @@ function createSharedElementStackSceneNavigator(
           rendererData.nestingDepth
         );
         if (
-          navigatorConfig &&
-          navigatorConfig.defaultNavigationOptions &&
-          navigatorConfig.defaultNavigationOptions.onTransitionStart
+          defaultNavigationOptionsResult &&
+          defaultNavigationOptionsResult.onTransitionStart
         ) {
-          navigatorConfig.defaultNavigationOptions.onTransitionStart(
-            transitionProps
-          );
+          defaultNavigationOptionsResult.onTransitionStart(transitionProps);
         }
       },
       onTransitionEnd: (transitionProps: { closing: boolean }) => {
@@ -74,16 +77,21 @@ function createSharedElementStackSceneNavigator(
           rendererData.nestingDepth
         );
         if (
-          navigatorConfig &&
-          navigatorConfig.defaultNavigationOptions &&
-          navigatorConfig.defaultNavigationOptions.onTransitionEnd
+          defaultNavigationOptionsResult &&
+          defaultNavigationOptionsResult.onTransitionEnd
         ) {
-          navigatorConfig.defaultNavigationOptions.onTransitionEnd(
-            transitionProps
-          );
+          defaultNavigationOptionsResult.onTransitionEnd(transitionProps);
         }
       },
-    },
+    };
+  }
+
+  return createStackNavigator(wrappedRouteConfigs, {
+    ...navigatorConfig,
+    defaultNavigationOptions:
+      typeof defaultNavigationOptions === 'function'
+        ? defaultNavigationOptionsFn
+        : defaultNavigationOptionsFn({}),
   });
 }
 
