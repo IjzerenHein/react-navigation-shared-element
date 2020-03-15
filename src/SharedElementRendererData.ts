@@ -226,6 +226,7 @@ export default class SharedElementRendererData
 
   willBlurScene(
     sceneData: SharedElementSceneData,
+    // @ts-ignore
     route: Route // eslint-disable-line @typescript-eslint/no-unused-vars
   ): void {
     if (this.isVerbose)
