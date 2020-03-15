@@ -1,3 +1,7 @@
+# [2.2.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.1.0...v2.2.0) (2020-03-15)
+
+
+
 # [2.1.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.0.2...v2.1.0) (2020-02-22)
 
 ### Bug Fixes
