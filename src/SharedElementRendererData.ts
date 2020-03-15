@@ -324,14 +324,14 @@ export default class SharedElementRendererData
         isShowing = false;
         sharedElements = getSharedElements(prevScene, scene, false);
       }
+    }
+    if (this.sharedElements !== sharedElements) {
       if (this.isVerbose)
         console.debug(
           `Transitioning from "${prevScene?.name}" to "${
             scene?.name
           }", elements: ${JSON.stringify(sharedElements)}`
         );
-    }
-    if (this.sharedElements !== sharedElements) {
       this.sharedElements = sharedElements;
       this.isShowing = isShowing;
       /*console.log(
