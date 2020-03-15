@@ -1,3 +1,22 @@
+# [5.0.0-alpha0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.2.0...v5.0.0-alpha0) (2020-03-15)
+
+
+### Bug Fixes
+
+* add readme for typescript ([3e2fc91](https://github.com/IjzerenHein/react-navigation-shared-element/commit/3e2fc915e217e739516b428c6c23347287a4f38c))
+* fix nested Navigator ([3865fdc](https://github.com/IjzerenHein/react-navigation-shared-element/commit/3865fdcc43da20834e2729dba130c10eb3366f41))
+* move deps to peer/dev ([217faf8](https://github.com/IjzerenHein/react-navigation-shared-element/commit/217faf85a3c7f21e84b921f520937bc656b6f0f5))
+* remove unused type ([8a13a8e](https://github.com/IjzerenHein/react-navigation-shared-element/commit/8a13a8ef12611155ea7617f69b2975e9f3b6fa86))
+* reset example folder ([84cee81](https://github.com/IjzerenHein/react-navigation-shared-element/commit/84cee81e357a51490d53a4dc72d2b08ac56809a8))
+
+
+### Features
+
+* add docs ([7acf8f2](https://github.com/IjzerenHein/react-navigation-shared-element/commit/7acf8f259fbb9f775fe256e3b7258885f77faecc))
+* rewrite createSharedElementStackNavigator to react-navigation v5 ([a4ee203](https://github.com/IjzerenHein/react-navigation-shared-element/commit/a4ee203219508fd4a79efef8fdd0cf1a31129739))
+
+
+
 # [2.2.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.1.0...v2.2.0) (2020-03-15)
 
 ### Bug Fixes
