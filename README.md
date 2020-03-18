@@ -8,7 +8,7 @@ This library is currently undergoing development to support the latest react-nav
 
 Supported are:
 
-- [x] react-navigation 5 (v3)
+- [x] react-navigation 5 (v5)
 - [x] react-navigation 4 & 3 (use react-navigation-shared-element@2)
 - [x] react-navigation-stack 2 (use react-navigation-shared-element@2)
 - [x] react-navigation-stack 1 [(use react-navigation-shared-element@1)](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1)
@@ -24,7 +24,7 @@ Unlikely to be supported:
 - [Documentation](#documentation)
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
   - [SharedElement](#sharedelement)
-  - [sharedElements config](#sharedelements-config)
+  - [sharedElementsConfig](#sharedelementsconfig)
 - [Demo App](#demo-app)
 - [Videos](#videos)
 - [License](#license)
