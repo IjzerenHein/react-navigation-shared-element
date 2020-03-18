@@ -34,7 +34,7 @@ Ensure that [react-native-shared-element](https://github.com/IjzerenHein/react-n
 Finally, make sure that the compatible react-navigation dependencies are installed:
 
 ```sh
-$ yarn add @react-navigation/core@^5.2.0 @react-navigation/native@^5.0.9 @react-navigation/stack@^5.1.1
+$ yarn add @react-navigation/native@^5.0.9 @react-navigation/stack@^5.1.1
 ```
 
 ## Usage
