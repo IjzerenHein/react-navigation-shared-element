@@ -2,20 +2,12 @@
 
 React Navigation bindings for [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) 💫
 
-## Compatibility <!-- omit in toc -->
+## react-navigation 5 <!-- omit in toc -->
 
-This library is currently undergoing development to support the latest react-navigation & stack versions.
+**This is the development branch for `react-navigation@5`.**
 
-Supported are:
+*If you wish to use an earlier version of react-navigation, [please checkout the master branch](https://github.com/IjzerenHein/react-navigation-shared-element).*
 
-- [x] react-navigation 5 (v5)
-- [x] react-navigation 4 & 3 (use react-navigation-shared-element@2)
-- [x] react-navigation-stack 2 (use react-navigation-shared-element@2)
-- [x] react-navigation-stack 1 [(use react-navigation-shared-element@1)](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1)
-
-Unlikely to be supported:
-
-- [ ] [react-native-screens/createNativeStackNavigator](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14)
 
 ## Index <!-- omit in toc -->
 
@@ -34,7 +26,7 @@ Unlikely to be supported:
 Open a Terminal in your project's folder and run,
 
 ```sh
-$ yarn add react-navigation-shared-element react-native-shared-element
+$ yarn add react-navigation-shared-element@next react-native-shared-element
 ```
 
 Ensure that [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element) is also linked into your project.
