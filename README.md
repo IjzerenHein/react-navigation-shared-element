@@ -84,7 +84,7 @@ class ListScreen extends React.Component {
     const { navigation } = this.props;
     return (
       <TouchableOpacity onPress={() => navigation.push('Detail', { item })}>
-        <SharedElement id={`itemPhoto.${item.id}`}>
+        <SharedElement id={`item.${item.id}.photo`}>
           <Image source={item.photoUrl} />
         </SharedElement>
       </TouchableOpacity>
