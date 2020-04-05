@@ -1,17 +1,19 @@
 import * as React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import {
   SharedElement,
   SharedElementsComponentConfig
 } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
+import { Icon } from "../components";
+
 interface Props {
   navigation: NavigationStackProp<any>;
   modal: boolean;
 }
 
-export const DetailScreen = ({ navigation }: Props) => (
+export const DetailScreen = ({ navigation, modal }: Props) => (
   <>
     <View style={styles.container}>
       <SharedElement id="image" style={StyleSheet.absoluteFill}>
@@ -24,6 +26,18 @@ export const DetailScreen = ({ navigation }: Props) => (
       <SharedElement id="text">
         <Text style={styles.text}>The Boys</Text>
       </SharedElement>
+      {modal ? (
+        <View style={styles.header}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.goBack()}
+          >
+            <Icon style={styles.icon} name="ios-close" />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        undefined
+      )}
     </View>
   </>
 );
@@ -48,6 +62,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center"
+  },
+  header: {
+    position: "absolute",
+    left: 16,
+    top: 16
+  },
+  icon: {
+    fontSize: 40,
+    color: "white"
   },
   image: {
     width: "100%",

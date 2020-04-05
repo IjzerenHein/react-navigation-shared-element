@@ -10,7 +10,7 @@ import {
 } from "react-navigation-tabs/src/index";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import { enableScreens } from "react-native-screens";
-import { MainScreen, DetailScreen, ModalScreen } from "../screens/MainScreen";
+import { MainScreen, DetailScreen, ModalScreen } from "../screens/MasterScreen";
 import Icon from "./components/Icon";
 
 enableScreens();

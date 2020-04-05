@@ -1,3 +1,4 @@
+export * from "./MasterScreen";
 export * from "./DetailScreen";
-export * from "./MainScreen";
 export * from "./ModalScreen";
+export * from "./createScreen";

@@ -7,13 +7,15 @@ import { NavigationStackProp } from "react-navigation-stack";
 
 interface Props {
   navigation: NavigationStackProp<any>;
-  modal: boolean;
+  routeName: string;
 }
 
-export class MainScreen extends React.Component<Props> {
-  render() {
-    const { modal } = this.props;
+export class MasterScreen extends React.Component<Props> {
+  static defaultProps = {
+    routeName: "Detail"
+  };
 
+  render() {
     // Wrap the component that you want to transition in <SharedElement>
     return (
       <>
@@ -23,7 +25,7 @@ export class MainScreen extends React.Component<Props> {
           tension={50}
           friction={7}
           useNativeDriver
-          onPress={modal ? this.onPressModal : this.onPress}
+          onPress={this.onPress}
         >
           <View style={styles.container}>
             <SharedElement id="image">
@@ -43,11 +45,8 @@ export class MainScreen extends React.Component<Props> {
   }
 
   onPress = () => {
-    this.props.navigation.navigate("Detail");
-  };
-
-  onPressModal = () => {
-    this.props.navigation.navigate("Modal");
+    const { navigation, routeName } = this.props;
+    navigation.navigate(routeName);
   };
 }
 
