@@ -43,8 +43,6 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^8.3.4",
-    "@react-navigation/core": "^3.5.1",
-    "@react-navigation/native": "^3.6.2",
     "@types/react": "^16.9.23",
     "@types/react-native": "^0.61.17",
     "commitlint": "^8.3.5",
@@ -54,7 +52,8 @@
     "prettier": "^1.19.1",
     "react": "~16.9.0",
     "react-native-shared-element": "^0.6.1",
-    "react-navigation-stack": "^2"
+    "react-navigation": "^4.3.7",
+    "react-navigation-stack": "^2.3.11"
   },
   "peerDependencies": {
     "react": "*",
