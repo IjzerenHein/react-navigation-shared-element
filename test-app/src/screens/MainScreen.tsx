@@ -27,10 +27,6 @@ const styles = StyleSheet.create({
 });
 
 export class MainScreen extends React.Component {
-  static navigationOptions = {
-    title: "react-navigation-shared-element"
-  };
-
   render() {
     const { modal } = this.props;
 
@@ -49,7 +45,7 @@ export class MainScreen extends React.Component {
             <SharedElement id="image">
               <Image
                 style={styles.image}
-                source={require("../assets/theboys.jpg")}
+                source={require("../../assets/theboys.jpg")}
               />
             </SharedElement>
             <SharedElement id="text">

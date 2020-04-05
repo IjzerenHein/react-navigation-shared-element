@@ -26,7 +26,7 @@ export const DetailScreen = ({ navigation }) => (
         <Image
           style={styles.image}
           resizeMode="cover"
-          source={require("../assets/theboys.jpg")}
+          source={require("../../assets/theboys.jpg")}
         />
       </SharedElement>
       <SharedElement id="text">

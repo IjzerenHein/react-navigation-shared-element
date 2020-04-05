@@ -1,8 +1,7 @@
 import * as React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { SharedElement } from "react-navigation-shared-element";
-import Icon from "./components/Icon";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Icon } from "../components";
 
 const styles = StyleSheet.create({
   container: {
@@ -67,7 +66,7 @@ export const ModalScreen = ({ navigation }) => (
         <Image
           style={styles.image}
           resizeMode="cover"
-          source={require("../assets/theboys.jpg")}
+          source={require("../../assets/theboys.jpg")}
         />
       </SharedElement>
       <SharedElement id="text">
