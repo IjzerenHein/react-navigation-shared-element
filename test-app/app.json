@@ -22,7 +22,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "nl.ijzerenhein.navigationsharedelementexample"
+    },
+    "android": {
+      "package": "nl.ijzerenhein.navigationsharedelementexample"
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
   }
 }
