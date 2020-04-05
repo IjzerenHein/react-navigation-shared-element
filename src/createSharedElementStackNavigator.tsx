@@ -1,6 +1,11 @@
 import hoistNonReactStatics from "hoist-non-react-statics";
 import * as React from "react";
 import {
+  NavigationNavigator,
+  NavigationProp,
+  NavigationState
+} from "react-navigation";
+import {
   createStackNavigator,
   CardAnimationContext
 } from "react-navigation-stack";
@@ -16,10 +21,11 @@ import createSharedElementScene from "./createSharedElementScene";
 let _navigatorId = 1;
 
 function createSharedElementStackSceneNavigator(
-  routeConfigs: any,
-  navigatorConfig: any,
+  routeConfigs: Parameters<typeof createStackNavigator>[0],
+  stackConfig: Parameters<typeof createStackNavigator>[1],
   rendererData: ISharedElementRendererData,
-  navigatorId: string
+  navigatorId: string,
+  verbose: boolean
 ) {
   //console.log('createSharedElementStackSceneNavigator...', navigatorId);
 
@@ -27,7 +33,7 @@ function createSharedElementStackSceneNavigator(
     ...routeConfigs
   };
   for (const key in routeConfigs) {
-    let routeConfig = wrappedRouteConfigs[key];
+    let routeConfig: any = wrappedRouteConfigs[key];
     const component =
       typeof routeConfig === "object" && routeConfig.screen
         ? routeConfig.screen
@@ -36,7 +42,8 @@ function createSharedElementStackSceneNavigator(
       component,
       rendererData,
       CardAnimationContext,
-      navigatorId
+      navigatorId,
+      verbose
     );
     if (component === routeConfig) {
       wrappedRouteConfigs[key] = wrappedComponent;
@@ -50,7 +57,7 @@ function createSharedElementStackSceneNavigator(
 
   // Override `onTransitionStart` and `onTransitionEnd` and
   // hook in into the transition lifecycle events.
-  const defaultNavigationOptions = navigatorConfig?.defaultNavigationOptions;
+  const defaultNavigationOptions = stackConfig?.defaultNavigationOptions;
   function defaultNavigationOptionsFn(props: any) {
     let defaultNavigationOptionsResult =
       typeof defaultNavigationOptions === "function"
@@ -88,7 +95,7 @@ function createSharedElementStackSceneNavigator(
   }
 
   return createStackNavigator(wrappedRouteConfigs, {
-    ...navigatorConfig,
+    ...stackConfig,
     defaultNavigationOptions:
       typeof defaultNavigationOptions === "function"
         ? defaultNavigationOptionsFn
@@ -97,25 +104,31 @@ function createSharedElementStackSceneNavigator(
 }
 
 function createSharedElementStackNavigator(
-  RouteConfigs: Parameters<typeof createStackNavigator>[0],
-  NavigatorConfig: Parameters<typeof createStackNavigator>[1],
+  routeConfigs: Parameters<typeof createStackNavigator>[0],
+  stackConfig: Parameters<typeof createStackNavigator>[1],
   options?: {
     name?: string;
+    verbose?: boolean;
   }
-): React.ComponentType<any> {
+): NavigationNavigator<
+  Parameters<typeof createStackNavigator>[1],
+  NavigationProp<NavigationState>
+> {
   const navigatorId =
     options && options.name ? options.name : `stack${_navigatorId}`;
   _navigatorId++;
+  const verbose = options?.verbose || false;
 
   // Create a proxy which is later updated to link
   // to the renderer
   const rendererDataProxy = new SharedElementRendererProxy();
 
   const SharedElementNavigator = createSharedElementStackSceneNavigator(
-    RouteConfigs,
-    NavigatorConfig,
+    routeConfigs,
+    stackConfig,
     rendererDataProxy,
-    navigatorId
+    navigatorId,
+    verbose
   );
 
   class SharedElementRenderer extends React.Component {
@@ -149,6 +162,7 @@ function createSharedElementStackNavigator(
     }
   }
   hoistNonReactStatics(SharedElementRenderer, SharedElementNavigator);
+  // @ts-ignore
   return SharedElementRenderer;
 }
 

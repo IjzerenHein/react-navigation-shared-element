@@ -39,18 +39,21 @@ export default class SharedElementSceneData {
   public readonly name: string;
   public readonly navigatorId: string;
   public readonly nestingDepth: number;
+  public readonly verbose: boolean;
   public navigation: NavigationProp;
 
   constructor(
     Component: SharedElementSceneComponent,
     navigation: NavigationProp,
     navigatorId: string,
-    nestingDepth: number
+    nestingDepth: number,
+    verbose: boolean
   ) {
     this.Component = Component;
     this.navigation = navigation;
     this.navigatorId = navigatorId;
     this.nestingDepth = nestingDepth;
+    this.verbose = verbose;
     this.name =
       Component.displayName ||
       Component.name ||

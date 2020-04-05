@@ -27,7 +27,8 @@ function createSharedElementScene(
   Component: SharedElementSceneComponent,
   rendererData: ISharedElementRendererData,
   AnimationContext: any,
-  navigatorId: string
+  navigatorId: string,
+  verbose: boolean
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
@@ -37,7 +38,8 @@ function createSharedElementScene(
       Component,
       this.props.navigation,
       navigatorId,
-      rendererData.nestingDepth
+      rendererData.nestingDepth,
+      verbose
     );
 
     componentDidMount() {
