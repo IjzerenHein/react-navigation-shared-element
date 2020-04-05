@@ -3,13 +3,13 @@ import {
   SharedElementEventSubscription,
   SharedElementSceneComponent,
   SharedElementAnimatedValue,
-  NavigationProp,
-} from './types';
+  NavigationProp
+} from "./types";
 
 export type SharedElementSceneUpdateHandlerEventType =
-  | 'ancestor'
-  | 'add'
-  | 'remove';
+  | "ancestor"
+  | "add"
+  | "remove";
 
 export type SharedElementSceneUpdateHandler = (
   eventType: SharedElementSceneUpdateHandlerEventType,
@@ -19,14 +19,14 @@ export type SharedElementSceneUpdateHandler = (
 
 const INVERT_OPTIONS = {
   inputRange: [0, 1],
-  outputRange: [1, 0],
+  outputRange: [1, 0]
 };
 
 export type SharedElementSceneEventType =
-  | 'willFocus'
-  | 'didFocus'
-  | 'willBlur'
-  | 'didBlur';
+  | "willFocus"
+  | "didFocus"
+  | "willBlur"
+  | "didBlur";
 
 export default class SharedElementSceneData {
   private updateSubscribers = new Set<SharedElementSceneUpdateHandler>();
@@ -55,7 +55,7 @@ export default class SharedElementSceneData {
       Component.displayName ||
       Component.name ||
       (Component.constructor ? Component.constructor.name : undefined) ||
-      '';
+      "";
   }
 
   setAnimimationContextValue(value: any) {
@@ -77,19 +77,19 @@ export default class SharedElementSceneData {
     // console.log('SharedElementSceneData.setAncestor');
     if (this.ancestorNode === ancestorNode) return;
     this.ancestorNode = ancestorNode || undefined;
-    this.emitUpdateEvent('ancestor', this.ancestorNode, '');
+    this.emitUpdateEvent("ancestor", this.ancestorNode, "");
   }
 
   addNode(id: string, node: SharedElementNode): void {
     // console.log('SharedElementSceneData.addNode: ', id);
     this.nodes[id] = node;
-    this.emitUpdateEvent('add', node, id);
+    this.emitUpdateEvent("add", node, id);
   }
 
   removeNode(id: string, node: SharedElementNode): void {
     // console.log('SharedElementSceneData.removeNode: ', id);
     delete this.nodes[id];
-    this.emitUpdateEvent('remove', node, id);
+    this.emitUpdateEvent("remove", node, id);
   }
 
   getNode(id: string): SharedElementNode | undefined {
@@ -101,7 +101,7 @@ export default class SharedElementSceneData {
   ): SharedElementEventSubscription {
     this.updateSubscribers.add(handler);
     return {
-      remove: () => this.updateSubscribers.delete(handler),
+      remove: () => this.updateSubscribers.delete(handler)
     };
   }
 

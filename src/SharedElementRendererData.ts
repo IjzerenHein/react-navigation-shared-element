@@ -1,14 +1,14 @@
 import SharedElementSceneData, {
-  SharedElementSceneEventType,
-} from './SharedElementSceneData';
+  SharedElementSceneEventType
+} from "./SharedElementSceneData";
 import {
   SharedElementEventSubscription,
   SharedElementsStrictConfig,
   SharedElementAnimatedValue,
   SharedElementTransitionProps,
-  Route,
-} from './types';
-import { normalizeSharedElementsConfig } from './utils';
+  Route
+} from "./types";
+import { normalizeSharedElementsConfig } from "./utils";
 
 export type SharedElementRendererUpdateHandler = () => any;
 
@@ -78,7 +78,7 @@ export default class SharedElementRendererData
 
   private isTransitionStarted: boolean = false;
   private isTransitionClosing: boolean = false;
-  private transitionNavigatorId: string = '';
+  private transitionNavigatorId: string = "";
   private transitionNestingDepth: number = -1;
 
   private isVerbose: boolean = false;
@@ -153,11 +153,11 @@ export default class SharedElementRendererData
     sceneEvent: SharedElementSceneEventType
   ): void {
     switch (sceneEvent) {
-      case 'willFocus':
+      case "willFocus":
         return this.willFocusScene(sceneData, route);
-      case 'didFocus':
+      case "didFocus":
         return this.didFocusScene(sceneData, route);
-      case 'willBlur':
+      case "willBlur":
         return this.willBlurScene(sceneData, route);
     }
   }
@@ -262,7 +262,7 @@ export default class SharedElementRendererData
     this.scenes.push({
       scene: sceneData,
       route,
-      subscription: null,
+      subscription: null
     });
     if (this.scenes.length > 10) {
       const { subscription } = this.scenes[0];
@@ -351,7 +351,7 @@ export default class SharedElementRendererData
   ): SharedElementEventSubscription {
     this.updateSubscribers.add(handler);
     return {
-      remove: () => this.updateSubscribers.delete(handler),
+      remove: () => this.updateSubscribers.delete(handler)
     };
   }
 
@@ -366,7 +366,7 @@ export default class SharedElementRendererData
       scene,
       isShowing,
       sceneAnimValue,
-      route,
+      route
     } = this;
 
     if (!sharedElements || !scene || !prevScene || !route)
@@ -379,13 +379,13 @@ export default class SharedElementRendererData
         position: sceneAnimValue,
         start: {
           ancestor: (prevScene ? prevScene.getAncestor() : undefined) || null,
-          node: (prevScene ? prevScene.getNode(startId) : undefined) || null,
+          node: (prevScene ? prevScene.getNode(startId) : undefined) || null
         },
         end: {
           ancestor: (scene ? scene.getAncestor() : undefined) || null,
-          node: (scene ? scene.getNode(endId) : undefined) || null,
+          node: (scene ? scene.getNode(endId) : undefined) || null
         },
-        ...other,
+        ...other
       };
     });
   }

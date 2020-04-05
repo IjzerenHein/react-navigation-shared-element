@@ -3,25 +3,25 @@ import {
   SharedElementsConfig,
   SharedElementStrictConfig,
   SharedElementsStrictConfig,
-  Route,
-} from './types';
+  Route
+} from "./types";
 
 export function normalizeSharedElementConfig(
   sharedElementConfig: SharedElementConfig
 ): SharedElementStrictConfig {
-  if (typeof sharedElementConfig === 'string') {
+  if (typeof sharedElementConfig === "string") {
     return {
       id: sharedElementConfig,
       otherId: sharedElementConfig,
-      animation: 'move',
+      animation: "move"
     };
   } else {
     const { id, otherId, animation, ...other } = sharedElementConfig;
     return {
       id,
       otherId: otherId || id,
-      animation: animation || 'move',
-      ...other,
+      animation: animation || "move",
+      ...other
     };
   }
 }

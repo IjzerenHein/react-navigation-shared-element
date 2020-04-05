@@ -1,5 +1,6 @@
-import * as React from 'react';
-import SharedElementSceneData from './SharedElementSceneData';
+import * as React from "react";
+
+import SharedElementSceneData from "./SharedElementSceneData";
 
 const SharedElementSceneContext = React.createContext<SharedElementSceneData | null>(
   null

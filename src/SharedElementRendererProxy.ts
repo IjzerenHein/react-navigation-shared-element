@@ -1,8 +1,8 @@
-import { ISharedElementRendererData } from './SharedElementRendererData';
-import { Route } from './types';
+import { ISharedElementRendererData } from "./SharedElementRendererData";
 import SharedElementSceneData, {
-  SharedElementSceneEventType,
-} from './SharedElementSceneData';
+  SharedElementSceneEventType
+} from "./SharedElementSceneData";
+import { Route } from "./types";
 
 export class SharedElementRendererProxy implements ISharedElementRendererData {
   private data: ISharedElementRendererData | null = null;
@@ -10,7 +10,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
   startTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
     if (!this.data) {
       console.warn(
-        'SharedElementRendererProxy.startTransition called before Proxy was initialized'
+        "SharedElementRendererProxy.startTransition called before Proxy was initialized"
       );
       return;
     }
@@ -20,7 +20,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
   endTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
     if (!this.data) {
       console.warn(
-        'SharedElementRendererProxy.endTransition called before Proxy was initialized'
+        "SharedElementRendererProxy.endTransition called before Proxy was initialized"
       );
       return;
     }
@@ -34,7 +34,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
   ) {
     if (!this.data) {
       console.warn(
-        'SharedElementRendererProxy.updateSceneState called before Proxy was initialized'
+        "SharedElementRendererProxy.updateSceneState called before Proxy was initialized"
       );
       return;
     }
@@ -52,7 +52,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
   get nestingDepth(): number {
     if (!this.data) {
       console.warn(
-        'SharedElementRendererProxy.nestingDepth called before Proxy was initialized'
+        "SharedElementRendererProxy.nestingDepth called before Proxy was initialized"
       );
       return 0;
     }

@@ -1,16 +1,17 @@
-import * as React from 'react';
-import hoistNonReactStatics from 'hoist-non-react-statics';
-import SharedElementRendererView from './SharedElementRendererView';
-import SharedElementRendererData, {
-  ISharedElementRendererData,
-} from './SharedElementRendererData';
-import createSharedElementScene from './createSharedElementScene';
-import SharedElementRendererContext from './SharedElementRendererContext';
-import { SharedElementRendererProxy } from './SharedElementRendererProxy';
+import hoistNonReactStatics from "hoist-non-react-statics";
+import * as React from "react";
 import {
   createStackNavigator,
-  CardAnimationContext,
-} from 'react-navigation-stack';
+  CardAnimationContext
+} from "react-navigation-stack";
+
+import SharedElementRendererContext from "./SharedElementRendererContext";
+import SharedElementRendererData, {
+  ISharedElementRendererData
+} from "./SharedElementRendererData";
+import { SharedElementRendererProxy } from "./SharedElementRendererProxy";
+import SharedElementRendererView from "./SharedElementRendererView";
+import createSharedElementScene from "./createSharedElementScene";
 
 let _navigatorId = 1;
 
@@ -23,12 +24,12 @@ function createSharedElementStackSceneNavigator(
   //console.log('createSharedElementStackSceneNavigator...', navigatorId);
 
   const wrappedRouteConfigs = {
-    ...routeConfigs,
+    ...routeConfigs
   };
   for (const key in routeConfigs) {
     let routeConfig = wrappedRouteConfigs[key];
     const component =
-      typeof routeConfig === 'object' && routeConfig.screen
+      typeof routeConfig === "object" && routeConfig.screen
         ? routeConfig.screen
         : routeConfig;
     const wrappedComponent = createSharedElementScene(
@@ -42,7 +43,7 @@ function createSharedElementStackSceneNavigator(
     } else {
       wrappedRouteConfigs[key] = {
         ...routeConfig,
-        screen: wrappedComponent,
+        screen: wrappedComponent
       };
     }
   }
@@ -52,7 +53,7 @@ function createSharedElementStackSceneNavigator(
   const defaultNavigationOptions = navigatorConfig?.defaultNavigationOptions;
   function defaultNavigationOptionsFn(props: any) {
     let defaultNavigationOptionsResult =
-      typeof defaultNavigationOptions === 'function'
+      typeof defaultNavigationOptions === "function"
         ? defaultNavigationOptions(props)
         : defaultNavigationOptions;
     return {
@@ -82,16 +83,16 @@ function createSharedElementStackSceneNavigator(
         ) {
           defaultNavigationOptionsResult.onTransitionEnd(transitionProps);
         }
-      },
+      }
     };
   }
 
   return createStackNavigator(wrappedRouteConfigs, {
     ...navigatorConfig,
     defaultNavigationOptions:
-      typeof defaultNavigationOptions === 'function'
+      typeof defaultNavigationOptions === "function"
         ? defaultNavigationOptionsFn
-        : defaultNavigationOptionsFn({}),
+        : defaultNavigationOptionsFn({})
   });
 }
 

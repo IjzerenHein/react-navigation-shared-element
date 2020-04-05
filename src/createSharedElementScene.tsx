@@ -1,21 +1,22 @@
-import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
-import hoistNonReactStatics from 'hoist-non-react-statics';
-import { nodeFromRef } from 'react-native-shared-element';
-import SharedElementSceneData from './SharedElementSceneData';
-import SharedElementSceneContext from './SharedElementSceneContext';
+import hoistNonReactStatics from "hoist-non-react-statics";
+import * as React from "react";
+import { View, StyleSheet } from "react-native";
+import { nodeFromRef } from "react-native-shared-element";
+
+import { ISharedElementRendererData } from "./SharedElementRendererData";
+import SharedElementSceneContext from "./SharedElementSceneContext";
+import SharedElementSceneData from "./SharedElementSceneData";
 import {
   SharedElementEventSubscription,
   NavigationProp,
-  SharedElementSceneComponent,
-} from './types';
-import { ISharedElementRendererData } from './SharedElementRendererData';
-import { getActiveRouteState } from './utils';
+  SharedElementSceneComponent
+} from "./types";
+import { getActiveRouteState } from "./utils";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
 type PropsType = {
@@ -42,9 +43,9 @@ function createSharedElementScene(
     componentDidMount() {
       const { navigation } = this.props;
       this.subscriptions = {
-        willFocus: navigation.addListener('willFocus', this.onWillFocus),
-        didFocus: navigation.addListener('didFocus', this.onDidFocus),
-        willBlur: navigation.addListener('willBlur', this.onWillBlur),
+        willFocus: navigation.addListener("willFocus", this.onWillFocus),
+        didFocus: navigation.addListener("didFocus", this.onDidFocus),
+        willBlur: navigation.addListener("willBlur", this.onWillBlur)
       };
     }
 
@@ -92,7 +93,7 @@ function createSharedElementScene(
         rendererData.updateSceneState(
           this.sceneData,
           navigation.state,
-          'willFocus'
+          "willFocus"
         );
       }
     };
@@ -105,7 +106,7 @@ function createSharedElementScene(
         rendererData.updateSceneState(
           this.sceneData,
           navigation.state,
-          'didFocus'
+          "didFocus"
         );
       }
     };
@@ -118,7 +119,7 @@ function createSharedElementScene(
         rendererData.updateSceneState(
           this.sceneData,
           navigation.state,
-          'willBlur'
+          "willBlur"
         );
       }
     };

@@ -3,13 +3,13 @@ import {
   SharedElementAnimation,
   SharedElementResize,
   SharedElementAlign,
-  SharedElementTransitionProps,
-} from 'react-native-shared-element';
+  SharedElementTransitionProps
+} from "react-native-shared-element";
 
 export {
   SharedElementNode,
   SharedElementAnimation,
-  SharedElementTransitionProps,
+  SharedElementTransitionProps
 };
 
 export type Route = {
@@ -18,10 +18,10 @@ export type Route = {
 };
 
 export type NavigationEventName =
-  | 'willFocus'
-  | 'didFocus'
-  | 'willBlur'
-  | 'didBlur';
+  | "willFocus"
+  | "didFocus"
+  | "willBlur"
+  | "didBlur";
 
 export type NavigationState = {
   key: string;
