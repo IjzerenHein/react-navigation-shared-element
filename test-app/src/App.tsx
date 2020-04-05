@@ -29,8 +29,7 @@ export const iosTransitionSpec = {
   }
 };
 
-//const StackNavigator1 = createSharedElementStackNavigator(
-const StackNavigator1 = createStackNavigator(
+const StackNavigator1 = createSharedElementStackNavigator(
   {
     Main: MainScreen,
     Detail: DetailScreen
@@ -141,5 +140,5 @@ const RootModalStackNavigator = createSharedElementStackNavigator(
   }
 );
 
-//export default createAppContainer(RootModalStackNavigator);
-export default createAppContainer(StackNavigator1);
+export default createAppContainer(RootModalStackNavigator);
+//export default createAppContainer(StackNavigator1);
