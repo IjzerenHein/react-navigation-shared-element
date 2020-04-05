@@ -53,14 +53,12 @@
     "expo-module-scripts": "^1.2.0",
     "prettier": "^1.19.1",
     "react": "~16.9.0",
-    "react-native-shared-element": "^0.5.5",
+    "react-native-shared-element": "^0.6.1",
     "react-navigation-stack": "^2"
   },
   "peerDependencies": {
-    "@react-navigation/core": "^3.0.0",
     "react": "*",
     "react-native": "*",
-    "react-native-shared-element": "*",
-    "react-navigation-stack": "^2"
+    "react-native-shared-element": "*"
   }
 }
