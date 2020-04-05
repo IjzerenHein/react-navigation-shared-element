@@ -2,81 +2,58 @@
   "name": "react-navigation-shared-element",
   "version": "2.2.0",
   "description": "react-native-shared-element bindings for React Navigation",
-  "main": "lib/commonjs/index.js",
-  "module": "lib/module/index.js",
-  "react-native": "lib/module/index.js",
-  "types": "lib/typescript/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "sideEffects": false,
-  "files": [
-    "src",
-    "lib"
-  ],
   "scripts": {
-    "test": "jest",
-    "lint": "eslint --ext .js,.ts,.tsx .",
-    "typescript": "tsc --noEmit",
-    "prepare": "bob build",
-    "release": "release-it",
-    "example": "yarn --cwd example",
-    "bootstrap": "yarn example && yarn",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
-    "react-native-component",
-    "react-component",
-    "react-native",
-    "ios",
-    "android",
+    "react-navigation-shared-element",
+    "navigation-shared-element",
+    "navigation",
     "shared-element"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/IjzerenHein/react-navigation-shared-element.git"
   },
-  "author": "",
+  "author": "IjzerenHein <hrutjes@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/IjzerenHein/react-navigation-shared-element/issues"
   },
   "homepage": "https://github.com/IjzerenHein/react-navigation-shared-element#readme",
+  "files": [
+    "src/",
+    "build/"
+  ],
   "dependencies": {
     "hoist-non-react-statics": "^3.3.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
     "@commitlint/config-conventional": "^8.3.4",
-    "@react-native-community/bob": "^0.10.0",
-    "@react-native-community/eslint-config": "^0.0.7",
     "@react-navigation/core": "^3.5.1",
     "@react-navigation/native": "^3.6.2",
-    "@release-it/conventional-changelog": "^1.1.0",
-    "@types/hoist-non-react-statics": "^3.3.1",
-    "@types/jest": "^25.1.4",
     "@types/react": "^16.9.23",
-    "@types/react-native": "^0.61.22",
-    "@types/react-test-renderer": "^16.9.2",
+    "@types/react-native": "^0.61.17",
     "commitlint": "^8.3.5",
     "conventional-changelog-cli": "^2.0.31",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-native": "^3.8.1",
-    "husky": "^4.2.3",
-    "jest": "^25.1.0",
+    "expo-module-scripts": "^1.2.0",
     "prettier": "^1.19.1",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-native": "^0.61.5",
     "react-native-shared-element": "^0.5.5",
-    "react-navigation-stack": "^2",
-    "react-test-renderer": "^16.13.0",
-    "release-it": "^13.1.1",
-    "scheduler": "^0.19.0",
-    "typescript": "^3.8.3"
+    "react-navigation-stack": "^2"
   },
   "peerDependencies": {
     "@react-navigation/core": "^3.0.0",
@@ -84,45 +61,5 @@
     "react-native": "*",
     "react-native-shared-element": "*",
     "react-navigation-stack": "^2"
-  },
-  "jest": {
-    "preset": "react-native",
-    "testEnvironment": "node",
-    "setupFiles": [
-      "<rootDir>/jest-setup.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "jest-setup.js"
-    ],
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/",
-      "<rootDir>/lib/"
-    ],
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|react-navigation-deprecated-tab-navigator|@react-navigation/core|@react-navigation/native)"
-    ],
-    "testRegex": "/__tests__/.*\\.(test|spec)\\.(js|tsx?)$",
-    "transform": {
-      "^.+\\.(js|ts|tsx)$": "babel-jest"
-    }
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "singleQuote": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit2": "yarn typescript && yarn lint && yarn test",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "@react-native-community/bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      "commonjs",
-      "module",
-      "typescript"
-    ]
   }
 }
