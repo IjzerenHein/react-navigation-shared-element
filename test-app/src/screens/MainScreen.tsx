@@ -1,7 +1,55 @@
 import * as React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-import { SharedElement } from "react-navigation-shared-element";
+// @ts-ignore
 import TouchableScale from "react-native-touchable-scale";
+import { SharedElement } from "react-navigation-shared-element";
+import { NavigationStackProp } from "react-navigation-stack";
+
+interface Props {
+  navigation: NavigationStackProp<any>;
+  modal: boolean;
+}
+
+export class MainScreen extends React.Component<Props> {
+  render() {
+    const { modal } = this.props;
+
+    // Wrap the component that you want to transition in <SharedElement>
+    return (
+      <>
+        <TouchableScale
+          style={styles.flex}
+          activeScale={0.9}
+          tension={50}
+          friction={7}
+          useNativeDriver
+          onPress={modal ? this.onPressModal : this.onPress}
+        >
+          <View style={styles.container}>
+            <SharedElement id="image">
+              <Image
+                style={styles.image}
+                source={require("../../assets/theboys.jpg")}
+              />
+            </SharedElement>
+            <SharedElement id="text">
+              <Text style={styles.text}>The Boys</Text>
+            </SharedElement>
+            <Text style={styles.caption}>tap me</Text>
+          </View>
+        </TouchableScale>
+      </>
+    );
+  }
+
+  onPress = () => {
+    this.props.navigation.navigate("Detail");
+  };
+
+  onPressModal = () => {
+    this.props.navigation.navigate("Modal");
+  };
+}
 
 const styles = StyleSheet.create({
   flex: {
@@ -25,44 +73,3 @@ const styles = StyleSheet.create({
     resizeMode: "contain"
   }
 });
-
-export class MainScreen extends React.Component {
-  render() {
-    const { modal } = this.props;
-
-    // Wrap the component that you want to transition in <SharedElement>
-    return (
-      <React.Fragment>
-        <TouchableScale
-          style={styles.flex}
-          activeScale={0.9}
-          tension={50}
-          friction={7}
-          useNativeDriver
-          onPress={modal ? this.onPressModal : this.onPress}
-        >
-          <View style={styles.container}>
-            <SharedElement id="image">
-              <Image
-                style={styles.image}
-                source={require("../../assets/theboys.jpg")}
-              />
-            </SharedElement>
-            <SharedElement id="text">
-              <Text style={styles.text}>The Boys</Text>
-            </SharedElement>
-            <Text style={styles.caption}>tap me</Text>
-          </View>
-        </TouchableScale>
-      </React.Fragment>
-    );
-  }
-
-  onPress = () => {
-    this.props.navigation.navigate("Detail");
-  };
-
-  onPressModal = () => {
-    this.props.navigation.navigate("Modal");
-  };
-}

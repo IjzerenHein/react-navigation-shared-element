@@ -1,5 +1,6 @@
 import * as React from "react";
 import { enableScreens } from "react-native-screens";
+
 import { Tests, Test } from "./components";
 import { SimpleStack } from "./tests";
 
