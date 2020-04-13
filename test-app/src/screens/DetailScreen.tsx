@@ -35,10 +35,7 @@ export const DetailScreen = ({ navigation, modal }: Props) => (
         >
           <TouchableOpacity
             activeOpacity={0.5}
-            onPress={() => {
-              console.log("goBack");
-              navigation.goBack();
-            }}
+            onPress={() => navigation.goBack()}
           >
             <SharedElement id="close">
               <Icon style={styles.icon} name="ios-close" />

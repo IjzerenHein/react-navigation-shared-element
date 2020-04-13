@@ -5,11 +5,11 @@ import { createScreen, MasterScreen, DetailScreen } from "../screens";
 
 const NestedStackNavigator = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "NestedStack")
+    Master: createScreen(MasterScreen, "NestedStack2")
   },
   undefined,
   {
-    name: "NestedStack",
+    name: "NestedStack2",
     debug: true
   }
 );
