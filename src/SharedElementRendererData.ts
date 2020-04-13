@@ -189,7 +189,7 @@ export default class SharedElementRendererData
 
     // Use the animation value from the navigator that
     // started the transition
-    if (this.prevRoute && !this.routeAnimValue) {
+    if (this.prevRoute) {
       const scene = this.isTransitionClosing
         ? this.getScene(this.prevRoute)
         : sceneData;
