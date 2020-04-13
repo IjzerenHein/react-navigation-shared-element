@@ -11,7 +11,7 @@ const SimpleStackNavigator = createSharedElementStackNavigator(
   undefined,
   {
     name: "SimpleStack",
-    verbose: true
+    debug: true
   }
 );
 

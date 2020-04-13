@@ -18,5 +18,6 @@ export function createScreen(
     : navigationOptions;
   // @ts-ignore
   WrappedComponent.sharedElements = sharedElements || Component.sharedElements;
+  WrappedComponent.displayName = Component.displayName || Component.name;
   return WrappedComponent;
 }

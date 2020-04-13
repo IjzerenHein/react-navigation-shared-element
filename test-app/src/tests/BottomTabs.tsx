@@ -12,7 +12,7 @@ const StackNavigator1 = createSharedElementStackNavigator(
   undefined,
   {
     name: "BottomStack1",
-    verbose: true
+    debug: true
   }
 );
 
@@ -24,7 +24,7 @@ const StackNavigator2 = createSharedElementStackNavigator(
   undefined,
   {
     name: "BottomStack2",
-    verbose: true
+    debug: true
   }
 );
 

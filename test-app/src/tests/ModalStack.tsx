@@ -21,7 +21,7 @@ const ModalStackNavigator = createSharedElementStackNavigator(
   },
   {
     name: "ModalStack",
-    verbose: true
+    debug: true
   }
 );
 

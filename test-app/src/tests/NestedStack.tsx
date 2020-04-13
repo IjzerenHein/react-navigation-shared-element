@@ -11,7 +11,7 @@ const NestedStackNavigator = createSharedElementStackNavigator(
   {},
   {
     name: "NestedStack",
-    verbose: true
+    debug: true
   }
 );
 
@@ -28,7 +28,7 @@ const RootStackNavigator = createSharedElementStackNavigator(
   {},
   {
     name: "RootStack",
-    verbose: true
+    debug: true
   }
 );
 
