@@ -1,3 +1,18 @@
+# [2.3.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.2.0...v2.3.0) (2020-04-13)
+
+### Features
+
+- Add ‘debug’ option to `createSharedElementStackNavigator`
+- Add new example/test app in `./example`
+- Updated internal tooling to use `expo-module-scripts`
+
+### Bug Fixes
+
+- Fix back navigation no longer working with latest navigation/stack
+- Fix element stuck after navigating back on nested navigators
+- Fix transition when starting a new transition before previous had ended
+- Fix result typings for `createSharedElementStackNavigator`
+
 # [2.2.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.1.0...v2.2.0) (2020-03-15)
 
 ### Bug Fixes
