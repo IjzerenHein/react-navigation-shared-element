@@ -55,11 +55,6 @@ type SceneRoute = {
 
 /**
  * TODO
- *
- * - [X] Start animation on `startTransition`
- * - [X] Use animValue from started navigator
- * - [X] Use route from deepest nested scene
- * - [X] Support nesting
  * - [ ] Not all lifecycle events not emitted by stack when using gestures (close modal)
  */
 
@@ -104,11 +99,6 @@ export default class SharedElementRendererData
         const scene = this.getScene(this.prevRoute);
         if (scene) {
           this.routeAnimValue = scene.getAnimValue(true);
-          /*if (this.debug) {
-            console.debug(
-              `[${navigatorId}]startTransition using Animated.Value from "${scene.name}", animValue: ${this.routeAnimValue}`
-            );
-            }*/
         }
       }
 
@@ -160,7 +150,7 @@ export default class SharedElementRendererData
         return this.willFocusScene(sceneData, route);
       case "didFocus":
         return this.didFocusScene(sceneData, route);
-      case "willBlur":
+      //case "willBlur":
       //return this.willBlurScene(sceneData, route);
     }
   }
@@ -180,7 +170,7 @@ export default class SharedElementRendererData
   willFocusScene(sceneData: SharedElementSceneData, route: Route): void {
     if (this.debug)
       console.debug(
-        `[${sceneData.navigatorId}]willFocus, scene: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
+        `[${sceneData.navigatorId}]willFocus, scene: "${sceneData.name}", depth: ${sceneData.nestingDepth}, closing: ${this.isTransitionClosing}`
       );
     this.registerScene(sceneData, route);
 
@@ -234,7 +224,7 @@ export default class SharedElementRendererData
     this.registerScene(sceneData, route);
   }
 
-  willBlurScene(
+  /*willBlurScene(
     sceneData: SharedElementSceneData,
     // @ts-ignore
     route: Route // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -255,11 +245,6 @@ export default class SharedElementRendererData
       !this.routeAnimValue
     ) {
       this.routeAnimValue = sceneData.getAnimValue(this.isTransitionClosing);
-      /*if (this.debug) {
-        console.debug(
-          `[${sceneData.navigatorId}]willBlurScene using Animated.Value from "${sceneData.name}", animValue: ${this.routeAnimValue}`
-        );
-        }*/
     }
 
     // Update transition
@@ -267,7 +252,7 @@ export default class SharedElementRendererData
       this.updateSceneListeners();
       this.updateSharedElements();
     }
-  }
+  }*/
 
   private registerScene(sceneData: SharedElementSceneData, route: Route) {
     this.scenes.push({
@@ -281,7 +266,6 @@ export default class SharedElementRendererData
       if (subscription) subscription.remove();
     }
     this.updateSceneListeners();
-    //this.updateSharedElements();
   }
 
   private updateSceneListeners() {
