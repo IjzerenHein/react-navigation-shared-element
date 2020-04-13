@@ -231,7 +231,6 @@ export default class SharedElementRendererData
         this.route = route;
       }
     }
-    this.prevRoute = null;
     this.registerScene(sceneData, route);
   }
 
