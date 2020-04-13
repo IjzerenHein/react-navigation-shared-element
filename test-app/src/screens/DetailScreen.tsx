@@ -10,7 +10,7 @@ import { Icon } from "../components";
 
 interface Props {
   navigation: NavigationStackProp<any>;
-  modal: boolean;
+  modal: "none" | "full" | "sheet";
 }
 
 export const DetailScreen = ({ navigation, modal }: Props) => (
@@ -26,13 +26,23 @@ export const DetailScreen = ({ navigation, modal }: Props) => (
       <SharedElement id="text">
         <Text style={styles.text}>The Boys</Text>
       </SharedElement>
-      {modal ? (
-        <View style={styles.header}>
+      {modal !== "none" ? (
+        <View
+          style={[
+            styles.header,
+            modal === "sheet" ? styles.sheetHeader : undefined
+          ]}
+        >
           <TouchableOpacity
             activeOpacity={0.5}
-            onPress={() => navigation.goBack()}
+            onPress={() => {
+              console.log("goBack");
+              navigation.goBack();
+            }}
           >
-            <Icon style={styles.icon} name="ios-close" />
+            <SharedElement id="close">
+              <Icon style={styles.icon} name="ios-close" />
+            </SharedElement>
           </TouchableOpacity>
         </View>
       ) : (
@@ -41,6 +51,10 @@ export const DetailScreen = ({ navigation, modal }: Props) => (
     </View>
   </>
 );
+
+DetailScreen.defaultProps = {
+  modal: "none"
+};
 
 DetailScreen.navigationOptions = {
   title: "Boys will be boys"
@@ -55,7 +69,11 @@ const sharedElements: SharedElementsComponentConfig = (
   navigation,
   otherNavigation,
   showing
-) => [{ id: "image" }, { id: "text", animation: "fade" }];
+) => [
+  { id: "image" },
+  { id: "text", animation: "fade" },
+  { id: "close", animation: "fade-in" }
+];
 DetailScreen.sharedElements = sharedElements;
 
 const styles = StyleSheet.create({
@@ -65,6 +83,10 @@ const styles = StyleSheet.create({
   },
   header: {
     position: "absolute",
+    left: 16,
+    top: 32
+  },
+  sheetHeader: {
     left: 16,
     top: 16
   },
