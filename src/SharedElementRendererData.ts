@@ -343,12 +343,17 @@ export default class SharedElementRendererData
       }
     }
     if (this.sharedElements !== sharedElements) {
-      if (this.debug)
-        console.debug(
-          `Transitioning from "${prevScene?.name}" to "${
-            scene?.name
-          }", elements: ${JSON.stringify(sharedElements)}`
-        );
+      if (this.debug) {
+        if (sharedElements) {
+          console.debug(
+            `Transition start: "${prevScene?.name}" -> "${
+              scene?.name
+            }", elements: ${JSON.stringify(sharedElements, undefined, 2)}`
+          );
+        } else {
+          console.debug(`Transition end: "${scene?.name}"`);
+        }
+      }
       this.sharedElements = sharedElements;
       this.isShowing = isShowing;
       /*console.log(
