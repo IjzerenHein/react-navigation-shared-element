@@ -1,5 +1,6 @@
 import * as React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+
 import { Icon } from "./Icon";
 
 interface TestProps {
@@ -9,7 +10,7 @@ interface TestProps {
 }
 
 export const Test = (props: TestProps) => {
-  const { title, Component, onPress } = props;
+  const { title, onPress } = props;
   return (
     <TouchableOpacity
       style={styles.container}
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth
   },
   text: {
-    fontSize: 17,
+    fontSize: 16,
     flex: 1,
     marginStart: 20
   },

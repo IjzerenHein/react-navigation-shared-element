@@ -7,47 +7,47 @@ import {
 import { NavigationStackProp } from "react-navigation-stack";
 
 import { Icon } from "../components";
+import { defaultItem } from "../data";
 
 interface Props {
   navigation: NavigationStackProp<any>;
   modal: "none" | "full" | "sheet";
 }
 
-export const DetailScreen = ({ navigation, modal }: Props) => (
-  <>
-    <View style={styles.container}>
-      <SharedElement id="image" style={StyleSheet.absoluteFill}>
-        <Image
-          style={styles.image}
-          resizeMode="cover"
-          source={require("../../assets/theboys.jpg")}
-        />
-      </SharedElement>
-      <SharedElement id="text">
-        <Text style={styles.text}>The Boys</Text>
-      </SharedElement>
-      {modal !== "none" ? (
-        <View
-          style={[
-            styles.header,
-            modal === "sheet" ? styles.sheetHeader : undefined
-          ]}
-        >
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.goBack()}
+export const DetailScreen = ({ navigation, modal }: Props) => {
+  const item = navigation.getParam("item") || defaultItem;
+  return (
+    <>
+      <View style={styles.container}>
+        <SharedElement id={`${item.id}.image`} style={StyleSheet.absoluteFill}>
+          <Image style={styles.image} resizeMode="cover" source={item.image} />
+        </SharedElement>
+        <SharedElement id={`${item.id}.title`}>
+          <Text style={styles.text}>{item.title}</Text>
+        </SharedElement>
+        {modal !== "none" ? (
+          <View
+            style={[
+              styles.header,
+              modal === "sheet" ? styles.sheetHeader : undefined
+            ]}
           >
-            <SharedElement id="close">
-              <Icon style={styles.icon} name="ios-close" />
-            </SharedElement>
-          </TouchableOpacity>
-        </View>
-      ) : (
-        undefined
-      )}
-    </View>
-  </>
-);
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => navigation.goBack()}
+            >
+              <SharedElement id="close">
+                <Icon style={styles.icon} name="ios-close" />
+              </SharedElement>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          undefined
+        )}
+      </View>
+    </>
+  );
+};
 
 DetailScreen.defaultProps = {
   modal: "none"
@@ -66,11 +66,14 @@ const sharedElements: SharedElementsComponentConfig = (
   navigation,
   otherNavigation,
   showing
-) => [
-  { id: "image" },
-  { id: "text", animation: "fade" },
-  { id: "close", animation: "fade-in" }
-];
+) => {
+  const item = navigation.getParam("item") || defaultItem;
+  return [
+    { id: `${item.id}.image` },
+    { id: `${item.id}.title`, animation: "fade" },
+    { id: "close", animation: "fade-in" }
+  ];
+};
 DetailScreen.sharedElements = sharedElements;
 
 const styles = StyleSheet.create({

@@ -6,8 +6,9 @@ import {
   Text,
   TouchableOpacity
 } from "react-native";
-import { Icon } from "./Icon";
+
 import { Colors } from "./Colors";
+import { Icon } from "./Icon";
 
 interface TestsProps {
   children: any;
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   title: {
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: "bold",
     color: Colors.white
   },

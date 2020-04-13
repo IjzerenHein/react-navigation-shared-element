@@ -5,6 +5,8 @@ import TouchableScale from "react-native-touchable-scale";
 import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
+import { defaultItem, Item } from "../data";
+
 interface Props {
   navigation: NavigationStackProp<any>;
   routeName: string;
@@ -16,7 +18,8 @@ export class MasterScreen extends React.Component<Props> {
   };
 
   render() {
-    // Wrap the component that you want to transition in <SharedElement>
+    const { navigation } = this.props;
+    const item: Item = navigation.getParam("item") || defaultItem;
     return (
       <>
         <TouchableScale
@@ -28,14 +31,11 @@ export class MasterScreen extends React.Component<Props> {
           onPress={this.onPress}
         >
           <View style={styles.container}>
-            <SharedElement id="image">
-              <Image
-                style={styles.image}
-                source={require("../../assets/theboys.jpg")}
-              />
+            <SharedElement id={`${item.id}.image`}>
+              <Image style={styles.image} source={item.image} />
             </SharedElement>
-            <SharedElement id="text">
-              <Text style={styles.text}>The Boys</Text>
+            <SharedElement id={`${item.id}.title`}>
+              <Text style={styles.text}>{`${item.title}`}</Text>
             </SharedElement>
             <Text style={styles.caption}>tap me</Text>
           </View>
