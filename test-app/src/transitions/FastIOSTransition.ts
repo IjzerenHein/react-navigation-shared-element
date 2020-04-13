@@ -1,4 +1,4 @@
-const FastIOSTransitionSpec = {
+export const FastIOSTransitionSpec = {
   animation: "spring",
   config: {
     stiffness: 1000,
@@ -9,5 +9,3 @@ const FastIOSTransitionSpec = {
     restSpeedThreshold: 10
   }
 };
-
-export default FastIOSTransitionSpec;
