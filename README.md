@@ -240,6 +240,7 @@ The following fields can be specified in a config item
 
 ## Demo App
 
+- [./example](./example)
 - [react-navigation-shared-element-demo](https://github.com/IjzerenHein/react-navigation-shared-element-demo)
 
 ## Videos
