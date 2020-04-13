@@ -27,6 +27,7 @@ Unlikely to be supported:
 - [Usage](#usage)
 - [Documentation](#documentation)
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
+    - [Debugging shared element transitions](#debugging-shared-element-transitions)
   - [SharedElement](#sharedelement)
   - [sharedElements config](#sharedelements-config)
 - [Demo App](#demo-app)
@@ -120,14 +121,33 @@ It performs the following actions
 
 - Creates a top-level renderer to host the shared element transitions
 - Wraps each route with a shared element scene
-- Detects route changes and trigger shared element transitions
+- Detect route changes and trigger shared element transitions
 
 **Arguments**
 
-| Argument               | Type     | Description            |
-| ---------------------- | -------- | ---------------------- |
-| `routeConfig`          | `object` | Routes-config          |
-| `stackNavigatorConfig` | `object` | Stack navigator config |
+| Argument              | Type     | Description                                                             |
+| --------------------- | -------- | ----------------------------------------------------------------------- |
+| `routeConfig`         | `object` | Routes-config                                                           |
+| `stackConfig`         | `object` | Optional stack navigator config                                         |
+| `sharedElementConfig` | `object` | Optional [shared element config](#debugging-shared-element-transitions) |
+
+#### Debugging shared element transitions
+
+When transitions aren't working as expected, you can enable debug-mode
+to log scene transitions and shared-element id's to the console. The
+log output is useful for understanding scene changes and for reporting issues.
+
+```jsx
+const stackNavigator1 = createSharedElementStackNavigator(
+  { ... }, // routeConfig
+  { ... } // stackConfig
+  {
+    name: 'MyStackNav',
+    debug: true
+  }
+);
+```
+
 
 ### SharedElement
 
