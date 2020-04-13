@@ -161,7 +161,7 @@ export default class SharedElementRendererData
       case "didFocus":
         return this.didFocusScene(sceneData, route);
       case "willBlur":
-        return this.willBlurScene(sceneData, route);
+      //return this.willBlurScene(sceneData, route);
     }
   }
 
@@ -189,18 +189,13 @@ export default class SharedElementRendererData
 
     // Use the animation value from the navigator that
     // started the transition
-    if (
-      !this.isTransitionClosing &&
-      this.prevRoute &&
-      sceneData.navigatorId === this.transitionNavigatorId &&
-      !this.routeAnimValue
-    ) {
-      this.routeAnimValue = sceneData.getAnimValue(this.isTransitionClosing);
-      /*if (this.debug){
-        console.debug(
-          `[${sceneData.navigatorId}]willFocusScene using Animated.Value from "${sceneData.name}", animValue: ${this.routeAnimValue}`
-        );
-        }*/
+    if (this.prevRoute && !this.routeAnimValue) {
+      const scene = this.isTransitionClosing
+        ? this.getScene(this.prevRoute)
+        : sceneData;
+      if (scene?.navigatorId === this.transitionNavigatorId) {
+        this.routeAnimValue = scene?.getAnimValue(this.isTransitionClosing);
+      }
     }
 
     // In case of nested navigators, multiple scenes will become
