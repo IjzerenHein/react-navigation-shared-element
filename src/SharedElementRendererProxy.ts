@@ -58,4 +58,24 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
     }
     return this.data.nestingDepth + 1;
   }
+
+  addDebugRef(): number {
+    if (!this.data) {
+      console.warn(
+        "SharedElementRendererProxy.addDebugRef called before Proxy was initialized"
+      );
+      return 0;
+    }
+    return this.data.addDebugRef();
+  }
+
+  releaseDebugRef(): number {
+    if (!this.data) {
+      console.warn(
+        "SharedElementRendererProxy.relaseDebugRef called before Proxy was initialized"
+      );
+      return 0;
+    }
+    return this.data.releaseDebugRef();
+  }
 }

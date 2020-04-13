@@ -29,6 +29,8 @@ export interface ISharedElementRendererData {
     sceneEvent: SharedElementSceneEventType
   ): void;
   readonly nestingDepth: number;
+  addDebugRef(): number;
+  releaseDebugRef(): number;
 }
 
 function getSharedElements(
@@ -81,12 +83,12 @@ export default class SharedElementRendererData
   private transitionNavigatorId: string = "";
   private transitionNestingDepth: number = -1;
 
-  private isVerbose: boolean = false;
+  public debugRefCount: number = 0;
 
   startTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
-    if (this.isVerbose)
+    if (this.debug)
       console.debug(
-        `startTransition[${navigatorId}], closing: ${closing}, nestingDepth: ${nestingDepth}`
+        `[${navigatorId}]startTransition, closing: ${closing}, nestingDepth: ${nestingDepth}`
       );
 
     if (!this.isTransitionStarted || this.route) {
@@ -102,10 +104,11 @@ export default class SharedElementRendererData
         const scene = this.getScene(this.prevRoute);
         if (scene) {
           this.routeAnimValue = scene.getAnimValue(true);
-          if (this.isVerbose)
+          /*if (this.debug) {
             console.debug(
-              `startTransition[${navigatorId}] using Animated.Value from "${scene.name}", animValue: ${this.routeAnimValue}`
+              `[${navigatorId}]startTransition using Animated.Value from "${scene.name}", animValue: ${this.routeAnimValue}`
             );
+            }*/
         }
       }
 
@@ -125,9 +128,9 @@ export default class SharedElementRendererData
   }
 
   endTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
-    if (this.isVerbose)
+    if (this.debug)
       console.debug(
-        `endTransition[${navigatorId}], closing: ${closing}, nestingDepth: ${nestingDepth}`
+        `[${navigatorId}]endTransition, closing: ${closing}, nestingDepth: ${nestingDepth}`
       );
 
     if (
@@ -162,10 +165,22 @@ export default class SharedElementRendererData
     }
   }
 
+  addDebugRef(): number {
+    return ++this.debugRefCount;
+  }
+
+  releaseDebugRef(): number {
+    return --this.debugRefCount;
+  }
+
+  get debug() {
+    return this.debugRefCount > 0;
+  }
+
   willFocusScene(sceneData: SharedElementSceneData, route: Route): void {
-    if (this.isVerbose)
+    if (this.debug)
       console.debug(
-        `willFocusScene[${sceneData.navigatorId}], name: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
+        `[${sceneData.navigatorId}]willFocus, scene: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
       );
     this.registerScene(sceneData, route);
 
@@ -181,10 +196,11 @@ export default class SharedElementRendererData
       !this.routeAnimValue
     ) {
       this.routeAnimValue = sceneData.getAnimValue(this.isTransitionClosing);
-      if (this.isVerbose)
+      /*if (this.debug){
         console.debug(
-          `willFocusScene[${sceneData.navigatorId}] using Animated.Value from "${sceneData.name}", animValue: ${this.routeAnimValue}`
+          `[${sceneData.navigatorId}]willFocusScene using Animated.Value from "${sceneData.name}", animValue: ${this.routeAnimValue}`
         );
+        }*/
     }
 
     // In case of nested navigators, multiple scenes will become
@@ -207,9 +223,9 @@ export default class SharedElementRendererData
   }
 
   didFocusScene(sceneData: SharedElementSceneData, route: Route): void {
-    if (this.isVerbose)
+    if (this.debug)
       console.debug(
-        `didFocusScene[${sceneData.navigatorId}], name: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
+        `[${sceneData.navigatorId}]didFocus, scene: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
       );
 
     if (!this.route || this.prevRoute) {
@@ -229,9 +245,9 @@ export default class SharedElementRendererData
     // @ts-ignore
     route: Route // eslint-disable-line @typescript-eslint/no-unused-vars
   ): void {
-    if (this.isVerbose)
+    if (this.debug)
       console.debug(
-        `willBlurScene[${sceneData.navigatorId}], name: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
+        `[${sceneData.navigatorId}]willBlur, scene: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
       );
 
     // Wait for a transition start, before starting any animations
@@ -245,10 +261,11 @@ export default class SharedElementRendererData
       !this.routeAnimValue
     ) {
       this.routeAnimValue = sceneData.getAnimValue(this.isTransitionClosing);
-      if (this.isVerbose)
+      /*if (this.debug) {
         console.debug(
-          `willBlurScene[${sceneData.navigatorId}] using Animated.Value from "${sceneData.name}", animValue: ${this.routeAnimValue}`
+          `[${sceneData.navigatorId}]willBlurScene using Animated.Value from "${sceneData.name}", animValue: ${this.routeAnimValue}`
         );
+        }*/
     }
 
     // Update transition
@@ -326,7 +343,7 @@ export default class SharedElementRendererData
       }
     }
     if (this.sharedElements !== sharedElements) {
-      if (this.isVerbose)
+      if (this.debug)
         console.debug(
           `Transitioning from "${prevScene?.name}" to "${
             scene?.name

@@ -25,7 +25,7 @@ function createSharedElementStackSceneNavigator(
   stackConfig: Parameters<typeof createStackNavigator>[1],
   rendererData: ISharedElementRendererData,
   navigatorId: string,
-  verbose: boolean
+  debug: boolean
 ) {
   //console.log('createSharedElementStackSceneNavigator...', navigatorId);
 
@@ -43,7 +43,7 @@ function createSharedElementStackSceneNavigator(
       rendererData,
       CardAnimationContext,
       navigatorId,
-      verbose
+      debug
     );
     if (component === routeConfig) {
       wrappedRouteConfigs[key] = wrappedComponent;
@@ -108,7 +108,7 @@ function createSharedElementStackNavigator(
   stackConfig: Parameters<typeof createStackNavigator>[1],
   options?: {
     name?: string;
-    verbose?: boolean;
+    debug?: boolean;
   }
 ): NavigationNavigator<
   Parameters<typeof createStackNavigator>[1],
@@ -117,7 +117,7 @@ function createSharedElementStackNavigator(
   const navigatorId =
     options && options.name ? options.name : `stack${_navigatorId}`;
   _navigatorId++;
-  const verbose = options?.verbose || false;
+  const debug = options?.debug || false;
 
   // Create a proxy which is later updated to link
   // to the renderer
@@ -128,11 +128,24 @@ function createSharedElementStackNavigator(
     stackConfig,
     rendererDataProxy,
     navigatorId,
-    verbose
+    debug
   );
 
   class SharedElementRenderer extends React.Component {
     private rendererData?: SharedElementRendererData;
+
+    componentDidMount() {
+      if (debug) {
+        rendererDataProxy.addDebugRef();
+      }
+    }
+
+    componentWillUnmount() {
+      if (debug) {
+        rendererDataProxy.releaseDebugRef();
+      }
+    }
+
     render() {
       return (
         <SharedElementRendererContext.Consumer>
