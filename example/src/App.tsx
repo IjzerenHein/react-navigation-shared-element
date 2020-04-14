@@ -3,6 +3,7 @@ import { enableScreens } from "react-native-screens";
 
 import { Tests, Test } from "./components";
 import BottomTabs from "./tests/BottomTabs";
+import BottomTabs2 from "./tests/BottomTabs2";
 import ListViewStack from "./tests/ListViewStack";
 import MaterialTopTabs from "./tests/MaterialTopTabs";
 import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet";
@@ -21,6 +22,7 @@ export default () => (
     <Test title="ModalStack" Component={ModalStack} />
     <Test title="ModalIOS13PageSheet" Component={ModalIOS13PageSheet} />
     <Test title="BottomTabs" Component={BottomTabs} />
+    <Test title="BottomTabs2" Component={BottomTabs2} />
     <Test title="MaterialTopTabs" Component={MaterialTopTabs} />
     <Test title="ListView" Component={ListViewStack} />
   </Tests>
