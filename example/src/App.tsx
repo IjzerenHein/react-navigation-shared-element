@@ -11,6 +11,7 @@ import ModalStack from "./tests/ModalStack";
 import NestedStack from "./tests/NestedStack";
 import NestedStack2 from "./tests/NestedStack2";
 import SimpleStack from "./tests/SimpleStack";
+import TextInputStack from "./tests/TextInputStack";
 
 enableScreens();
 
@@ -25,5 +26,6 @@ export default () => (
     <Test title="BottomTabs2" Component={BottomTabs2} />
     <Test title="MaterialTopTabs" Component={MaterialTopTabs} />
     <Test title="ListView" Component={ListViewStack} />
+    <Test title="TextInput" Component={TextInputStack} />
   </Tests>
 );
