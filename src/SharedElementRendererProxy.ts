@@ -28,9 +28,8 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
   }
 
   updateSceneState(
-    sceneData: SharedElementSceneData,
-    route: SharedElementRoute,
-    sceneEvent: SharedElementSceneEventType
+    scene: SharedElementSceneData,
+    eventType: SharedElementSceneEventType
   ) {
     if (!this.data) {
       console.warn(
@@ -38,7 +37,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
       );
       return;
     }
-    return this.data.updateSceneState(sceneData, route, sceneEvent);
+    return this.data.updateSceneState(scene, eventType);
   }
 
   get source(): ISharedElementRendererData | null {

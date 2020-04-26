@@ -87,7 +87,7 @@ function createSharedElementScene(
     };
 
     componentDidUpdate() {
-      this.sceneData.route = routeFromNavigation(this.props.navigation);
+      this.sceneData.updateRoute(routeFromNavigation(this.props.navigation));
     }
 
     private onSetRef = (ref: any) => {
@@ -99,11 +99,8 @@ function createSharedElementScene(
       const activeRoute = getActiveRouteState(navigation.state);
       //console.log('onWillFocus: ', navigation.state, activeRoute);
       if (navigation.state.routeName === activeRoute.routeName) {
-        rendererData.updateSceneState(
-          this.sceneData,
-          routeFromNavigation(navigation),
-          "willFocus"
-        );
+        this.sceneData.updateRoute(routeFromNavigation(navigation));
+        rendererData.updateSceneState(this.sceneData, "willFocus");
       }
     };
 
@@ -112,11 +109,8 @@ function createSharedElementScene(
       const activeRoute = getActiveRouteState(navigation.state);
       if (navigation.state.routeName === activeRoute.routeName) {
         // console.log('onDidFocus: ', this.sceneData.name, navigation);
-        rendererData.updateSceneState(
-          this.sceneData,
-          routeFromNavigation(navigation),
-          "didFocus"
-        );
+        this.sceneData.updateRoute(routeFromNavigation(navigation));
+        rendererData.updateSceneState(this.sceneData, "didFocus");
       }
     };
 
@@ -125,11 +119,8 @@ function createSharedElementScene(
       const activeRoute = getActiveRouteState(navigation.state);
       //console.log('onWillBlur: ', navigation.state, activeRoute);
       if (navigation.state.routeName === activeRoute.routeName) {
-        rendererData.updateSceneState(
-          this.sceneData,
-          routeFromNavigation(navigation),
-          "willBlur"
-        );
+        this.sceneData.updateRoute(routeFromNavigation(navigation));
+        rendererData.updateSceneState(this.sceneData, "willBlur");
       }
     };
   }

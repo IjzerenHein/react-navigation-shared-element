@@ -40,7 +40,7 @@ export default class SharedElementSceneData {
   public readonly navigatorId: string;
   public readonly nestingDepth: number;
   public readonly debug: boolean;
-  public route: SharedElementRoute;
+  public readonly route: SharedElementRoute;
 
   constructor(
     Component: SharedElementSceneComponent,
@@ -59,6 +59,14 @@ export default class SharedElementSceneData {
       Component.name ||
       (Component.constructor ? Component.constructor.name : undefined) ||
       "";
+  }
+
+  public updateRoute(route: SharedElementRoute) {
+    if (route.key !== this.route.key) {
+      throw new Error("ERROR");
+    }
+    // @ts-ignore
+    this.route = route;
   }
 
   setAnimimationContextValue(value: any) {
