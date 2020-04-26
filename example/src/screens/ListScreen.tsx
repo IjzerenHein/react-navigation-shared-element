@@ -5,44 +5,7 @@ import TouchableScale from "react-native-touchable-scale";
 import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
-type Item = {
-  id: string;
-  title: string;
-  image: any;
-};
-
-const ITEMS: Item[] = [
-  {
-    id: "homelander",
-    title: "Homelander",
-    image: require("../../assets/homelander.png")
-  },
-  {
-    id: "atrain",
-    title: "A train",
-    image: require("../../assets/atrain.jpg")
-  },
-  {
-    id: "blacknoir",
-    title: "Black Noir",
-    image: require("../../assets/blacknoir.png")
-  },
-  {
-    id: "queenmaeve",
-    title: "Queen Maeve",
-    image: require("../../assets/queenmaeve.jpg")
-  },
-  {
-    id: "thedeep",
-    title: "The Deep",
-    image: require("../../assets/thedeep.jpeg")
-  },
-  {
-    id: "starlight",
-    title: "Starlight",
-    image: require("../../assets/starlight.jpg")
-  }
-];
+import { items, Item } from "../data";
 
 interface Props {
   navigation: NavigationStackProp<any>;
@@ -54,7 +17,18 @@ export class ListScreen extends React.Component<Props> {
     routeName: "Detail"
   };
 
-  renderItem = (event: any) => {
+  render() {
+    return (
+      <FlatList
+        style={styles.container}
+        data={items}
+        renderItem={this.renderItem}
+        keyExtractor={item => item.id}
+      />
+    );
+  }
+
+  private renderItem = (event: any) => {
     const { navigation, routeName } = this.props;
     const item: Item = event.item;
     // Wrap the component that you want to transition in <SharedElement>
@@ -77,17 +51,6 @@ export class ListScreen extends React.Component<Props> {
       </TouchableScale>
     );
   };
-
-  render() {
-    return (
-      <FlatList
-        style={styles.container}
-        data={ITEMS}
-        renderItem={this.renderItem}
-        keyExtractor={item => item.id}
-      />
-    );
-  }
 }
 
 const styles = StyleSheet.create({
