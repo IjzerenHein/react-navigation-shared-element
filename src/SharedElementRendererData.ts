@@ -263,7 +263,7 @@ export default class SharedElementRendererData
     if (this.scenes.length > 10) {
       const { subscription } = this.scenes[0];
       this.scenes.splice(0, 1);
-      if (subscription) subscription.remove();
+      subscription?.();
     }
     this.updateSceneListeners();
   }
@@ -281,7 +281,7 @@ export default class SharedElementRendererData
         });
       } else if (!isActive && subscription) {
         sceneRoute.subscription = null;
-        subscription.remove();
+        subscription();
       }
     });
   }
@@ -350,9 +350,7 @@ export default class SharedElementRendererData
     handler: SharedElementRendererUpdateHandler
   ): SharedElementEventSubscription {
     this.updateSubscribers.add(handler);
-    return {
-      remove: () => this.updateSubscribers.delete(handler)
-    };
+    return () => this.updateSubscribers.delete(handler);
   }
 
   private emitUpdateEvent(): void {

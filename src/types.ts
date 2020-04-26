@@ -52,9 +52,7 @@ export type NavigationProp<RouteName = string, Params = object> = {
   dangerouslyGetParent(): NavigationProp | undefined;
 };
 
-export type SharedElementEventSubscription = {
-  remove(): void;
-};
+export type SharedElementEventSubscription = () => void;
 
 export type SharedElementStrictConfig = {
   readonly id: string;

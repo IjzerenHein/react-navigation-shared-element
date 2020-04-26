@@ -103,9 +103,7 @@ export default class SharedElementSceneData {
     handler: SharedElementSceneUpdateHandler
   ): SharedElementEventSubscription {
     this.updateSubscribers.add(handler);
-    return {
-      remove: () => this.updateSubscribers.delete(handler)
-    };
+    return () => this.updateSubscribers.delete(handler);
   }
 
   private emitUpdateEvent(

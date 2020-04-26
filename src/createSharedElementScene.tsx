@@ -32,7 +32,9 @@ function createSharedElementScene(
 ): React.ComponentType<any> {
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
-      [key: string]: SharedElementEventSubscription;
+      [key: string]: {
+        remove(): void;
+      };
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
       Component,
