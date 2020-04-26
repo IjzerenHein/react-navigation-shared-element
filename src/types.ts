@@ -89,5 +89,5 @@ export type SharedElementsComponentConfig = (
 ) => SharedElementsConfig | undefined;
 
 export type SharedElementSceneComponent = React.ComponentType<any> & {
-  sharedElements: SharedElementsComponentConfig;
+  sharedElements?: SharedElementsComponentConfig;
 };
