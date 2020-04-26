@@ -1,18 +1,21 @@
-import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import { NavigationContainer } from "@react-navigation/native";
+import * as React from "react";
+import { createSharedElementStackNavigator5 } from "react-navigation-shared-element";
 
-import { createScreen, MasterScreen, DetailScreen } from "../screens";
+import { MasterScreen, DetailScreen } from "../screens";
 
-const SimpleStackNavigator = createSharedElementStackNavigator(
-  {
-    Master: createScreen(MasterScreen, "SimpleStack"),
-    Detail: DetailScreen
-  },
-  undefined,
-  {
-    name: "SimpleStack",
-    debug: true
-  }
-);
+const Stack = createSharedElementStackNavigator5({
+  name: "SimpleStack",
+  debug: true
+});
 
-export default createAppContainer(SimpleStackNavigator);
+export default () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="SimpleStack" component={MasterScreen} />
+        <Stack.Screen name="Detail" component={DetailScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};

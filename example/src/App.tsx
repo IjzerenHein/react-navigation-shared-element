@@ -2,25 +2,26 @@ import * as React from "react";
 import { enableScreens } from "react-native-screens";
 
 import { Tests, Test } from "./components";
-import BackOnly from "./tests/BackOnly";
-import BottomTabs from "./tests/BottomTabs";
-import BottomTabs2 from "./tests/BottomTabs2";
-import ForwardOnly from "./tests/ForwardOnly";
-import ListViewStack from "./tests/ListViewStack";
-import MaterialTopTabs from "./tests/MaterialTopTabs";
-import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet";
-import ModalStack from "./tests/ModalStack";
-import NestedStack from "./tests/NestedStack";
-import NestedStack2 from "./tests/NestedStack2";
+import BackOnly from "./tests/BackOnly.v4";
+import BottomTabs from "./tests/BottomTabs.v4";
+import BottomTabs2 from "./tests/BottomTabs2.v4";
+import ForwardOnly from "./tests/ForwardOnly.v4";
+import ListViewStack from "./tests/ListViewStack.v4";
+import MaterialTopTabs from "./tests/MaterialTopTabs.v4";
+import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet.v4";
+import ModalStack from "./tests/ModalStack.v4";
+import NestedStack from "./tests/NestedStack.v4";
+import NestedStack2 from "./tests/NestedStack2.v4";
 import SimpleStack from "./tests/SimpleStack";
-import TextInputStack from "./tests/TextInputStack";
-import ViewPager from "./tests/ViewPager";
+import SimpleStackV4 from "./tests/SimpleStack.v4";
+import TextInputStack from "./tests/TextInputStack.v4";
+import ViewPager from "./tests/ViewPager.v4";
 
 enableScreens();
 
 export default () => (
   <Tests>
-    <Test title="SimpleStack" Component={SimpleStack} />
+    <Test title="SimpleStack" Component={SimpleStackV4} />
     <Test title="ForwardOnly" Component={ForwardOnly} />
     <Test title="BackOnly" Component={BackOnly} />
     <Test title="NestedStack" Component={NestedStack} />
