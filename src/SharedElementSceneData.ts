@@ -1,9 +1,9 @@
 import {
   SharedElementNode,
   SharedElementEventSubscription,
-  SharedElementSceneComponent,
   SharedElementAnimatedValue,
-  NavigationProp
+  SharedElementRoute,
+  SharedElementSceneComponent
 } from "./types";
 
 export type SharedElementSceneUpdateHandlerEventType =
@@ -40,17 +40,17 @@ export default class SharedElementSceneData {
   public readonly navigatorId: string;
   public readonly nestingDepth: number;
   public readonly debug: boolean;
-  public navigation: NavigationProp;
+  public route: SharedElementRoute;
 
   constructor(
     Component: SharedElementSceneComponent,
-    navigation: NavigationProp,
+    route: SharedElementRoute,
     navigatorId: string,
     nestingDepth: number,
     debug: boolean
   ) {
     this.Component = Component;
-    this.navigation = navigation;
+    this.route = route;
     this.navigatorId = navigatorId;
     this.nestingDepth = nestingDepth;
     this.debug = debug;

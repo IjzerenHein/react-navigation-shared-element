@@ -1,3 +1,4 @@
+import { SharedElementCompatRouteProxy } from "./SharedElementCompatRouteProxy";
 import SharedElementSceneData, {
   SharedElementSceneEventType
 } from "./SharedElementSceneData";
@@ -6,7 +7,7 @@ import {
   SharedElementsStrictConfig,
   SharedElementAnimatedValue,
   SharedElementTransitionProps,
-  Route
+  SharedElementRoute
 } from "./types";
 import { normalizeSharedElementsConfig } from "./utils";
 
@@ -25,7 +26,7 @@ export interface ISharedElementRendererData {
   ): void;
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ): void;
   readonly nestingDepth: number;
@@ -34,14 +35,20 @@ export interface ISharedElementRendererData {
 }
 
 function getSharedElements(
-  sceneData: SharedElementSceneData,
-  otherSceneData: SharedElementSceneData,
+  scene: SharedElementSceneData,
+  route: SharedElementRoute,
+  otherScene: SharedElementSceneData,
+  otherRoute: SharedElementRoute,
   showing: boolean
 ): SharedElementsStrictConfig | null {
-  const { sharedElements } = sceneData.Component;
+  const { sharedElements } = scene.Component;
   if (!sharedElements) return null;
   return normalizeSharedElementsConfig(
-    sharedElements(sceneData.navigation, otherSceneData.navigation, showing)
+    sharedElements(
+      new SharedElementCompatRouteProxy(scene.route),
+      new SharedElementCompatRouteProxy(otherScene.route),
+      showing
+    )
   );
 }
 
@@ -49,7 +56,7 @@ const NO_SHARED_ELEMENTS: any[] = [];
 
 type SceneRoute = {
   scene: SharedElementSceneData;
-  route: Route;
+  route: SharedElementRoute;
   subscription: SharedElementEventSubscription | null;
 };
 
@@ -65,8 +72,8 @@ export default class SharedElementRendererData
   private sharedElements: SharedElementsStrictConfig | null = null;
   private isShowing: boolean = true;
 
-  private route: Route | null = null;
-  private prevRoute: Route | null = null;
+  private route: SharedElementRoute | null = null;
+  private prevRoute: SharedElementRoute | null = null;
   private routeAnimValue: SharedElementAnimatedValue;
 
   private scene: SharedElementSceneData | null = null;
@@ -142,7 +149,7 @@ export default class SharedElementRendererData
 
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ): void {
     switch (sceneEvent) {
@@ -167,7 +174,10 @@ export default class SharedElementRendererData
     return this.debugRefCount > 0;
   }
 
-  willFocusScene(sceneData: SharedElementSceneData, route: Route): void {
+  willFocusScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ): void {
     if (this.debug)
       console.debug(
         `[${sceneData.navigatorId}]willFocus, scene: "${sceneData.name}", depth: ${sceneData.nestingDepth}, closing: ${this.isTransitionClosing}`
@@ -207,7 +217,10 @@ export default class SharedElementRendererData
     }
   }
 
-  didFocusScene(sceneData: SharedElementSceneData, route: Route): void {
+  didFocusScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ): void {
     if (this.debug)
       console.debug(
         `[${sceneData.navigatorId}]didFocus, scene: "${sceneData.name}", depth: ${sceneData.nestingDepth}`
@@ -254,7 +267,10 @@ export default class SharedElementRendererData
     }
   }*/
 
-  private registerScene(sceneData: SharedElementSceneData, route: Route) {
+  private registerScene(
+    sceneData: SharedElementSceneData,
+    route: SharedElementRoute
+  ) {
     this.scenes.push({
       scene: sceneData,
       route,
@@ -286,7 +302,9 @@ export default class SharedElementRendererData
     });
   }
 
-  private getScene(route: Route | null): SharedElementSceneData | null {
+  private getScene(
+    route: SharedElementRoute | null
+  ): SharedElementSceneData | null {
     const sceneRoute = route
       ? this.scenes.find(sc => sc.route.key === route.key)
       : undefined;
@@ -313,11 +331,23 @@ export default class SharedElementRendererData
     // Update shared elements
     let sharedElements: SharedElementsStrictConfig | null = null;
     let isShowing = true;
-    if (sceneAnimValue && scene && prevScene) {
-      sharedElements = getSharedElements(scene, prevScene, true);
+    if (sceneAnimValue && scene && prevScene && route && prevRoute) {
+      sharedElements = getSharedElements(
+        scene,
+        route,
+        prevScene,
+        prevRoute,
+        true
+      );
       if (!sharedElements) {
         isShowing = false;
-        sharedElements = getSharedElements(prevScene, scene, false);
+        sharedElements = getSharedElements(
+          prevScene,
+          prevRoute,
+          scene,
+          route,
+          false
+        );
       }
     }
     if (this.sharedElements !== sharedElements) {

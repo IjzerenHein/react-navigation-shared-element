@@ -3,14 +3,11 @@ import * as React from "react";
 import { View, StyleSheet } from "react-native";
 import { nodeFromRef } from "react-native-shared-element";
 
-import { ISharedElementRendererData } from "./SharedElementRendererData";
-import SharedElementSceneContext from "./SharedElementSceneContext";
-import SharedElementSceneData from "./SharedElementSceneData";
-import {
-  SharedElementEventSubscription,
-  NavigationProp,
-  SharedElementSceneComponent
-} from "./types";
+import { ISharedElementRendererData } from "../SharedElementRendererData";
+import SharedElementSceneContext from "../SharedElementSceneContext";
+import SharedElementSceneData from "../SharedElementSceneData";
+import { SharedElementSceneComponent, SharedElementRoute } from "../types";
+import { NavigationProp } from "./types";
 import { getActiveRouteState } from "./utils";
 
 const styles = StyleSheet.create({
@@ -22,6 +19,14 @@ const styles = StyleSheet.create({
 type PropsType = {
   navigation: NavigationProp;
 };
+
+function routeFromNavigation(navigation: any): SharedElementRoute {
+  return {
+    key: navigation.state.key,
+    name: navigation.state.routeName,
+    params: navigation.state.params || {}
+  };
+}
 
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
@@ -38,7 +43,7 @@ function createSharedElementScene(
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
       Component,
-      this.props.navigation,
+      routeFromNavigation(this.props.navigation),
       navigatorId,
       rendererData.nestingDepth,
       verbose
@@ -82,7 +87,7 @@ function createSharedElementScene(
     };
 
     componentDidUpdate() {
-      this.sceneData.navigation = this.props.navigation;
+      this.sceneData.route = routeFromNavigation(this.props.navigation);
     }
 
     private onSetRef = (ref: any) => {
@@ -96,7 +101,7 @@ function createSharedElementScene(
       if (navigation.state.routeName === activeRoute.routeName) {
         rendererData.updateSceneState(
           this.sceneData,
-          navigation.state,
+          routeFromNavigation(navigation),
           "willFocus"
         );
       }
@@ -109,7 +114,7 @@ function createSharedElementScene(
         // console.log('onDidFocus: ', this.sceneData.name, navigation);
         rendererData.updateSceneState(
           this.sceneData,
-          navigation.state,
+          routeFromNavigation(navigation),
           "didFocus"
         );
       }
@@ -122,7 +127,7 @@ function createSharedElementScene(
       if (navigation.state.routeName === activeRoute.routeName) {
         rendererData.updateSceneState(
           this.sceneData,
-          navigation.state,
+          routeFromNavigation(navigation),
           "willBlur"
         );
       }

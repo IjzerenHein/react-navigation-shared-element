@@ -10,12 +10,12 @@ import {
   CardAnimationContext
 } from "react-navigation-stack";
 
-import SharedElementRendererContext from "./SharedElementRendererContext";
+import SharedElementRendererContext from "../SharedElementRendererContext";
 import SharedElementRendererData, {
   ISharedElementRendererData
-} from "./SharedElementRendererData";
-import { SharedElementRendererProxy } from "./SharedElementRendererProxy";
-import SharedElementRendererView from "./SharedElementRendererView";
+} from "../SharedElementRendererData";
+import { SharedElementRendererProxy } from "../SharedElementRendererProxy";
+import SharedElementRendererView from "../SharedElementRendererView";
 import createSharedElementScene from "./createSharedElementScene";
 
 let _navigatorId = 1;

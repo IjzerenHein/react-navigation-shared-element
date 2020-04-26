@@ -2,7 +2,7 @@ import { ISharedElementRendererData } from "./SharedElementRendererData";
 import SharedElementSceneData, {
   SharedElementSceneEventType
 } from "./SharedElementSceneData";
-import { Route } from "./types";
+import { SharedElementRoute } from "./types";
 
 export class SharedElementRendererProxy implements ISharedElementRendererData {
   private data: ISharedElementRendererData | null = null;
@@ -29,7 +29,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
 
   updateSceneState(
     sceneData: SharedElementSceneData,
-    route: Route,
+    route: SharedElementRoute,
     sceneEvent: SharedElementSceneEventType
   ) {
     if (!this.data) {
