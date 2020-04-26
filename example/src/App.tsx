@@ -34,5 +34,7 @@ export default () => (
     <Test title="ListView" Component={ListViewStack} />
     <Test title="ViewPager" Component={ViewPager} />
     <Test title="TextInput" Component={TextInputStack} />
+    <Test title="Navigation V5 (experimental)" Component={null} />
+    <Test title="SimpleStack" Component={SimpleStack} />
   </Tests>
 );

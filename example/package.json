@@ -9,6 +9,8 @@
     "@expo/vector-icons": "^10.0.6",
     "@react-native-community/masked-view": "^0.1.7",
     "@react-native-community/viewpager": "^3.3.0",
+    "@react-navigation/native": "^5.1.6",
+    "@react-navigation/stack": "^5.2.13",
     "expo": "~37.0.3",
     "expo-updates": "~0.1.0",
     "react": "~16.9.0",
