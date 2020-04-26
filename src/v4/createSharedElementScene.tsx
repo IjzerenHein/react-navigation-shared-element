@@ -7,8 +7,7 @@ import { ISharedElementRendererData } from "../SharedElementRendererData";
 import SharedElementSceneContext from "../SharedElementSceneContext";
 import SharedElementSceneData from "../SharedElementSceneData";
 import { SharedElementSceneComponent, SharedElementRoute } from "../types";
-import { NavigationProp } from "./types";
-import { getActiveRouteState } from "./utils";
+import { NavigationProp, Route } from "./types";
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +25,18 @@ function routeFromNavigation(navigation: any): SharedElementRoute {
     name: navigation.state.routeName,
     params: navigation.state.params || {}
   };
+}
+
+export function getActiveRouteState(route: any): Route {
+  if (
+    !route.routes ||
+    route.routes.length === 0 ||
+    route.index >= route.routes.length
+  ) {
+    return route;
+  } else {
+    return getActiveRouteState(route.routes[route.index]);
+  }
 }
 
 function createSharedElementScene(
