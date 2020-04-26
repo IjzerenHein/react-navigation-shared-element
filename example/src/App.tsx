@@ -14,6 +14,7 @@ import NestedStack from "./tests/NestedStack";
 import NestedStack2 from "./tests/NestedStack2";
 import SimpleStack from "./tests/SimpleStack";
 import TextInputStack from "./tests/TextInputStack";
+import ViewPager from "./tests/ViewPager";
 
 enableScreens();
 
@@ -30,6 +31,7 @@ export default () => (
     <Test title="BottomTabs2" Component={BottomTabs2} />
     <Test title="MaterialTopTabs" Component={MaterialTopTabs} />
     <Test title="ListView" Component={ListViewStack} />
+    <Test title="ViewPager" Component={ViewPager} />
     <Test title="TextInput" Component={TextInputStack} />
   </Tests>
 );
