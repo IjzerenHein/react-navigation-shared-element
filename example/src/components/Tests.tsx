@@ -6,47 +6,65 @@ import {
   Text,
   TouchableOpacity
 } from "react-native";
+import { useSafeArea } from "react-native-safe-area-context";
 
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
+import { SegmentControl, Segment } from "./Segment";
 
-interface TestsProps {
+type Props = {
   children: any;
-}
+};
 
-export const Tests = (props: TestsProps) => {
+export const Tests = (props: Props) => {
+  const insets = useSafeArea();
   const [test, setTest] = React.useState<any>(undefined);
-  if (test) {
-    return (
-      <View style={styles.container}>
-        <test.props.Component />
-        <View style={styles.back} pointerEvents="box-none">
-          <TouchableOpacity
-            style={styles.backContainer}
-            activeOpacity={0.5}
-            onPress={() => setTest(undefined)}
-          >
-            <Icon style={styles.backIcon} name="ios-home" />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  } else {
-    return (
-      <View style={styles.container}>
-        <View style={styles.header}>
+  const [v4, setV4] = React.useState(false);
+
+  return (
+    <View style={styles.container}>
+      {test && (v4 ? <test.props.ComponentV4 /> : <test.props.Component />)}
+      {!test && (
+        <View style={[styles.header, { paddingTop: insets.top }]}>
           <Text style={styles.title}>react-navigation-shared-element</Text>
+          <SegmentControl
+            style={styles.segments}
+            selectedIndex={v4 ? 0 : 1}
+            onValueChange={index => setV4(index === 0)}
+          >
+            <Segment label="Navigation 4" />
+            <Segment label="Navigation 5" />
+          </SegmentControl>
         </View>
+      )}
+      {!test && (
         <ScrollView style={styles.content}>
           {React.Children.map(props.children, test =>
             React.cloneElement(test, {
+              v4,
               onPress: (Component: React.ComponentType<any>) => setTest(test)
             })
           )}
         </ScrollView>
+      )}
+      <View
+        style={[
+          styles.back,
+          test ? { justifyContent: "center" } : { marginTop: insets.top - 5 }
+        ]}
+        pointerEvents="box-none"
+      >
+        <TouchableOpacity
+          style={styles.backContainer}
+          activeOpacity={0.5}
+          disabled={!test}
+          onPress={() => setTest(undefined)}
+        >
+          <Icon style={styles.backIcon} name="ios-home" />
+        </TouchableOpacity>
       </View>
-    );
-  }
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -54,14 +72,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header: {
-    height: 80,
     borderBottomColor: "gray",
     borderBottomWidth: StyleSheet.hairlineWidth,
     backgroundColor: Colors.blue,
     paddingBottom: 10,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "flex-end"
+    justifyContent: "flex-end",
+    alignItems: "center"
   },
   content: {
     flex: 1
@@ -73,7 +89,6 @@ const styles = StyleSheet.create({
   },
   back: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
     paddingLeft: 10
   },
   backContainer: {
@@ -87,5 +102,9 @@ const styles = StyleSheet.create({
   backIcon: {
     color: "white",
     fontSize: 20
+  },
+  segments: {
+    marginTop: 10,
+    marginHorizontal: 20
   }
 });

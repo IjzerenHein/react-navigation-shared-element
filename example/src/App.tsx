@@ -1,41 +1,46 @@
 import "react-native-gesture-handler";
 import * as React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 
 import { Tests, Test } from "./components";
-import BackOnly from "./tests/BackOnly.v4";
-import BottomTabs from "./tests/BottomTabs.v4";
-import BottomTabs2 from "./tests/BottomTabs2.v4";
-import ForwardOnly from "./tests/ForwardOnly.v4";
-import ListViewStack from "./tests/ListViewStack.v4";
-import MaterialTopTabs from "./tests/MaterialTopTabs.v4";
-import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet.v4";
-import ModalStack from "./tests/ModalStack.v4";
-import NestedStack from "./tests/NestedStack.v4";
-import NestedStack2 from "./tests/NestedStack2.v4";
+import BackOnlyV4 from "./tests/BackOnly.v4";
+import BottomTabsV4 from "./tests/BottomTabs.v4";
+import BottomTabs2V4 from "./tests/BottomTabs2.v4";
+import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
+import ListViewStackV4 from "./tests/ListViewStack.v4";
+import MaterialTopTabsV4 from "./tests/MaterialTopTabs.v4";
+import ModalIOS13PageSheetV4 from "./tests/ModalIOS13PageSheet.v4";
+import ModalStackV4 from "./tests/ModalStack.v4";
+import NestedStackV4 from "./tests/NestedStack.v4";
+import NestedStack2V4 from "./tests/NestedStack2.v4";
 import SimpleStack from "./tests/SimpleStack";
 import SimpleStackV4 from "./tests/SimpleStack.v4";
-import TextInputStack from "./tests/TextInputStack.v4";
-import ViewPager from "./tests/ViewPager.v4";
+import TextInputStackV4 from "./tests/TextInputStack.v4";
+import ViewPagerV4 from "./tests/ViewPager.v4";
 
 enableScreens();
 
 export default () => (
-  <Tests>
-    <Test title="SimpleStack" Component={SimpleStackV4} />
-    <Test title="ForwardOnly" Component={ForwardOnly} />
-    <Test title="BackOnly" Component={BackOnly} />
-    <Test title="NestedStack" Component={NestedStack} />
-    <Test title="NestedStack2" Component={NestedStack2} />
-    <Test title="ModalStack" Component={ModalStack} />
-    <Test title="ModalIOS13PageSheet" Component={ModalIOS13PageSheet} />
-    <Test title="BottomTabs" Component={BottomTabs} />
-    <Test title="BottomTabs2" Component={BottomTabs2} />
-    <Test title="MaterialTopTabs" Component={MaterialTopTabs} />
-    <Test title="ListView" Component={ListViewStack} />
-    <Test title="ViewPager" Component={ViewPager} />
-    <Test title="TextInput" Component={TextInputStack} />
-    <Test title="Navigation V5 (experimental)" Component={null} />
-    <Test title="SimpleStack" Component={SimpleStack} />
-  </Tests>
+  <SafeAreaProvider>
+    <Tests>
+      <Test
+        title="SimpleStack"
+        ComponentV4={SimpleStackV4}
+        Component={SimpleStack}
+      />
+      <Test title="ForwardOnly" ComponentV4={ForwardOnlyV4} />
+      <Test title="BackOnly" ComponentV4={BackOnlyV4} />
+      <Test title="NestedStack" ComponentV4={NestedStackV4} />
+      <Test title="NestedStack2" ComponentV4={NestedStack2V4} />
+      <Test title="ModalStack" ComponentV4={ModalStackV4} />
+      <Test title="ModalIOS13PageSheet" ComponentV4={ModalIOS13PageSheetV4} />
+      <Test title="BottomTabs" ComponentV4={BottomTabsV4} />
+      <Test title="BottomTabs2" ComponentV4={BottomTabs2V4} />
+      <Test title="MaterialTopTabs" ComponentV4={MaterialTopTabsV4} />
+      <Test title="ListView" ComponentV4={ListViewStackV4} />
+      <Test title="ViewPager" ComponentV4={ViewPagerV4} />
+      <Test title="TextInput" ComponentV4={TextInputStackV4} />
+    </Tests>
+  </SafeAreaProvider>
 );
