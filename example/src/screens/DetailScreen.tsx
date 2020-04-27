@@ -7,15 +7,18 @@ import {
 import { NavigationStackProp } from "react-navigation-stack";
 
 import { Icon } from "../components";
-import { defaultItem } from "../data";
+import { Item, defaultItem } from "../data";
 
-interface Props {
+type Props = {
   navigation: NavigationStackProp<any>;
+  route: any; // v5
   modal: "none" | "full" | "sheet";
-}
+};
 
-export const DetailScreen = ({ navigation, modal }: Props) => {
-  const item = navigation.getParam("item") || defaultItem;
+export const DetailScreen = (props: Props) => {
+  const { navigation, route, modal } = props;
+  const params = route?.params || navigation?.state?.params;
+  const item: Item = params?.item || defaultItem;
   return (
     <>
       <View style={styles.container}>

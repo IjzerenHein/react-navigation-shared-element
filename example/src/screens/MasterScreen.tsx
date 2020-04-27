@@ -8,7 +8,8 @@ import { NavigationStackProp } from "react-navigation-stack";
 import { defaultItem, Item } from "../data";
 
 interface Props {
-  navigation: NavigationStackProp<any>;
+  navigation: NavigationStackProp<any>; // v4
+  route: any; // v5
   routeName: string;
 }
 
@@ -18,8 +19,9 @@ export class MasterScreen extends React.Component<Props> {
   };
 
   render() {
-    const { navigation } = this.props;
-    const item: Item = navigation.getParam("item") || defaultItem;
+    const { navigation, route } = this.props;
+    const params = route?.params || navigation?.state?.params;
+    const item: Item = params?.item || defaultItem;
     return (
       <>
         <TouchableScale
