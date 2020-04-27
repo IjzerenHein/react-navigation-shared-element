@@ -17,6 +17,7 @@ import {
   StackNavigationEventMap
 } from "@react-navigation/stack/lib/typescript/src/types";
 import * as React from "react";
+import { Platform } from "react-native";
 
 import SharedElementRendererContext from "./SharedElementRendererContext";
 import SharedElementRendererData from "./SharedElementRendererData";
@@ -50,6 +51,10 @@ export default function createSharedElementStackNavigator<
     screenOptions,
     ...rest
   }: Props) {
+    const defaultOptions = {
+      gestureEnabled: Platform.OS === "ios",
+      animationEnabled: Platform.OS !== "web"
+    };
     const { state, descriptors, navigation } = useNavigationBuilder<
       StackNavigationState,
       StackRouterOptions,
@@ -58,7 +63,16 @@ export default function createSharedElementStackNavigator<
     >(StackRouter, {
       initialRouteName,
       children,
-      screenOptions
+      screenOptions:
+        typeof screenOptions === "function"
+          ? (...args) => ({
+              ...defaultOptions,
+              ...screenOptions(...args)
+            })
+          : {
+              ...defaultOptions,
+              ...screenOptions
+            }
     });
 
     const rendererDataRef = React.useRef<SharedElementRendererData | null>(
@@ -95,8 +109,8 @@ export default function createSharedElementStackNavigator<
               <StackView
                 {...rest}
                 state={state}
-                navigation={navigation}
                 descriptors={descriptors}
+                navigation={navigation}
               />
               {rendererDataRef.current ? (
                 <SharedElementRendererView
