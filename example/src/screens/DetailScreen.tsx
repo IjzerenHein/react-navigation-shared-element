@@ -66,11 +66,11 @@ DetailScreen.navigationOptions = {
 // to or from this screen. You can use the provided navigation
 // states or trigger or disable animations.
 const sharedElements: SharedElementsComponentConfig = (
-  navigation,
-  otherNavigation,
+  route,
+  otherRoute,
   showing
 ) => {
-  const item = navigation.getParam("item") || defaultItem;
+  const item = route.params.item || defaultItem;
   return [
     { id: `${item.id}.image` },
     { id: `${item.id}.title`, animation: "fade" },

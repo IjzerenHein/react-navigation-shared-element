@@ -19,15 +19,16 @@ import { Item, items } from "../data";
 
 type Props = {
   navigation: NavigationStackProp<any>;
+  route: any;
 };
 
 export class ViewPagerScreen extends React.Component<Props> {
   static sharedElements: SharedElementsComponentConfig = (
-    navigation,
-    otherNavigation,
+    route,
+    otherRoute,
     showing
   ) => {
-    const item = navigation.getParam("item");
+    const { item } = route.params;
     return [
       { id: `${item.id}.image` },
       { id: `${item.id}.title`, animation: "fade" },

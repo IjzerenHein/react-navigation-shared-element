@@ -1,12 +1,12 @@
-import { View, TextInput, Keyboard } from "react-native";
-import React from "react";
+import * as React from "react";
+import { View, TextInput } from "react-native";
+import { useSafeArea } from "react-native-safe-area-context";
 import { createAppContainer } from "react-navigation";
-import { HeaderBackButton } from "react-navigation-stack";
 import {
   SharedElement,
-  createSharedElementStackNavigator
+  createSharedElementStackNavigator4
 } from "react-navigation-shared-element";
-import { useSafeArea } from "react-native-safe-area-context";
+import { HeaderBackButton } from "react-navigation-stack";
 
 const SearchInput = props => (
   <TextInput
@@ -57,7 +57,7 @@ const SearchScreen = ({ navigation }) => {
 SearchScreen.navigationOptions = { headerShown: false };
 SearchScreen.sharedElements = () => [{ id: "searchBar" }];
 
-const TextInputStackNavigator = createSharedElementStackNavigator(
+const TextInputStackNavigator = createSharedElementStackNavigator4(
   {
     Home: HomeScreen,
     Search: SearchScreen

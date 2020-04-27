@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
-import { createSharedElementStackNavigator5 } from "react-navigation-shared-element";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import { MasterScreen, DetailScreen } from "../screens";
 
-const Stack = createSharedElementStackNavigator5({
+const Stack = createSharedElementStackNavigator({
   name: "SimpleStack",
   debug: true
 });

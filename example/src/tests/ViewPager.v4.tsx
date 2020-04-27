@@ -1,10 +1,10 @@
 import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import { createSharedElementStackNavigator4 } from "react-navigation-shared-element";
 
 import { createScreen, ListScreen, ViewPagerScreen } from "../screens";
 import { FastIOSTransitionSpec } from "../transitions";
 
-const StackNavigator = createSharedElementStackNavigator(
+const StackNavigator = createSharedElementStackNavigator4(
   {
     List: createScreen(ListScreen, "ViewPager"),
     Detail: ViewPagerScreen

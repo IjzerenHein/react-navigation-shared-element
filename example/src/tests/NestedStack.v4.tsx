@@ -1,9 +1,9 @@
 import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import { createSharedElementStackNavigator4 } from "react-navigation-shared-element";
 
 import { createScreen, MasterScreen, DetailScreen } from "../screens";
 
-const NestedStackNavigator = createSharedElementStackNavigator(
+const NestedStackNavigator = createSharedElementStackNavigator4(
   {
     Master: createScreen(MasterScreen, "NestedStack"),
     Detail: DetailScreen
@@ -15,7 +15,7 @@ const NestedStackNavigator = createSharedElementStackNavigator(
   }
 );
 
-const RootStackNavigator = createSharedElementStackNavigator(
+const RootStackNavigator = createSharedElementStackNavigator4(
   {
     Nested: {
       // @ts-ignore
