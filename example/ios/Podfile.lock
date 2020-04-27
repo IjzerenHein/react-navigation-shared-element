@@ -255,13 +255,13 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - RNCMaskedView (0.1.7):
+  - RNCMaskedView (0.1.10):
     - React
   - RNGestureHandler (1.6.1):
     - React
-  - RNReanimated (1.7.1):
+  - RNReanimated (1.8.0):
     - React
-  - RNScreens (2.5.0):
+  - RNScreens (2.7.0):
     - React
   - RNSharedElement (0.7.0):
     - React
@@ -511,10 +511,10 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  RNCMaskedView: 76c40a1d41c3e2535df09246a2b5487f04de0814
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
-  RNScreens: ac02d0e4529f08ced69f5580d416f968a6ec3a1d
+  RNReanimated: 955cf4068714003d2f1a6e2bae3fb1118f359aff
+  RNScreens: cf198f915f8a2bf163de94ca9f5bfc8d326c3706
   RNSharedElement: 00b1a1420d213a34459bb9a5aacabb38107d7948
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   UMAppLoader: 90273a65f9b1d789214e0c913dfcabc7a1b1590e
