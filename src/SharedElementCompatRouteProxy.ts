@@ -21,7 +21,7 @@ export class SharedElementCompatRouteProxy
   }
 
   get params(): { [key: string]: any } {
-    return this.route.params;
+    return this.route.params || {};
   }
 
   // As of react-navigation-shared-element@3, the `sharedElements` function
@@ -35,7 +35,7 @@ export class SharedElementCompatRouteProxy
         'SharedElementNavigation: `navigation.getParam() is deprecated, use `route.params` instead. See TODO"'
       );
     }
-    return this.route.params[name];
+    return this.params[name];
   }
 
   get state(): any {
@@ -46,9 +46,9 @@ export class SharedElementCompatRouteProxy
       );
     }
     this.deprecatedStateCache = this.deprecatedStateCache || {
-      key: this.route.key,
-      routeName: this.route.name,
-      params: this.route.params
+      key: this.key,
+      routeName: this.name,
+      params: this.params
     };
     return this.deprecatedStateCache;
   }
