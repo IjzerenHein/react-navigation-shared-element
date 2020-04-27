@@ -7,6 +7,14 @@
 
 const path = require("path");
 
+const resolvers = {
+  "react-navigation-shared-element": "..",
+  "@react-navigation/core": "../node_modules",
+  "@react-navigation/native": "../node_modules",
+  "@react-navigation/stack": "../node_modules",
+  "@react-navigation/routers": "../node_modules"
+};
+
 module.exports = {
   transformer: {
     getTransformOptions: async () => ({
@@ -24,12 +32,7 @@ module.exports = {
       {},
       {
         get: (_, name) =>
-          path.resolve(
-            name === "react-navigation-shared-element"
-              ? ".."
-              : "./node_modules",
-            name
-          )
+          path.resolve(resolvers[name] || "./node_modules", name)
       }
     )
   },

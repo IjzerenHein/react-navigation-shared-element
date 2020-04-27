@@ -1269,12 +1269,9 @@
     hoist-non-react-statics "^3.3.2"
     react-native-safe-area-view "^0.14.8"
 
-"@react-navigation/native@^5.1.6":
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/@react-navigation/native/-/native-5.1.6.tgz#932ff1b5b8b9f051d8e5cd3b016d05badaa01898"
-  integrity sha512-DLLSnh29AndrGjPrHJoAgObeO9TiyrGtrASl+SA3B4ksmz4dUV2t6vaRwHogn1kejvRd+1T8VD923d3K1rjy7w==
-  dependencies:
-    "@react-navigation/core" "^5.3.4"
+"@react-navigation/native@link:../node_modules/@react-navigation/native":
+  version "0.0.0"
+  uid ""
 
 "@react-navigation/routers@^5.4.0":
   version "5.4.0"
@@ -1283,13 +1280,9 @@
   dependencies:
     nanoid "^3.0.2"
 
-"@react-navigation/stack@^5.2.13":
-  version "5.2.13"
-  resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-5.2.13.tgz#fa242f28beb8882fde1584cd23b1a9938abc5e17"
-  integrity sha512-bHT9cN5DKNpBHgftIzAM+MoBwWnz2952G5SSctXExQkQ73dwbkV1RnQw8t0MnRZyOpsynhJIdAG+me2QERhAbg==
-  dependencies:
-    color "^3.1.2"
-    react-native-iphone-x-helper "^1.2.1"
+"@react-navigation/stack@link:../node_modules/@react-navigation/stack":
+  version "0.0.0"
+  uid ""
 
 "@types/babel__core@^7.1.0":
   version "7.1.7"
