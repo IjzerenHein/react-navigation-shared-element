@@ -4,9 +4,11 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 
 import { Tests, Test } from "./components";
+import BackOnly from "./tests/BackOnly";
 import BackOnlyV4 from "./tests/BackOnly.v4";
 import BottomTabsV4 from "./tests/BottomTabs.v4";
 import BottomTabs2V4 from "./tests/BottomTabs2.v4";
+import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
 import ListViewStackV4 from "./tests/ListViewStack.v4";
 import MaterialTopTabsV4 from "./tests/MaterialTopTabs.v4";
@@ -29,8 +31,12 @@ export default () => (
         ComponentV4={SimpleStackV4}
         Component={SimpleStack}
       />
-      <Test title="ForwardOnly" ComponentV4={ForwardOnlyV4} />
-      <Test title="BackOnly" ComponentV4={BackOnlyV4} />
+      <Test
+        title="ForwardOnly"
+        ComponentV4={ForwardOnlyV4}
+        Component={ForwardOnly}
+      />
+      <Test title="BackOnly" ComponentV4={BackOnlyV4} Component={BackOnly} />
       <Test title="NestedStack" ComponentV4={NestedStackV4} />
       <Test title="NestedStack2" ComponentV4={NestedStack2V4} />
       <Test title="ModalStack" ComponentV4={ModalStackV4} />
