@@ -174,7 +174,9 @@ export default function createSharedElementStackNavigator<
 
   // Wrapping Screen to explicitly statically type a "Shared Element" Screen.
   function wrapScreen<RouteName extends keyof ParamList>(
-    _: ScreenProps<RouteName>
+    _: ScreenProps<RouteName> & {
+      sharedElements?: SharedElementsComponentConfig;
+    }
   ) {
     return null;
   }

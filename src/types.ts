@@ -48,7 +48,7 @@ export type SharedElementRoute = {
   };
 };
 
-export interface ISharedElementCompatRoute {
+export interface SharedElementCompatRoute {
   /**
    * Key of the screen.
    */
@@ -86,8 +86,8 @@ export interface ISharedElementCompatRoute {
 }
 
 export type SharedElementsComponentConfig = (
-  route: ISharedElementCompatRoute,
-  otherRoute: ISharedElementCompatRoute,
+  route: SharedElementCompatRoute,
+  otherRoute: SharedElementCompatRoute,
   showing: boolean
 ) => SharedElementsConfig | undefined;
 

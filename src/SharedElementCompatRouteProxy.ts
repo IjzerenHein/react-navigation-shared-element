@@ -1,7 +1,6 @@
-import { SharedElementRoute, ISharedElementCompatRoute } from "./types";
+import { SharedElementRoute, SharedElementCompatRoute } from "./types";
 
-export class SharedElementCompatRouteProxy
-  implements ISharedElementCompatRoute {
+export class SharedElementCompatRouteProxy implements SharedElementCompatRoute {
   static isParamWarningSilenced = false;
   static isStateWarningSilenced = false;
 
