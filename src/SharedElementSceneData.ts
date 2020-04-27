@@ -63,7 +63,9 @@ export default class SharedElementSceneData {
 
   public updateRoute(route: SharedElementRoute) {
     if (route.key !== this.route.key) {
-      throw new Error("ERROR");
+      throw new Error(
+        "SharedElementNavigation: Integrity error, route key should never change"
+      );
     }
     // @ts-ignore
     this.route = route;

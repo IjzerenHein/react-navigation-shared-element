@@ -34,6 +34,19 @@ let _navigatorId = 1;
 export default function createSharedElementStackNavigator<
   ParamList extends Record<string, object | undefined>
 >(options?: { name?: string; debug?: boolean }) {
+  // Verify that no other options than 'name' or 'debug' are provided.
+  // This might indicate that the user is still using navigation 4 but
+  // didn't rename to `createSharedElementStackNavigator4`.
+  if (
+    options &&
+    Object.keys(options).filter(key => key !== "name" && key !== "debug")
+      .length > 0
+  ) {
+    throw new Error(
+      `Invalid options specified to 'createSharedElementStackNavigator'. If you are using react-navigation 4, please use 'createSharedElementStackNavigator4'`
+    );
+  }
+
   const navigatorId =
     options && options.name ? options.name : `stack${_navigatorId}`;
   _navigatorId++;
