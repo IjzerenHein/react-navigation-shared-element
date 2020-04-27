@@ -65,6 +65,19 @@ export default function createSharedElementStackNavigator<
       null
     );
 
+    // TODO
+    /* componentDidMount() {
+      if (debug) {
+        rendererDataProxy.addDebugRef();
+      }
+    }
+
+    componentWillUnmount() {
+      if (debug) {
+        rendererDataProxy.releaseDebugRef();
+      }
+    }*/
+
     return (
       <SharedElementRendererContext.Consumer>
         {rendererData => {
