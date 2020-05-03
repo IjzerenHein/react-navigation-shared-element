@@ -43,8 +43,9 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^8.3.4",
-    "@react-navigation/native": "^5.1.6",
-    "@react-navigation/stack": "^5.2.13",
+    "@react-navigation/bottom-tabs": "^5.3.3",
+    "@react-navigation/native": "^5.2.3",
+    "@react-navigation/stack": "^5.2.18",
     "@types/react": "^16.9.23",
     "@types/react-native": "^0.61.17",
     "commitlint": "^8.3.5",

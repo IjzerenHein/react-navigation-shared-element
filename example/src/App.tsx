@@ -6,7 +6,9 @@ import { enableScreens } from "react-native-screens";
 import { Tests, Test } from "./components";
 import BackOnly from "./tests/BackOnly";
 import BackOnlyV4 from "./tests/BackOnly.v4";
+import BottomTabs from "./tests/BottomTabs";
 import BottomTabsV4 from "./tests/BottomTabs.v4";
+import BottomTabs2 from "./tests/BottomTabs2";
 import BottomTabs2V4 from "./tests/BottomTabs2.v4";
 import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
@@ -41,8 +43,16 @@ export default () => (
       <Test title="NestedStack2" ComponentV4={NestedStack2V4} />
       <Test title="ModalStack" ComponentV4={ModalStackV4} />
       <Test title="ModalIOS13PageSheet" ComponentV4={ModalIOS13PageSheetV4} />
-      <Test title="BottomTabs" ComponentV4={BottomTabsV4} />
-      <Test title="BottomTabs2" ComponentV4={BottomTabs2V4} />
+      <Test
+        title="BottomTabs"
+        ComponentV4={BottomTabsV4}
+        Component={BottomTabs}
+      />
+      <Test
+        title="BottomTabs2"
+        ComponentV4={BottomTabs2V4}
+        Component={BottomTabs2}
+      />
       <Test title="MaterialTopTabs" ComponentV4={MaterialTopTabsV4} />
       <Test title="ListView" ComponentV4={ListViewStackV4} />
       <Test title="ViewPager" ComponentV4={ViewPagerV4} />

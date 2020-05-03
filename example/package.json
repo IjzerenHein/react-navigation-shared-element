@@ -11,6 +11,7 @@
     "@react-native-community/viewpager": "^3.3.0",
     "@react-navigation/native": "link:../node_modules/@react-navigation/native",
     "@react-navigation/stack": "link:../node_modules/@react-navigation/stack",
+    "@react-navigation/bottom-tabs": "link:../node_modules/@react-navigation/bottom-tabs",
     "expo": "~37.0.3",
     "expo-updates": "~0.1.0",
     "react": "~16.9.0",

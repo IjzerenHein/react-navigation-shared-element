@@ -12,7 +12,8 @@ const resolvers = {
   "@react-navigation/core": "../node_modules",
   "@react-navigation/native": "../node_modules",
   "@react-navigation/stack": "../node_modules",
-  "@react-navigation/routers": "../node_modules"
+  "@react-navigation/routers": "../node_modules",
+  "@react-navigation/bottom-tabs": "../node_modules"
 };
 
 module.exports = {
