@@ -12,7 +12,8 @@ import BottomTabs2 from "./tests/BottomTabs2";
 import BottomTabs2V4 from "./tests/BottomTabs2.v4";
 import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
-import ListViewStackV4 from "./tests/ListViewStack.v4";
+import ListView from "./tests/ListView";
+import ListViewV4 from "./tests/ListView.v4";
 import MaterialTopTabsV4 from "./tests/MaterialTopTabs.v4";
 import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet";
 import ModalIOS13PageSheetV4 from "./tests/ModalIOS13PageSheet.v4";
@@ -25,6 +26,7 @@ import NestedStack2V4 from "./tests/NestedStack2.v4";
 import SimpleStack from "./tests/SimpleStack";
 import SimpleStackV4 from "./tests/SimpleStack.v4";
 import TextInputStackV4 from "./tests/TextInputStack.v4";
+import ViewPager from "./tests/ViewPager";
 import ViewPagerV4 from "./tests/ViewPager.v4";
 
 enableScreens();
@@ -74,8 +76,8 @@ export default () => (
         Component={BottomTabs2}
       />
       <Test title="MaterialTopTabs" ComponentV4={MaterialTopTabsV4} />
-      <Test title="ListView" ComponentV4={ListViewStackV4} />
-      <Test title="ViewPager" ComponentV4={ViewPagerV4} />
+      <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
+      <Test title="ViewPager" ComponentV4={ViewPagerV4} Component={ViewPager} />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />
     </Tests>
   </SafeAreaProvider>

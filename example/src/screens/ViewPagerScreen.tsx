@@ -37,8 +37,9 @@ export class ViewPagerScreen extends React.Component<Props> {
   };
 
   render() {
-    const { navigation } = this.props;
-    const initialItem = navigation.getParam("item");
+    const { navigation, route } = this.props;
+    const params = route?.params || navigation?.state?.params;
+    const initialItem: Item = params?.item;
     const initialIndex = items.indexOf(initialItem);
     return (
       <ViewPager
