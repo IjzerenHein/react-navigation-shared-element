@@ -14,7 +14,9 @@ import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
 import ListViewStackV4 from "./tests/ListViewStack.v4";
 import MaterialTopTabsV4 from "./tests/MaterialTopTabs.v4";
+import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet";
 import ModalIOS13PageSheetV4 from "./tests/ModalIOS13PageSheet.v4";
+import ModalStack from "./tests/ModalStack";
 import ModalStackV4 from "./tests/ModalStack.v4";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
@@ -41,8 +43,16 @@ export default () => (
       <Test title="BackOnly" ComponentV4={BackOnlyV4} Component={BackOnly} />
       <Test title="NestedStack" ComponentV4={NestedStackV4} />
       <Test title="NestedStack2" ComponentV4={NestedStack2V4} />
-      <Test title="ModalStack" ComponentV4={ModalStackV4} />
-      <Test title="ModalIOS13PageSheet" ComponentV4={ModalIOS13PageSheetV4} />
+      <Test
+        title="ModalStack"
+        ComponentV4={ModalStackV4}
+        Component={ModalStack}
+      />
+      <Test
+        title="ModalIOS13PageSheet"
+        ComponentV4={ModalIOS13PageSheetV4}
+        Component={ModalIOS13PageSheet}
+      />
       <Test
         title="BottomTabs"
         ComponentV4={BottomTabsV4}
