@@ -14,6 +14,7 @@ import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
 import ListView from "./tests/ListView";
 import ListViewV4 from "./tests/ListView.v4";
+import MaterialTopTabs from "./tests/MaterialTopTabs";
 import MaterialTopTabsV4 from "./tests/MaterialTopTabs.v4";
 import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet";
 import ModalIOS13PageSheetV4 from "./tests/ModalIOS13PageSheet.v4";
@@ -75,7 +76,11 @@ export default () => (
         ComponentV4={BottomTabs2V4}
         Component={BottomTabs2}
       />
-      <Test title="MaterialTopTabs" ComponentV4={MaterialTopTabsV4} />
+      <Test
+        title="MaterialTopTabs"
+        ComponentV4={MaterialTopTabsV4}
+        Component={MaterialTopTabs}
+      />
       <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
       <Test title="ViewPager" ComponentV4={ViewPagerV4} Component={ViewPager} />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />

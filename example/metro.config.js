@@ -13,7 +13,8 @@ const resolvers = {
   "@react-navigation/native": "../node_modules",
   "@react-navigation/stack": "../node_modules",
   "@react-navigation/routers": "../node_modules",
-  "@react-navigation/bottom-tabs": "../node_modules"
+  "@react-navigation/bottom-tabs": "../node_modules",
+  "@react-navigation/material-top-tabs": "../node_modules"
 };
 
 module.exports = {
