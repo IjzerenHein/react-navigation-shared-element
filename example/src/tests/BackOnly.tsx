@@ -5,8 +5,10 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 import { defaultItem } from "../data";
 import { MasterScreen, DetailScreen } from "../screens";
 
+const name = "BackOnly";
+
 const Stack = createSharedElementStackNavigator({
-  name: "BackOnly",
+  name,
   debug: true
 });
 
@@ -14,7 +16,7 @@ export default () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="BackOnly" component={MasterScreen} />
+        <Stack.Screen name={name} component={MasterScreen} />
         <Stack.Screen
           name="Detail"
           component={DetailScreen}

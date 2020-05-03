@@ -54,6 +54,7 @@ function createSharedElementScene(
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
       Component,
+      () => Component.sharedElements,
       routeFromNavigation(this.props.navigation),
       navigatorId,
       rendererData.nestingDepth,

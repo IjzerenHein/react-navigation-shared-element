@@ -159,24 +159,18 @@ export default function createSharedElementStackNavigator<
     "component" | "children"
   > & {
     component: SharedElementSceneComponent;
+    sharedElements?: SharedElementsComponentConfig;
+
+    /**
+     * @deprecated
+     * The `sharedElementsConfig` prop has been renamed, use `sharedElements` instead.
+     */
     sharedElementsConfig?: SharedElementsComponentConfig;
   };
 
-  function wrapComponent(component: SharedElementSceneComponent) {
-    return createSharedElementScene(
-      component,
-      rendererDataProxy,
-      CardAnimationContext,
-      navigatorId,
-      debug
-    );
-  }
-
   // Wrapping Screen to explicitly statically type a "Shared Element" Screen.
   function wrapScreen<RouteName extends keyof ParamList>(
-    _: ScreenProps<RouteName> & {
-      sharedElements?: SharedElementsComponentConfig;
-    }
+    _: ScreenProps<RouteName>
   ) {
     return null;
   }
@@ -201,28 +195,56 @@ export default function createSharedElementStackNavigator<
   // react-navigation only allows the Screen component as direct children
   // of Navigator, this is why we need to wrap the Navigator
   function WrapNavigator(props: NavigatorProps) {
-    const { children, ...rest } = props;
-    const componentMapRef = React.useRef<Map<any, any>>(new Map());
+    const { children, ...restProps } = props;
+    const wrappedComponentsCache = React.useRef<Map<string, any>>(new Map());
     const screenChildrenProps = getSharedElementsChildrenProps(children);
 
     return (
-      <Navigator {...rest}>
+      <Navigator {...restProps}>
         {screenChildrenProps.map(
-          ({ component, sharedElementsConfig, ...childrenProps }) => {
-            if (sharedElementsConfig)
-              component.sharedElements = sharedElementsConfig;
+          ({
+            component,
+            name,
+            sharedElements,
+            sharedElementsConfig,
+            ...restChildrenProps
+          }) => {
+            sharedElements = sharedElements || sharedElementsConfig;
 
-            if (!componentMapRef.current.has(component)) {
-              componentMapRef.current.set(component, wrapComponent(component));
+            // Show warning when deprecated `sharedElementsConfig` prop was used
+            if (sharedElementsConfig) {
+              console.warn(
+                "The `sharedElementsConfig` prop has been renamed, use `sharedElements` instead."
+              );
             }
 
-            const wrappedComponent = componentMapRef.current.get(component);
+            // Check whether this component was previously already wrapped
+            let wrappedComponent = wrappedComponentsCache.current.get(name);
+            if (
+              !wrappedComponent ||
+              wrappedComponent.config.Component !== component
+            ) {
+              // Wrap the component
+              wrappedComponent = createSharedElementScene(
+                component,
+                sharedElements,
+                rendererDataProxy,
+                CardAnimationContext,
+                navigatorId,
+                debug
+              );
+              wrappedComponentsCache.current.set(name, wrappedComponent);
+            } else {
+              // Shared elements function might have been changed, so update it
+              wrappedComponent.config.sharedElements = sharedElements;
+            }
 
             return (
               <Screen
-                key={childrenProps.name}
-                {...childrenProps}
+                key={name}
+                name={name}
                 component={wrappedComponent}
+                {...restChildrenProps}
               />
             );
           }

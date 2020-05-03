@@ -3,7 +3,8 @@ import {
   SharedElementEventSubscription,
   SharedElementAnimatedValue,
   SharedElementRoute,
-  SharedElementSceneComponent
+  SharedElementSceneComponent,
+  SharedElementsComponentConfig
 } from "./types";
 
 export type SharedElementSceneUpdateHandlerEventType =
@@ -35,7 +36,7 @@ export default class SharedElementSceneData {
     [key: string]: SharedElementNode;
   } = {};
   private animationContextValue: any;
-  public readonly Component: SharedElementSceneComponent;
+  public readonly getSharedElements: () => SharedElementsComponentConfig | void;
   public readonly name: string;
   public readonly navigatorId: string;
   public readonly nestingDepth: number;
@@ -44,12 +45,13 @@ export default class SharedElementSceneData {
 
   constructor(
     Component: SharedElementSceneComponent,
+    getSharedElements: () => SharedElementsComponentConfig | void,
     route: SharedElementRoute,
     navigatorId: string,
     nestingDepth: number,
     debug: boolean
   ) {
-    this.Component = Component;
+    this.getSharedElements = getSharedElements;
     this.route = route;
     this.navigatorId = navigatorId;
     this.nestingDepth = nestingDepth;

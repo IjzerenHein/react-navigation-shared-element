@@ -38,7 +38,7 @@ function getSharedElements(
   otherScene: SharedElementSceneData,
   showing: boolean
 ): SharedElementsStrictConfig | null {
-  const { sharedElements } = scene.Component;
+  const sharedElements = scene.getSharedElements();
   if (!sharedElements) return null;
   return normalizeSharedElementsConfig(
     sharedElements(

@@ -14,7 +14,8 @@ import SharedElementSceneData from "./SharedElementSceneData";
 import {
   SharedElementEventSubscription,
   SharedElementSceneComponent,
-  SharedElementRoute
+  SharedElementRoute,
+  SharedElementsComponentConfig
 } from "./types";
 
 const styles = StyleSheet.create({
@@ -53,22 +54,35 @@ function isActiveRoute(
 
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
+  sharedElements: SharedElementsComponentConfig | void,
   rendererData: ISharedElementRendererData,
   AnimationContext: React.Context<StackCardInterpolationProps | undefined>,
   navigatorId: string,
   verbose: boolean
 ): React.ComponentType<any> {
+  const config = {
+    Component,
+    sharedElements,
+    rendererData,
+    AnimationContext,
+    navigatorId,
+    verbose
+  };
+
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
       [key: string]: SharedElementEventSubscription;
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
       Component,
+      () => config.sharedElements || Component.sharedElements,
       this.props.route,
       navigatorId,
       rendererData.nestingDepth,
       verbose
     );
+
+    static readonly config = config;
 
     componentDidMount() {
       const { navigation } = this.props;
