@@ -98,7 +98,7 @@ export default function createSharedElementStackNavigator<
         return function cleanup() {
           rendererDataProxy.releaseDebugRef();
         };
-      });
+      }, []);
     }
 
     return (
