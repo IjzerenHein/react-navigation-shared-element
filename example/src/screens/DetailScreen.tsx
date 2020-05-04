@@ -13,20 +13,43 @@ type Props = {
   navigation: NavigationStackProp<any>;
   route: any; // v5
   modal: "none" | "full" | "sheet";
+  resizeMode?: "cover" | "contain";
+  onPress?: ({ navigation, item }: { navigation: any; item: Item }) => void;
 };
 
 export const DetailScreen = (props: Props) => {
-  const { navigation, route, modal } = props;
+  const { navigation, route, modal, resizeMode, onPress } = props;
   const params = route?.params || navigation?.state?.params;
   const item: Item = params?.item || defaultItem;
   return (
     <>
       <View style={styles.container}>
-        <SharedElement id={`${item.id}.image`} style={StyleSheet.absoluteFill}>
-          <Image style={styles.image} resizeMode="cover" source={item.image} />
-        </SharedElement>
+        <TouchableOpacity
+          style={StyleSheet.absoluteFill}
+          activeOpacity={0.5}
+          disabled={!onPress}
+          onPress={onPress ? () => onPress({ navigation, item }) : undefined}
+        >
+          <SharedElement
+            id={`${item.id}.image`}
+            style={StyleSheet.absoluteFill}
+          >
+            <Image
+              style={styles.image}
+              resizeMode={resizeMode || "cover"}
+              source={item.image}
+            />
+          </SharedElement>
+        </TouchableOpacity>
         <SharedElement id={`${item.id}.title`}>
-          <Text style={styles.text}>{item.title}</Text>
+          <Text
+            style={[
+              styles.text,
+              resizeMode === "contain" ? styles.textDark : styles.textLight
+            ]}
+          >
+            {item.title}
+          </Text>
         </SharedElement>
         {modal !== "none" ? (
           <View
@@ -103,8 +126,13 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 20,
-    color: "white",
     fontSize: 60,
     fontWeight: "bold"
+  },
+  textDark: {
+    color: "black"
+  },
+  textLight: {
+    color: "white"
   }
 });
