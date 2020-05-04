@@ -92,18 +92,14 @@ export default function createSharedElementStackNavigator<
       null
     );
 
-    // TODO
-    /* componentDidMount() {
-      if (debug) {
+    if (debug) {
+      React.useEffect(() => {
         rendererDataProxy.addDebugRef();
-      }
+        return function cleanup() {
+          rendererDataProxy.releaseDebugRef();
+        };
+      });
     }
-
-    componentWillUnmount() {
-      if (debug) {
-        rendererDataProxy.releaseDebugRef();
-      }
-    }*/
 
     return (
       <SharedElementRendererContext.Consumer>
