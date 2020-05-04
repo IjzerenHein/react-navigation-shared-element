@@ -22,6 +22,7 @@ const Detail1Screen = createScreen(DetailScreen, undefined, undefined, {
 const Detail2Screen = createScreen(DetailScreen, undefined, undefined, {
   resizeMode: "contain"
 });
+Detail2Screen.displayName = "Detail2Screen";
 
 export default () => (
   <NavigationContainer>
