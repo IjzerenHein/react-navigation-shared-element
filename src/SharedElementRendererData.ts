@@ -152,8 +152,8 @@ export default class SharedElementRendererData
         return this.willFocusScene(scene);
       case "didFocus":
         return this.didFocusScene(scene);
-      //case "willBlur":
-      //return this.willBlurScene(sceneData);
+      /*case "willBlur":
+        return this.willBlurScene(scene);*/
     }
   }
 

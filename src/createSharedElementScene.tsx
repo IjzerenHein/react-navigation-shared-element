@@ -91,24 +91,28 @@ function createSharedElementScene(
         willBlur: navigation.addListener("blur", this.onWillBlur),
         transitionStart: navigation.addListener(
           "transitionStart",
-          this.transitionStart
+          this.onTransitionStart
         ),
         transitionEnd: navigation.addListener(
           "transitionEnd",
-          this.transitionEnd
+          this.onTransitionEnd
         )
       };
     }
 
-    transitionStart({ data: { closing } }: any) {
+    private onTransitionStart = (event: any) => {
+      const closing: boolean = event.data.closing;
+      //console.log("onTransitionStart: ", event.data);
       rendererData.startTransition(
         closing,
         navigatorId,
         rendererData.nestingDepth
       );
-    }
+      //console.log("onTransitionStart: ", this.sceneData);
+      //rendererData.updateSceneState(this.sceneData, "willFocus");
+    };
 
-    transitionEnd = ({ data: { closing } }: any) => {
+    private onTransitionEnd = ({ data: { closing } }: any) => {
       rendererData.endTransition(
         closing,
         navigatorId,
@@ -156,11 +160,12 @@ function createSharedElementScene(
     private onWillFocus = () => {
       const { navigation, route } = this.props;
 
-      //console.log('onWillFocus: ', navigation.state, activeRoute);
+      //console.log("onWillFocus: ", route);
       if (isActiveRoute(navigation, route)) {
         this.sceneData.updateRoute(route);
         rendererData.updateSceneState(this.sceneData, "willFocus");
         InteractionManager.runAfterInteractions(() => {
+          //console.log("onDidFocus: ", this.props.route);
           this.sceneData.updateRoute(this.props.route);
           rendererData.updateSceneState(this.sceneData, "didFocus");
         });
@@ -170,9 +175,9 @@ function createSharedElementScene(
     private onWillBlur = () => {
       const { route } = this.props;
 
-      //console.log('onWillBlur: ', navigation.state, activeRoute);
+      //console.log("onWillBlur: ", route);
       this.sceneData.updateRoute(route);
-      rendererData.updateSceneState(this.sceneData, "willBlur");
+      //rendererData.updateSceneState(this.sceneData, "willBlur");
     };
   }
 
