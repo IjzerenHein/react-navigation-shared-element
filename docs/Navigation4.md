@@ -1,5 +1,7 @@
 # Shared element for React Navigation 4.x <!-- omit in toc -->
 
+Upgrading from react-navigation-shared-element 2 to 3? Be sure to checkout the [migration guide](./Migration.md)!
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
