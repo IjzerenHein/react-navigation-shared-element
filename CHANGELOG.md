@@ -1,3 +1,17 @@
+# [3.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.3.0...v3.0.0) (2020-05-24)
+
+### Features
+
+- Add suppport for react-navigation 5.x 🚀
+- Codebase and tests now supports both the 4.x and 5.x APIs
+
+### Breaking changes
+
+- React navigation 4 is now supported through the `createSharedElementStackNavigator4` export
+  `sharedElements` function replaces `navigation/otherNavigation` by `route/otheRoute` arguments
+- See migration guide in `./docs/Migration.md` for upgrading instructions
+
+
 # [2.3.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.2.0...v2.3.0) (2020-04-13)
 
 ### Features
