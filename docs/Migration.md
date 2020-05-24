@@ -3,7 +3,7 @@
 - [2.x -> 3.x](#2x---3x)
   - [createSharedElementStackNavigator4](#createsharedelementstacknavigator4)
   - [Route arguments in `sharedElement` function](#route-arguments-in-sharedelement-function)
-
+- [5.0.0-alpha1 -> 3.x](#500-alpha1---3x)
 
 # 2.x -> 3.x
 
@@ -67,3 +67,30 @@ class DetailScreen extends React.Component {
 ```
 
 > To help migration, the `route` arguments are wrapped with a special [SharedElementCompatRouteProxy](../src/SharedElementCompatRouteProxy.ts) class which provides backwards compatibility support for `state` and `getParam`. This is a temporary solution and will be removed in the next major release. Is is strongly recommended to upgrade to the new `route` syntax.
+
+
+# 5.0.0-alpha1 -> 3.x
+
+If you've been using the early 5.0.0-alpha1 version, then you'll need to rename the `sharedElementsConfig` Screen prop to `sharedElements`. That's it!
+
+**Before**
+
+```jsx
+// react-navigation-shared-element@5.0.0-alpha1
+<Stack.Screen
+  name="Detail"
+  component={DetailScreen}
+  sharedElementsConfig={(route, otherRoute, showing) => {...}}
+/>
+```
+
+**After**
+
+```jsx
+// react-navigation-shared-element@3
+<Stack.Screen
+  name="Detail"
+  component={DetailScreen}
+  sharedElements={(route, otherRoute, showing) => {...}}
+/>
+```

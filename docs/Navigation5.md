@@ -1,5 +1,7 @@
 # Shared element for React Navigation 5.x <!-- omit in toc -->
 
+Upgrading from 5.0.0-alpha1? Be sure to checkout the [migration guide](./Migration.md#500-alpha1---3x)!
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
