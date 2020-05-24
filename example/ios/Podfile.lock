@@ -30,10 +30,10 @@ PODS:
   - EXSQLite (8.1.0):
     - UMCore
     - UMFileSystemInterface
-  - EXUpdates (0.1.1):
+  - EXUpdates (0.2.5):
     - React
     - UMCore
-  - EXWebBrowser (8.1.0):
+  - EXWebBrowser (8.2.1):
     - UMCore
   - FBLazyVector (0.61.5)
   - FBReactNativeSpec (0.61.5):
@@ -259,19 +259,19 @@ PODS:
     - React
   - RNGestureHandler (1.6.1):
     - React
-  - RNReanimated (1.8.0):
+  - RNReanimated (1.9.0):
     - React
-  - RNScreens (2.7.0):
+  - RNScreens (2.8.0):
     - React
   - RNSharedElement (0.7.0):
     - React
   - RNVectorIcons (6.6.0):
     - React
-  - UMAppLoader (1.0.1)
+  - UMAppLoader (1.0.2)
   - UMBarCodeScannerInterface (5.1.0)
   - UMCameraInterface (5.1.0)
   - UMConstantsInterface (5.1.0)
-  - UMCore (5.1.0)
+  - UMCore (5.1.2)
   - UMFaceDetectorInterface (5.1.0)
   - UMFileSystemInterface (5.1.0)
   - UMFontInterface (5.1.0)
@@ -338,7 +338,7 @@ DEPENDENCIES:
   - UMBarCodeScannerInterface (from `../node_modules/unimodules-barcode-scanner-interface/ios`)
   - UMCameraInterface (from `../node_modules/unimodules-camera-interface/ios`)
   - UMConstantsInterface (from `../node_modules/unimodules-constants-interface/ios`)
-  - "UMCore (from `../node_modules/@unimodules/core/ios`)"
+  - "UMCore (from `../node_modules/react-native-unimodules/node_modules/@unimodules/core/ios`)"
   - UMFaceDetectorInterface (from `../node_modules/unimodules-face-detector-interface/ios`)
   - UMFileSystemInterface (from `../node_modules/unimodules-file-system-interface/ios`)
   - UMFontInterface (from `../node_modules/unimodules-font-interface/ios`)
@@ -451,7 +451,7 @@ EXTERNAL SOURCES:
   UMConstantsInterface:
     :path: "../node_modules/unimodules-constants-interface/ios"
   UMCore:
-    :path: "../node_modules/@unimodules/core/ios"
+    :path: "../node_modules/react-native-unimodules/node_modules/@unimodules/core/ios"
   UMFaceDetectorInterface:
     :path: "../node_modules/unimodules-face-detector-interface/ios"
   UMFileSystemInterface:
@@ -484,8 +484,8 @@ SPEC CHECKSUMS:
   EXLocation: bbd487fd96a18a3ad9725389bbb94c4a5f78edf3
   EXPermissions: 24b97f734ce9172d245a5be38ad9ccfcb6135964
   EXSQLite: 877ad6c8eb169353a2f94d5ad26510ffadd46a1f
-  EXUpdates: b56d0da2a4cd0bc04eea9074d2514050290348d3
-  EXWebBrowser: 4118b18d151fd03c935bd9de4cd312d2b33ec2c5
+  EXUpdates: f1c36ea0745b730e09aca1744884917f8ca6bd60
+  EXWebBrowser: 5902f99ac5ac551e5c82ff46f13a337b323aa9ea
   FBLazyVector: aaeaf388755e4f29cd74acbc9e3b8da6d807c37f
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
@@ -513,15 +513,15 @@ SPEC CHECKSUMS:
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNReanimated: 955cf4068714003d2f1a6e2bae3fb1118f359aff
-  RNScreens: cf198f915f8a2bf163de94ca9f5bfc8d326c3706
+  RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
+  RNScreens: 62211832af51e0aebcf6e8c36bcf7dd65592f244
   RNSharedElement: 00b1a1420d213a34459bb9a5aacabb38107d7948
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
-  UMAppLoader: 90273a65f9b1d789214e0c913dfcabc7a1b1590e
+  UMAppLoader: ee77a072f9e15128f777ccd6d2d00f52ab4387e6
   UMBarCodeScannerInterface: 9dc692b87e5f20fe277fa57aa47f45d418c3cc6c
   UMCameraInterface: 625878bbf2ba188a8548675e1d1d2e438a653e6d
   UMConstantsInterface: 64060cf86587bcd90b1dbd804cceb6d377a308c1
-  UMCore: d6117852f32c74cde466b863cfdeaa0960186249
+  UMCore: eb200e882eadafcd31ead290770835fd648c0945
   UMFaceDetectorInterface: d6677d6ddc9ab95a0ca857aa7f8ba76656cc770f
   UMFileSystemInterface: c70ea7147198b9807080f3597f26236be49b0165
   UMFontInterface: d9d3b27af698c5389ae9e20b99ef56a083f491fb
