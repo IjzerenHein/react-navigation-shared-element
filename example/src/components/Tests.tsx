@@ -4,7 +4,8 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import { useSafeArea } from "react-native-safe-area-context";
 
@@ -23,6 +24,11 @@ export const Tests = (props: Props) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={test ? "dark-content" : "light-content"}
+      />
       {test && (v4 ? <test.props.ComponentV4 /> : <test.props.Component />)}
       {!test && (
         <View style={[styles.header, { paddingTop: insets.top }]}>
@@ -30,7 +36,7 @@ export const Tests = (props: Props) => {
           <SegmentControl
             style={styles.segments}
             selectedIndex={v4 ? 0 : 1}
-            onValueChange={index => setV4(index === 0)}
+            onValueChange={(index) => setV4(index === 0)}
           >
             <Segment label="Navigation 4" />
             <Segment label="Navigation 5" />
@@ -39,10 +45,10 @@ export const Tests = (props: Props) => {
       )}
       {!test && (
         <ScrollView style={styles.content}>
-          {React.Children.map(props.children, test =>
+          {React.Children.map(props.children, (test) =>
             React.cloneElement(test, {
               v4,
-              onPress: (Component: React.ComponentType<any>) => setTest(test)
+              onPress: (Component: React.ComponentType<any>) => setTest(test),
             })
           )}
         </ScrollView>
@@ -50,7 +56,7 @@ export const Tests = (props: Props) => {
       <View
         style={[
           styles.back,
-          test ? { justifyContent: "center" } : { marginTop: insets.top - 5 }
+          test ? { justifyContent: "center" } : { marginTop: insets.top - 5 },
         ]}
         pointerEvents="box-none"
       >
@@ -69,7 +75,7 @@ export const Tests = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   header: {
     borderBottomColor: "gray",
@@ -77,19 +83,19 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.blue,
     paddingBottom: 10,
     justifyContent: "flex-end",
-    alignItems: "center"
+    alignItems: "center",
   },
   content: {
-    flex: 1
+    flex: 1,
   },
   title: {
     fontSize: 17,
     fontWeight: "bold",
-    color: Colors.white
+    color: Colors.white,
   },
   back: {
     ...StyleSheet.absoluteFillObject,
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   backContainer: {
     height: 32,
@@ -97,14 +103,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.blue,
     borderRadius: 16,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   backIcon: {
     color: "white",
-    fontSize: 20
+    fontSize: 20,
   },
   segments: {
     marginTop: 10,
-    marginHorizontal: 20
-  }
+    marginHorizontal: 20,
+  },
 });
