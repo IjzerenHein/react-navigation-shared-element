@@ -14,7 +14,7 @@ const resolvers = {
   "@react-navigation/stack": "../node_modules",
   "@react-navigation/routers": "../node_modules",
   "@react-navigation/bottom-tabs": "../node_modules",
-  "@react-navigation/material-top-tabs": "../node_modules"
+  "@react-navigation/material-top-tabs": "../node_modules",
 };
 
 module.exports = {
@@ -22,9 +22,10 @@ module.exports = {
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
-        inlineRequires: false
-      }
-    })
+        inlineRequires: false,
+      },
+    }),
+    assetPlugins: ["expo-asset/tools/hashAssetFiles"],
   },
 
   // Add custom resolver and watch-folders because
@@ -34,9 +35,9 @@ module.exports = {
       {},
       {
         get: (_, name) =>
-          path.resolve(resolvers[name] || "./node_modules", name)
+          path.resolve(resolvers[name] || "./node_modules", name),
       }
-    )
+    ),
   },
-  watchFolders: [path.resolve("./node_modules"), path.resolve("..")]
+  watchFolders: [path.resolve("./node_modules"), path.resolve("..")],
 };

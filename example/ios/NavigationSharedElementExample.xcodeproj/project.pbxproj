@@ -200,7 +200,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../node_modules/expo-updates/bundle-expo-assets.sh\n";
+			shellScript = "#export NODE_BINARY=/Users/hein/.volta/bin/node\n../node_modules/react-native/scripts/react-native-xcode.sh\n../node_modules/expo-updates/scripts/create-manifest-ios.sh\n";
 		};
 		660B6A482BB873CF678931BE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
