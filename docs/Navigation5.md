@@ -8,7 +8,6 @@
   - [sharedElements function](#sharedelements-function)
 - [Demo App](#demo-app)
 - [Videos](#videos)
-- [License](#license)
 
 ## Installation
 
@@ -256,7 +255,3 @@ The following fields can be specified in a config item
 ## Videos
 
 - [Airbnb Shared Transition - “Can it be done in React Native?”](https://www.youtube.com/watch?v=83GNiMp-qq0)
-
-## License
-
-React navigation shared element library is licensed under [The MIT License](./LICENSE.md).
