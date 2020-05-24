@@ -11,8 +11,8 @@ import { NavigationProp, Route } from "./types";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 
 type PropsType = {
@@ -23,7 +23,7 @@ function routeFromNavigation(navigation: any): SharedElementRoute {
   return {
     key: navigation.state.key,
     name: navigation.state.routeName,
-    params: navigation.state.params || {}
+    params: navigation.state.params || {},
   };
 }
 
@@ -66,12 +66,12 @@ function createSharedElementScene(
       this.subscriptions = {
         willFocus: navigation.addListener("willFocus", this.onWillFocus),
         didFocus: navigation.addListener("didFocus", this.onDidFocus),
-        willBlur: navigation.addListener("willBlur", this.onWillBlur)
+        willBlur: navigation.addListener("willBlur", this.onWillBlur),
       };
     }
 
     componentWillUnmount() {
-      Object.values(this.subscriptions).forEach(subscription =>
+      Object.values(this.subscriptions).forEach((subscription) =>
         subscription.remove()
       );
     }

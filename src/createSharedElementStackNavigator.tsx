@@ -5,16 +5,16 @@ import {
   RouteConfig,
   StackRouter,
   StackRouterOptions,
-  StackNavigationState
+  StackNavigationState,
 } from "@react-navigation/native";
 import {
   CardAnimationContext,
   StackView,
-  StackNavigationOptions
+  StackNavigationOptions,
 } from "@react-navigation/stack";
 import {
   StackNavigationConfig,
-  StackNavigationEventMap
+  StackNavigationEventMap,
 } from "@react-navigation/stack/lib/typescript/src/types";
 import * as React from "react";
 import { Platform } from "react-native";
@@ -27,7 +27,7 @@ import SharedElementRendererView from "./SharedElementRendererView";
 import createSharedElementScene from "./createSharedElementScene";
 import {
   SharedElementSceneComponent,
-  SharedElementsComponentConfig
+  SharedElementsComponentConfig,
 } from "./types";
 import { EventEmitter } from "./utils/EventEmitter";
 
@@ -41,7 +41,7 @@ export default function createSharedElementStackNavigator<
   // didn't rename to `createSharedElementStackNavigator4`.
   if (
     options &&
-    Object.keys(options).filter(key => key !== "name" && key !== "debug")
+    Object.keys(options).filter((key) => key !== "name" && key !== "debug")
       .length > 0
   ) {
     throw new Error(
@@ -70,7 +70,7 @@ export default function createSharedElementStackNavigator<
   }: Props) {
     const defaultOptions = {
       gestureEnabled: Platform.OS === "ios",
-      animationEnabled: Platform.OS !== "web"
+      animationEnabled: Platform.OS !== "web",
     };
     const { state, descriptors, navigation } = useNavigationBuilder<
       StackNavigationState,
@@ -84,12 +84,12 @@ export default function createSharedElementStackNavigator<
         typeof screenOptions === "function"
           ? (...args) => ({
               ...defaultOptions,
-              ...screenOptions(...args)
+              ...screenOptions(...args),
             })
           : {
               ...defaultOptions,
-              ...screenOptions
-            }
+              ...screenOptions,
+            },
     });
 
     const rendererDataRef = React.useRef<SharedElementRendererData | null>(
@@ -109,7 +109,7 @@ export default function createSharedElementStackNavigator<
 
     return (
       <SharedElementRendererContext.Consumer>
-        {rendererData => {
+        {(rendererData) => {
           // In case a renderer is already present higher up in the chain
           // then don't bother creating a renderer here, but use that one instead
           if (!rendererData) {
@@ -131,9 +131,7 @@ export default function createSharedElementStackNavigator<
                 <SharedElementRendererView
                   rendererData={rendererDataRef.current}
                 />
-              ) : (
-                undefined
-              )}
+              ) : undefined}
             </SharedElementRendererContext.Provider>
           );
         }}
@@ -258,6 +256,6 @@ export default function createSharedElementStackNavigator<
 
   return {
     Navigator: WrapNavigator,
-    Screen: wrapScreen
+    Screen: wrapScreen,
   };
 }

@@ -5,7 +5,7 @@ export class EventEmitter {
 
   emit(name: string, e: any): void {
     if (this.listeners[name]) {
-      this.listeners[name].forEach(callback => callback(e));
+      this.listeners[name].forEach((callback) => callback(e));
     }
   }
 

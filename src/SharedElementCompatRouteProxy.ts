@@ -47,7 +47,7 @@ export class SharedElementCompatRouteProxy implements SharedElementCompatRoute {
     this.deprecatedStateCache = this.deprecatedStateCache || {
       key: this.key,
       routeName: this.name,
-      params: this.params
+      params: this.params,
     };
     return this.deprecatedStateCache;
   }

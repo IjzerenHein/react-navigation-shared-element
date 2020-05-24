@@ -3,16 +3,16 @@ import * as React from "react";
 import {
   NavigationNavigator,
   NavigationProp,
-  NavigationState
+  NavigationState,
 } from "react-navigation";
 import {
   createStackNavigator,
-  CardAnimationContext
+  CardAnimationContext,
 } from "react-navigation-stack";
 
 import SharedElementRendererContext from "../SharedElementRendererContext";
 import SharedElementRendererData, {
-  ISharedElementRendererData
+  ISharedElementRendererData,
 } from "../SharedElementRendererData";
 import { SharedElementRendererProxy } from "../SharedElementRendererProxy";
 import SharedElementRendererView from "../SharedElementRendererView";
@@ -30,7 +30,7 @@ function createSharedElementStackSceneNavigator(
   //console.log('createSharedElementStackSceneNavigator...', navigatorId);
 
   const wrappedRouteConfigs = {
-    ...routeConfigs
+    ...routeConfigs,
   };
   for (const key in routeConfigs) {
     let routeConfig: any = wrappedRouteConfigs[key];
@@ -50,7 +50,7 @@ function createSharedElementStackSceneNavigator(
     } else {
       wrappedRouteConfigs[key] = {
         ...routeConfig,
-        screen: wrappedComponent
+        screen: wrappedComponent,
       };
     }
   }
@@ -90,7 +90,7 @@ function createSharedElementStackSceneNavigator(
         ) {
           defaultNavigationOptionsResult.onTransitionEnd(transitionProps);
         }
-      }
+      },
     };
   }
 
@@ -99,7 +99,7 @@ function createSharedElementStackSceneNavigator(
     defaultNavigationOptions:
       typeof defaultNavigationOptions === "function"
         ? defaultNavigationOptionsFn
-        : defaultNavigationOptionsFn({})
+        : defaultNavigationOptionsFn({}),
   });
 }
 
@@ -149,7 +149,7 @@ function createSharedElementStackNavigator(
     render() {
       return (
         <SharedElementRendererContext.Consumer>
-          {rendererData => {
+          {(rendererData) => {
             // In case a renderer is already present higher up in the chain
             // then don't bother creating a renderer here, but use that one instead
             if (!rendererData) {
@@ -164,9 +164,7 @@ function createSharedElementStackNavigator(
                 <SharedElementNavigator {...this.props} />
                 {this.rendererData ? (
                   <SharedElementRendererView rendererData={this.rendererData} />
-                ) : (
-                  undefined
-                )}
+                ) : undefined}
               </SharedElementRendererContext.Provider>
             );
           }}

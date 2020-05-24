@@ -1,6 +1,6 @@
 import { ISharedElementRendererData } from "./SharedElementRendererData";
 import SharedElementSceneData, {
-  SharedElementSceneEventType
+  SharedElementSceneEventType,
 } from "./SharedElementSceneData";
 
 export class SharedElementRendererProxy implements ISharedElementRendererData {

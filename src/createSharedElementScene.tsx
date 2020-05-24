@@ -1,7 +1,7 @@
 import { Route, NavigationState } from "@react-navigation/native";
 import {
   StackNavigationProp,
-  StackCardInterpolationProps
+  StackCardInterpolationProps,
 } from "@react-navigation/stack";
 import hoistNonReactStatics from "hoist-non-react-statics";
 import * as React from "react";
@@ -15,14 +15,14 @@ import {
   SharedElementEventSubscription,
   SharedElementSceneComponent,
   SharedElementRoute,
-  SharedElementsComponentConfig
+  SharedElementsComponentConfig,
 } from "./types";
 import { EventEmitter } from "./utils/EventEmitter";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
 
 type PropsType = {
@@ -68,7 +68,7 @@ function createSharedElementScene(
     rendererData,
     AnimationContext,
     navigatorId,
-    verbose
+    verbose,
   };
 
   class SharedElementSceneView extends React.PureComponent<PropsType> {
@@ -98,7 +98,7 @@ function createSharedElementScene(
         transitionEnd: navigation.addListener(
           "transitionEnd",
           this.onTransitionEnd
-        )
+        ),
       };
     }
 
@@ -123,7 +123,7 @@ function createSharedElementScene(
     };
 
     componentWillUnmount() {
-      Object.values(this.subscriptions).forEach(unsubscribe => unsubscribe());
+      Object.values(this.subscriptions).forEach((unsubscribe) => unsubscribe());
     }
 
     render() {

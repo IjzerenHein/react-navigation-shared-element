@@ -3,13 +3,13 @@ import {
   SharedElementAnimation,
   SharedElementResize,
   SharedElementAlign,
-  SharedElementTransitionProps
+  SharedElementTransitionProps,
 } from "react-native-shared-element";
 
 export {
   SharedElementNode,
   SharedElementAnimation,
-  SharedElementTransitionProps
+  SharedElementTransitionProps,
 };
 
 export type SharedElementEventSubscription = () => void;

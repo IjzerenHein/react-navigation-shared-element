@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
   SharedElement as RawSharedElement,
-  SharedElementProps as RawSharedElementProps
+  SharedElementProps as RawSharedElementProps,
 } from "react-native-shared-element";
 
 import SharedElementSceneContext from "./SharedElementSceneContext";
@@ -30,7 +30,7 @@ class SharedElement extends React.Component<SharedElementProps> {
     } = this.props;
     return (
       <SharedElementSceneContext.Consumer>
-        {sceneData => {
+        {(sceneData) => {
           /*invariant(
             sceneData != null,
             'The SharedElementSceneContext is not set, did you forget to wrap your scene component with `createSharedElementScene(..)`?'

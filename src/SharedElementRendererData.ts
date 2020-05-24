@@ -1,13 +1,13 @@
 import { SharedElementCompatRouteProxy } from "./SharedElementCompatRouteProxy";
 import SharedElementSceneData, {
-  SharedElementSceneEventType
+  SharedElementSceneEventType,
 } from "./SharedElementSceneData";
 import {
   SharedElementEventSubscription,
   SharedElementsStrictConfig,
   SharedElementAnimatedValue,
   SharedElementTransitionProps,
-  SharedElementRoute
+  SharedElementRoute,
 } from "./types";
 import { normalizeSharedElementsConfig } from "./utils";
 
@@ -257,7 +257,7 @@ export default class SharedElementRendererData
   private registerScene(scene: SharedElementSceneData) {
     this.scenes.push({
       scene,
-      subscription: null
+      subscription: null,
     });
     if (this.scenes.length > 10) {
       const { subscription } = this.scenes[0];
@@ -268,7 +268,7 @@ export default class SharedElementRendererData
   }
 
   private updateSceneListeners() {
-    this.scenes.forEach(sceneRoute => {
+    this.scenes.forEach((sceneRoute) => {
       const { scene, subscription } = sceneRoute;
       const isActive =
         (this.route && this.route.key === scene.route.key) ||
@@ -289,7 +289,7 @@ export default class SharedElementRendererData
     route: SharedElementRoute | null
   ): SharedElementSceneData | null {
     const sceneRoute = route
-      ? this.scenes.find(sc => sc.scene.route.key === route.key)
+      ? this.scenes.find((sc) => sc.scene.route.key === route.key)
       : undefined;
     return sceneRoute ? sceneRoute.scene : null;
   }
@@ -355,7 +355,7 @@ export default class SharedElementRendererData
   }
 
   private emitUpdateEvent(): void {
-    this.updateSubscribers.forEach(handler => handler());
+    this.updateSubscribers.forEach((handler) => handler());
   }
 
   getTransitions(): SharedElementTransitionProps[] {
@@ -364,7 +364,7 @@ export default class SharedElementRendererData
       prevScene,
       scene,
       isShowing,
-      sceneAnimValue
+      sceneAnimValue,
     } = this;
 
     if (!sharedElements || !scene || !prevScene) return NO_SHARED_ELEMENTS;
@@ -376,13 +376,13 @@ export default class SharedElementRendererData
         position: sceneAnimValue,
         start: {
           ancestor: (prevScene ? prevScene.getAncestor() : undefined) || null,
-          node: (prevScene ? prevScene.getNode(startId) : undefined) || null
+          node: (prevScene ? prevScene.getNode(startId) : undefined) || null,
         },
         end: {
           ancestor: (scene ? scene.getAncestor() : undefined) || null,
-          node: (scene ? scene.getNode(endId) : undefined) || null
+          node: (scene ? scene.getNode(endId) : undefined) || null,
         },
-        ...other
+        ...other,
       };
     });
   }

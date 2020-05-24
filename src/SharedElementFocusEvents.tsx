@@ -1,6 +1,6 @@
 import {
   NavigationContext,
-  StackNavigationState
+  StackNavigationState,
 } from "@react-navigation/native";
 import * as React from "react";
 
@@ -15,7 +15,7 @@ import { EventEmitter } from "./utils/EventEmitter";
  */
 export function useSharedElementFocusEvents({
   state,
-  emitter
+  emitter,
 }: {
   state: StackNavigationState;
   emitter: EventEmitter;

@@ -4,7 +4,7 @@ import {
   SharedElementAnimatedValue,
   SharedElementRoute,
   SharedElementSceneComponent,
-  SharedElementsComponentConfig
+  SharedElementsComponentConfig,
 } from "./types";
 
 export type SharedElementSceneUpdateHandlerEventType =
@@ -20,7 +20,7 @@ export type SharedElementSceneUpdateHandler = (
 
 const INVERT_OPTIONS = {
   inputRange: [0, 1],
-  outputRange: [1, 0]
+  outputRange: [1, 0],
 };
 
 export type SharedElementSceneEventType =
@@ -123,6 +123,6 @@ export default class SharedElementSceneData {
     node: SharedElementNode | undefined,
     id: string
   ): void {
-    this.updateSubscribers.forEach(handler => handler(eventType, node, id));
+    this.updateSubscribers.forEach((handler) => handler(eventType, node, id));
   }
 }
