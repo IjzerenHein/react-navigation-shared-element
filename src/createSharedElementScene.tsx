@@ -17,6 +17,7 @@ import {
   SharedElementRoute,
   SharedElementsComponentConfig
 } from "./types";
+import { EventEmitter } from "./utils/EventEmitter";
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +57,7 @@ function createSharedElementScene(
   Component: SharedElementSceneComponent,
   sharedElements: SharedElementsComponentConfig | void,
   rendererData: ISharedElementRendererData,
+  emitter: EventEmitter,
   AnimationContext: React.Context<StackCardInterpolationProps | undefined>,
   navigatorId: string,
   verbose: boolean
@@ -87,8 +89,8 @@ function createSharedElementScene(
     componentDidMount() {
       const { navigation } = this.props;
       this.subscriptions = {
-        willFocus: navigation.addListener("focus", this.onWillFocus),
-        willBlur: navigation.addListener("blur", this.onWillBlur),
+        willFocus: emitter.addListener("focus", this.onWillFocus),
+        willBlur: emitter.addListener("blur", this.onWillBlur),
         transitionStart: navigation.addListener(
           "transitionStart",
           this.onTransitionStart

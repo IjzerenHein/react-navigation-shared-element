@@ -1,9 +1,9 @@
 import {
   useNavigationBuilder,
   createNavigatorFactory,
-  StackRouter,
   DefaultNavigatorOptions,
   RouteConfig,
+  StackRouter,
   StackRouterOptions,
   StackNavigationState
 } from "@react-navigation/native";
@@ -19,6 +19,7 @@ import {
 import * as React from "react";
 import { Platform } from "react-native";
 
+import { useSharedElementFocusEvents } from "./SharedElementFocusEvents";
 import SharedElementRendererContext from "./SharedElementRendererContext";
 import SharedElementRendererData from "./SharedElementRendererData";
 import { SharedElementRendererProxy } from "./SharedElementRendererProxy";
@@ -28,6 +29,7 @@ import {
   SharedElementSceneComponent,
   SharedElementsComponentConfig
 } from "./types";
+import { EventEmitter } from "./utils/EventEmitter";
 
 let _navigatorId = 1;
 
@@ -53,6 +55,8 @@ export default function createSharedElementStackNavigator<
   const debug = options?.debug || false;
 
   const rendererDataProxy = new SharedElementRendererProxy();
+
+  const emitter = new EventEmitter();
 
   type Props = DefaultNavigatorOptions<StackNavigationOptions> &
     StackRouterOptions &
@@ -93,13 +97,15 @@ export default function createSharedElementStackNavigator<
     );
 
     if (debug) {
-      React.useEffect(() => {
+      React.useLayoutEffect(() => {
         rendererDataProxy.addDebugRef();
         return function cleanup() {
           rendererDataProxy.releaseDebugRef();
         };
       }, []);
     }
+
+    useSharedElementFocusEvents({ state, emitter });
 
     return (
       <SharedElementRendererContext.Consumer>
@@ -225,6 +231,7 @@ export default function createSharedElementStackNavigator<
                 component,
                 sharedElements,
                 rendererDataProxy,
+                emitter,
                 CardAnimationContext,
                 navigatorId,
                 debug
