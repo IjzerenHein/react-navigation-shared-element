@@ -2,11 +2,7 @@
   "expo": {
     "name": "NavigationSharedElementExample",
     "slug": "NavigationSharedElementExample",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,16 +14,13 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "nl.ijzerenhein.navigationsharedelementexample"
     },
     "android": {
       "package": "nl.ijzerenhein.navigationsharedelementexample"
-    },
-    "entryPoint": "node_modules/expo/AppEntry.js"
+    }
   }
 }

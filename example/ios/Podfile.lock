@@ -27,6 +27,8 @@ PODS:
   - EXPermissions (8.1.0):
     - UMCore
     - UMPermissionsInterface
+  - EXSplashScreen (0.2.3):
+    - UMCore
   - EXSQLite (8.1.0):
     - UMCore
     - UMFileSystemInterface
@@ -259,9 +261,9 @@ PODS:
     - React
   - RNGestureHandler (1.6.1):
     - React
-  - RNReanimated (1.9.0):
+  - RNReanimated (1.7.1):
     - React
-  - RNScreens (2.8.0):
+  - RNScreens (2.2.0):
     - React
   - RNSharedElement (0.7.0):
     - React
@@ -297,6 +299,7 @@ DEPENDENCIES:
   - EXLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - EXLocation (from `../node_modules/expo-location/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
+  - EXSplashScreen (from `../node_modules/expo-splash-screen/ios`)
   - EXSQLite (from `../node_modules/expo-sqlite/ios`)
   - EXUpdates (from `../node_modules/expo-updates/ios`)
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
@@ -374,6 +377,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-location/ios"
   EXPermissions:
     :path: "../node_modules/expo-permissions/ios"
+  EXSplashScreen:
+    :path: "../node_modules/expo-splash-screen/ios"
   EXSQLite:
     :path: "../node_modules/expo-sqlite/ios"
   EXUpdates:
@@ -483,6 +488,7 @@ SPEC CHECKSUMS:
   EXLinearGradient: 97d8095d1e4ad96f7893e010e564796ed8aeea42
   EXLocation: bbd487fd96a18a3ad9725389bbb94c4a5f78edf3
   EXPermissions: 24b97f734ce9172d245a5be38ad9ccfcb6135964
+  EXSplashScreen: 6568daa178c8e17f2197d29cea858f0e0b61b695
   EXSQLite: 877ad6c8eb169353a2f94d5ad26510ffadd46a1f
   EXUpdates: f1c36ea0745b730e09aca1744884917f8ca6bd60
   EXWebBrowser: 5902f99ac5ac551e5c82ff46f13a337b323aa9ea
@@ -513,8 +519,8 @@ SPEC CHECKSUMS:
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
-  RNScreens: 62211832af51e0aebcf6e8c36bcf7dd65592f244
+  RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
+  RNScreens: 812b79d384e2bea7eebc4ec981469160d4948fd5
   RNSharedElement: 00b1a1420d213a34459bb9a5aacabb38107d7948
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   UMAppLoader: ee77a072f9e15128f777ccd6d2d00f52ab4387e6
