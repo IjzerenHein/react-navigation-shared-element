@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Image, FlatList } from "react-native";
+import { StyleSheet, Image, FlatList, Text } from "react-native";
 // @ts-ignore
 import TouchableScale from "react-native-touchable-scale";
 import { SharedElement } from "react-navigation-shared-element";
@@ -14,7 +14,7 @@ interface Props {
 
 export class ListScreen extends React.Component<Props> {
   static defaultProps = {
-    routeName: "Detail"
+    routeName: "Detail",
   };
 
   render() {
@@ -23,7 +23,7 @@ export class ListScreen extends React.Component<Props> {
         style={styles.container}
         data={items}
         renderItem={this.renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
       />
     );
   }
@@ -41,12 +41,15 @@ export class ListScreen extends React.Component<Props> {
         useNativeDriver
         onPress={() => {
           navigation.navigate(routeName, {
-            item
+            item,
           });
         }}
       >
         <SharedElement id={`${item.id}.image`}>
           <Image style={styles.image} source={item.image} />
+        </SharedElement>
+        <SharedElement id={`${item.id}.title`}>
+          <Text style={styles.title}>{item.title}</Text>
         </SharedElement>
       </TouchableScale>
     );
@@ -55,14 +58,25 @@ export class ListScreen extends React.Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   item: {
-    height: 200
+    height: 200,
   },
   image: {
     width: "100%",
     height: 200,
-    resizeMode: "cover"
-  }
+    resizeMode: "cover",
+  },
+  title: {
+    position: "absolute",
+    right: 10,
+    bottom: 10,
+    fontSize: 14,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    color: "black",
+    textShadowColor: "white",
+    textShadowRadius: 6,
+  },
 });
