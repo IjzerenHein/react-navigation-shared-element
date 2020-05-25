@@ -104,13 +104,11 @@ function createSharedElementScene(
 
     private onTransitionStart = (event: any) => {
       const closing: boolean = event.data.closing;
-      //console.log("onTransitionStart: ", event.data);
       rendererData.startTransition(
         closing,
         navigatorId,
         rendererData.nestingDepth
       );
-      //console.log("onTransitionStart: ", this.sceneData);
       //rendererData.updateSceneState(this.sceneData, "willFocus");
     };
 
