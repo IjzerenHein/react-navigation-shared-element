@@ -10,7 +10,7 @@ Supported by latest stable version (2.x):
 - [X] react-navigation-stack 2 
 - [X] react-navigation-stack 1 [(use react-navigation-shared-element@1)](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1)
 
-[V3 prerelease](./README-prelease.md) (supports both react-navigation API 4.x and 5.x from a single codebase)
+[V3 prerelease](./README-prerelease.md) (supports both react-navigation API 4.x and 5.x from a single codebase)
 
 - [X] react-navigation 5
 - [X] react-navigation 4 & 3
