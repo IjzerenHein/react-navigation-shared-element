@@ -1,4 +1,5 @@
 import { Route, NavigationState } from "@react-navigation/native";
+import { PartialState } from "@react-navigation/routers"
 import {
   StackNavigationProp,
   StackCardInterpolationProps,
@@ -31,7 +32,7 @@ type PropsType = {
 };
 
 function isValidNavigationState(
-  state: Partial<NavigationState>
+  state: NavigationState | PartialState<NavigationState>
 ): state is NavigationState {
   return "index" in state && "routes" in state;
 }
