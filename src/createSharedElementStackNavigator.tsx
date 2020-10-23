@@ -158,7 +158,7 @@ export default function createSharedElementStackNavigator<
     >,
     "component" | "children"
   > & {
-    component: SharedElementSceneComponent;
+    component: SharedElementSceneComponent<any>;
     sharedElements?: SharedElementsComponentConfig;
 
     /**
