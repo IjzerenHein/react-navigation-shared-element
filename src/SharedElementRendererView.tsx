@@ -9,9 +9,7 @@ type PropsType = {
   rendererData: SharedElementRendererData;
 };
 
-export default class SharedElementRendererView extends React.PureComponent<
-  PropsType
-> {
+export default class SharedElementRendererView extends React.PureComponent<PropsType> {
   private subscription?: SharedElementEventSubscription;
 
   componentDidMount() {

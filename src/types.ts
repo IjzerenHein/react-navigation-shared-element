@@ -91,6 +91,6 @@ export type SharedElementsComponentConfig = (
   showing: boolean
 ) => SharedElementsConfig | undefined;
 
-export type SharedElementSceneComponent<P = {}> = React.ComponentType<P> & {
+export type SharedElementSceneComponent<P = object> = React.ComponentType<P> & {
   sharedElements?: SharedElementsComponentConfig;
 };
