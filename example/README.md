@@ -8,6 +8,13 @@ expo start
 
 ## Run natively on iOS
 
+> Make sure the pods are installed:
+
+```sh
+cd ios
+pod install
+```
+
 ```sh
 yarn ios
 ```
