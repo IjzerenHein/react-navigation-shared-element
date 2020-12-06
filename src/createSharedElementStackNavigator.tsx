@@ -6,6 +6,8 @@ import {
   StackRouter,
   StackRouterOptions,
   StackNavigationState,
+  StackActionHelpers,
+  ParamListBase,
 } from "@react-navigation/native";
 import {
   CardAnimationContext,
@@ -34,7 +36,7 @@ import { EventEmitter } from "./utils/EventEmitter";
 let _navigatorId = 1;
 
 export default function createSharedElementStackNavigator<
-  ParamList extends Record<string, object | undefined>
+  ParamList extends ParamListBase
 >(options?: { name?: string; debug?: boolean }) {
   // Verify that no other options than 'name' or 'debug' are provided.
   // This might indicate that the user is still using navigation 4 but
@@ -73,8 +75,9 @@ export default function createSharedElementStackNavigator<
       animationEnabled: Platform.OS !== "web",
     };
     const { state, descriptors, navigation } = useNavigationBuilder<
-      StackNavigationState,
+      StackNavigationState<ParamListBase>,
       StackRouterOptions,
+      StackActionHelpers<ParamListBase>,
       StackNavigationOptions,
       StackNavigationEventMap
     >(StackRouter, {
@@ -140,7 +143,7 @@ export default function createSharedElementStackNavigator<
   }
 
   const navigatorFactory = createNavigatorFactory<
-    StackNavigationState,
+    StackNavigationState<ParamList>,
     StackNavigationOptions,
     StackNavigationEventMap,
     typeof SharedElementStackNavigator
@@ -152,7 +155,7 @@ export default function createSharedElementStackNavigator<
     RouteConfig<
       ParamList,
       RouteName,
-      StackNavigationState,
+      StackNavigationState<ParamList>,
       StackNavigationOptions,
       StackNavigationEventMap
     >,
