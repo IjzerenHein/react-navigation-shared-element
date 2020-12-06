@@ -1,3 +1,14 @@
+# [Unreleased]
+
+### Bug Fixes
+
+- Fix useNavigationBuilder with use of @react-navigation/core@5.13.0 and later
+- Fix prop types not settable on SharedElementSceneComponent (thanks @Rafatcb)
+
+### Breaking changes
+
+- Breaks compatability with @react-navigation/core@5.13.0 and earlier.
+
 # [3.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.3.0...v3.0.0) (2020-05-24)
 
 ### Features
