@@ -13,11 +13,13 @@ import { EventEmitter } from "./utils/EventEmitter";
  * a timely manner.
  * https://github.com/react-navigation/react-navigation/blob/master/packages/core/src/useFocusEvents.tsx
  */
-export function useSharedElementFocusEvents({
+export function useSharedElementFocusEvents<
+  ParamList extends Record<string, object | undefined>
+>({
   state,
   emitter,
 }: {
-  state: StackNavigationState;
+  state: StackNavigationState<ParamList>;
   emitter: EventEmitter;
 }) {
   const navigation = React.useContext(NavigationContext);
