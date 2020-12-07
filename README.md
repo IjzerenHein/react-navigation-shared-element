@@ -245,7 +245,8 @@ The following fields can be specified in a config item
 
 ## Videos
 
-- [Airbnb Shared Transition - “Can it be done in React Native?”](https://www.youtube.com/watch?v=83GNiMp-qq0)
+- [Snapchat Shared Transitions - “Can it be done in React Native?” (with react-navigation v5)](https://www.youtube.com/watch?v=NJZfRXs7nZs)
+- [Airbnb Shared Transition - “Can it be done in React Native?” (with react-navigation v4)](https://www.youtube.com/watch?v=83GNiMp-qq0)
 
 ## License
 
