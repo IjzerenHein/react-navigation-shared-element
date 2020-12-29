@@ -20,7 +20,7 @@ Upgrading from 5.0.0-alpha1? Be sure to checkout the [migration guide](./Migrati
 Install the latest shared-element libraries.
 
 ```sh
-$ yarn add react-navigation-shared-element react-native-shared-element
+$ yarn add react-navigation-shared-element@prerelease react-native-shared-element
 ```
 
 Enure that the [native extensions are linked into your project](https://github.com/IjzerenHein/react-native-shared-element#installation). This will be already done for you when using Expo 👍
