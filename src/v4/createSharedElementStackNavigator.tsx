@@ -8,7 +8,7 @@ import {
 import {
   createStackNavigator,
   CardAnimationContext,
-} from "react-navigation-stack";
+} from "@react-navigation/stack";
 
 import SharedElementRendererContext from "../SharedElementRendererContext";
 import SharedElementRendererData, {
