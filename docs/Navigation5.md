@@ -133,7 +133,7 @@ The `sharedElements` function receives 3 arguments
 | `otherRoute` | `Route`   | The route prop of the other screen. You can use this to get the params of that screen using `route.params`, or the route-name using `route.name` |
 | `showing`    | `boolean` | `true` when this screen is being shown, and `false` when this screen is being hidden.                                                            |  |
 
-The return value should be either `undefined` or an array of shared-element configs or identifiers. Specifying a string-identifier is shorthand for `{id: 'myid'}`.
+The return value should be either `undefined` or an array of shared-element configs or identifiers. Specifying a string-identifier is shorthand for `[{id: 'myid'}]`.
 
 **Basic example**
 
