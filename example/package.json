@@ -11,10 +11,6 @@
     "@expo/vector-icons": "^12.0.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-community/viewpager": "5.0.11",
-    "@react-navigation/bottom-tabs": "link:../node_modules/@react-navigation/bottom-tabs",
-    "@react-navigation/material-top-tabs": "link:../node_modules/@react-navigation/material-top-tabs",
-    "@react-navigation/native": "link:../node_modules/@react-navigation/native",
-    "@react-navigation/stack": "link:../node_modules/@react-navigation/stack",
     "expo": "^42.0.1",
     "expo-splash-screen": "~0.11.2",
     "expo-updates": "~0.8.2",
@@ -30,10 +26,7 @@
     "react-native-unimodules": "~0.14.5",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "~0.13.12",
-    "react-navigation": "^4.4.4",
-    "react-navigation-shared-element": "link:../",
-    "react-navigation-stack": "^2.10.4",
-    "react-navigation-tabs": "^2.11.1"
+    "react-navigation-shared-element": "link:../"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
