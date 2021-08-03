@@ -1,11 +1,8 @@
-/**
- * Metro configuration for React Native
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+// Learn more https://docs.expo.io/guides/customizing-metro
+const { getDefaultConfig } = require("expo/metro-config");
 const path = require("path");
+
+const defaultConfig = getDefaultConfig(__dirname);
 
 const resolvers = {
   "react-navigation-shared-element": "..",
@@ -17,27 +14,17 @@ const resolvers = {
   "@react-navigation/material-top-tabs": "../node_modules",
 };
 
-module.exports = {
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        experimentalImportSupport: false,
-        inlineRequires: false,
-      },
-    }),
-    assetPlugins: ["expo-asset/tools/hashAssetFiles"],
-  },
+// Add custom resolver and watch-folders because
+// Metro doesn't work well with the link to the library.
+defaultConfig.resolver.extraNodeModules = new Proxy(
+  {},
+  {
+    get: (_, name) => path.resolve(resolvers[name] || "./node_modules", name),
+  }
+);
+defaultConfig.watchFolders.push(path.resolve("./node_modules"));
+defaultConfig.watchFolders.push(path.resolve(".."));
 
-  // Add custom resolver and watch-folders because
-  // Metro doesn't work well with the link to the library.
-  resolver: {
-    extraNodeModules: new Proxy(
-      {},
-      {
-        get: (_, name) =>
-          path.resolve(resolvers[name] || "./node_modules", name),
-      }
-    ),
-  },
-  watchFolders: [path.resolve("./node_modules"), path.resolve("..")],
-};
+console.log(defaultConfig.watchFolders);
+
+module.exports = defaultConfig;
