@@ -7,7 +7,9 @@ type Props = {
   style?: ViewStyle;
   selectedIndex: number;
   onValueChange: (index: number) => any;
-  children: React.ChildrenArray<React.ReactElement<typeof Segment>>;
+  children:
+    | React.ReactElement<React.ComponentProps<typeof Segment>>
+    | React.ReactElement<React.ComponentProps<typeof Segment>>[];
 };
 
 export const SegmentControl = (props: Props) => {

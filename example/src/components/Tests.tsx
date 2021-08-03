@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import { useSafeArea } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
@@ -18,7 +18,7 @@ type Props = {
 };
 
 export const Tests = (props: Props) => {
-  const insets = useSafeArea();
+  const insets = useSafeAreaInsets();
   const [test, setTest] = React.useState<any>(undefined);
   const [v4, setV4] = React.useState(false);
 

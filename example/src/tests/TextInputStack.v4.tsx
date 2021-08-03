@@ -1,6 +1,6 @@
 import * as React from "react";
 import { View, TextInput } from "react-native";
-import { useSafeArea } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAppContainer } from "react-navigation";
 import {
   SharedElement,
@@ -8,7 +8,7 @@ import {
 } from "react-navigation-shared-element";
 import { HeaderBackButton } from "react-navigation-stack";
 
-const SearchInput = props => (
+const SearchInput = (props: React.ComponentProps<typeof TextInput>) => (
   <TextInput
     {...props}
     placeholder="Search"
@@ -22,7 +22,7 @@ const SearchInput = props => (
   />
 );
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation }: any) => {
   return (
     <View style={{ flex: 1 }}>
       <SharedElement id="searchBar" style={{ padding: 15 }}>
@@ -32,8 +32,8 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-const SearchScreen = ({ navigation }) => {
-  const { top: topInsect } = useSafeArea();
+const SearchScreen = ({ navigation }: any) => {
+  const { top: topInsect } = useSafeAreaInsets();
   return (
     <View style={{ flexDirection: "row", marginTop: topInsect + 5 }}>
       <HeaderBackButton
