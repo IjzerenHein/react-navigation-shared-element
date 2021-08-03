@@ -39,8 +39,9 @@ function isValidNavigationState(
 // Gets the current screen from navigation state
 function getActiveRoute(state: NavigationState): Route<any> {
   const route = state.routes[state.index];
-  return route.state && isValidNavigationState(route.state)
-    ? getActiveRoute(route.state) // Dive into nested navigators
+  const routeState = route.state as Partial<NavigationState>;
+  return route.state && isValidNavigationState(routeState)
+    ? getActiveRoute(routeState) // Dive into nested navigators
     : route;
 }
 

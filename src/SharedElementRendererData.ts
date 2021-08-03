@@ -62,7 +62,8 @@ type SceneRoute = {
  */
 
 export default class SharedElementRendererData
-  implements ISharedElementRendererData {
+  implements ISharedElementRendererData
+{
   private scenes: SceneRoute[] = [];
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
   private sharedElements: SharedElementsStrictConfig | null = null;
@@ -359,13 +360,8 @@ export default class SharedElementRendererData
   }
 
   getTransitions(): SharedElementTransitionProps[] {
-    const {
-      sharedElements,
-      prevScene,
-      scene,
-      isShowing,
-      sceneAnimValue,
-    } = this;
+    const { sharedElements, prevScene, scene, isShowing, sceneAnimValue } =
+      this;
 
     if (!sharedElements || !scene || !prevScene) return NO_SHARED_ELEMENTS;
     return sharedElements.map(({ id, otherId, ...other }) => {

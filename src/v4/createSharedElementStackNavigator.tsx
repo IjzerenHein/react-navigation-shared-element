@@ -33,7 +33,7 @@ function createSharedElementStackSceneNavigator(
     ...routeConfigs,
   };
   for (const key in routeConfigs) {
-    let routeConfig: any = wrappedRouteConfigs[key];
+    const routeConfig: any = wrappedRouteConfigs[key];
     const component =
       typeof routeConfig === "object" && routeConfig.screen
         ? routeConfig.screen
@@ -59,7 +59,7 @@ function createSharedElementStackSceneNavigator(
   // hook in into the transition lifecycle events.
   const defaultNavigationOptions = stackConfig?.defaultNavigationOptions;
   function defaultNavigationOptionsFn(props: any) {
-    let defaultNavigationOptionsResult =
+    const defaultNavigationOptionsResult =
       typeof defaultNavigationOptions === "function"
         ? defaultNavigationOptions(props)
         : defaultNavigationOptions;

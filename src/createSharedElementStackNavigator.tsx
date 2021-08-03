@@ -100,6 +100,7 @@ export default function createSharedElementStackNavigator<
     );
 
     if (debug) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       React.useLayoutEffect(() => {
         rendererDataProxy.addDebugRef();
         return function cleanup() {
