@@ -6,19 +6,19 @@ import { MasterScreen, DetailScreen, createScreen } from "../screens";
 const ModalStackNavigator = createSharedElementStackNavigator(
   {
     Master: createScreen(MasterScreen, "ModalStack"),
-    Detail: createScreen(DetailScreen, undefined, undefined, { modal: "full" })
+    Detail: createScreen(DetailScreen, undefined, undefined, { modal: "full" }),
   },
   {
     mode: "modal",
     headerMode: "none",
     defaultNavigationOptions: {
       gestureEnabled: true,
-      cardOverlayEnabled: true
-    }
+      cardOverlayEnabled: true,
+    },
   },
   {
     name: "ModalStack",
-    debug: true
+    debug: true,
   }
 );
 

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 
-import { Icon } from "./Icon";
 import { Colors } from "./Colors";
+import { Icon } from "./Icon";
 
 interface TestProps {
   title: string;
@@ -50,34 +50,34 @@ const styles = StyleSheet.create({
     height: 44,
     alignItems: "center",
     borderBottomColor: "#CCCCCC",
-    borderBottomWidth: StyleSheet.hairlineWidth
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   text: {
     fontSize: 16,
     flex: 1,
-    marginStart: 20
+    marginStart: 20,
   },
   textInvalid: {
-    color: Colors.gray
+    color: Colors.gray,
   },
   icon: {
     fontSize: 19,
-    marginEnd: 20
+    marginEnd: 20,
   },
   iconInvalid: {
-    color: Colors.gray
+    color: Colors.gray,
   },
   sectionHeader: {
     marginTop: 20,
     paddingBottom: 10,
     flexDirection: "row",
     borderBottomColor: "#CCCCCC",
-    borderBottomWidth: StyleSheet.hairlineWidth
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   sectionText: {
     fontSize: 13,
     flex: 1,
     marginStart: 20,
-    opacity: 0.5
-  }
+    opacity: 0.5,
+  },
 });

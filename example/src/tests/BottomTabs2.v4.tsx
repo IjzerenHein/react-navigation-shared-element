@@ -6,14 +6,14 @@ import { MasterScreen, DetailScreen } from "../screens";
 
 const ChildStack = createSharedElementStackNavigator(
   {
-    Master: MasterScreen
+    Master: MasterScreen,
   },
   {
-    headerMode: "none"
+    headerMode: "none",
   },
   {
     name: "ChildStack",
-    debug: true
+    debug: true,
   }
 );
 
@@ -27,27 +27,27 @@ const TabNavigator = createBottomTabNavigator({
     // @ts-ignore
     screen: ChildStack,
     navigationOptions: {
-      title: "Stack 1"
-    }
+      title: "Stack 1",
+    },
   },
   Tab2: {
     // @ts-ignore
     screen: MasterScreen,
     navigationOptions: {
-      title: "Stack 2"
-    }
-  }
+      title: "Stack 2",
+    },
+  },
 });
 
 const MainStack = createSharedElementStackNavigator(
   {
     Master: TabNavigator,
-    Detail: DetailScreen
+    Detail: DetailScreen,
   },
   undefined,
   {
     name: "MainStack",
-    debug: true
+    debug: true,
   }
 );
 

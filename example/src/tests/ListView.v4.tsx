@@ -7,7 +7,7 @@ import { FastIOSTransitionSpec } from "../transitions";
 const StackNavigator = createSharedElementStackNavigator(
   {
     List: createScreen(ListScreen, "ListViewStack"),
-    Detail: DetailScreen
+    Detail: DetailScreen,
   },
   {
     // FastIOSTransitionSpec should be removed once this PR is merged:
@@ -15,13 +15,13 @@ const StackNavigator = createSharedElementStackNavigator(
     defaultNavigationOptions: {
       transitionSpec: {
         open: FastIOSTransitionSpec,
-        close: FastIOSTransitionSpec
-      }
-    }
+        close: FastIOSTransitionSpec,
+      },
+    },
   },
   {
     name: "ListViewStack",
-    debug: true
+    debug: true,
   }
 );
 

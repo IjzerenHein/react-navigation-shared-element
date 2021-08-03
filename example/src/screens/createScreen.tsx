@@ -13,7 +13,7 @@ export function createScreen(
   const { navigationOptions } = Component;
   WrappedComponent.navigationOptions = title
     ? {
-        title
+        title,
       }
     : navigationOptions;
   // @ts-ignore

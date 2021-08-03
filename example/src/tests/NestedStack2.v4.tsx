@@ -5,12 +5,12 @@ import { createScreen, MasterScreen, DetailScreen } from "../screens";
 
 const NestedStackNavigator = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "NestedStack2")
+    Master: createScreen(MasterScreen, "NestedStack2"),
   },
   undefined,
   {
     name: "NestedStack2",
-    debug: true
+    debug: true,
   }
 );
 
@@ -20,17 +20,17 @@ const RootStackNavigator = createSharedElementStackNavigator(
       // @ts-ignore
       screen: NestedStackNavigator,
       navigationOptions: {
-        title: "RootStack"
-      }
+        title: "RootStack",
+      },
     },
-    Detail: createScreen(DetailScreen, undefined, undefined, { modal: "full" })
+    Detail: createScreen(DetailScreen, undefined, undefined, { modal: "full" }),
   },
   {
-    headerMode: "none"
+    headerMode: "none",
   },
   {
     name: "RootStack",
-    debug: true
+    debug: true,
   }
 );
 

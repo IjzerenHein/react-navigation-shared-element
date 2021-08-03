@@ -1,5 +1,5 @@
 import ViewPager, {
-  ViewPagerOnPageSelectedEventData
+  ViewPagerOnPageSelectedEventData,
 } from "@react-native-community/viewpager";
 import * as React from "react";
 import {
@@ -7,11 +7,11 @@ import {
   StyleSheet,
   Text,
   Image,
-  NativeSyntheticEvent
+  NativeSyntheticEvent,
 } from "react-native";
 import {
   SharedElement,
-  SharedElementsComponentConfig
+  SharedElementsComponentConfig,
 } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
@@ -32,7 +32,7 @@ export class ViewPagerScreen extends React.Component<Props> {
     return [
       { id: `${item.id}.image` },
       { id: `${item.id}.title`, animation: "fade" },
-      { id: "close", animation: "fade-in" }
+      { id: "close", animation: "fade-in" },
     ];
   };
 
@@ -47,7 +47,7 @@ export class ViewPagerScreen extends React.Component<Props> {
         initialPage={initialIndex}
         onPageSelected={this.onPageSelected}
       >
-        {items.map(item => this.renderItem(item))}
+        {items.map((item) => this.renderItem(item))}
       </ViewPager>
     );
   }
@@ -71,40 +71,40 @@ export class ViewPagerScreen extends React.Component<Props> {
     const { position } = e.nativeEvent;
     const { navigation } = this.props;
     navigation.setParams({
-      item: items[position]
+      item: items[position],
     });
   };
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   itemContainer: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   header: {
     position: "absolute",
     left: 16,
-    top: 32
+    top: 32,
   },
   sheetHeader: {
     left: 16,
-    top: 16
+    top: 16,
   },
   icon: {
     fontSize: 40,
-    color: "white"
+    color: "white",
   },
   image: {
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
   text: {
     marginTop: 20,
     color: "white",
     fontSize: 60,
-    fontWeight: "bold"
-  }
+    fontWeight: "bold",
+  },
 });

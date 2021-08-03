@@ -6,12 +6,12 @@ import { createScreen, MasterScreen, DetailScreen } from "../screens";
 const NestedStackNavigator = createSharedElementStackNavigator(
   {
     Master: createScreen(MasterScreen, "NestedStack"),
-    Detail: DetailScreen
+    Detail: DetailScreen,
   },
   {},
   {
     name: "NestedStack",
-    debug: true
+    debug: true,
   }
 );
 
@@ -21,14 +21,14 @@ const RootStackNavigator = createSharedElementStackNavigator(
       // @ts-ignore
       screen: NestedStackNavigator,
       navigationOptions: {
-        title: "RootStack"
-      }
-    }
+        title: "RootStack",
+      },
+    },
   },
   {},
   {
     name: "RootStack",
-    debug: true
+    debug: true,
   }
 );
 

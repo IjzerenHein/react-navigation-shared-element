@@ -9,11 +9,11 @@ const name = "ModalIOS13PageSheet";
 
 const Stack = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 const ModalDetailScreen = createScreen(DetailScreen, undefined, undefined, {
-  modal: "sheet"
+  modal: "sheet",
 });
 
 export default () => (
@@ -23,7 +23,7 @@ export default () => (
       headerMode="none"
       screenOptions={() => ({
         cardOverlayEnabled: true,
-        ...TransitionPresets.ModalPresentationIOS
+        ...TransitionPresets.ModalPresentationIOS,
       })}
     >
       <Stack.Screen name={name} component={MasterScreen} />

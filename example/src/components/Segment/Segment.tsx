@@ -17,7 +17,7 @@ export const Segment = (props: Props) => {
       style={[
         styles.container,
         location !== "middle" ? styles[location] : undefined,
-        active ? styles.active : undefined
+        active ? styles.active : undefined,
       ]}
     >
       <TouchableOpacity style={styles.content} onPress={onPress}>
@@ -36,7 +36,7 @@ Segment.defaultProps = {
   location: "middle",
   active: false,
   badgeVisible: false,
-  badgeColor: Colors.blue
+  badgeColor: Colors.blue,
 };
 
 const styles = StyleSheet.create({
@@ -46,32 +46,32 @@ const styles = StyleSheet.create({
     height: 32,
     borderColor: Colors.white,
     borderWidth: 1,
-    borderEndWidth: 0
+    borderEndWidth: 0,
   },
   start: {
     borderTopStartRadius: 8,
-    borderBottomStartRadius: 8
+    borderBottomStartRadius: 8,
   },
   end: {
     borderEndWidth: 1,
     borderTopEndRadius: 8,
-    borderBottomEndRadius: 8
+    borderBottomEndRadius: 8,
   },
   content: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   text: {
     fontSize: 15,
     color: Colors.white,
-    marginHorizontal: 4
+    marginHorizontal: 4,
   },
   active: {
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
   },
   activeText: {
-    color: Colors.blue
-  }
+    color: Colors.blue,
+  },
 });

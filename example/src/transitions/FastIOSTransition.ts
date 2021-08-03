@@ -8,6 +8,6 @@ export const FastIOSTransitionSpec: TransitionSpec = {
     mass: 3,
     overshootClamping: true,
     restDisplacementThreshold: 10,
-    restSpeedThreshold: 10
-  }
+    restSpeedThreshold: 10,
+  },
 };

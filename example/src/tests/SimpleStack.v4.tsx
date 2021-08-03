@@ -6,12 +6,12 @@ import { createScreen, MasterScreen, DetailScreen } from "../screens";
 const SimpleStackNavigator = createSharedElementStackNavigator(
   {
     Master: createScreen(MasterScreen, "SimpleStack"),
-    Detail: DetailScreen
+    Detail: DetailScreen,
   },
   undefined,
   {
     name: "SimpleStack",
-    debug: true
+    debug: true,
   }
 );
 

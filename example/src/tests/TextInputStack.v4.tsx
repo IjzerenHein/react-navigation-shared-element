@@ -17,7 +17,7 @@ const SearchInput = (props: React.ComponentProps<typeof TextInput>) => (
       height: 40,
       padding: 3,
       borderWidth: 1,
-      borderColor: "red"
+      borderColor: "red",
     }}
   />
 );
@@ -60,12 +60,12 @@ SearchScreen.sharedElements = () => [{ id: "searchBar" }];
 const TextInputStackNavigator = createSharedElementStackNavigator(
   {
     Home: HomeScreen,
-    Search: SearchScreen
+    Search: SearchScreen,
   },
   undefined,
   {
     name: "TextInputStack",
-    debug: true
+    debug: true,
   }
 );
 

@@ -15,7 +15,7 @@ interface Props {
 
 export class MasterScreen extends React.Component<Props> {
   static defaultProps = {
-    routeName: "Detail"
+    routeName: "Detail",
   };
 
   render() {
@@ -54,23 +54,23 @@ export class MasterScreen extends React.Component<Props> {
 
 const styles = StyleSheet.create({
   flex: {
-    flex: 1
+    flex: 1,
   },
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   text: {
-    fontSize: 40
+    fontSize: 40,
   },
   caption: {
     fontSize: 20,
-    opacity: 0.5
+    opacity: 0.5,
   },
   image: {
     width: 200,
     height: 160,
-    resizeMode: "contain"
-  }
+    resizeMode: "contain",
+  },
 });

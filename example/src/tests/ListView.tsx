@@ -9,7 +9,7 @@ const name = "ListView";
 
 const Stack = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 export default () => (
@@ -20,8 +20,8 @@ export default () => (
         // https://github.com/react-navigation/react-navigation/pull/8028
         transitionSpec: {
           open: FastIOSTransitionSpec,
-          close: FastIOSTransitionSpec
-        }
+          close: FastIOSTransitionSpec,
+        },
       }}
     >
       <Stack.Screen name={name} component={ListScreen} />

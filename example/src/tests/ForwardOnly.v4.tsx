@@ -1,7 +1,7 @@
 import { createAppContainer } from "react-navigation";
 import {
   createSharedElementStackNavigator,
-  SharedElementsComponentConfig
+  SharedElementsComponentConfig,
 } from "react-navigation-shared-element/build/v4";
 
 import { defaultItem } from "../data";
@@ -18,19 +18,19 @@ const sharedElements: SharedElementsComponentConfig = (
   return [
     { id: `${item.id}.image` },
     { id: `${item.id}.title`, animation: "fade" },
-    { id: "close", animation: "fade-in" }
+    { id: "close", animation: "fade-in" },
   ];
 };
 
 const ForwardOnlyStackNavigator = createSharedElementStackNavigator(
   {
     Master: createScreen(MasterScreen, "ForwardOnly"),
-    Detail: createScreen(DetailScreen, undefined, sharedElements)
+    Detail: createScreen(DetailScreen, undefined, sharedElements),
   },
   undefined,
   {
     name: "SimpleStack",
-    debug: true
+    debug: true,
   }
 );
 

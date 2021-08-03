@@ -8,19 +8,19 @@ const name = "SimpleStack";
 
 const Stack = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 const Detail1Screen = createScreen(DetailScreen, undefined, undefined, {
   onPress: ({ navigation, item }: any) => {
     navigation.push("Detail2", {
-      item
+      item,
     });
-  }
+  },
 });
 
 const Detail2Screen = createScreen(DetailScreen, undefined, undefined, {
-  resizeMode: "contain"
+  resizeMode: "contain",
 });
 Detail2Screen.displayName = "Detail2Screen";
 

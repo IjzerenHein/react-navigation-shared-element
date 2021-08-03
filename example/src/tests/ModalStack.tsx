@@ -8,11 +8,11 @@ const name = "ModalStack";
 
 const Stack = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 const ModalDetailScreen = createScreen(DetailScreen, undefined, undefined, {
-  modal: "full"
+  modal: "full",
 });
 
 export default () => (

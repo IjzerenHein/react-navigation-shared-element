@@ -9,7 +9,7 @@ const name = "BackOnly";
 
 const Stack = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 export default () => (
@@ -25,7 +25,7 @@ export default () => (
           return [
             { id: `${item.id}.image` },
             { id: `${item.id}.title`, animation: "fade" },
-            { id: "close", animation: "fade-in" }
+            { id: "close", animation: "fade-in" },
           ];
         }}
       />

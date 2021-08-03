@@ -26,7 +26,7 @@ export const SegmentControl = (props: Props) => {
             : index === childCount - 1
             ? "end"
             : "middle",
-          onPress: () => onValueChange(index)
+          onPress: () => onValueChange(index),
         });
       })}
     </View>
@@ -37,6 +37,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

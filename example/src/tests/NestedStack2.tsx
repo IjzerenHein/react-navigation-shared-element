@@ -8,16 +8,16 @@ const name = "NestedStack";
 
 const RootStack = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 const NestedStack = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 const ModalDetailScreen = createScreen(DetailScreen, undefined, undefined, {
-  modal: "full"
+  modal: "full",
 });
 
 const NestedStackScreen = () => (

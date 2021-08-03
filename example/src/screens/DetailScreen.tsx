@@ -2,7 +2,7 @@ import * as React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import {
   SharedElement,
-  SharedElementsComponentConfig
+  SharedElementsComponentConfig,
 } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
@@ -45,7 +45,7 @@ export const DetailScreen = (props: Props) => {
           <Text
             style={[
               styles.text,
-              resizeMode === "contain" ? styles.textDark : styles.textLight
+              resizeMode === "contain" ? styles.textDark : styles.textLight,
             ]}
           >
             {item.title}
@@ -55,7 +55,7 @@ export const DetailScreen = (props: Props) => {
           <View
             style={[
               styles.header,
-              modal === "sheet" ? styles.sheetHeader : undefined
+              modal === "sheet" ? styles.sheetHeader : undefined,
             ]}
           >
             <TouchableOpacity
@@ -67,20 +67,18 @@ export const DetailScreen = (props: Props) => {
               </SharedElement>
             </TouchableOpacity>
           </View>
-        ) : (
-          undefined
-        )}
+        ) : undefined}
       </View>
     </>
   );
 };
 
 DetailScreen.defaultProps = {
-  modal: "none"
+  modal: "none",
 };
 
 DetailScreen.navigationOptions = {
-  title: "Boys will be boys"
+  title: "Boys will be boys",
 };
 
 // Add the `sharedElements` function to the component, which
@@ -97,7 +95,7 @@ const sharedElements: SharedElementsComponentConfig = (
   return [
     { id: `${item.id}.image` },
     { id: `${item.id}.title`, animation: "fade" },
-    { id: "close", animation: "fade-in" }
+    { id: "close", animation: "fade-in" },
   ];
 };
 DetailScreen.sharedElements = sharedElements;
@@ -105,34 +103,34 @@ DetailScreen.sharedElements = sharedElements;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
   },
   header: {
     position: "absolute",
     left: 16,
-    top: 32
+    top: 32,
   },
   sheetHeader: {
     left: 16,
-    top: 16
+    top: 16,
   },
   icon: {
     fontSize: 40,
-    color: "white"
+    color: "white",
   },
   image: {
     width: "100%",
-    height: "100%"
+    height: "100%",
   },
   text: {
     marginTop: 20,
     fontSize: 60,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   textDark: {
-    color: "black"
+    color: "black",
   },
   textLight: {
-    color: "white"
-  }
+    color: "white",
+  },
 });

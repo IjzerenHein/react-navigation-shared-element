@@ -11,12 +11,12 @@ const BottomTab = createBottomTabNavigator();
 
 const Stack1 = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 const Stack2 = createSharedElementStackNavigator({
   name,
-  debug: true
+  debug: true,
 });
 
 const Stack1Screen = () => (

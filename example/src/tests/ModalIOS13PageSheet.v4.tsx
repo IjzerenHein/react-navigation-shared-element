@@ -7,7 +7,9 @@ import { MasterScreen, DetailScreen, createScreen } from "../screens";
 const ModalIOS13PageSheetStackNavigator = createSharedElementStackNavigator(
   {
     Master: createScreen(MasterScreen, "ModalIOS13PageSheet"),
-    Detail: createScreen(DetailScreen, undefined, undefined, { modal: "sheet" })
+    Detail: createScreen(DetailScreen, undefined, undefined, {
+      modal: "sheet",
+    }),
   },
   {
     mode: "modal",
@@ -15,12 +17,12 @@ const ModalIOS13PageSheetStackNavigator = createSharedElementStackNavigator(
     defaultNavigationOptions: {
       gestureEnabled: true,
       cardOverlayEnabled: true,
-      ...TransitionPresets.ModalPresentationIOS
-    }
+      ...TransitionPresets.ModalPresentationIOS,
+    },
   },
   {
     name: "ModalIOS13PageSheet",
-    debug: true
+    debug: true,
   }
 );
 
