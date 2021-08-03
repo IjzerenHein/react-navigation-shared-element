@@ -1,10 +1,10 @@
 import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator4 } from "react-navigation-shared-element";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import { MasterScreen, DetailScreen } from "../screens";
 
-const ChildStack = createSharedElementStackNavigator4(
+const ChildStack = createSharedElementStackNavigator(
   {
     Master: MasterScreen
   },
@@ -39,7 +39,7 @@ const TabNavigator = createBottomTabNavigator({
   }
 });
 
-const MainStack = createSharedElementStackNavigator4(
+const MainStack = createSharedElementStackNavigator(
   {
     Master: TabNavigator,
     Detail: DetailScreen

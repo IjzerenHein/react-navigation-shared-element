@@ -4,8 +4,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createAppContainer } from "react-navigation";
 import {
   SharedElement,
-  createSharedElementStackNavigator4
-} from "react-navigation-shared-element";
+  createSharedElementStackNavigator,
+} from "react-navigation-shared-element/build/v4";
 import { HeaderBackButton } from "react-navigation-stack";
 
 const SearchInput = (props: React.ComponentProps<typeof TextInput>) => (
@@ -57,7 +57,7 @@ const SearchScreen = ({ navigation }: any) => {
 SearchScreen.navigationOptions = { headerShown: false };
 SearchScreen.sharedElements = () => [{ id: "searchBar" }];
 
-const TextInputStackNavigator = createSharedElementStackNavigator4(
+const TextInputStackNavigator = createSharedElementStackNavigator(
   {
     Home: HomeScreen,
     Search: SearchScreen

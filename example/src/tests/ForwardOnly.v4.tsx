@@ -1,8 +1,8 @@
 import { createAppContainer } from "react-navigation";
 import {
-  createSharedElementStackNavigator4,
+  createSharedElementStackNavigator,
   SharedElementsComponentConfig
-} from "react-navigation-shared-element";
+} from "react-navigation-shared-element/build/v4";
 
 import { defaultItem } from "../data";
 import { createScreen, MasterScreen, DetailScreen } from "../screens";
@@ -22,7 +22,7 @@ const sharedElements: SharedElementsComponentConfig = (
   ];
 };
 
-const ForwardOnlyStackNavigator = createSharedElementStackNavigator4(
+const ForwardOnlyStackNavigator = createSharedElementStackNavigator(
   {
     Master: createScreen(MasterScreen, "ForwardOnly"),
     Detail: createScreen(DetailScreen, undefined, sharedElements)

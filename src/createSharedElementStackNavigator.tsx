@@ -40,14 +40,14 @@ export default function createSharedElementStackNavigator<
 >(options?: { name?: string; debug?: boolean }) {
   // Verify that no other options than 'name' or 'debug' are provided.
   // This might indicate that the user is still using navigation 4 but
-  // didn't rename to `createSharedElementStackNavigator4`.
+  // didn't change the import to `react-navigation-shared-element/build/v4`.
   if (
     options &&
     Object.keys(options).filter((key) => key !== "name" && key !== "debug")
       .length > 0
   ) {
     throw new Error(
-      `Invalid options specified to 'createSharedElementStackNavigator'. If you are using react-navigation 4, please use 'createSharedElementStackNavigator4'`
+      `Invalid options specified to 'createSharedElementStackNavigator'. If you are using react-navigation 4, please import from 'react-navigation-shared-element/build/v4'`
     );
   }
 

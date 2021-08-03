@@ -1,10 +1,10 @@
 import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator4 } from "react-navigation-shared-element";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 import { TransitionPresets } from "react-navigation-stack";
 
 import { MasterScreen, DetailScreen, createScreen } from "../screens";
 
-const ModalIOS13PageSheetStackNavigator = createSharedElementStackNavigator4(
+const ModalIOS13PageSheetStackNavigator = createSharedElementStackNavigator(
   {
     Master: createScreen(MasterScreen, "ModalIOS13PageSheet"),
     Detail: createScreen(DetailScreen, undefined, undefined, { modal: "sheet" })

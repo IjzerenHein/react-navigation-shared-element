@@ -19,11 +19,11 @@ React Navigation bindings for [react-native-shared-element](https://github.com/I
 
 The following versions or react-navigation and the stack navigator are supported.
 
-| Version                                                                       | React-Navigation | Comments                                                                                                                                                      |
-| ----------------------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.x                                                                           | 4 & 5            | Use `createSharedElementStackNavigator4` to use it with 4.x. In this version the `sharedElements` function was changed to use `route` instead of `navigator`. |
-| [2.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v2) | 3 & 4            | This version is compatible with `react-navigation-stack@2`.                                                                                                   |
-| [1.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1) | 3 & 4            | This version is compatible with `react-navigation-stack@1`.                                                                                                   |
+| Version                                                                       | React-Navigation | Comments                                                                                                                                                              |
+| ----------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 3.x                                                                           | 4 & 5            | Import from `react-navigation-shared-element/v4` to use it with 4.x. In this version the `sharedElements` function was changed to use `route` instead of `navigator`. |
+| [2.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v2) | 3 & 4            | This version is compatible with `react-navigation-stack@2`.                                                                                                           |
+| [1.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1) | 3 & 4            | This version is compatible with `react-navigation-stack@1`.                                                                                                           |
 
 Unlikely to be supported:
 

@@ -5,15 +5,15 @@
 # Migration Guide <!-- omit in toc -->
 
 - [2.x -> 3.x](#2x---3x)
-  - [createSharedElementStackNavigator4](#createsharedelementstacknavigator4)
+  - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
   - [Route arguments in `sharedElement` function](#route-arguments-in-sharedelement-function)
 - [5.0.0-alpha1 -> 3.x](#500-alpha1---3x)
 
 # 2.x -> 3.x
 
-## createSharedElementStackNavigator4
+## createSharedElementStackNavigator
 
-As of version 3.x, `react-navigation-shared-element` supports both react-navigation 4 and 5. React navigation 5.x is considered the new default API and 4.x can be accessed using a version specific export.
+As of version 3.x, `react-navigation-shared-element` supports both the react-navigation 4 and 5 APIs. React navigation 5.x is considered the new default API and 4.x can be accessed using a version specific import.
 
 **Before**
 
@@ -30,9 +30,9 @@ const stackNavigator = createSharedElementStackNavigator(
 
 ```jsx
 // react-navigation-shared-element@3
-import { createSharedElementStackNavigator4 } from 'react-navigation-shared-element';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element/build/v4';
 
-const stackNavigator = createSharedElementStackNavigator4(
+const stackNavigator = createSharedElementStackNavigator(
   ...
 );
 ```

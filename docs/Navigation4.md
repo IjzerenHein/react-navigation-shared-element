@@ -9,7 +9,7 @@ Upgrading from react-navigation-shared-element 2 to 3? Be sure to checkout the [
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
-  - [createSharedElementStackNavigator4](#createsharedelementstacknavigator4)
+  - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
     - [Debugging shared element transitions](#debugging-shared-element-transitions)
   - [SharedElement component](#sharedelement-component)
   - [sharedElements function](#sharedelements-function)
@@ -36,15 +36,16 @@ $ yarn add react-navigation@4 react-navigation-stack@2
 
 In order to enable shared element transitions, the following steps need to be performed
 
-- Create a stack-navigator using `createSharedElementStackNavigator4`
+- Import from `react-navigation-shared-element/build/v4`
+- Create a stack-navigator using `createSharedElementStackNavigator`
 - Wrap your component with `<SharedElement>` and provide a unique `id`
 - Define a static `sharedElements` config on the Screen that you want to animate
 
 ```jsx
 // App4x.js
-import { createSharedElementStackNavigator4 } from 'react-navigation-shared-element';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element/build/v4';
 
-const stackNavigator = createSharedElementStackNavigator4(
+const stackNavigator = createSharedElementStackNavigator(
   {
     List: ListScreen,
     Detail: DetailScreen,
@@ -94,9 +95,9 @@ DetailScreen.sharedElements = (route, otherRoute, showing) => {
 
 ## Documentation
 
-### createSharedElementStackNavigator4
+### createSharedElementStackNavigator
 
-The `createSharedElementStackNavigator4` function wraps an existing stack-navigator and enables shared element transitions for it.
+The `createSharedElementStackNavigator` function wraps an existing stack-navigator and enables shared element transitions for it.
 
 It performs the following actions
 
@@ -119,7 +120,7 @@ to log scene transitions and shared-element id's to the console. The
 log output is useful for understanding scene changes and for reporting issues.
 
 ```jsx
-const stackNavigator = createSharedElementStackNavigator4(
+const stackNavigator = createSharedElementStackNavigator(
   { ... }, // routeConfig
   { ... } // stackConfig
   {
@@ -134,7 +135,7 @@ const stackNavigator = createSharedElementStackNavigator4(
 
 The `<SharedElement>` component accepts a single child and a _"shared"_ id. The child is the element that is made available for doing shared element transitions. It can be any component, like a `<View>`, `<Text>` or `<Image>`. In case the wrapped view is an `<Image>`, special handling is performed to deal with image loading and resizing.
 
-This component is synonymous for the `<SharedElement>` component as defined in `react-native-shared-element`. Instead of a `node` it uses an `id` to create a higher lever API which automatically ties in with the scenes created by `createSharedElementStackNavigator4`.
+This component is synonymous for the `<SharedElement>` component as defined in `react-native-shared-element`. Instead of a `node` it uses an `id` to create a higher lever API which automatically ties in with the scenes created by `createSharedElementStackNavigator`.
 
 **Props**
 
