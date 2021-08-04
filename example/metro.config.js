@@ -29,6 +29,4 @@ defaultConfig.resolver.extraNodeModules = new Proxy(
 defaultConfig.watchFolders.push(path.resolve("./node_modules"));
 defaultConfig.watchFolders.push(path.resolve(".."));
 
-console.log(defaultConfig.watchFolders);
-
 module.exports = defaultConfig;
