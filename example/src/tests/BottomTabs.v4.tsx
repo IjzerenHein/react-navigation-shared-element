@@ -2,6 +2,7 @@ import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
+import { TabBarIcon } from "../components";
 import { createScreen, MasterScreen, DetailScreen } from "../screens";
 
 const StackNavigator1 = createSharedElementStackNavigator(
@@ -34,6 +35,7 @@ const TabNavigator = createBottomTabNavigator({
     screen: StackNavigator1,
     navigationOptions: {
       title: "Stack 1",
+      tabBarIcon: TabBarIcon,
     },
   },
   Tab2: {
@@ -41,6 +43,7 @@ const TabNavigator = createBottomTabNavigator({
     screen: StackNavigator2,
     navigationOptions: {
       title: "Stack 2",
+      tabBarIcon: TabBarIcon,
     },
   },
 });

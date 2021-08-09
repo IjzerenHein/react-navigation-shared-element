@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
+import { TabBarIcon } from "../components";
 import { MasterScreen, DetailScreen } from "../screens";
 
 const name = "BottomTabs2";
@@ -31,7 +32,7 @@ const StackScreen = () => (
 // In the example below, Tab2 is not wrapped and therefore doesn't
 // perform shared-element transitions.
 const TabScreen = () => (
-  <BottomTab.Navigator>
+  <BottomTab.Navigator screenOptions={{ tabBarIcon: TabBarIcon }}>
     <BottomTab.Screen name="Tab1" component={StackScreen} />
     <BottomTab.Screen name="Tab2" component={MasterScreen} />
   </BottomTab.Navigator>

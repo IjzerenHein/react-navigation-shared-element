@@ -6,7 +6,7 @@ import { createScreen, MasterScreen, DetailScreen } from "../screens";
 
 const StackNavigator1 = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "BottomStack1"),
+    Master: createScreen(MasterScreen, "TopStack1"),
     Detail: DetailScreen,
   },
   undefined,
@@ -18,7 +18,7 @@ const StackNavigator1 = createSharedElementStackNavigator(
 
 const StackNavigator2 = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "BottomStack2"),
+    Master: createScreen(MasterScreen, "TopStack2"),
     Detail: DetailScreen,
   },
   undefined,

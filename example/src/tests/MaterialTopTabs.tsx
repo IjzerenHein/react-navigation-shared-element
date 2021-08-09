@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import { MasterScreen, DetailScreen } from "../screens";
@@ -35,9 +36,11 @@ const Stack2Screen = () => (
 
 export default () => (
   <NavigationContainer>
-    <MaterialTopTab.Navigator>
-      <MaterialTopTab.Screen name="Tab1" component={Stack1Screen} />
-      <MaterialTopTab.Screen name="Tab2" component={Stack2Screen} />
-    </MaterialTopTab.Navigator>
+    <SafeAreaView style={{ flex: 1 }}>
+      <MaterialTopTab.Navigator>
+        <MaterialTopTab.Screen name="Tab1" component={Stack1Screen} />
+        <MaterialTopTab.Screen name="Tab2" component={Stack2Screen} />
+      </MaterialTopTab.Navigator>
+    </SafeAreaView>
   </NavigationContainer>
 );

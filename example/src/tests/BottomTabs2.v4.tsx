@@ -2,17 +2,18 @@ import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
-import { MasterScreen, DetailScreen } from "../screens";
+import { TabBarIcon } from "../components";
+import { createScreen, MasterScreen, DetailScreen } from "../screens";
 
 const ChildStack = createSharedElementStackNavigator(
   {
-    Master: MasterScreen,
+    Master: createScreen(MasterScreen, "BottomTabs2"),
   },
   {
     headerMode: "none",
   },
   {
-    name: "ChildStack",
+    name: "BottomTabs2",
     debug: true,
   }
 );
@@ -28,6 +29,7 @@ const TabNavigator = createBottomTabNavigator({
     screen: ChildStack,
     navigationOptions: {
       title: "Stack 1",
+      tabBarIcon: TabBarIcon,
     },
   },
   Tab2: {
@@ -35,6 +37,7 @@ const TabNavigator = createBottomTabNavigator({
     screen: MasterScreen,
     navigationOptions: {
       title: "Stack 2",
+      tabBarIcon: TabBarIcon,
     },
   },
 });

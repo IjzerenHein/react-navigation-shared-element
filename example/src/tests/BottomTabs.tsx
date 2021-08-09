@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
+import { TabBarIcon } from "../components";
 import { MasterScreen, DetailScreen } from "../screens";
 
 const name = "BottomTabs";
@@ -35,7 +36,7 @@ const Stack2Screen = () => (
 
 export default () => (
   <NavigationContainer>
-    <BottomTab.Navigator>
+    <BottomTab.Navigator screenOptions={{ tabBarIcon: TabBarIcon }}>
       <BottomTab.Screen name="Tab1" component={Stack1Screen} />
       <BottomTab.Screen name="Tab2" component={Stack2Screen} />
     </BottomTab.Navigator>

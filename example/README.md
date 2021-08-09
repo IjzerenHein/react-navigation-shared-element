@@ -12,7 +12,7 @@ expo start
 
 ```sh
 cd ios
-pod install
+npx pod install
 ```
 
 ```sh
