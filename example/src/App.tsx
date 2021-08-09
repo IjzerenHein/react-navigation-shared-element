@@ -9,6 +9,10 @@ import BottomTabs from "./tests/BottomTabs";
 import BottomTabsV4 from "./tests/BottomTabs.v4";
 import BottomTabs2 from "./tests/BottomTabs2";
 import BottomTabs2V4 from "./tests/BottomTabs2.v4";
+import DefaultStack from "./tests/DefaultStack";
+import DefaultStackV4 from "./tests/DefaultStack.v4";
+import FadeFromBottomAndroid from "./tests/FadeFromBottomAndroid";
+import FadeFromBottomAndroidV4 from "./tests/FadeFromBottomAndroid.v4";
 import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
 import ListView from "./tests/ListView";
@@ -23,8 +27,10 @@ import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
-import SimpleStack from "./tests/SimpleStack";
-import SimpleStackV4 from "./tests/SimpleStack.v4";
+import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
+import RevealFromBottomAndroidV4 from "./tests/RevealFromBottomAndroid.v4";
+import SlideFromRightIOS from "./tests/SlideFromRightIOS";
+import SlideFromRightIOSV4 from "./tests/SlideFromRightIOS.v4";
 import TextInputStackV4 from "./tests/TextInputStack.v4";
 import ViewPager from "./tests/ViewPager";
 import ViewPagerV4 from "./tests/ViewPager.v4";
@@ -35,9 +41,24 @@ export default () => (
   <SafeAreaProvider>
     <Tests>
       <Test
-        title="SimpleStack"
-        ComponentV4={SimpleStackV4}
-        Component={SimpleStack}
+        title="DefaultStack"
+        ComponentV4={DefaultStackV4}
+        Component={DefaultStack}
+      />
+      <Test
+        title="SlideFromRightIOS"
+        ComponentV4={SlideFromRightIOSV4}
+        Component={SlideFromRightIOS}
+      />
+      <Test
+        title="RevealFromBottomAndroid"
+        ComponentV4={RevealFromBottomAndroidV4}
+        Component={RevealFromBottomAndroid}
+      />
+      <Test
+        title="FadeFromBottomAndroid"
+        ComponentV4={FadeFromBottomAndroidV4}
+        Component={FadeFromBottomAndroid}
       />
       <Test
         title="ForwardOnly"

@@ -4,7 +4,7 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 
 import { MasterScreen, DetailScreen, createScreen } from "../screens";
 
-const name = "SimpleStack";
+const name = "DefaultStack";
 
 const Stack = createSharedElementStackNavigator({
   name,
