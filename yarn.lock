@@ -7466,10 +7466,10 @@ react-native-safe-area-view@^0.14.9:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-react-native-shared-element@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.7.0.tgz#c5e02eb372f6e38e48eb1030fd59be8f3d8c7a1f"
-  integrity sha512-TJTGwQceABYete+vH3ahNSgzVzXz7X2SPv3thT91gdcFCrm7ht7IKXBXJiYjOA+4TfdqnGEAWkspCy80oEnOgw==
+react-native-shared-element@^0.8.0-alpha.1:
+  version "0.8.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.8.0-alpha.1.tgz#ce05a00017f8760da1b1e665a7a664f93924333c"
+  integrity sha512-v+xBrrcdFawfZJYbpFTT1+YRxQ+xyECXmXGIF+0qD1JqLUDinT2HT2bIxoSjlHdcoWPh0/Wcef13SASTNe81ZQ==
 
 react-native-tab-view@^2.15.2:
   version "2.16.0"

@@ -324,9 +324,9 @@ PODS:
   - RNScreens (3.4.0):
     - React-Core
     - React-RCTImage
-  - RNSharedElement (0.7.0):
+  - RNSharedElement (0.8.0-alpha.1):
     - React
-  - RNVectorIcons (6.6.0):
+  - RNVectorIcons (6.7.0):
     - React
   - UMAppLoader (2.2.0)
   - UMCore (7.1.1)
@@ -543,8 +543,8 @@ SPEC CHECKSUMS:
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNReanimated: d9da990fc90123f4ffbfdda93d00fc15174863a8
   RNScreens: 21b73c94c9117e1110a79ee0ee80c93ccefed8ce
-  RNSharedElement: 00b1a1420d213a34459bb9a5aacabb38107d7948
-  RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
+  RNSharedElement: 6c2967c5926f47c508096b6587ce5d9a9db4a1b9
+  RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
   UMAppLoader: 21af63390e55c82e037fb9752d93114a80ecf16e
   UMCore: 2f671796d7439604a1cf8ac7bbe5809cd5c50437
   UMReactNativeAdapter: f808906d586a16cebdc3844d86e1bdb8f114a873
