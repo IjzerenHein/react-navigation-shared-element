@@ -6,16 +6,16 @@ import { createScreen, MasterScreen, DetailScreen } from "../screens";
 
 const SimpleStackNavigator = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "SlideFromRightIOS"),
+    Master: createScreen(MasterScreen, "ScaleFromCenterAndroid"),
     Detail: DetailScreen,
   },
   {
-    navigationOptions: {
-      ...TransitionPresets.SlideFromRightIOS,
+    defaultNavigationOptions: {
+      ...TransitionPresets.ScaleFromCenterAndroid,
     },
   },
   {
-    name: "SlideFromRightIOS",
+    name: "ScaleFromCenterAndroid",
     debug: true,
   }
 );

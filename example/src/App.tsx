@@ -29,6 +29,8 @@ import NestedStack2 from "./tests/NestedStack2";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
 import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
 import RevealFromBottomAndroidV4 from "./tests/RevealFromBottomAndroid.v4";
+import ScaleFromCenterAndroid from "./tests/ScaleFromCenterAndroid";
+import ScaleFromCenterAndroidV4 from "./tests/ScaleFromCenterAndroid.v4";
 import SlideFromRightIOS from "./tests/SlideFromRightIOS";
 import SlideFromRightIOSV4 from "./tests/SlideFromRightIOS.v4";
 import TextInputStackV4 from "./tests/TextInputStack.v4";
@@ -49,6 +51,11 @@ export default () => (
         title="SlideFromRightIOS"
         ComponentV4={SlideFromRightIOSV4}
         Component={SlideFromRightIOS}
+      />
+      <Test
+        title="ScaleFromCenterAndroid"
+        ComponentV4={ScaleFromCenterAndroidV4}
+        Component={ScaleFromCenterAndroid}
       />
       <Test
         title="RevealFromBottomAndroid"
