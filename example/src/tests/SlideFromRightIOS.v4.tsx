@@ -10,7 +10,7 @@ const SimpleStackNavigator = createSharedElementStackNavigator(
     Detail: DetailScreen,
   },
   {
-    navigationOptions: {
+    defaultNavigationOptions: {
       ...TransitionPresets.SlideFromRightIOS,
     },
   },
