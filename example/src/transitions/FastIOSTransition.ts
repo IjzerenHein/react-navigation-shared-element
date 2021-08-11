@@ -1,4 +1,6 @@
-import { TransitionSpec } from "@react-navigation/stack/lib/typescript/src/types";
+import { TransitionSpecs } from "@react-navigation/stack";
+
+type TransitionSpec = typeof TransitionSpecs.TransitionIOSSpec;
 
 export const FastIOSTransitionSpec: TransitionSpec = {
   animation: "spring",

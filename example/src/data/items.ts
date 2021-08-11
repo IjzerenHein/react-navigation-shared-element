@@ -7,6 +7,11 @@ export const items: Item[] = [
     image: require("../../assets/homelander.png"),
   },
   {
+    id: "stormfront",
+    title: "Stormfront",
+    image: require("../../assets/stormfront.jpg"),
+  },
+  {
     id: "atrain",
     title: "A-Train",
     image: require("../../assets/atrain.jpg"),
