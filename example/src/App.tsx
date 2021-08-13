@@ -43,7 +43,12 @@ if (Platform.OS === "android") {
   StatusBar.setBackgroundColor("transparent");
 }
 
-enableScreens();
+// As of react-native-screens@2.14.0, enableScreens causes
+// a fade-in of the image when navigating to a screen.
+// And as of react-native-screens@3, enableScreens is enabled by default.
+// Therefore, explicitly disable screens on Android until this issue
+// has been resolved.
+enableScreens(Platform.OS !== "android");
 
 export default () => (
   <SafeAreaProvider>
