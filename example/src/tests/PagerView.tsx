@@ -2,10 +2,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { ListScreen, ViewPagerScreen } from "../screens";
+import { ListScreen, PagerViewScreen } from "../screens";
 import { FastIOSTransitionSpec } from "../transitions";
 
-const name = "ViewPager";
+const name = "PagerView";
 
 const Stack = createSharedElementStackNavigator({
   name,
@@ -25,7 +25,7 @@ export default () => (
       }}
     >
       <Stack.Screen name={name} component={ListScreen} />
-      <Stack.Screen name="Detail" component={ViewPagerScreen} />
+      <Stack.Screen name="Detail" component={PagerViewScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

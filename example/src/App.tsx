@@ -28,6 +28,8 @@ import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
+import PagerView from "./tests/PagerView";
+import PagerViewV4 from "./tests/PagerView.v4";
 import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
 import RevealFromBottomAndroidV4 from "./tests/RevealFromBottomAndroid.v4";
 import ScaleFromCenterAndroid from "./tests/ScaleFromCenterAndroid";
@@ -35,8 +37,6 @@ import ScaleFromCenterAndroidV4 from "./tests/ScaleFromCenterAndroid.v4";
 import SlideFromRightIOS from "./tests/SlideFromRightIOS";
 import SlideFromRightIOSV4 from "./tests/SlideFromRightIOS.v4";
 import TextInputStackV4 from "./tests/TextInputStack.v4";
-import ViewPager from "./tests/ViewPager";
-import ViewPagerV4 from "./tests/ViewPager.v4";
 
 if (Platform.OS === "android") {
   StatusBar.setTranslucent(true);
@@ -120,7 +120,7 @@ export default () => (
         Component={MaterialTopTabs}
       />
       <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
-      <Test title="ViewPager" ComponentV4={ViewPagerV4} Component={ViewPager} />
+      <Test title="PagerView" ComponentV4={PagerViewV4} Component={PagerView} />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />
     </Tests>
   </SafeAreaProvider>

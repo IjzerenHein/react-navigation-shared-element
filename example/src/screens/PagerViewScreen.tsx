@@ -1,14 +1,8 @@
-import ViewPager, {
-  ViewPagerOnPageSelectedEventData,
-} from "@react-native-community/viewpager";
 import * as React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  NativeSyntheticEvent,
-} from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
+import PagerView, {
+  PagerViewOnPageSelectedEvent,
+} from "react-native-pager-view";
 import {
   SharedElement,
   SharedElementsComponentConfig,
@@ -22,7 +16,7 @@ type Props = {
   route: any;
 };
 
-export class ViewPagerScreen extends React.Component<Props> {
+export class PagerViewScreen extends React.Component<Props> {
   static sharedElements: SharedElementsComponentConfig = (
     route,
     otherRoute,
@@ -42,13 +36,13 @@ export class ViewPagerScreen extends React.Component<Props> {
     const initialItem: Item = params?.item;
     const initialIndex = items.indexOf(initialItem);
     return (
-      <ViewPager
+      <PagerView
         style={styles.container}
         initialPage={initialIndex}
         onPageSelected={this.onPageSelected}
       >
         {items.map((item) => this.renderItem(item))}
-      </ViewPager>
+      </PagerView>
     );
   }
 
@@ -65,9 +59,7 @@ export class ViewPagerScreen extends React.Component<Props> {
     );
   }
 
-  private onPageSelected = (
-    e: NativeSyntheticEvent<ViewPagerOnPageSelectedEventData>
-  ) => {
+  private onPageSelected = (e: PagerViewOnPageSelectedEvent) => {
     const { position } = e.nativeEvent;
     const { navigation } = this.props;
     navigation.setParams({

@@ -1,13 +1,13 @@
 import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 
-import { createScreen, ListScreen, ViewPagerScreen } from "../screens";
+import { createScreen, ListScreen, PagerViewScreen } from "../screens";
 import { FastIOSTransitionSpec } from "../transitions";
 
 const StackNavigator = createSharedElementStackNavigator(
   {
-    List: createScreen(ListScreen, "ViewPager"),
-    Detail: ViewPagerScreen,
+    List: createScreen(ListScreen, "PagerView"),
+    Detail: PagerViewScreen,
   },
   {
     // FastIOSTransitionSpec should be removed once this PR is merged:
@@ -20,7 +20,7 @@ const StackNavigator = createSharedElementStackNavigator(
     },
   },
   {
-    name: "ViewPager",
+    name: "PagerView",
     debug: true,
   }
 );
