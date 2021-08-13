@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Platform, StatusBar } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { enableScreens } from "react-native-screens";
 
@@ -36,6 +37,11 @@ import SlideFromRightIOSV4 from "./tests/SlideFromRightIOS.v4";
 import TextInputStackV4 from "./tests/TextInputStack.v4";
 import ViewPager from "./tests/ViewPager";
 import ViewPagerV4 from "./tests/ViewPager.v4";
+
+if (Platform.OS === "android") {
+  StatusBar.setTranslucent(true);
+  StatusBar.setBackgroundColor("transparent");
+}
 
 enableScreens();
 
