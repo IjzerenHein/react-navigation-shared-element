@@ -24,7 +24,7 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-safe-area-context": "3.1.4",
     "react-native-screens": "~2.10.1",
-    "react-native-shared-element": "^0.7.0",
+    "react-native-shared-element": "^0.8.0-alpha.3",
     "react-native-touchable-scale": "^2.1.1",
     "react-native-unimodules": "~0.11.0",
     "react-native-vector-icons": "^6.6.0",
