@@ -71,12 +71,7 @@ function createSharedElementStackSceneNavigator(
           navigatorId,
           rendererData.nestingDepth
         );
-        if (
-          defaultNavigationOptionsResult &&
-          defaultNavigationOptionsResult.onTransitionStart
-        ) {
-          defaultNavigationOptionsResult.onTransitionStart(transitionProps);
-        }
+        defaultNavigationOptionsResult?.onTransitionStart?.(transitionProps);
       },
       onTransitionEnd: (transitionProps: { closing: boolean }) => {
         rendererData.endTransition(
@@ -84,12 +79,7 @@ function createSharedElementStackSceneNavigator(
           navigatorId,
           rendererData.nestingDepth
         );
-        if (
-          defaultNavigationOptionsResult &&
-          defaultNavigationOptionsResult.onTransitionEnd
-        ) {
-          defaultNavigationOptionsResult.onTransitionEnd(transitionProps);
-        }
+        defaultNavigationOptionsResult?.onTransitionEnd?.(transitionProps);
       },
     };
   }
