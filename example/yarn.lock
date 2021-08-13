@@ -6677,10 +6677,10 @@ react-native-screens@~3.4.0:
   dependencies:
     warn-once "^0.1.0"
 
-react-native-shared-element@^0.8.0-alpha.1:
-  version "0.8.0-alpha.1"
-  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.8.0-alpha.1.tgz#ce05a00017f8760da1b1e665a7a664f93924333c"
-  integrity sha512-v+xBrrcdFawfZJYbpFTT1+YRxQ+xyECXmXGIF+0qD1JqLUDinT2HT2bIxoSjlHdcoWPh0/Wcef13SASTNe81ZQ==
+react-native-shared-element@0.8.0-alpha.3:
+  version "0.8.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/react-native-shared-element/-/react-native-shared-element-0.8.0-alpha.3.tgz#9351ad04fc76206858b0ecb469994eea9c9d9895"
+  integrity sha512-zDcNcf6xTAZW/CVWKYoLXXxsQRq2HoYUsP+lMo60stGX1rds+lQJPtAgTw7ebfNE3lk054SBab6oHopP9USb4A==
 
 react-native-touchable-scale@^2.1.1:
   version "2.1.2"
