@@ -29,7 +29,10 @@ import TextInputStackV4 from "./tests/TextInputStack.v4";
 import ViewPager from "./tests/ViewPager";
 import ViewPagerV4 from "./tests/ViewPager.v4";
 
-enableScreens();
+// As of react-native-screens@2.14.0, enableScreens causes
+// a fade-in of the image when navigating to a screen.
+// Explicitly disable screens on Android until this issue is resolved.
+enableScreens(false);
 
 export default () => (
   <SafeAreaProvider>
