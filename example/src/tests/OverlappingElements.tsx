@@ -13,11 +13,6 @@ const Stack = createSharedElementStackNavigator({
 
 const Detail1Screen = createScreen(DetailScreen, undefined, undefined, {
   overlappingElements: true,
-  onPress: ({ navigation, item }: any) => {
-    navigation.push("Detail2", {
-      item,
-    });
-  },
 });
 
 export default () => (
