@@ -28,6 +28,8 @@ import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
+import OverlappingElements from "./tests/OverlappingElements";
+import OverlappingElementsV4 from "./tests/OverlappingElements.v4";
 import PagerView from "./tests/PagerView";
 import PagerViewV4 from "./tests/PagerView.v4";
 import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
@@ -121,6 +123,11 @@ export default () => (
       />
       <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
       <Test title="PagerView" ComponentV4={PagerViewV4} Component={PagerView} />
+      <Test
+        title="OverlappingElements"
+        ComponentV4={OverlappingElementsV4}
+        Component={OverlappingElements}
+      />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />
     </Tests>
   </SafeAreaProvider>

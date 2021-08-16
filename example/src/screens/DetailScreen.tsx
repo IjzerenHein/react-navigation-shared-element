@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import * as React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import {
@@ -13,12 +14,14 @@ type Props = {
   navigation: NavigationStackProp<any>;
   route: any; // v5
   modal: "none" | "full" | "sheet";
+  overlappingElements?: boolean;
   resizeMode?: "cover" | "contain";
   onPress?: ({ navigation, item }: { navigation: any; item: Item }) => void;
 };
 
 export const DetailScreen = (props: Props) => {
-  const { navigation, route, modal, resizeMode, onPress } = props;
+  const { navigation, route, modal, resizeMode, onPress, overlappingElements } =
+    props;
   const params = route?.params || navigation?.state?.params;
   const item: Item = params?.item || defaultItem;
   return (
@@ -41,6 +44,14 @@ export const DetailScreen = (props: Props) => {
             />
           </SharedElement>
         </TouchableOpacity>
+        {overlappingElements ? (
+          <SharedElement id="topOverlay" style={styles.topOverlay}>
+            <LinearGradient
+              colors={["rgba(0,0,0,0.9)", "transparent"]}
+              style={StyleSheet.absoluteFill}
+            />
+          </SharedElement>
+        ) : undefined}
         <SharedElement id={`${item.id}.title`}>
           <Text
             style={[
@@ -68,6 +79,15 @@ export const DetailScreen = (props: Props) => {
             </TouchableOpacity>
           </View>
         ) : undefined}
+        {overlappingElements ? (
+          <SharedElement id="bottomOverlay" style={styles.bottomOverlay}>
+            <Image
+              style={styles.image}
+              resizeMode="cover"
+              source={require("../../assets/bloody.jpg")}
+            />
+          </SharedElement>
+        ) : undefined}
       </View>
     </>
   );
@@ -94,8 +114,10 @@ const sharedElements: SharedElementsComponentConfig = (
   const item = route.params.item || defaultItem;
   return [
     { id: `${item.id}.image` },
+    { id: "topOverlay", animation: "fade" },
     { id: `${item.id}.title`, animation: "fade" },
-    { id: "close", animation: "fade-in" },
+    { id: "close", animation: "fade" },
+    { id: "bottomOverlay", animation: "fade" },
   ];
 };
 DetailScreen.sharedElements = sharedElements;
@@ -132,5 +154,20 @@ const styles = StyleSheet.create({
   },
   textLight: {
     color: "white",
+  },
+  topOverlay: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 300,
+  },
+  bottomOverlay: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    height: 160,
+    backgroundColor: "white",
   },
 });

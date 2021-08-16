@@ -69,8 +69,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   image: {
-    width: 200,
+    width: 240,
     height: 160,
-    resizeMode: "contain",
+    resizeMode: "cover",
+    borderRadius: 20,
   },
 });
