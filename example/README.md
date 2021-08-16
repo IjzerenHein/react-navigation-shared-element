@@ -1,32 +1,31 @@
 # Example & Test app
 
-## Run using Expo
+## Usage
 
-```sh
-expo start
+**Open a terminal in the root folder and build the library code**
+
+```bash
+# Install dependencies
+yarn
+
+# Build the js code
+yarn build
 ```
 
-## Run natively on iOS
+**Open the example app in another terminal**
 
-> Make sure the pods are installed:
+```bash
+# Install dependencies
+cd example
+yarn
 
-```sh
-cd ios
-npx pod install
-```
+# Start packager
+yarn start
 
-```sh
+# Run for ios
+cd ios && npx pod install && cd ..
 yarn ios
-```
 
-## Run natively on Android
-
-```sh
+# Run for android
 yarn android
-```
-
-## Run on web (experimental)
-
-```sh
-yarn web
 ```
