@@ -22,6 +22,8 @@ import MaterialTopTabs from "./tests/MaterialTopTabs";
 import MaterialTopTabsV4 from "./tests/MaterialTopTabs.v4";
 import ModalIOS13PageSheet from "./tests/ModalIOS13PageSheet";
 import ModalIOS13PageSheetV4 from "./tests/ModalIOS13PageSheet.v4";
+import ModalSlideFromBottomIOS from "./tests/ModalSlideFromBottomIOS";
+import ModalSlideFromBottomIOSV4 from "./tests/ModalSlideFromBottomIOS.v4";
 import ModalStack from "./tests/ModalStack";
 import ModalStackV4 from "./tests/ModalStack.v4";
 import NestedStack from "./tests/NestedStack";
@@ -100,6 +102,11 @@ export default () => (
         title="ModalStack"
         ComponentV4={ModalStackV4}
         Component={ModalStack}
+      />
+      <Test
+        title="ModalSlideFromBottomIOS"
+        ComponentV4={ModalSlideFromBottomIOSV4}
+        Component={ModalSlideFromBottomIOS}
       />
       <Test
         title="ModalIOS13PageSheet"
