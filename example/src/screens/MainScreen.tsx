@@ -13,7 +13,7 @@ interface Props {
   routeName: string;
 }
 
-export class MasterScreen extends React.Component<Props> {
+export class MainScreen extends React.Component<Props> {
   static defaultProps = {
     routeName: "Detail",
   };

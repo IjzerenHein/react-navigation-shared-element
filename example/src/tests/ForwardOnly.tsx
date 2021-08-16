@@ -3,7 +3,7 @@ import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import { defaultItem } from "../data";
-import { MasterScreen, DetailScreen } from "../screens";
+import { MainScreen, DetailScreen } from "../screens";
 
 const name = "ForwardOnly";
 
@@ -15,7 +15,7 @@ const Stack = createSharedElementStackNavigator({
 export default () => (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name={name} component={MasterScreen} />
+      <Stack.Screen name={name} component={MainScreen} />
       <Stack.Screen
         name="Detail"
         component={DetailScreen}

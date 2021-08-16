@@ -3,7 +3,7 @@ import { TransitionPresets } from "@react-navigation/stack";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { MasterScreen, DetailScreen, createScreen } from "../screens";
+import { MainScreen, DetailScreen, createScreen } from "../screens";
 
 const name = "FadeFromBottomAndroid";
 
@@ -32,7 +32,7 @@ export default () => (
         ...TransitionPresets.FadeFromBottomAndroid,
       }}
     >
-      <Stack.Screen name={name} component={MasterScreen} />
+      <Stack.Screen name={name} component={MainScreen} />
       <Stack.Screen name="Detail" component={Detail1Screen} />
       <Stack.Screen name="Detail2" component={Detail2Screen} />
     </Stack.Navigator>

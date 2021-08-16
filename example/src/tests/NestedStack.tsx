@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { MasterScreen, DetailScreen } from "../screens";
+import { MainScreen, DetailScreen } from "../screens";
 
 const name = "NestedStack";
 
@@ -18,7 +18,7 @@ const NestedStack = createSharedElementStackNavigator({
 
 const NestedStackScreen = () => (
   <NestedStack.Navigator>
-    <NestedStack.Screen name={name} component={MasterScreen} />
+    <NestedStack.Screen name={name} component={MainScreen} />
     <NestedStack.Screen name="Detail" component={DetailScreen} />
   </NestedStack.Navigator>
 );

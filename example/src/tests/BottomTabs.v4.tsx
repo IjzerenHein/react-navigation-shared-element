@@ -3,11 +3,11 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
 import { TabBarIcon } from "../components";
-import { createScreen, MasterScreen, DetailScreen } from "../screens";
+import { createScreen, MainScreen, DetailScreen } from "../screens";
 
 const StackNavigator1 = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "BottomStack1"),
+    Main: createScreen(MainScreen, "BottomStack1"),
     Detail: DetailScreen,
   },
   undefined,
@@ -19,7 +19,7 @@ const StackNavigator1 = createSharedElementStackNavigator(
 
 const StackNavigator2 = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "BottomStack2"),
+    Main: createScreen(MainScreen, "BottomStack2"),
     Detail: DetailScreen,
   },
   undefined,

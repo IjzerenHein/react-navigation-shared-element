@@ -5,7 +5,7 @@ import {
 } from "react-navigation-shared-element/build/v4";
 
 import { defaultItem } from "../data";
-import { createScreen, MasterScreen, DetailScreen } from "../screens";
+import { createScreen, MainScreen, DetailScreen } from "../screens";
 
 const sharedElements: SharedElementsComponentConfig = (
   route,
@@ -24,7 +24,7 @@ const sharedElements: SharedElementsComponentConfig = (
 
 const BackOnlyStackNavigator = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "BackOnly"),
+    Main: createScreen(MainScreen, "BackOnly"),
     Detail: createScreen(DetailScreen, undefined, sharedElements),
   },
   undefined,

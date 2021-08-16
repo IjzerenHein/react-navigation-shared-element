@@ -1,11 +1,11 @@
 import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 
-import { MasterScreen, DetailScreen, createScreen } from "../screens";
+import { MainScreen, DetailScreen, createScreen } from "../screens";
 
 const ModalStackNavigator = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "ModalStack"),
+    Main: createScreen(MainScreen, "ModalStack"),
     Detail: createScreen(DetailScreen, undefined, undefined, { modal: "full" }),
   },
   {

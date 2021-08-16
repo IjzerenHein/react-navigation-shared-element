@@ -4,7 +4,7 @@ import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
 import { TabBarIcon } from "../components";
-import { MasterScreen, DetailScreen } from "../screens";
+import { MainScreen, DetailScreen } from "../screens";
 
 const name = "BottomTabs2";
 
@@ -22,7 +22,7 @@ const Stack2 = createSharedElementStackNavigator({
 
 const StackScreen = () => (
   <Stack2.Navigator headerMode="none">
-    <Stack2.Screen name="Master" component={MasterScreen} />
+    <Stack2.Screen name="Main" component={MainScreen} />
   </Stack2.Navigator>
 );
 
@@ -34,7 +34,7 @@ const StackScreen = () => (
 const TabScreen = () => (
   <BottomTab.Navigator screenOptions={{ tabBarIcon: TabBarIcon }}>
     <BottomTab.Screen name="Tab1" component={StackScreen} />
-    <BottomTab.Screen name="Tab2" component={MasterScreen} />
+    <BottomTab.Screen name="Tab2" component={MainScreen} />
   </BottomTab.Navigator>
 );
 

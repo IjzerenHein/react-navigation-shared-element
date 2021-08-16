@@ -1,11 +1,11 @@
 import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 
-import { createScreen, MasterScreen, DetailScreen } from "../screens";
+import { createScreen, MainScreen, DetailScreen } from "../screens";
 
 const SimpleStackNavigator = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "SimpleStack"),
+    Main: createScreen(MainScreen, "SimpleStack"),
     Detail: DetailScreen,
   },
   undefined,

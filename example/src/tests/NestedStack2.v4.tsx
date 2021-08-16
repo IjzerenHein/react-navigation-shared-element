@@ -1,11 +1,11 @@
 import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 
-import { createScreen, MasterScreen, DetailScreen } from "../screens";
+import { createScreen, MainScreen, DetailScreen } from "../screens";
 
 const NestedStackNavigator = createSharedElementStackNavigator(
   {
-    Master: createScreen(MasterScreen, "NestedStack2"),
+    Main: createScreen(MainScreen, "NestedStack2"),
   },
   undefined,
   {

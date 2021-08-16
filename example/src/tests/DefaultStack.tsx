@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { MasterScreen, DetailScreen, createScreen } from "../screens";
+import { MainScreen, DetailScreen, createScreen } from "../screens";
 
 const name = "DefaultStack";
 
@@ -27,7 +27,7 @@ Detail2Screen.displayName = "Detail2Screen";
 export default () => (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name={name} component={MasterScreen} />
+      <Stack.Screen name={name} component={MainScreen} />
       <Stack.Screen name="Detail" component={Detail1Screen} />
       <Stack.Screen name="Detail2" component={Detail2Screen} />
     </Stack.Navigator>
