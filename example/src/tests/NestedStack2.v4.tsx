@@ -17,7 +17,6 @@ const NestedStackNavigator = createSharedElementStackNavigator(
 const RootStackNavigator = createSharedElementStackNavigator(
   {
     Nested: {
-      // @ts-ignore
       screen: NestedStackNavigator,
       navigationOptions: {
         title: "RootStack",

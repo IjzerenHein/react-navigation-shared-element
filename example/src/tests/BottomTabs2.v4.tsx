@@ -25,7 +25,6 @@ const ChildStack = createSharedElementStackNavigator(
 // perform shared-element transitions.
 const TabNavigator = createBottomTabNavigator({
   Tab1: {
-    // @ts-ignore
     screen: ChildStack,
     navigationOptions: {
       title: "Stack 1",
@@ -33,7 +32,6 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Tab2: {
-    // @ts-ignore
     screen: MasterScreen,
     navigationOptions: {
       title: "Stack 2",

@@ -100,10 +100,7 @@ function createSharedElementStackNavigator(
     name?: string;
     debug?: boolean;
   }
-): NavigationNavigator<
-  Parameters<typeof createStackNavigator>[1],
-  NavigationProp<NavigationState>
-> {
+): NavigationNavigator<any, NavigationProp<NavigationState>> {
   const navigatorId =
     options && options.name ? options.name : `stack${_navigatorId}`;
   _navigatorId++;

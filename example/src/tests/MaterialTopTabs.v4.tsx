@@ -30,14 +30,12 @@ const StackNavigator2 = createSharedElementStackNavigator(
 
 const TabNavigator = createMaterialTopTabNavigator({
   Tab1: {
-    // @ts-ignore
     screen: StackNavigator1,
     navigationOptions: {
       title: "Stack 1",
     },
   },
   Tab2: {
-    // @ts-ignore
     screen: StackNavigator2,
     navigationOptions: {
       title: "Stack 2",

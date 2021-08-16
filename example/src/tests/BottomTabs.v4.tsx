@@ -31,7 +31,6 @@ const StackNavigator2 = createSharedElementStackNavigator(
 
 const TabNavigator = createBottomTabNavigator({
   Tab1: {
-    // @ts-ignore
     screen: StackNavigator1,
     navigationOptions: {
       title: "Stack 1",
@@ -39,7 +38,6 @@ const TabNavigator = createBottomTabNavigator({
     },
   },
   Tab2: {
-    // @ts-ignore
     screen: StackNavigator2,
     navigationOptions: {
       title: "Stack 2",
