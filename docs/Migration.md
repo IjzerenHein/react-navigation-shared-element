@@ -6,7 +6,8 @@
 
 - [2.x -> 3.x](#2x---3x)
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
-  - [Route arguments in `sharedElement` function](#route-arguments-in-sharedelement-function)
+  - [Route arguments in `sharedElements` function](#route-arguments-in-sharedelements-function)
+- [3.0.0 (prerelease) -> 3.x](#300-prerelease---3x)
 - [5.0.0-alpha1 -> 3.x](#500-alpha1---3x)
 
 # 2.x -> 3.x
@@ -38,7 +39,7 @@ const stackNavigator = createSharedElementStackNavigator(
 ```
 
 
-## Route arguments in `sharedElement` function
+## Route arguments in `sharedElements` function
 
 The `sharedElements` funtion has been updated to use `route` rather than the `navigation` prop.
 
@@ -71,6 +72,23 @@ class DetailScreen extends React.Component {
 ```
 
 > To help migration, the `route` arguments are wrapped with a special [SharedElementCompatRouteProxy](../src/SharedElementCompatRouteProxy.ts) class which provides backwards compatibility support for `state` and `getParam`. This is a temporary solution and will be removed in the next major release. Is is strongly recommended to upgrade to the new `route` syntax.
+
+
+# 3.0.0 (prerelease) -> 3.x
+
+If you've been using the early 3.0.0 (prerelease) version with React Navigation 4, then you'll need to change the import and function name.
+
+**Before**
+
+```jsx
+import { createSharedElementNavigator4 } from 'react-navigation-shared-element';
+```
+
+**After**
+
+```jsx
+import { createSharedElementNavigator } from 'react-navigation-shared-element/build/v4';
+```
 
 
 # 5.0.0-alpha1 -> 3.x

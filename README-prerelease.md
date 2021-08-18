@@ -11,8 +11,8 @@ React Navigation bindings for [react-native-shared-element](https://github.com/I
 
 ## Documentation
 
-- [Shared element for React Navigation 5.x](./docs/Navigation5.md)
-- [Shared element for React Navigation 4.x](./docs/Navigation4.md)
+- [Shared element for the React Navigation 5/6 API](./docs/API.md)
+- [Shared element for the React Navigation 4 API](./docs/Navigation4.md)
 - [Migration guide](./docs/Migration.md)
 
 ## Compatibility <!-- omit in toc -->
@@ -21,15 +21,26 @@ The following versions or react-navigation and the stack navigator are supported
 
 | Version                                                                       | React-Navigation | Comments                                                                                                                                                              |
 | ----------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.x                                                                           | 4 & 5            | Import from `react-navigation-shared-element/v4` to use it with 4.x. In this version the `sharedElements` function was changed to use `route` instead of `navigator`. |
+| 3.x                                                                           | 4, 5 & 6             | Import from `react-navigation-shared-element/v4` to use it with 4.x. |
 | [2.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v2) | 3 & 4            | This version is compatible with `react-navigation-stack@2`.                                                                                                           |
 | [1.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1) | 3 & 4            | This version is compatible with `react-navigation-stack@1`.                                                                                                           |
 
-Unlikely to be supported:
+Not supported:
 
 - [ ] [react-native-screens/createNativeStackNavigator](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14)
 
+## Known issues
 
+Navigating to a screen on Android causes the target element to blink when unhiding. This problem needs to be investigated further, but can be worked around by [disabling `react-native-screens` explicitly](./example/src/App.tsx#L50-L55).
+
+```jsx
+import { Platform } from 'react-native';
+
+// As of react-native-screens@2.14.0, enableScreens causes a fade-in of the image when navigating to a screen.
+// And as of react-native-screens@3, enableScreens is enabled by default.
+// Disable screens on Android until this issue has been resolved.
+enableScreens(Platform.OS !== "android");
+```
 
 ## Demo App
 

@@ -13,8 +13,6 @@ Upgrading from react-navigation-shared-element 2 to 3? Be sure to checkout the [
     - [Debugging shared element transitions](#debugging-shared-element-transitions)
   - [SharedElement component](#sharedelement-component)
   - [sharedElements function](#sharedelements-function)
-- [Demo App](#demo-app)
-- [Videos](#videos)
 
 ## Installation
 
@@ -218,12 +216,3 @@ The following fields can be specified in a config item
 | `animation` | `move` \| `fade`                        | Type of animation to perform (default = `move`), [see SharedElementAnimation](https://github.com/IjzerenHein/react-native-shared-element#sharedelementanimation) |
 | `resize`    | `auto` \| `stretch` \| `clip` \| `none` | Resize behavior of the transition (default = `auto`), [see SharedElementResize](https://github.com/IjzerenHein/react-native-shared-element#sharedelementresize)  |
 | `align`     | `auto` \| `top-left` \| `...`           | Align behavior of the transition (default = `auto`), [see SharedElementAlign](https://github.com/IjzerenHein/react-native-shared-element#sharedelementalign)     |  |
-
-## Demo App
-
-- [./example](../example)
-- [react-navigation-shared-element-demo](https://github.com/IjzerenHein/react-navigation-shared-element-demo)
-
-## Videos
-
-- [Airbnb Shared Transition - “Can it be done in React Native?”](https://www.youtube.com/watch?v=83GNiMp-qq0)

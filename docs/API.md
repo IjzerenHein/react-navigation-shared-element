@@ -4,7 +4,7 @@
 
 # Shared element for React Navigation >= 5.x  <!-- omit in toc -->
 
-Upgrading from 5.0.0-alpha1? Be sure to checkout the [migration guide](./Migration.md#500-alpha1---3x)!
+Upgrading from 5.0.0-alpha1 or the early 3.0.0 (prerelease) version? Be sure to checkout the [migration guide](./Migration.md)!
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -12,8 +12,6 @@ Upgrading from 5.0.0-alpha1? Be sure to checkout the [migration guide](./Migrati
   - [createSharedElementStackNavigator](#createsharedelementstacknavigator)
   - [SharedElement component](#sharedelement-component)
   - [sharedElements function](#sharedelements-function)
-- [Demo App](#demo-app)
-- [Videos](#videos)
 
 ## Installation
 
@@ -25,11 +23,7 @@ $ yarn add react-navigation-shared-element react-native-shared-element
 
 Enure that the [native extensions are linked into your project](https://github.com/IjzerenHein/react-native-shared-element#installation). This will be already done for you when using Expo 👍
 
-Finally, make sure that the react-navigation dependencies are installed:
-
-```sh
-$ yarn add @react-navigation/native @react-navigation/stack
-```
+Finally, make sure that [react-navigation is installed and working correctly.](https://reactnavigation.org/docs/getting-started#installation)
 
 ## Usage
 
@@ -40,7 +34,7 @@ In order to enable shared element transitions, the following steps need to be pe
 - Define a `sharedElements` config on the Screen that you want to animate
 
 ```jsx
-// App5x.js
+// App.js
 import { NavigationContainer } from '@react-navigation/native';
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
@@ -230,16 +224,15 @@ export default () => (
 
 **Static shared elements config**
 
-A `sharedElements` function can also be defined on the component itself, instead of the `Screen`, but this is no longer considered good practice.
+A `sharedElements` function can also be defined on the component itself, instead of the navigator `Screen`, but this is no longer considered good practice.
 
 ```jsx
-class DetailScreen extends Component {
-  static sharedElements = (route, otherRoute, showing) => {
-    const { item } = route.params;
-    return [`item.${item.id}.photo`];;
-  }
-
-  render() {...}
+const DetailScreen = () => {
+  return (...)
+};
+DetailScreen.sharedElements = (route, otherRoute, showing) => {
+  const { item } = route.params;
+  return [`item.${item.id}.photo`];;
 }
 ```
 
@@ -252,12 +245,3 @@ The following fields can be specified in a config item
 | `animation` | `move` \| `fade`                        | Type of animation to perform (default = `move`), [see SharedElementAnimation](https://github.com/IjzerenHein/react-native-shared-element#sharedelementanimation) |
 | `resize`    | `auto` \| `stretch` \| `clip` \| `none` | Resize behavior of the transition (default = `auto`), [see SharedElementResize](https://github.com/IjzerenHein/react-native-shared-element#sharedelementresize)  |
 | `align`     | `auto` \| `top-left` \| `...`           | Align behavior of the transition (default = `auto`), [see SharedElementAlign](https://github.com/IjzerenHein/react-native-shared-element#sharedelementalign)     |  |
-
-## Demo App
-
-- [./example](../example)
-- [react-navigation-shared-element-demo](https://github.com/IjzerenHein/react-navigation-shared-element-demo)
-
-## Videos
-
-- [Airbnb Shared Transition - “Can it be done in React Native?”](https://www.youtube.com/watch?v=83GNiMp-qq0)
