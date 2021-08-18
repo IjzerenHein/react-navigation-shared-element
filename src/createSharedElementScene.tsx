@@ -49,7 +49,12 @@ function isActiveRoute(
   navigation: StackNavigationProp<any>,
   route: Route<any>
 ): boolean {
-  const state = navigation.dangerouslyGetState();
+  // @ts-ignore: getState is supported by navigation 6
+  const state: NavigationState = navigation.getState
+    ? // @ts-ignore: getState is supported by navigation 6
+      navigation.getState()
+    : // @ts-ignore: dangerouslyGetState is provided for navigation 5 compatibility
+      navigation.dangerouslyGetState();
   const activeRoute = getActiveRoute(state);
   return route.name === activeRoute.name;
 }

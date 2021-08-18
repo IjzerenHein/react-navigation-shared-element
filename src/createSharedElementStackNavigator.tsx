@@ -1,7 +1,6 @@
 import {
   useNavigationBuilder,
   createNavigatorFactory,
-  DefaultNavigatorOptions,
   RouteConfig,
   StackRouter,
   StackRouterOptions,
@@ -13,6 +12,7 @@ import {
   CardAnimationContext,
   StackView,
   StackNavigationOptions,
+  createStackNavigator,
 } from "@react-navigation/stack";
 import {
   StackNavigationConfig,
@@ -60,7 +60,9 @@ export default function createSharedElementStackNavigator<
 
   const emitter = new EventEmitter();
 
-  type Props = DefaultNavigatorOptions<StackNavigationOptions> &
+  type Props = React.ComponentProps<
+    ReturnType<typeof createStackNavigator>["Navigator"]
+  > &
     StackRouterOptions &
     StackNavigationConfig;
 
