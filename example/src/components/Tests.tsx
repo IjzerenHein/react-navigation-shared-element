@@ -39,7 +39,7 @@ export const Tests = (props: Props) => {
             onValueChange={(index) => setV4(index === 0)}
           >
             <Segment label="Navigation 4" />
-            <Segment label="Navigation 5" />
+            <Segment label="Navigation 5/6" />
           </SegmentControl>
         </View>
       )}

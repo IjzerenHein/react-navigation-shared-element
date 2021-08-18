@@ -19,9 +19,12 @@ const ModalDetailScreen = createScreen(DetailScreen, undefined, undefined, {
 export default () => (
   <NavigationContainer>
     <Stack.Navigator
+      // Set react navigation 5 mode to modal
+      // @ts-ignore:type {...} is not assignable to type
       mode="modal"
-      headerMode="none"
       screenOptions={() => ({
+        headerShown: false,
+        presentation: "modal",
         cardOverlayEnabled: true,
         ...TransitionPresets.ModalPresentationIOS,
       })}

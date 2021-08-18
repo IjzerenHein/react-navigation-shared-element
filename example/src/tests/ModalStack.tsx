@@ -17,7 +17,12 @@ const ModalDetailScreen = createScreen(DetailScreen, undefined, undefined, {
 
 export default () => (
   <NavigationContainer>
-    <Stack.Navigator mode="modal" headerMode="none">
+    <Stack.Navigator
+      screenOptions={() => ({
+        headerShown: false,
+        presentation: "modal",
+      })}
+    >
       <Stack.Screen name={name} component={MainScreen} />
       <Stack.Screen name="Detail" component={ModalDetailScreen} />
     </Stack.Navigator>

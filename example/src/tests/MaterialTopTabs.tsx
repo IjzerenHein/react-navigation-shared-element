@@ -37,6 +37,7 @@ const Stack2Screen = () => (
 export default () => (
   <NavigationContainer>
     <SafeAreaView style={{ flex: 1 }}>
+      {/* @ts-ignore: No overload matches this call when using react navigation 6 */}
       <MaterialTopTab.Navigator>
         <MaterialTopTab.Screen name="Tab1" component={Stack1Screen} />
         <MaterialTopTab.Screen name="Tab2" component={Stack2Screen} />

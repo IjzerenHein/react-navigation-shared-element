@@ -18,7 +18,7 @@ const NestedStack = createSharedElementStackNavigator({
 
 const NestedStackScreen = () => (
   <NestedStack.Navigator>
-    <NestedStack.Screen name={name} component={MainScreen} />
+    <NestedStack.Screen name="Main" component={MainScreen} />
     <NestedStack.Screen name="Detail" component={DetailScreen} />
   </NestedStack.Navigator>
 );

@@ -21,7 +21,7 @@ const Stack2 = createSharedElementStackNavigator({
 });
 
 const StackScreen = () => (
-  <Stack2.Navigator headerMode="none">
+  <Stack2.Navigator>
     <Stack2.Screen name="Main" component={MainScreen} />
   </Stack2.Navigator>
 );

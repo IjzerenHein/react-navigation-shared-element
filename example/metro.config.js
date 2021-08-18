@@ -8,6 +8,7 @@ const resolvers = {
   "react-navigation-shared-element": "..",
   "@react-navigation/core": "../node_modules",
   "@react-navigation/native": "../node_modules",
+  "@react-navigation/elements": "../node_modules",
   "@react-navigation/stack": "../node_modules",
   "@react-navigation/routers": "../node_modules",
   "@react-navigation/bottom-tabs": "../node_modules",

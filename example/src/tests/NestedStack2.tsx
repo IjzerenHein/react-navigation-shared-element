@@ -22,13 +22,13 @@ const ModalDetailScreen = createScreen(DetailScreen, undefined, undefined, {
 
 const NestedStackScreen = () => (
   <NestedStack.Navigator>
-    <NestedStack.Screen name={name} component={MainScreen} />
+    <NestedStack.Screen name="Main" component={MainScreen} />
   </NestedStack.Navigator>
 );
 
 export default () => (
   <NavigationContainer>
-    <RootStack.Navigator headerMode="none">
+    <RootStack.Navigator>
       <RootStack.Screen name={name} component={NestedStackScreen} />
       <RootStack.Screen name="Detail" component={ModalDetailScreen} />
     </RootStack.Navigator>
