@@ -24,6 +24,7 @@ The following versions or react-navigation and the stack navigator are supported
 ## Things to know
 
 - `react-navigation-shared-element` uses the [JS based Stack Navigator](https://reactnavigation.org/docs/stack-navigator). The [Native Stack Navigator](https://reactnavigation.org/docs/native-stack-navigator) is not yet supported and it is not yet clear whether this can be supported in the future.
+- [React Navigation 6 `Group` components](https://reactnavigation.org/docs/group/) are not yet supported.
 - On [detaching inactive screens](https://reactnavigation.org/docs/stack-navigator/#detachinactivescreens) a blink may occur on Android. Because of this `detachInactiveScreens` is set to `false` by default on Android.
 
 ## Demo App
