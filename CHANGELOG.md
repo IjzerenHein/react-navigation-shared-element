@@ -1,6 +1,6 @@
 # [Unreleased]
 
-# [3.1.1](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.3.0...v3.1.1) (2021-08-19)
+# [3.1.2](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.3.0...v3.1.2) (2021-08-19)
 
 ### Features
 
@@ -12,8 +12,12 @@
 ### Breaking changes
 
 - React navigation 4 is now supported through the `createSharedElementStackNavigator/build/v4` import
-- `sharedElements` function replaces `navigation/otherNavigation` by `route/otheRoute` arguments
+- `sharedElements` function replaces `navigation/otherNavigation` by `route/otherRoute` arguments
 - See migration guide in `./docs/Migration.md` for upgrading instructions
+
+### Bug Fixes
+
+- Fixes blink artefact on Android transitions (disables `detachInactiveScreens` by default on Android)
 
 # [2.3.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.2.0...v2.3.0) (2020-04-13)
 

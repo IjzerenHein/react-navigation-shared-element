@@ -21,22 +21,10 @@ The following versions or react-navigation and the stack navigator are supported
 | [2.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v2) | 3 & 4            | This version is compatible with `react-navigation-stack@2`.                                                                                                           |
 | [1.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1) | 3 & 4            | This version is compatible with `react-navigation-stack@1`.                                                                                                           |
 
-Not supported:
+## Things to know
 
-- [ ] [react-native-screens/createNativeStackNavigator](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14)
-
-## Known issues
-
-Navigating to a screen on Android causes the target element to blink when unhiding. This problem needs to be investigated further, but can be worked around by [disabling `react-native-screens` explicitly](./example/src/App.tsx#L50-L55).
-
-```jsx
-import { Platform } from 'react-native';
-
-// As of react-native-screens@2.14.0, enableScreens causes a fade-in of the image when navigating to a screen.
-// And as of react-native-screens@3, enableScreens is enabled by default.
-// Disable screens on Android until this issue has been resolved.
-enableScreens(Platform.OS !== "android");
-```
+- `react-navigation-shared-element` uses the [JS based Stack Navigator](https://reactnavigation.org/docs/stack-navigator). The [Native Stack Navigator](https://reactnavigation.org/docs/native-stack-navigator) is not yet supported and it is not yet clear whether this can be supported in the future.
+- On [detaching inactive screens](https://reactnavigation.org/docs/stack-navigator/#detachinactivescreens) a blink may occur on Android. Because of this `detachInactiveScreens` is set to `false` by default on Android.
 
 ## Demo App
 

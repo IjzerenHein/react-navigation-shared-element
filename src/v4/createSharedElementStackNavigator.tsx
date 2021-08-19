@@ -1,5 +1,6 @@
 import hoistNonReactStatics from "hoist-non-react-statics";
 import * as React from "react";
+import { Platform } from "react-native";
 import {
   NavigationNavigator,
   NavigationProp,
@@ -85,6 +86,7 @@ function createSharedElementStackSceneNavigator(
   }
 
   return createStackNavigator(wrappedRouteConfigs, {
+    detachInactiveScreens: Platform.OS !== "android",
     ...stackConfig,
     defaultNavigationOptions:
       typeof defaultNavigationOptions === "function"

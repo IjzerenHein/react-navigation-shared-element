@@ -128,6 +128,7 @@ export default function createSharedElementStackNavigator<
           return (
             <SharedElementRendererContext.Provider value={rendererDataProxy}>
               <StackView
+                detachInactiveScreens={Platform.OS !== "android"}
                 {...rest}
                 state={state}
                 descriptors={descriptors}
