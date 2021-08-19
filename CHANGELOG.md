@@ -1,27 +1,19 @@
 # [Unreleased]
 
-### Bug Fixes
-
-- Fix useNavigationBuilder with use of @react-navigation/core@5.13.0 and later
-- Fix prop types not settable on SharedElementSceneComponent (thanks @Rafatcb)
-
-### Breaking changes
-
-- Breaks compatability with @react-navigation/core@5.13.0 and earlier.
-
-# [3.0.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.3.0...v3.0.0) (2020-05-24)
+# [3.1.1](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.3.0...v3.1.1) (2021-08-19)
 
 ### Features
 
-- Add suppport for react-navigation 5.x 🚀
-- Codebase and tests now supports both the 4.x and 5.x APIs
+- Suppport for react-navigation 5 & 6 🚀
+- Unifies codebase to support both the react-navigation 4 and 5/6 APIs
+- New `example` app to showcase and test navigation scenarios
+- Recommended upgrading to react-native-shared-element@0.8.x for the latest bug-fixes
 
 ### Breaking changes
 
-- React navigation 4 is now supported through the `createSharedElementStackNavigator4` export
-  `sharedElements` function replaces `navigation/otherNavigation` by `route/otheRoute` arguments
+- React navigation 4 is now supported through the `createSharedElementStackNavigator/build/v4` import
+- `sharedElements` function replaces `navigation/otherNavigation` by `route/otheRoute` arguments
 - See migration guide in `./docs/Migration.md` for upgrading instructions
-
 
 # [2.3.0](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.2.0...v2.3.0) (2020-04-13)
 

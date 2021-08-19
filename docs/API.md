@@ -1,7 +1,3 @@
-# PRERELEASE v3 <!-- omit in toc -->
-
-> This documentation is for the new v3 release which unifies the 4.x and 5.x APIs of react-navigation in a single codebase. You can install it using `yarn add react-navigation-shared-element@prerelease`.
-
 # Shared element for React Navigation >= 5.x  <!-- omit in toc -->
 
 Upgrading from 5.0.0-alpha1 or the early 3.0.0 (prerelease) version? Be sure to checkout the [migration guide](./Migration.md)!
