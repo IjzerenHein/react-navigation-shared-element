@@ -10,13 +10,13 @@
 
 ## createSharedElementStackNavigator
 
-As of version 3.x, `react-navigation-shared-element` supports both the react-navigation 4 and 5 APIs. React navigation 5.x is considered the new default API and 4.x can be accessed using a version specific import.
+As of version 3.x, `react-navigation-shared-element` supports both the react-navigation 4 and 5/6 APIs. React navigation 5/6 is considered the new default API and 4.x can be accessed using a version specific import.
 
 **Before**
 
 ```jsx
 // react-navigation-shared-element@1..2
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import { createSharedElementStackNavigator, SharedElement } from 'react-navigation-shared-element';
 
 const stackNavigator = createSharedElementStackNavigator(
   ...
@@ -27,7 +27,7 @@ const stackNavigator = createSharedElementStackNavigator(
 
 ```jsx
 // react-navigation-shared-element@3
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element/build/v4';
+import { createSharedElementStackNavigator, SharedElement } from 'react-navigation-shared-element/build/v4';
 
 const stackNavigator = createSharedElementStackNavigator(
   ...
@@ -77,13 +77,13 @@ If you've been using the early 3.0.0 (prerelease) version with React Navigation 
 **Before**
 
 ```jsx
-import { createSharedElementNavigator4 } from 'react-navigation-shared-element';
+import { createSharedElementNavigator4, SharedElement } from 'react-navigation-shared-element';
 ```
 
 **After**
 
 ```jsx
-import { createSharedElementNavigator } from 'react-navigation-shared-element/build/v4';
+import { createSharedElementNavigator, SharedElement } from 'react-navigation-shared-element/build/v4';
 ```
 
 

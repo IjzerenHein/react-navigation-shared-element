@@ -54,7 +54,7 @@ const AppContainer = createAppContainer(stackNavigator);
 
 ```jsx
 // ListScreen.js
-import { SharedElement } from 'react-navigation-shared-element';
+import { SharedElement } from 'react-navigation-shared-element/build/v4';
 
 class ListScreen extends React.Component {
   renderItem(item) {
