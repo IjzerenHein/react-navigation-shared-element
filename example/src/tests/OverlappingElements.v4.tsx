@@ -3,18 +3,20 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 
 import { createScreen, MainScreen, DetailScreen } from "../screens";
 
-const SimpleStackNavigator = createSharedElementStackNavigator(
+const name = "OverlappingElements";
+
+const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, "OverlappingElements"),
+    Main: createScreen(MainScreen, name),
     Detail: createScreen(DetailScreen, undefined, undefined, {
       overlappingElements: true,
     }),
   },
   undefined,
   {
-    name: "OverlappingElements",
+    name,
     debug: true,
   }
 );
 
-export default createAppContainer(SimpleStackNavigator);
+export default createAppContainer(StackNavigator);

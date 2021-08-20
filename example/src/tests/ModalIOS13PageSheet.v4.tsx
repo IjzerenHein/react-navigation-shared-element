@@ -4,9 +4,11 @@ import { TransitionPresets } from "react-navigation-stack";
 
 import { MainScreen, DetailScreen, createScreen } from "../screens";
 
-const ModalIOS13PageSheetStackNavigator = createSharedElementStackNavigator(
+const name = "ModalIOS13PageSheet";
+
+const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, "ModalIOS13PageSheet"),
+    Main: createScreen(MainScreen, name),
     Detail: createScreen(DetailScreen, undefined, undefined, {
       modal: "sheet",
     }),
@@ -21,9 +23,9 @@ const ModalIOS13PageSheetStackNavigator = createSharedElementStackNavigator(
     },
   },
   {
-    name: "ModalIOS13PageSheet",
+    name,
     debug: true,
   }
 );
 
-export default createAppContainer(ModalIOS13PageSheetStackNavigator);
+export default createAppContainer(StackNavigator);

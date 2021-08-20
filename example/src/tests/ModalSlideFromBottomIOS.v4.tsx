@@ -4,20 +4,22 @@ import { TransitionPresets } from "react-navigation-stack";
 
 import { createScreen, MainScreen, DetailScreen } from "../screens";
 
-const SimpleStackNavigator = createSharedElementStackNavigator(
+const name = "ModalSlideFromBottomIOS";
+
+const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, "ModalSlideFromBottomIOS"),
+    Main: createScreen(MainScreen, name),
     Detail: DetailScreen,
   },
   {
     defaultNavigationOptions: {
-      ...TransitionPresets.ModalSlideFromBottomIOS,
+      ...TransitionPresets[name],
     },
   },
   {
-    name: "ModalSlideFromBottomIOS",
+    name,
     debug: true,
   }
 );
 
-export default createAppContainer(SimpleStackNavigator);
+export default createAppContainer(StackNavigator);

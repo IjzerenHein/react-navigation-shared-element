@@ -4,20 +4,22 @@ import { TransitionPresets } from "react-navigation-stack";
 
 import { createScreen, MainScreen, DetailScreen } from "../screens";
 
-const SimpleStackNavigator = createSharedElementStackNavigator(
+const name = "ScaleFromCenterAndroid";
+
+const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, "ScaleFromCenterAndroid"),
+    Main: createScreen(MainScreen, name),
     Detail: DetailScreen,
   },
   {
     defaultNavigationOptions: {
-      ...TransitionPresets.ScaleFromCenterAndroid,
+      ...TransitionPresets[name],
     },
   },
   {
-    name: "ScaleFromCenterAndroid",
+    name,
     debug: true,
   }
 );
 
-export default createAppContainer(SimpleStackNavigator);
+export default createAppContainer(StackNavigator);

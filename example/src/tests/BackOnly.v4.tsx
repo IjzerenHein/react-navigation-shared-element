@@ -7,6 +7,8 @@ import {
 import { defaultItem } from "../data";
 import { createScreen, MainScreen, DetailScreen } from "../screens";
 
+const name = "BackOnly";
+
 const sharedElements: SharedElementsComponentConfig = (
   route,
   otherRoute,
@@ -22,16 +24,16 @@ const sharedElements: SharedElementsComponentConfig = (
   ];
 };
 
-const BackOnlyStackNavigator = createSharedElementStackNavigator(
+const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, "BackOnly"),
+    Main: createScreen(MainScreen, name),
     Detail: createScreen(DetailScreen, undefined, sharedElements),
   },
   undefined,
   {
-    name: "SimpleStack",
+    name,
     debug: true,
   }
 );
 
-export default createAppContainer(BackOnlyStackNavigator);
+export default createAppContainer(StackNavigator);

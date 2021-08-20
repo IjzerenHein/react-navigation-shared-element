@@ -3,16 +3,18 @@ import { createSharedElementStackNavigator } from "react-navigation-shared-eleme
 
 import { createScreen, MainScreen, DetailScreen } from "../screens";
 
-const SimpleStackNavigator = createSharedElementStackNavigator(
+const name = "SimpleStack";
+
+const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, "SimpleStack"),
+    Main: createScreen(MainScreen, name),
     Detail: DetailScreen,
   },
   undefined,
   {
-    name: "SimpleStack",
+    name,
     debug: true,
   }
 );
 
-export default createAppContainer(SimpleStackNavigator);
+export default createAppContainer(StackNavigator);

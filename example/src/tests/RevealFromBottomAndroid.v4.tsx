@@ -4,20 +4,22 @@ import { TransitionPresets } from "react-navigation-stack";
 
 import { createScreen, MainScreen, DetailScreen } from "../screens";
 
-const SimpleStackNavigator = createSharedElementStackNavigator(
+const name = "RevealFromBottomAndroid";
+
+const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, "RevealFromBottomAndroid"),
+    Main: createScreen(MainScreen, name),
     Detail: DetailScreen,
   },
   {
     defaultNavigationOptions: {
-      ...TransitionPresets.RevealFromBottomAndroid,
+      ...TransitionPresets[name],
     },
   },
   {
-    name: "RevealFromBottomAndroid",
+    name,
     debug: true,
   }
 );
 
-export default createAppContainer(SimpleStackNavigator);
+export default createAppContainer(StackNavigator);

@@ -4,23 +4,19 @@ import {
   SharedElementsComponentConfig,
 } from "react-navigation-shared-element/build/v4";
 
-import { defaultItem } from "../data";
 import { createScreen, MainScreen, DetailScreen } from "../screens";
 
-const name = "ForwardOnly";
+const name = "WrongIds";
 
 const sharedElements: SharedElementsComponentConfig = (
   route,
   otherRoute,
   showing
 ) => {
-  // Only return the shared-elements when showing this route
-  if (!showing) return;
-  const item = route.params.item || defaultItem;
   return [
-    { id: `${item.id}.image` },
-    { id: `${item.id}.title`, animation: "fade" },
-    { id: "close", animation: "fade-in" },
+    { id: "unknownId1" },
+    { id: "unknownId2", animation: "move" },
+    { id: "unknownId3", animation: "fade" },
   ];
 };
 

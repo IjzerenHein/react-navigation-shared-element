@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Platform, StatusBar } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { enableScreens } from "react-native-screens";
 
 import { Tests, Test } from "./components";
 import BackOnly from "./tests/BackOnly";
@@ -41,6 +40,8 @@ import ScaleFromCenterAndroidV4 from "./tests/ScaleFromCenterAndroid.v4";
 import SlideFromRightIOS from "./tests/SlideFromRightIOS";
 import SlideFromRightIOSV4 from "./tests/SlideFromRightIOS.v4";
 import TextInputStackV4 from "./tests/TextInputStack.v4";
+import WrongIds from "./tests/WrongIds";
+import WrongIdsV4 from "./tests/WrongIds.v4";
 
 if (Platform.OS === "android") {
   StatusBar.setTranslucent(true);
@@ -128,6 +129,7 @@ export default () => (
         ComponentV4={OverlappingElementsV4}
         Component={OverlappingElements}
       />
+      <Test title="WrongIds" ComponentV4={WrongIdsV4} Component={WrongIds} />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />
     </Tests>
   </SafeAreaProvider>
