@@ -61,7 +61,7 @@ export const DetailScreen = (props: Props) => {
             <Text style={styles.title}>{item.title}</Text>
           </SharedElement>
 
-          <SharedElement id="description">
+          <SharedElement id={`${item.id}.description`}>
             <Text style={styles.description}>{item.description}</Text>
           </SharedElement>
         </View>
