@@ -4,7 +4,7 @@ export const items: Item[] = [
   {
     id: "homelander",
     title: "Homelander",
-    image: require("../../assets/homelander.png"),
+    image: require("../../assets/homelander.jpg"),
     description:
       "The Homelander (John) is a fictional supervillain in the comic book series The Boys, created by Garth Ennis and Darick Robertson. The leader of a group of hedonistic and reckless superheroes funded by Vought dubbed The Seven, and the archenemy of CIA black ops agent Billy Butcher, the Homelander is depicted as an arrogant narcissist thought by Butcher to be a sadistic psychopath who cares little about the well-being of those he professes to protect.",
   },
