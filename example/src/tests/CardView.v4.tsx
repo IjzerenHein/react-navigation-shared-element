@@ -1,16 +1,14 @@
 import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 
-import { createScreen, MainScreen, DetailScreen } from "../screens";
+import { createScreen, CardScreen, DetailScreen } from "../screens";
 
-const name = "OverlappingElements";
+const name = "CardView";
 
 const StackNavigator = createSharedElementStackNavigator(
   {
-    Main: createScreen(MainScreen, name),
-    Detail: createScreen(DetailScreen, undefined, undefined, {
-      overlappingElements: true,
-    }),
+    List: createScreen(CardScreen, name),
+    Detail: DetailScreen,
   },
   undefined,
   {

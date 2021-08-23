@@ -14,14 +14,11 @@ type Props = {
   navigation: NavigationStackProp<any>;
   route: any; // v5
   modal: "none" | "full" | "sheet";
-  overlappingElements?: boolean;
-  resizeMode?: "cover" | "contain";
   onPress?: ({ navigation, item }: { navigation: any; item: Item }) => void;
 };
 
 export const DetailScreen = (props: Props) => {
-  const { navigation, route, modal, resizeMode, onPress, overlappingElements } =
-    props;
+  const { navigation, route, modal, onPress } = props;
   const params = route?.params || navigation?.state?.params;
   const item: Item = params?.item || defaultItem;
   return (
@@ -39,29 +36,36 @@ export const DetailScreen = (props: Props) => {
           >
             <Image
               style={styles.image}
-              resizeMode={resizeMode || "cover"}
+              resizeMode="cover"
               source={item.image}
             />
           </SharedElement>
         </TouchableOpacity>
-        {overlappingElements ? (
-          <SharedElement id="topOverlay" style={styles.topOverlay}>
+
+        <SharedElement id="logo" style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            resizeMode="contain"
+            source={require("../../assets/logo.png")}
+          />
+        </SharedElement>
+
+        <View style={styles.content}>
+          <SharedElement id="gradient" style={StyleSheet.absoluteFill}>
             <LinearGradient
-              colors={["rgba(0,0,0,0.9)", "transparent"]}
+              colors={["transparent", "rgba(0,0,0,0.9)"]}
               style={StyleSheet.absoluteFill}
             />
           </SharedElement>
-        ) : undefined}
-        <SharedElement id={`${item.id}.title`}>
-          <Text
-            style={[
-              styles.text,
-              resizeMode === "contain" ? styles.textDark : styles.textLight,
-            ]}
-          >
-            {item.title}
-          </Text>
-        </SharedElement>
+          <SharedElement id={`${item.id}.title`}>
+            <Text style={styles.title}>{item.title}</Text>
+          </SharedElement>
+
+          <SharedElement id="description">
+            <Text style={styles.description}>{item.description}</Text>
+          </SharedElement>
+        </View>
+
         {modal !== "none" ? (
           <View
             style={[
@@ -78,15 +82,6 @@ export const DetailScreen = (props: Props) => {
               </SharedElement>
             </TouchableOpacity>
           </View>
-        ) : undefined}
-        {overlappingElements ? (
-          <SharedElement id="bottomOverlay" style={styles.bottomOverlay}>
-            <Image
-              style={styles.image}
-              resizeMode="cover"
-              source={require("../../assets/bloody.jpg")}
-            />
-          </SharedElement>
         ) : undefined}
       </View>
     </>
@@ -114,10 +109,11 @@ const sharedElements: SharedElementsComponentConfig = (
   const item = route.params.item || defaultItem;
   return [
     { id: `${item.id}.image` },
-    { id: "topOverlay", animation: "fade" },
+    { id: "logo", animation: "fade" },
+    { id: "gradient", animation: "fade" },
     { id: `${item.id}.title`, animation: "fade" },
+    { id: `${item.id}.description`, animation: "fade" },
     { id: "close", animation: "fade" },
-    { id: "bottomOverlay", animation: "fade" },
   ];
 };
 DetailScreen.sharedElements = sharedElements;
@@ -129,11 +125,11 @@ const styles = StyleSheet.create({
   },
   header: {
     position: "absolute",
-    left: 16,
+    right: 16,
     top: 32,
   },
   sheetHeader: {
-    left: 16,
+    right: 16,
     top: 16,
   },
   icon: {
@@ -144,30 +140,45 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  text: {
-    marginTop: 20,
-    fontSize: 60,
-    fontWeight: "bold",
-  },
-  textDark: {
-    color: "black",
-  },
-  textLight: {
-    color: "white",
-  },
-  topOverlay: {
+  logoContainer: {
     position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 300,
+    left: 4,
+    top: 12,
+    height: 60,
+    width: 160,
   },
-  bottomOverlay: {
+  logo: {
+    width: "100%",
+    height: "100%",
+  },
+  content: {
     position: "absolute",
     left: 0,
     right: 0,
     bottom: 0,
-    height: 160,
-    backgroundColor: "white",
+    padding: 20,
+  },
+  title: {
+    marginTop: 20,
+    color: "white",
+    fontSize: 60,
+    fontWeight: "bold",
+    textShadowColor: "black",
+    textShadowRadius: 8,
+    textShadowOffset: {
+      width: 0,
+      height: 1,
+    },
+  },
+  description: {
+    color: "white",
+    fontSize: 17,
+    fontWeight: "bold",
+    textShadowColor: "black",
+    textShadowRadius: 4,
+    textShadowOffset: {
+      width: 0,
+      height: 1,
+    },
   },
 });

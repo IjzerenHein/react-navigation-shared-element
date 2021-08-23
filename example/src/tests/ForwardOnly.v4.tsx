@@ -19,8 +19,11 @@ const sharedElements: SharedElementsComponentConfig = (
   const item = route.params.item || defaultItem;
   return [
     { id: `${item.id}.image` },
+    { id: "logo", animation: "fade" },
+    { id: "gradient", animation: "fade" },
     { id: `${item.id}.title`, animation: "fade" },
-    { id: "close", animation: "fade-in" },
+    { id: `${item.id}.description`, animation: "fade" },
+    { id: "close", animation: "fade" },
   ];
 };
 

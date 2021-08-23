@@ -9,6 +9,8 @@ import BottomTabs from "./tests/BottomTabs";
 import BottomTabsV4 from "./tests/BottomTabs.v4";
 import BottomTabs2 from "./tests/BottomTabs2";
 import BottomTabs2V4 from "./tests/BottomTabs2.v4";
+import CardView from "./tests/CardView";
+import CardViewV4 from "./tests/CardView.v4";
 import DefaultStack from "./tests/DefaultStack";
 import DefaultStackV4 from "./tests/DefaultStack.v4";
 import FadeFromBottomAndroid from "./tests/FadeFromBottomAndroid";
@@ -29,8 +31,6 @@ import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
-import OverlappingElements from "./tests/OverlappingElements";
-import OverlappingElementsV4 from "./tests/OverlappingElements.v4";
 import PagerView from "./tests/PagerView";
 import PagerViewV4 from "./tests/PagerView.v4";
 import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
@@ -56,6 +56,9 @@ export default () => (
         ComponentV4={DefaultStackV4}
         Component={DefaultStack}
       />
+      <Test title="CardView" ComponentV4={CardViewV4} Component={CardView} />
+      <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
+      <Test title="PagerView" ComponentV4={PagerViewV4} Component={PagerView} />
       <Test
         title="SlideFromRightIOS"
         ComponentV4={SlideFromRightIOSV4}
@@ -121,13 +124,6 @@ export default () => (
         title="MaterialTopTabs"
         ComponentV4={MaterialTopTabsV4}
         Component={MaterialTopTabs}
-      />
-      <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
-      <Test title="PagerView" ComponentV4={PagerViewV4} Component={PagerView} />
-      <Test
-        title="OverlappingElements"
-        ComponentV4={OverlappingElementsV4}
-        Component={OverlappingElements}
       />
       <Test title="WrongIds" ComponentV4={WrongIdsV4} Component={WrongIds} />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />
