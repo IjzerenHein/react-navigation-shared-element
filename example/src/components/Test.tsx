@@ -4,13 +4,13 @@ import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
 
-interface TestProps {
+type Props = {
   title: string;
   ComponentV4: React.ComponentType<any> | null;
   Component?: React.ComponentType<any> | null;
   onPress?: () => any;
   v4?: boolean;
-}
+};
 
 function onPressInvalidTest() {
   Alert.alert(
@@ -19,7 +19,7 @@ function onPressInvalidTest() {
   );
 }
 
-export const Test = (props: TestProps) => {
+export const Test = (props: Props) => {
   const { title, onPress, Component, ComponentV4, v4 } = props;
   const isValid = (v4 && ComponentV4) || (!v4 && Component);
   if (!Component && !ComponentV4) {

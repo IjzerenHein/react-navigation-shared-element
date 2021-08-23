@@ -7,10 +7,10 @@ import { NavigationStackProp } from "react-navigation-stack";
 
 import { items, Item } from "../data";
 
-interface Props {
+type Props = {
   navigation: NavigationStackProp<any>;
   routeName: string;
-}
+};
 
 export class ListScreen extends React.Component<Props> {
   static defaultProps = {

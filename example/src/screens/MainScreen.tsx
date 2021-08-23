@@ -7,11 +7,11 @@ import { NavigationStackProp } from "react-navigation-stack";
 
 import { defaultItem, Item } from "../data";
 
-interface Props {
+type Props = {
   navigation: NavigationStackProp<any>; // v4
   route: any; // v5
   routeName: string;
-}
+};
 
 export class MainScreen extends React.Component<Props> {
   static defaultProps = {
@@ -46,7 +46,7 @@ export class MainScreen extends React.Component<Props> {
     );
   }
 
-  onPress = () => {
+  private onPress = () => {
     const { navigation, routeName } = this.props;
     navigation.navigate(routeName);
   };
