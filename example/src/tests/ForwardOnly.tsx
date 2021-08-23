@@ -2,8 +2,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { defaultItem } from "../data";
 import { MainScreen, DetailScreen } from "../screens";
+import { getDetailSharedElements } from "../screens/getDetailSharedElements";
 
 const name = "ForwardOnly";
 
@@ -20,16 +20,9 @@ export default () => (
         name="Detail"
         component={DetailScreen}
         sharedElements={(route, otherRoute, showing) => {
+          // Only return the shared-elements when showing this route
           if (!showing) return;
-          const item = route.params.item || defaultItem;
-          return [
-            { id: `${item.id}.image` },
-            { id: "logo", animation: "fade" },
-            { id: "gradient", animation: "fade" },
-            { id: `${item.id}.title`, animation: "fade" },
-            { id: `${item.id}.description`, animation: "fade" },
-            { id: "close", animation: "fade" },
-          ];
+          return getDetailSharedElements(route, otherRoute, showing);
         }}
       />
     </Stack.Navigator>

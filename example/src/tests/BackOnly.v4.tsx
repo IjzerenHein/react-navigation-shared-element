@@ -4,8 +4,8 @@ import {
   SharedElementsComponentConfig,
 } from "react-navigation-shared-element/build/v4";
 
-import { defaultItem } from "../data";
 import { createScreen, MainScreen, DetailScreen } from "../screens";
+import { getDetailSharedElements } from "../screens/getDetailSharedElements";
 
 const name = "BackOnly";
 
@@ -16,15 +16,7 @@ const sharedElements: SharedElementsComponentConfig = (
 ) => {
   // Only return the shared-elements when hiding this route
   if (showing) return;
-  const item = route.params.item || defaultItem;
-  return [
-    { id: `${item.id}.image` },
-    { id: "logo", animation: "fade" },
-    { id: "gradient", animation: "fade" },
-    { id: `${item.id}.title`, animation: "fade" },
-    { id: `${item.id}.description`, animation: "fade" },
-    { id: "close", animation: "fade" },
-  ];
+  return getDetailSharedElements(route, otherRoute, showing);
 };
 
 const StackNavigator = createSharedElementStackNavigator(

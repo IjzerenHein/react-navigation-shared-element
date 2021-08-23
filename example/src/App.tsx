@@ -31,8 +31,6 @@ import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
-import PagerView from "./tests/PagerView";
-import PagerViewV4 from "./tests/PagerView.v4";
 import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
 import RevealFromBottomAndroidV4 from "./tests/RevealFromBottomAndroid.v4";
 import ScaleFromCenterAndroid from "./tests/ScaleFromCenterAndroid";
@@ -58,7 +56,6 @@ export default () => (
       />
       <Test title="CardView" ComponentV4={CardViewV4} Component={CardView} />
       <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
-      <Test title="PagerView" ComponentV4={PagerViewV4} Component={PagerView} />
       <Test
         title="SlideFromRightIOS"
         ComponentV4={SlideFromRightIOSV4}

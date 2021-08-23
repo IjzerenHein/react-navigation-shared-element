@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 
-import { CardScreen, DetailScreen } from "../screens";
+import { CardScreen, DetailPagerScreen } from "../screens";
 
 const name = "CardView";
 
@@ -15,7 +15,7 @@ export default () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name={name} component={CardScreen} />
-      <Stack.Screen name="Detail" component={DetailScreen} />
+      <Stack.Screen name="Detail" component={DetailPagerScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
