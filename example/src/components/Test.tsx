@@ -4,10 +4,13 @@ import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
 
+type Issue = "android" | "ios" | "v4" | "v5" | "v6";
+
 type Props = {
   title: string;
   ComponentV4?: React.ComponentType<any> | null;
   Component?: React.ComponentType<any> | null;
+  issue?: boolean | Issue[];
   onPress?: () => any;
   v4?: boolean;
 };
@@ -20,7 +23,7 @@ function onPressInvalidTest() {
 }
 
 export const Test = (props: Props) => {
-  const { title, onPress, Component, ComponentV4, v4 } = props;
+  const { title, onPress, Component, ComponentV4, v4, issue } = props;
   const isValid = (v4 && ComponentV4) || (!v4 && Component);
   if (!Component && !ComponentV4) {
     return (
@@ -29,6 +32,11 @@ export const Test = (props: Props) => {
       </View>
     );
   }
+  const hasIssue =
+    issue === true ||
+    (Array.isArray(issue) &&
+      ((v4 && issue.includes("v4")) ||
+        (!v4 && (issue.includes("v5") || issue.includes("v6")))));
   return (
     <TouchableOpacity
       style={styles.container}
@@ -36,6 +44,13 @@ export const Test = (props: Props) => {
       onPress={isValid ? onPress : onPressInvalidTest}
     >
       <Text style={[styles.text, !isValid && styles.textInvalid]}>{title}</Text>
+      {hasIssue ? (
+        <View style={styles.badgeContainer}>
+          <Text style={styles.badge}>
+            {`issue${Array.isArray(issue) ? ": " + issue.join(",") : ""}`}
+          </Text>
+        </View>
+      ) : undefined}
       <Icon
         style={[styles.icon, !isValid && styles.iconInvalid]}
         name="ios-arrow-forward"
@@ -62,6 +77,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 19,
+    marginStart: 6,
     marginEnd: 20,
   },
   iconInvalid: {
@@ -79,5 +95,16 @@ const styles = StyleSheet.create({
     flex: 1,
     marginStart: 20,
     opacity: 0.5,
+  },
+  badgeContainer: {
+    backgroundColor: Colors.red,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 16,
+  },
+  badge: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: Colors.white,
   },
 });

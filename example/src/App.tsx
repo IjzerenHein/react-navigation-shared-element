@@ -88,6 +88,7 @@ export default () => (
         title="PushPopSameScreen"
         ComponentV4={PushPopSameScreen}
         Component={PushPopSameScreenV4}
+        issue={["v4"]}
       />
       <Test
         title="NestedStack"
@@ -113,6 +114,7 @@ export default () => (
         title="ModalIOS13PageSheet"
         ComponentV4={ModalIOS13PageSheetV4}
         Component={ModalIOS13PageSheet}
+        issue
       />
       <Test
         title="BottomTabs"
