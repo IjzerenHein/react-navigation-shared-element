@@ -31,6 +31,8 @@ import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
 import NestedStack2V4 from "./tests/NestedStack2.v4";
+import PushPopSameScreen from "./tests/PushPopSameScreen";
+import PushPopSameScreenV4 from "./tests/PushPopSameScreen.v4";
 import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
 import RevealFromBottomAndroidV4 from "./tests/RevealFromBottomAndroid.v4";
 import ScaleFromCenterAndroid from "./tests/ScaleFromCenterAndroid";
@@ -82,6 +84,11 @@ export default () => (
         Component={ForwardOnly}
       />
       <Test title="BackOnly" ComponentV4={BackOnlyV4} Component={BackOnly} />
+      <Test
+        title="PushPopSameScreen"
+        ComponentV4={PushPopSameScreen}
+        Component={PushPopSameScreenV4}
+      />
       <Test
         title="NestedStack"
         ComponentV4={NestedStackV4}

@@ -1,6 +1,8 @@
 import * as React from "react";
+import { StyleSheet } from "react-native";
 import { NavigationStackProp } from "react-navigation-stack";
 
+import { TouchableScale } from "../components";
 import { Item, defaultItem } from "../data";
 import { DetailComponent } from "./DetailComponent";
 import { getDetailSharedElements } from "./getDetailSharedElements";
@@ -9,13 +11,32 @@ type Props = {
   navigation: NavigationStackProp<any>;
   route: any; // v5
   modal: "none" | "full" | "sheet";
+  onPress?: ({
+    navigation,
+    item,
+  }: {
+    navigation: NavigationStackProp<any>;
+    item: Item;
+  }) => void;
 };
 
 export const DetailScreen = (props: Props) => {
-  const { navigation, route, modal } = props;
+  const { navigation, route, modal, onPress } = props;
   const params = route?.params || navigation?.state?.params;
   const item: Item = params?.item || defaultItem;
-  return <DetailComponent item={item} navigation={navigation} modal={modal} />;
+  const content = (
+    <DetailComponent item={item} navigation={navigation} modal={modal} />
+  );
+  return onPress ? (
+    <TouchableScale
+      onPress={() => onPress({ navigation, item })}
+      style={StyleSheet.absoluteFill}
+    >
+      {content}
+    </TouchableScale>
+  ) : (
+    content
+  );
 };
 
 DetailScreen.navigationOptions = {
