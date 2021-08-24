@@ -1,10 +1,9 @@
 import * as React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
-// @ts-ignore
-import TouchableScale from "react-native-touchable-scale";
 import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
+import { TouchableScale } from "../components";
 import { defaultItem, Item } from "../data";
 
 type Props = {
@@ -24,14 +23,7 @@ export class MainScreen extends React.Component<Props> {
     const item: Item = params?.item || defaultItem;
     return (
       <>
-        <TouchableScale
-          style={styles.flex}
-          activeScale={0.9}
-          tension={50}
-          friction={7}
-          useNativeDriver
-          onPress={this.onPress}
-        >
+        <TouchableScale style={styles.flex} onPress={this.onPress}>
           <View style={styles.container}>
             <SharedElement id={`${item.id}.image`}>
               <Image style={styles.image} source={item.image} />

@@ -1,10 +1,9 @@
 import * as React from "react";
 import { StyleSheet, Image, FlatList, Text } from "react-native";
-// @ts-ignore
-import TouchableScale from "react-native-touchable-scale";
 import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
+import { TouchableScale } from "../components";
 import { items, Item } from "../data";
 
 type Props = {
@@ -35,10 +34,6 @@ export class ListScreen extends React.Component<Props> {
     return (
       <TouchableScale
         style={styles.item}
-        activeScale={0.9}
-        tension={50}
-        friction={7}
-        useNativeDriver
         onPress={() => {
           navigation.navigate(routeName, {
             item,

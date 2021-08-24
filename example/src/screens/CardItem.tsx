@@ -1,10 +1,9 @@
 import * as React from "react";
 import { View, StyleSheet, Text, Image, Platform } from "react-native";
-// @ts-ignore
-import TouchableScale from "react-native-touchable-scale";
 import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
+import { TouchableScale } from "../components";
 import { Item } from "../data";
 
 type Props = {
@@ -17,10 +16,6 @@ export function CardItem(props: Props) {
   const { item, navigation, routeName = "Detail" } = props;
   return (
     <TouchableScale
-      activeScale={0.9}
-      tension={50}
-      friction={7}
-      useNativeDriver
       onPress={() =>
         navigation.navigate(routeName, {
           item,
@@ -31,7 +26,6 @@ export function CardItem(props: Props) {
         <SharedElement id={`${item.id}.card`} style={StyleSheet.absoluteFill}>
           <View style={styles.card} />
         </SharedElement>
-
         <SharedElement id={`${item.id}.image`} style={styles.imageContainer}>
           <Image style={styles.image} source={item.image} />
         </SharedElement>

@@ -6,7 +6,7 @@ import { Icon } from "./Icon";
 
 type Props = {
   title: string;
-  ComponentV4: React.ComponentType<any> | null;
+  ComponentV4?: React.ComponentType<any> | null;
   Component?: React.ComponentType<any> | null;
   onPress?: () => any;
   v4?: boolean;
