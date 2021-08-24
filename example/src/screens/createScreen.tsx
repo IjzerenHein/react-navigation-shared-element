@@ -4,11 +4,16 @@ export function createScreen(
   Component: React.ComponentType<any>,
   title?: string,
   sharedElements?: any,
-  overriddenProps?: any
+  overriddenProps?: any,
+  render?: (props: any) => any
 ) {
-  const WrappedComponent = (props: any) => (
-    <Component {...props} {...overriddenProps} />
-  );
+  const WrappedComponent = (props: any) => {
+    const allProps = {
+      ...props,
+      ...(overriddenProps ?? {}),
+    };
+    return render?.(allProps) ?? <Component {...allProps} />;
+  };
   // @ts-ignore
   const { navigationOptions } = Component;
   WrappedComponent.navigationOptions = title

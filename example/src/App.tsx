@@ -35,6 +35,8 @@ import PushPopSameScreen from "./tests/PushPopSameScreen";
 import PushPopSameScreenV4 from "./tests/PushPopSameScreen.v4";
 import RevealFromBottomAndroid from "./tests/RevealFromBottomAndroid";
 import RevealFromBottomAndroidV4 from "./tests/RevealFromBottomAndroid.v4";
+import SafeAreaView from "./tests/SafeAreaView";
+import SafeAreaViewV4 from "./tests/SafeAreaView.v4";
 import ScaleFromCenterAndroid from "./tests/ScaleFromCenterAndroid";
 import ScaleFromCenterAndroidV4 from "./tests/ScaleFromCenterAndroid.v4";
 import SlideFromRightIOS from "./tests/SlideFromRightIOS";
@@ -130,6 +132,12 @@ export default () => (
         title="MaterialTopTabs"
         ComponentV4={MaterialTopTabsV4}
         Component={MaterialTopTabs}
+      />
+      <Test
+        title="SafeAreaView"
+        ComponentV4={SafeAreaViewV4}
+        Component={SafeAreaView}
+        issue
       />
       <Test title="WrongIds" ComponentV4={WrongIdsV4} Component={WrongIds} />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />
