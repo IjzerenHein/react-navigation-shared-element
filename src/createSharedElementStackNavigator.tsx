@@ -78,26 +78,27 @@ export default function createSharedElementStackNavigator<
       gestureEnabled: Platform.OS === "ios",
       animationEnabled: Platform.OS !== "web",
     };
-    const { state, descriptors, navigation } = useNavigationBuilder<
-      StackNavigationState<ParamListBase>,
-      StackRouterOptions,
-      StackActionHelpers<ParamListBase>,
-      StackNavigationOptions,
-      StackNavigationEventMap
-    >(StackRouter, {
-      initialRouteName,
-      children,
-      screenOptions:
-        typeof screenOptions === "function"
-          ? (...args) => ({
-              ...defaultOptions,
-              ...screenOptions(...args),
-            })
-          : {
-              ...defaultOptions,
-              ...screenOptions,
-            },
-    });
+    const { state, descriptors, navigation, NavigationContent } =
+      useNavigationBuilder<
+        StackNavigationState<ParamListBase>,
+        StackRouterOptions,
+        StackActionHelpers<ParamListBase>,
+        StackNavigationOptions,
+        StackNavigationEventMap
+      >(StackRouter, {
+        initialRouteName,
+        children,
+        screenOptions:
+          typeof screenOptions === "function"
+            ? (...args) => ({
+                ...defaultOptions,
+                ...screenOptions(...args),
+              })
+            : {
+                ...defaultOptions,
+                ...screenOptions,
+              },
+      });
 
     const rendererDataRef = React.useRef<SharedElementRendererData | null>(
       null
@@ -154,18 +155,20 @@ export default function createSharedElementStackNavigator<
           }
           return (
             <SharedElementRendererContext.Provider value={rendererDataProxy}>
-              <StackView
-                detachInactiveScreens={Platform.OS !== "android"}
-                {...rest}
-                state={state}
-                descriptors={descriptors}
-                navigation={navigation}
-              />
-              {rendererDataRef.current ? (
-                <SharedElementRendererView
-                  rendererData={rendererDataRef.current}
+              <NavigationContent>
+                <StackView
+                  detachInactiveScreens={Platform.OS !== "android"}
+                  {...rest}
+                  state={state}
+                  descriptors={descriptors}
+                  navigation={navigation}
                 />
-              ) : undefined}
+                {rendererDataRef.current ? (
+                  <SharedElementRendererView
+                    rendererData={rendererDataRef.current}
+                  />
+                ) : undefined}
+              </NavigationContent>
             </SharedElementRendererContext.Provider>
           );
         }}
