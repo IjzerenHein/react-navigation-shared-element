@@ -19,7 +19,7 @@ const SafeAreaMainScreen = createScreen(
   )
 );
 
-const SafeAreDetailScreen = createScreen(
+const SafeAreaDetailScreen = createScreen(
   DetailScreen,
   undefined,
   undefined,
@@ -34,7 +34,7 @@ const SafeAreDetailScreen = createScreen(
 const StackNavigator = createSharedElementStackNavigator(
   {
     Main: SafeAreaMainScreen,
-    Detail: SafeAreDetailScreen,
+    Detail: SafeAreaDetailScreen,
   },
   undefined,
   {

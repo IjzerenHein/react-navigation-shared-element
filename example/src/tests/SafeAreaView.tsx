@@ -24,7 +24,7 @@ const SafeAreaMainScreen = createScreen(
   )
 );
 
-const SafeAreDetailScreen = createScreen(
+const SafeAreaDetailScreen = createScreen(
   DetailScreen,
   undefined,
   undefined,
@@ -40,7 +40,7 @@ export default () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen name={name} component={SafeAreaMainScreen} />
-      <Stack.Screen name="Detail" component={SafeAreDetailScreen} />
+      <Stack.Screen name="Detail" component={SafeAreaDetailScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
