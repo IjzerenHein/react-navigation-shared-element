@@ -1,5 +1,9 @@
 # [Unreleased]
 
+### Bug Fixes
+
+- Fix double-tap on bottom tab not resetting navigation (V5/6) (#191 thanks @Whichoney)
+
 # [3.1.2](https://github.com/IjzerenHein/react-navigation-shared-element/compare/v2.3.0...v3.1.2) (2021-08-19)
 
 ### Features
