@@ -5,6 +5,14 @@ React Navigation bindings for [react-native-shared-element](https://github.com/I
 ![react-navigation-shared-element-gif-iOS](rnse-ios.gif)
 ![react-navigation-shared-element-gif-Android](rnse-android.gif)
 
+# ⭐️ ⭐️ Support native-stack development! ⭐️ ⭐️
+
+Do you like this library and would you like to support it? [Due to popular demand we've created a money-pool](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14) to implement support for [@react-navigation/native-stack](https://reactnavigation.org/docs/native-stack-navigator/). All funds will be used to implement this feature as well as for continued development this library and [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element).
+
+https://paypal.me/pools/c/8Cyt3ED5wV
+
+Many thanks to all the sponsors so far! ❤️
+
 ## Documentation
 
 - [Shared element for the React Navigation 5/6 API](./docs/API.md)
