@@ -23,13 +23,13 @@ import createSharedElementScene from "./createSharedElementScene";
 
 let _navigatorId = 1;
 
-function renderAnimationContext(
-  sceneData: SharedElementSceneData
-): React.ReactNode {
+function CaptureProgressComponent(props: {
+  sceneData: SharedElementSceneData;
+}): React.ReactElement<any, any> {
   return (
     <CardAnimationContext.Consumer>
       {(value: StackCardInterpolationProps | undefined) => {
-        sceneData.setAnimValue(value?.current?.progress);
+        props.sceneData.setAnimValue(value?.current?.progress);
         return null;
       }}
     </CardAnimationContext.Consumer>
@@ -57,7 +57,7 @@ function createSharedElementStackSceneNavigator(
     const wrappedComponent = createSharedElementScene(
       component,
       rendererData,
-      renderAnimationContext,
+      CaptureProgressComponent,
       navigatorId,
       debug
     );

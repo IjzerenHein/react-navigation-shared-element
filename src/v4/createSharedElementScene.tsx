@@ -42,9 +42,9 @@ export function getActiveRouteState(route: any): Route {
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
   rendererData: ISharedElementRendererData,
-  renderAnimationContext: (
-    sceneData: SharedElementSceneData
-  ) => React.ReactNode,
+  CaptureProgressComponent: React.ComponentType<{
+    sceneData: SharedElementSceneData;
+  }>,
   navigatorId: string,
   verbose: boolean
 ): React.ComponentType<any> {
@@ -88,7 +88,7 @@ function createSharedElementScene(
             collapsable={false}
             ref={this.onSetRef}
           >
-            {renderAnimationContext(this.sceneData)}
+            <CaptureProgressComponent sceneData={this.sceneData} />
             <Component {...this.props} />
           </View>
         </SharedElementSceneContext.Provider>

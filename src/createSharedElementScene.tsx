@@ -1,8 +1,5 @@
 import { Route, NavigationState } from "@react-navigation/native";
-import {
-  StackNavigationProp,
-  StackCardInterpolationProps,
-} from "@react-navigation/stack";
+import { StackNavigationProp } from "@react-navigation/stack";
 import hoistNonReactStatics from "hoist-non-react-statics";
 import * as React from "react";
 import { View, StyleSheet, InteractionManager } from "react-native";
@@ -64,9 +61,9 @@ function createSharedElementScene(
   sharedElements: SharedElementsComponentConfig | void,
   rendererData: ISharedElementRendererData,
   emitter: EventEmitter,
-  renderAnimationContext: (
-    sceneData: SharedElementSceneData
-  ) => React.ReactNode,
+  CaptureProgressComponent: React.ComponentType<{
+    sceneData: SharedElementSceneData;
+  }>,
   navigatorId: string,
   verbose: boolean
 ): React.ComponentType<any> {
@@ -74,7 +71,7 @@ function createSharedElementScene(
     Component,
     sharedElements,
     rendererData,
-    renderAnimationContext,
+    CaptureProgressComponent,
     navigatorId,
     verbose,
   };
@@ -141,20 +138,12 @@ function createSharedElementScene(
             collapsable={false}
             ref={this.onSetRef}
           >
-            {renderAnimationContext(this.sceneData)}
+            <CaptureProgressComponent sceneData={this.sceneData} />
             <Component {...this.props} />
           </View>
         </SharedElementSceneContext.Provider>
       );
     }
-
-    private onRenderAnimationContext = (
-      value: StackCardInterpolationProps | undefined
-    ) => {
-      console.log("onRenderAnimationContext");
-      this.sceneData.setAnimValue(value?.current?.progress);
-      return null;
-    };
 
     componentDidUpdate() {
       this.sceneData.updateRoute(this.props.route);

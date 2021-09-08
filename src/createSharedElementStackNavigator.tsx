@@ -39,13 +39,16 @@ import { EventEmitter } from "./utils/EventEmitter";
 
 let _navigatorId = 1;
 
-function renderAnimationContext(
-  sceneData: SharedElementSceneData
-): React.ReactNode {
+function CaptureProgressComponent(props: {
+  sceneData: SharedElementSceneData;
+}): React.ReactElement<any, any> {
+  // Although react-navigation@6 supports the `useCardAnimation()` hook,
+  // v5 unfornately does not. So use the legacy method for greater
+  // backwards compatibility.
   return (
     <CardAnimationContext.Consumer>
       {(value: StackCardInterpolationProps | undefined) => {
-        sceneData.setAnimValue(value?.current?.progress);
+        props.sceneData.setAnimValue(value?.current?.progress);
         return null;
       }}
     </CardAnimationContext.Consumer>
@@ -282,7 +285,7 @@ export default function createSharedElementStackNavigator<
                 sharedElements,
                 rendererDataProxy,
                 emitter,
-                renderAnimationContext,
+                CaptureProgressComponent,
                 navigatorId,
                 debug
               );
