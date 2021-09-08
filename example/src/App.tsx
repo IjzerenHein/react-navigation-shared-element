@@ -29,6 +29,7 @@ import ModalSlideFromBottomIOS from "./tests/ModalSlideFromBottomIOS";
 import ModalSlideFromBottomIOSV4 from "./tests/ModalSlideFromBottomIOS.v4";
 import ModalStack from "./tests/ModalStack";
 import ModalStackV4 from "./tests/ModalStack.v4";
+import NativeStack from "./tests/NativeStack";
 import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
@@ -55,6 +56,7 @@ if (Platform.OS === "android") {
 export default () => (
   <SafeAreaProvider>
     <Tests>
+      <Test title="NativeStack" Component={NativeStack} />
       <Test
         title="DefaultStack"
         ComponentV4={DefaultStackV4}
