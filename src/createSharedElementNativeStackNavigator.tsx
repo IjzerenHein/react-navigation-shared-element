@@ -41,9 +41,8 @@ function CaptureProgressComponent(props: {
   sceneData: SharedElementSceneData;
 }): React.ReactElement<any, any> {
   const { progress } = useTransitionProgress();
-  console.log("ONPROGRESS", progress);
-  // TODO
-  // render something that can set the animValue on sceneData
+  // console.log("ONPROGRESS", progress);
+  props.sceneData.setAnimValue(progress);
   // @ts-ignore
   return null;
 }
