@@ -15,8 +15,9 @@ import {
   StackView,
   StackNavigationOptions,
   createStackNavigator,
+  StackCardInterpolationProps,
 } from "@react-navigation/stack";
-import {
+import type {
   StackNavigationConfig,
   StackNavigationEventMap,
 } from "@react-navigation/stack/lib/typescript/src/types";
@@ -28,6 +29,7 @@ import SharedElementRendererContext from "./SharedElementRendererContext";
 import SharedElementRendererData from "./SharedElementRendererData";
 import { SharedElementRendererProxy } from "./SharedElementRendererProxy";
 import SharedElementRendererView from "./SharedElementRendererView";
+import SharedElementSceneData from "./SharedElementSceneData";
 import createSharedElementScene from "./createSharedElementScene";
 import {
   SharedElementSceneComponent,
@@ -36,6 +38,19 @@ import {
 import { EventEmitter } from "./utils/EventEmitter";
 
 let _navigatorId = 1;
+
+function renderAnimationContext(
+  sceneData: SharedElementSceneData
+): React.ReactNode {
+  return (
+    <CardAnimationContext.Consumer>
+      {(value: StackCardInterpolationProps | undefined) => {
+        sceneData.setAnimValue(value?.current?.progress);
+        return null;
+      }}
+    </CardAnimationContext.Consumer>
+  );
+}
 
 export default function createSharedElementStackNavigator<
   ParamList extends ParamListBase
@@ -267,7 +282,7 @@ export default function createSharedElementStackNavigator<
                 sharedElements,
                 rendererDataProxy,
                 emitter,
-                CardAnimationContext,
+                renderAnimationContext,
                 navigatorId,
                 debug
               );

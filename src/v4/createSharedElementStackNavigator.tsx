@@ -9,6 +9,7 @@ import {
 import {
   createStackNavigator,
   CardAnimationContext,
+  StackCardInterpolationProps,
 } from "react-navigation-stack";
 
 import SharedElementRendererContext from "../SharedElementRendererContext";
@@ -17,9 +18,23 @@ import SharedElementRendererData, {
 } from "../SharedElementRendererData";
 import { SharedElementRendererProxy } from "../SharedElementRendererProxy";
 import SharedElementRendererView from "../SharedElementRendererView";
+import SharedElementSceneData from "../SharedElementSceneData";
 import createSharedElementScene from "./createSharedElementScene";
 
 let _navigatorId = 1;
+
+function renderAnimationContext(
+  sceneData: SharedElementSceneData
+): React.ReactNode {
+  return (
+    <CardAnimationContext.Consumer>
+      {(value: StackCardInterpolationProps | undefined) => {
+        sceneData.setAnimValue(value?.current?.progress);
+        return null;
+      }}
+    </CardAnimationContext.Consumer>
+  );
+}
 
 function createSharedElementStackSceneNavigator(
   routeConfigs: Parameters<typeof createStackNavigator>[0],
@@ -42,7 +57,7 @@ function createSharedElementStackSceneNavigator(
     const wrappedComponent = createSharedElementScene(
       component,
       rendererData,
-      CardAnimationContext,
+      renderAnimationContext,
       navigatorId,
       debug
     );

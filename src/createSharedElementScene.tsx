@@ -64,7 +64,9 @@ function createSharedElementScene(
   sharedElements: SharedElementsComponentConfig | void,
   rendererData: ISharedElementRendererData,
   emitter: EventEmitter,
-  AnimationContext: React.Context<StackCardInterpolationProps | undefined>,
+  renderAnimationContext: (
+    sceneData: SharedElementSceneData
+  ) => React.ReactNode,
   navigatorId: string,
   verbose: boolean
 ): React.ComponentType<any> {
@@ -72,7 +74,7 @@ function createSharedElementScene(
     Component,
     sharedElements,
     rendererData,
-    AnimationContext,
+    renderAnimationContext,
     navigatorId,
     verbose,
   };
@@ -139,9 +141,7 @@ function createSharedElementScene(
             collapsable={false}
             ref={this.onSetRef}
           >
-            <AnimationContext.Consumer>
-              {this.onRenderAnimationContext}
-            </AnimationContext.Consumer>
+            {renderAnimationContext(this.sceneData)}
             <Component {...this.props} />
           </View>
         </SharedElementSceneContext.Provider>
@@ -151,7 +151,8 @@ function createSharedElementScene(
     private onRenderAnimationContext = (
       value: StackCardInterpolationProps | undefined
     ) => {
-      this.sceneData.setAnimimationContextValue(value);
+      console.log("onRenderAnimationContext");
+      this.sceneData.setAnimValue(value?.current?.progress);
       return null;
     };
 

@@ -35,7 +35,7 @@ export default class SharedElementSceneData {
   private nodes: {
     [key: string]: SharedElementNode;
   } = {};
-  private animationContextValue: any;
+  private animValue: any;
   public readonly getSharedElements: () => SharedElementsComponentConfig | void;
   public readonly name: string;
   public readonly navigatorId: string;
@@ -73,15 +73,14 @@ export default class SharedElementSceneData {
     this.route = route;
   }
 
-  setAnimimationContextValue(value: any) {
-    this.animationContextValue = value;
+  setAnimValue(value: any) {
+    this.animValue = value;
   }
 
   getAnimValue(closing: boolean): SharedElementAnimatedValue | undefined {
-    const { animationContextValue } = this;
-    if (!animationContextValue) return;
-    const { progress } = animationContextValue.current;
-    return closing ? progress.interpolate(INVERT_OPTIONS) : progress;
+    const { animValue } = this;
+    if (!animValue) return;
+    return closing ? animValue.interpolate(INVERT_OPTIONS) : animValue;
   }
 
   getAncestor(): SharedElementNode | undefined {

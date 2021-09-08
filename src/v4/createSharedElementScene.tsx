@@ -42,7 +42,9 @@ export function getActiveRouteState(route: any): Route {
 function createSharedElementScene(
   Component: SharedElementSceneComponent,
   rendererData: ISharedElementRendererData,
-  AnimationContext: any,
+  renderAnimationContext: (
+    sceneData: SharedElementSceneData
+  ) => React.ReactNode,
   navigatorId: string,
   verbose: boolean
 ): React.ComponentType<any> {
@@ -52,14 +54,15 @@ function createSharedElementScene(
         remove(): void;
       };
     } = {};
-    private sceneData: SharedElementSceneData = new SharedElementSceneData(
-      Component,
-      () => Component.sharedElements,
-      routeFromNavigation(this.props.navigation),
-      navigatorId,
-      rendererData.nestingDepth,
-      verbose
-    );
+    private readonly sceneData: SharedElementSceneData =
+      new SharedElementSceneData(
+        Component,
+        () => Component.sharedElements,
+        routeFromNavigation(this.props.navigation),
+        navigatorId,
+        rendererData.nestingDepth,
+        verbose
+      );
 
     componentDidMount() {
       const { navigation } = this.props;
@@ -85,18 +88,12 @@ function createSharedElementScene(
             collapsable={false}
             ref={this.onSetRef}
           >
-            <AnimationContext.Consumer>
-              {this.onRenderAnimationContext}
-            </AnimationContext.Consumer>
+            {renderAnimationContext(this.sceneData)}
             <Component {...this.props} />
           </View>
         </SharedElementSceneContext.Provider>
       );
     }
-
-    private onRenderAnimationContext = (value: any) => {
-      this.sceneData.setAnimimationContextValue(value);
-    };
 
     componentDidUpdate() {
       this.sceneData.updateRoute(routeFromNavigation(this.props.navigation));
