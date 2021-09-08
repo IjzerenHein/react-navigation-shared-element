@@ -17,9 +17,10 @@ import {
 import type {
   NativeStackNavigationEventMap,
   NativeStackNavigationConfig,
-} from "@react-navigation/native-stack/lib/typescript/src/types";
+} from "@react-navigation/native-stack/src/types";
 import NativeStackView from "@react-navigation/native-stack/src/views/NativeStackView";
 import * as React from "react";
+import { useTransitionProgress } from "react-native-screens";
 
 import { useSharedElementFocusEvents } from "./SharedElementFocusEvents";
 import SharedElementRendererContext from "./SharedElementRendererContext";
@@ -36,11 +37,14 @@ import { EventEmitter } from "./utils/EventEmitter";
 
 let _navigatorId = 1;
 
-function renderAnimationContext(
-  sceneData: SharedElementSceneData
-): React.ReactNode {
+function CaptureProgressComponent(props: {
+  sceneData: SharedElementSceneData;
+}): React.ReactElement<any, any> {
+  const { progress } = useTransitionProgress();
+  console.log("ONPROGRESS", progress);
   // TODO
   // render something that can set the animValue on sceneData
+  // @ts-ignore
   return null;
 }
 
@@ -212,22 +216,7 @@ export default function createSharedElementNativeStackNavigator<
     return (
       <Navigator {...restProps}>
         {screenChildrenProps.map(
-          ({
-            component,
-            name,
-            sharedElements,
-            sharedElementsConfig,
-            ...restChildrenProps
-          }) => {
-            sharedElements = sharedElements || sharedElementsConfig;
-
-            // Show warning when deprecated `sharedElementsConfig` prop was used
-            if (sharedElementsConfig) {
-              console.warn(
-                "The `sharedElementsConfig` prop has been renamed, use `sharedElements` instead."
-              );
-            }
-
+          ({ component, name, sharedElements, ...restChildrenProps }) => {
             // Check whether this component was previously already wrapped
             let wrappedComponent = wrappedComponentsCache.current.get(name);
             if (
@@ -240,7 +229,7 @@ export default function createSharedElementNativeStackNavigator<
                 sharedElements,
                 rendererDataProxy,
                 emitter,
-                renderAnimationContext,
+                CaptureProgressComponent,
                 navigatorId,
                 debug
               );
