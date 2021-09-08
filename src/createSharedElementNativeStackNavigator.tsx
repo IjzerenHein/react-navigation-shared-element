@@ -19,7 +19,6 @@ import type {
   NativeStackNavigationConfig,
 } from "@react-navigation/native-stack/lib/typescript/src/types";
 import NativeStackView from "@react-navigation/native-stack/src/views/NativeStackView";
-import { CardAnimationContext } from "@react-navigation/stack";
 import * as React from "react";
 
 import { useSharedElementFocusEvents } from "./SharedElementFocusEvents";
@@ -27,6 +26,7 @@ import SharedElementRendererContext from "./SharedElementRendererContext";
 import SharedElementRendererData from "./SharedElementRendererData";
 import { SharedElementRendererProxy } from "./SharedElementRendererProxy";
 import SharedElementRendererView from "./SharedElementRendererView";
+import SharedElementSceneData from "./SharedElementSceneData";
 import createSharedElementScene from "./createSharedElementScene";
 import {
   SharedElementSceneComponent,
@@ -35,6 +35,14 @@ import {
 import { EventEmitter } from "./utils/EventEmitter";
 
 let _navigatorId = 1;
+
+function renderAnimationContext(
+  sceneData: SharedElementSceneData
+): React.ReactNode {
+  // TODO
+  // render something that can set the animValue on sceneData
+  return null;
+}
 
 export default function createSharedElementNativeStackNavigator<
   ParamList extends ParamListBase
@@ -232,7 +240,7 @@ export default function createSharedElementNativeStackNavigator<
                 sharedElements,
                 rendererDataProxy,
                 emitter,
-                CardAnimationContext,
+                renderAnimationContext,
                 navigatorId,
                 debug
               );
