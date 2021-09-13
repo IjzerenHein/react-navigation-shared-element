@@ -17,6 +17,8 @@ import FadeFromBottomAndroid from "./tests/FadeFromBottomAndroid";
 import FadeFromBottomAndroidV4 from "./tests/FadeFromBottomAndroid.v4";
 import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
+import ImageBackground from "./tests/ImageBackground";
+import ImageBackgroundV4 from "./tests/ImageBackground.v4";
 import ListView from "./tests/ListView";
 import ListViewV4 from "./tests/ListView.v4";
 import MaterialTopTabs from "./tests/MaterialTopTabs";
@@ -140,6 +142,12 @@ export default () => (
         issue
       />
       <Test title="WrongIds" ComponentV4={WrongIdsV4} Component={WrongIds} />
+      <Test
+        title="ImageBackground"
+        ComponentV4={ImageBackgroundV4}
+        Component={ImageBackground}
+        issue
+      />
       <Test title="TextInput" ComponentV4={TextInputStackV4} />
     </Tests>
   </SafeAreaProvider>
