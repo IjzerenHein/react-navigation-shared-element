@@ -1,16 +1,18 @@
 diff --git a/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js b/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js
-index ee9253d..dfef883 100644
+index f16159c..61ec5dc 100644
 --- a/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js
 +++ b/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js
-@@ -73,6 +73,7 @@ const MaybeNestedStack = ({
+@@ -73,7 +73,8 @@ const MaybeNestedStack = ({
        style: styles.container
      }, /*#__PURE__*/React.createElement(_reactNativeScreens.Screen, {
        enabled: true,
+-      style: _reactNative.StyleSheet.absoluteFill
++      style: _reactNative.StyleSheet.absoluteFill,
 +      isNativeStack: true,
-       style: _reactNative.StyleSheet.absoluteFill
      }, /*#__PURE__*/React.createElement(_elements.HeaderShownContext.Provider, {
        value: true
-@@ -130,6 +131,7 @@ const SceneView = ({
+     }, /*#__PURE__*/React.createElement(_elements.HeaderHeightContext.Provider, {
+@@ -131,6 +132,7 @@ const SceneView = ({
    return /*#__PURE__*/React.createElement(_reactNativeScreens.Screen, {
      key: route.key,
      enabled: true,
@@ -19,18 +21,20 @@ index ee9253d..dfef883 100644
      gestureEnabled: isAndroid ? // This prop enables handling of system back gestures on Android
      // Since we handle them in JS side, we disable this
 diff --git a/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js b/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js
-index 32b5554..be10ec7 100644
+index 4467d0b..b026fae 100644
 --- a/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js
 +++ b/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js
-@@ -51,6 +51,7 @@ const MaybeNestedStack = ({
+@@ -51,7 +51,8 @@ const MaybeNestedStack = ({
        style: styles.container
      }, /*#__PURE__*/React.createElement(Screen, {
        enabled: true,
+-      style: StyleSheet.absoluteFill
++      style: StyleSheet.absoluteFill,
 +      isNativeStack: true,
-       style: StyleSheet.absoluteFill
      }, /*#__PURE__*/React.createElement(HeaderShownContext.Provider, {
        value: true
-@@ -108,6 +109,7 @@ const SceneView = ({
+     }, /*#__PURE__*/React.createElement(HeaderHeightContext.Provider, {
+@@ -109,6 +110,7 @@ const SceneView = ({
    return /*#__PURE__*/React.createElement(Screen, {
      key: route.key,
      enabled: true,
@@ -39,7 +43,7 @@ index 32b5554..be10ec7 100644
      gestureEnabled: isAndroid ? // This prop enables handling of system back gestures on Android
      // Since we handle them in JS side, we disable this
 diff --git a/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx b/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx
-index bbf19d2..33539cf 100644
+index 9c7455f..c2d9428 100644
 --- a/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx
 +++ b/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx
 @@ -103,7 +103,7 @@ const MaybeNestedStack = ({
@@ -47,11 +51,11 @@ index bbf19d2..33539cf 100644
      return (
        <ScreenStack style={styles.container}>
 -        <Screen enabled style={StyleSheet.absoluteFill}>
-+        <Screen enabled isNativeStack style={StyleSheet.absoluteFill}>
++        <Screen enabled style={StyleSheet.absoluteFill} isNativeStack>
            <HeaderShownContext.Provider value>
              <HeaderHeightContext.Provider value={headerHeight}>
-               <HeaderConfig {...options} route={route} />
-@@ -175,6 +175,7 @@ const SceneView = ({
+               <HeaderConfig {...options} route={route} canGoBack />
+@@ -176,6 +176,7 @@ const SceneView = ({
      <Screen
        key={route.key}
        enabled
