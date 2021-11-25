@@ -1,7 +1,11 @@
 import { createAppContainer } from "react-navigation";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
 
-import { createScreen, MainScreen, DetailScreenImageBackground } from "../screens";
+import {
+  createScreen,
+  MainScreen,
+  DetailScreenImageBackground,
+} from "../screens";
 
 const name = "SimpleStack";
 

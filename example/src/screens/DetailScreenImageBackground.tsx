@@ -25,7 +25,11 @@ export const DetailScreenImageBackground = (props: Props) => {
   const params = route?.params || navigation?.state?.params;
   const item: Item = params?.item || defaultItem;
   const content = (
-    <DetailComponentImageBackground item={item} navigation={navigation} modal={modal} />
+    <DetailComponentImageBackground
+      item={item}
+      navigation={navigation}
+      modal={modal}
+    />
   );
   return onPress ? (
     <TouchableScale

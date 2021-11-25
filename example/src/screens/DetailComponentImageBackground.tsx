@@ -1,6 +1,12 @@
 import { LinearGradient } from "expo-linear-gradient";
 import * as React from "react";
-import { View, StyleSheet, Text, ImageBackground, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import { SharedElement } from "react-navigation-shared-element";
 import { NavigationStackProp } from "react-navigation-stack";
 
@@ -18,9 +24,15 @@ export const DetailComponentImageBackground = (props: Props) => {
   return (
     <View style={styles.container}>
       <SharedElement id={`${item.id}.image`} style={StyleSheet.absoluteFill}>
-        <ImageBackground style={styles.image} resizeMode="cover" source={item.image}>
-            <Text style={styles.imageBackgroundTextContent}>Content inside ImageBackground</Text>
-          </ImageBackground>
+        <ImageBackground
+          style={styles.image}
+          resizeMode="cover"
+          source={item.image}
+        >
+          <Text style={styles.imageBackgroundTextContent}>
+            Content inside ImageBackground
+          </Text>
+        </ImageBackground>
       </SharedElement>
 
       <SharedElement id={`${item.id}.logo`} style={styles.logoContainer}>
@@ -144,8 +156,8 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    alignSelf: 'center',
-    marginTop: 'auto',
-    marginBottom: 'auto'
-  }
+    alignSelf: "center",
+    marginTop: "auto",
+    marginBottom: "auto",
+  },
 });
