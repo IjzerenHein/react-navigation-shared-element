@@ -45,6 +45,34 @@ The following versions or react-navigation and the stack navigator are supported
 - [Snapchat Shared Transitions - “Can it be done in React Native?” (with react-navigation v5)](https://www.youtube.com/watch?v=NJZfRXs7nZs)
 - [Airbnb Shared Transition - “Can it be done in React Native?” (with react-navigation v4)](https://www.youtube.com/watch?v=83GNiMp-qq0)
 
+## Sponsors
+
+This library is made possible by these wonderful people and companies.
+
+[![](https://github.com/react-navigation.png?size=50)](https://github.com/react-navigation)
+[![](https://github.com/Open-Source-Collective.png?size=50)](https://github.com/Open-Source-Collective)
+[![](https://github.com/haibert.png?size=50)](https://github.com/haibert)
+[![](https://github.com/Hirbod.png?size=50)](https://github.com/Hirbod)
+[![](https://github.com/github.png?size=50)](https://github.com/gustavo-nramires)
+[![](https://github.com/nandorojo.png?size=50)](https://github.com/nandorojo)
+[![](https://github.com/beatgig.png?size=50)](https://github.com/beatgig)
+[![](https://github.com/nuwave.png?size=50)](https://github.com/nuwave)
+[![](https://github.com/calendee.png?size=50)](https://github.com/calendee)
+[![](https://github.com/wibb36.png?size=50)](https://github.com/wibb36)
+[![](https://github.com/hannojg.png?size=50)](https://github.com/hannojg)
+[![](https://github.com/davitykale.png?size=50)](https://github.com/davitykale)
+[![](https://github.com/nightstomp.png?size=50)](https://github.com/nightstomp)
+[![](https://github.com/SteveGreenley.png?size=50)](https://github.com/SteveGreenley)
+
+<!--
+Todo, find and add the github profile for these nice ppl that also sponsoredL
+- Ahmed Tajelsir Ali Ahmed
+- Salvatore Aiello
+- Einzel Firma?
+- Kavyar
+- dave sim
+-->
+
 ## License
 
 React navigation shared element library is licensed under [The MIT License](./LICENSE.md).
