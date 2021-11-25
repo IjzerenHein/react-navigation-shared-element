@@ -14,7 +14,7 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "install:5": "yarn add --dev @react-navigation/bottom-tabs@5 @react-navigation/material-top-tabs@5 @react-navigation/native@5 @react-navigation/stack@5"
+    "install:5": "yarn add --dev @react-navigation/bottom-tabs@5 @react-navigation/material-top-tabs@5 @react-navigation/native@5 @react-navigation/stack@5 @react-navigation/native-stack@5"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,6 +47,7 @@
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/material-top-tabs": "^6.0.6",
     "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
     "@react-navigation/stack": "^6.0.11",
     "@types/react": "^17.0.15",
     "@types/react-native": "^0.64.12",
@@ -55,6 +56,7 @@
     "eslint": "^7.32.0",
     "expo-module-scripts": "^2.0.0",
     "prettier": "^2.4.1",
+    "react-native-screens": "^3.9.0",
     "react-native-shared-element": "^0.8.3",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
