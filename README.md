@@ -49,6 +49,7 @@ The following versions or react-navigation and the stack navigator are supported
 
 This library is made possible by these wonderful people and companies.
 
+[![](https://github.com/expo.png?size=50)](https://github.com/expo)
 [![](https://github.com/react-navigation.png?size=50)](https://github.com/react-navigation)
 [![](https://github.com/Open-Source-Collective.png?size=50)](https://github.com/Open-Source-Collective)
 [![](https://github.com/haibert.png?size=50)](https://github.com/haibert)
