@@ -82,18 +82,28 @@ function createSharedElementStackSceneNavigator(
     return {
       ...defaultNavigationOptionsResult,
       onTransitionStart: (transitionProps: { closing: boolean }) => {
-        rendererData.startTransition(
-          transitionProps.closing,
-          navigatorId,
-          rendererData.nestingDepth
+        rendererData.updateSceneState(
+          transitionProps.closing
+            ? "startClosingTransition"
+            : "startOpenTransition",
+          // @ts-ignore
+          {
+            navigatorId,
+            nestingDepth: rendererData.nestingDepth,
+          }
         );
         defaultNavigationOptionsResult?.onTransitionStart?.(transitionProps);
       },
       onTransitionEnd: (transitionProps: { closing: boolean }) => {
-        rendererData.endTransition(
-          transitionProps.closing,
-          navigatorId,
-          rendererData.nestingDepth
+        rendererData.updateSceneState(
+          transitionProps.closing
+            ? "endClosingTransition"
+            : "endOpenTransition",
+          // @ts-ignore
+          {
+            navigatorId,
+            nestingDepth: rendererData.nestingDepth,
+          }
         );
         defaultNavigationOptionsResult?.onTransitionEnd?.(transitionProps);
       },

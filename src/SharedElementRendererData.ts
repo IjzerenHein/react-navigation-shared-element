@@ -14,19 +14,9 @@ import { normalizeSharedElementsConfig } from "./utils";
 export type SharedElementRendererUpdateHandler = () => any;
 
 export interface ISharedElementRendererData {
-  startTransition(
-    closing: boolean,
-    navigatorId: string,
-    nestingDepth: number
-  ): void;
-  endTransition(
-    closing: boolean,
-    navigatorId: string,
-    nestingDepth: number
-  ): void;
   updateSceneState(
-    scene: SharedElementSceneData,
-    eventType: SharedElementSceneEventType
+    eventType: SharedElementSceneEventType,
+    scene: SharedElementSceneData
   ): void;
   readonly nestingDepth: number;
   addDebugRef(): number;
@@ -66,25 +56,68 @@ export default class SharedElementRendererData
 {
   private scenes: SceneRoute[] = [];
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
-  private sharedElements: SharedElementsStrictConfig | null = null;
-  private isShowing: boolean = true;
 
+  // Data for detecting route changes. `route` indicates the route being
+  // navigated to (being shown). `prevRoute` indicates the route the navigator
+  // is coming from (being hidden). `routeAnimValue` is the Animated.Value,
+  // going from 0 (prev route shown) to 1 (new route shown). All three need
+  // to be set in order for a shared-element transition to happen.
+  // This data is collected through a combination of `focus`, `startTransition`
+  // and `endTransition` events that are emitted by the router.
   private route: SharedElementRoute | null = null;
   private prevRoute: SharedElementRoute | null = null;
   private routeAnimValue: SharedElementAnimatedValue;
-
-  private scene: SharedElementSceneData | null = null;
-  private prevScene: SharedElementSceneData | null = null;
-  private sceneAnimValue: SharedElementAnimatedValue;
-
   private isTransitionStarted: boolean = false;
   private isTransitionClosing: boolean = false;
   private transitionNavigatorId: string = "";
   private transitionNestingDepth: number = -1;
 
+  private sharedElements: SharedElementsStrictConfig | null = null;
+  private isShowing: boolean = true;
+  private scene: SharedElementSceneData | null = null;
+  private prevScene: SharedElementSceneData | null = null;
+  private sceneAnimValue: SharedElementAnimatedValue;
+
   public debugRefCount: number = 0;
 
-  startTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
+  updateSceneState(
+    eventType: SharedElementSceneEventType,
+    scene: SharedElementSceneData
+  ): void {
+    switch (eventType) {
+      case "willFocus":
+        return this.willFocusScene(scene);
+      case "didFocus":
+        return this.didFocusScene(scene);
+      /*case "willBlur":
+        return this.willBlurScene(scene);*/
+      case "startOpenTransition":
+        return this.startTransition(scene, false);
+      case "startClosingTransition":
+        return this.startTransition(scene, true);
+      case "endOpenTransition":
+        return this.endTransition(scene, false);
+      case "endClosingTransition":
+        return this.endTransition(scene, true);
+    }
+  }
+
+  addDebugRef(): number {
+    return ++this.debugRefCount;
+  }
+
+  releaseDebugRef(): number {
+    return --this.debugRefCount;
+  }
+
+  get debug() {
+    return this.debugRefCount > 0;
+  }
+
+  private startTransition(scene: SharedElementSceneData, closing: boolean) {
+    // NOTE: For react-navigation 4, only the navigatorId and nestingDepth fields are supported
+    // so do not use any of the other fields here, because doing so will [break stuff](https://www.youtube.com/watch?v=ZpUYjpKg9KY)
+    const { navigatorId, nestingDepth } = scene;
     if (this.debug)
       console.debug(
         `[${navigatorId}]startTransition, closing: ${closing}, nestingDepth: ${nestingDepth}`
@@ -121,7 +154,10 @@ export default class SharedElementRendererData
     }
   }
 
-  endTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
+  private endTransition(scene: SharedElementSceneData, closing: boolean) {
+    // NOTE: For react-navigation 4, only the navigatorId and nestingDepth fields are supported
+    // so do not use any of the other fields here, because doing so will [break stuff](https://www.youtube.com/watch?v=ZpUYjpKg9KY)
+    const { navigatorId, nestingDepth } = scene;
     if (this.debug)
       console.debug(
         `[${navigatorId}]endTransition, closing: ${closing}, nestingDepth: ${nestingDepth}`
@@ -144,33 +180,7 @@ export default class SharedElementRendererData
     }
   }
 
-  updateSceneState(
-    scene: SharedElementSceneData,
-    eventType: SharedElementSceneEventType
-  ): void {
-    switch (eventType) {
-      case "willFocus":
-        return this.willFocusScene(scene);
-      case "didFocus":
-        return this.didFocusScene(scene);
-      /*case "willBlur":
-        return this.willBlurScene(scene);*/
-    }
-  }
-
-  addDebugRef(): number {
-    return ++this.debugRefCount;
-  }
-
-  releaseDebugRef(): number {
-    return --this.debugRefCount;
-  }
-
-  get debug() {
-    return this.debugRefCount > 0;
-  }
-
-  willFocusScene(scene: SharedElementSceneData): void {
+  private willFocusScene(scene: SharedElementSceneData): void {
     if (this.debug)
       console.debug(
         `[${scene.navigatorId}]willFocus, scene: "${scene.name}", depth: ${scene.nestingDepth}, closing: ${this.isTransitionClosing}`
@@ -212,7 +222,7 @@ export default class SharedElementRendererData
     }
   }
 
-  didFocusScene(scene: SharedElementSceneData): void {
+  private didFocusScene(scene: SharedElementSceneData): void {
     if (this.debug)
       console.debug(
         `[${scene.navigatorId}]didFocus, scene: "${scene.name}", depth: ${scene.nestingDepth}`
@@ -229,7 +239,7 @@ export default class SharedElementRendererData
     this.registerScene(scene);
   }
 
-  /*willBlurScene(scene: SharedElementSceneData): void {
+  /*private willBlurScene(scene: SharedElementSceneData): void {
     if (this.debug)
       console.debug(
         `[${scene.navigatorId}]willBlur, scene: "${scene.name}", depth: ${scene.nestingDepth}`

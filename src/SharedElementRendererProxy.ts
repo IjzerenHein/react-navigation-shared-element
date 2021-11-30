@@ -6,29 +6,9 @@ import SharedElementSceneData, {
 export class SharedElementRendererProxy implements ISharedElementRendererData {
   private data: ISharedElementRendererData | null = null;
 
-  startTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
-    if (!this.data) {
-      console.warn(
-        "SharedElementRendererProxy.startTransition called before Proxy was initialized"
-      );
-      return;
-    }
-    return this.data.startTransition(closing, navigatorId, nestingDepth);
-  }
-
-  endTransition(closing: boolean, navigatorId: string, nestingDepth: number) {
-    if (!this.data) {
-      console.warn(
-        "SharedElementRendererProxy.endTransition called before Proxy was initialized"
-      );
-      return;
-    }
-    return this.data.endTransition(closing, navigatorId, nestingDepth);
-  }
-
   updateSceneState(
-    scene: SharedElementSceneData,
-    eventType: SharedElementSceneEventType
+    eventType: SharedElementSceneEventType,
+    scene: SharedElementSceneData
   ) {
     if (!this.data) {
       console.warn(
@@ -36,7 +16,7 @@ export class SharedElementRendererProxy implements ISharedElementRendererData {
       );
       return;
     }
-    return this.data.updateSceneState(scene, eventType);
+    return this.data.updateSceneState(eventType, scene);
   }
 
   get source(): ISharedElementRendererData | null {

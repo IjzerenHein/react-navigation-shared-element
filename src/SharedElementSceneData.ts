@@ -27,7 +27,11 @@ export type SharedElementSceneEventType =
   | "willFocus"
   | "didFocus"
   | "willBlur"
-  | "didBlur";
+  | "didBlur"
+  | "startOpenTransition"
+  | "startClosingTransition"
+  | "endOpenTransition"
+  | "endClosingTransition";
 
 export default class SharedElementSceneData {
   private updateSubscribers = new Set<SharedElementSceneUpdateHandler>();
@@ -42,6 +46,7 @@ export default class SharedElementSceneData {
   public readonly nestingDepth: number;
   public readonly debug: boolean;
   public readonly route: SharedElementRoute;
+  public readonly isNativeNavigator: boolean;
 
   constructor(
     Component: SharedElementSceneComponent,
@@ -49,7 +54,8 @@ export default class SharedElementSceneData {
     route: SharedElementRoute,
     navigatorId: string,
     nestingDepth: number,
-    debug: boolean
+    debug: boolean,
+    isNativeNavigator: boolean
   ) {
     this.getSharedElements = getSharedElements;
     this.route = route;
@@ -61,9 +67,11 @@ export default class SharedElementSceneData {
       Component.name ||
       (Component.constructor ? Component.constructor.name : undefined) ||
       "";
+    this.isNativeNavigator = isNativeNavigator;
   }
 
   public updateRoute(route: SharedElementRoute) {
+    if (this.route === route) return false;
     if (route.key !== this.route.key) {
       throw new Error(
         "SharedElementNavigation: Integrity error, route key should never change"
@@ -71,6 +79,7 @@ export default class SharedElementSceneData {
     }
     // @ts-ignore
     this.route = route;
+    return true;
   }
 
   setAnimValue(value: any) {

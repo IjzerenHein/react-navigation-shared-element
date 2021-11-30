@@ -223,15 +223,16 @@ export default function createSharedElementNativeStackNavigator<
               wrappedComponent.config.Component !== component
             ) {
               // Wrap the component
-              wrappedComponent = createSharedElementScene(
-                component,
+              wrappedComponent = createSharedElementScene({
+                Component: component,
                 sharedElements,
-                rendererDataProxy,
+                rendererData: rendererDataProxy,
                 emitter,
                 CaptureProgressComponent,
                 navigatorId,
-                debug
-              );
+                verbose: debug,
+                isNativeNavigator: true,
+              });
               wrappedComponentsCache.current.set(name, wrappedComponent);
             } else {
               // Shared elements function might have been changed, so update it

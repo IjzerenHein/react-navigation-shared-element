@@ -56,25 +56,28 @@ function isActiveRoute(
   return route.name === activeRoute.name;
 }
 
-function createSharedElementScene(
-  Component: SharedElementSceneComponent,
-  sharedElements: SharedElementsComponentConfig | void,
-  rendererData: ISharedElementRendererData,
-  emitter: EventEmitter,
+function createSharedElementScene(config: {
+  Component: SharedElementSceneComponent;
+  sharedElements: SharedElementsComponentConfig | void;
+  rendererData: ISharedElementRendererData;
+  emitter: EventEmitter;
   CaptureProgressComponent: React.ComponentType<{
     sceneData: SharedElementSceneData;
-  }>,
-  navigatorId: string,
-  verbose: boolean
-): React.ComponentType<any> {
-  const config = {
+  }>;
+  navigatorId: string;
+  verbose: boolean;
+  isNativeNavigator?: boolean;
+}): React.ComponentType<any> {
+  const {
     Component,
     sharedElements,
     rendererData,
+    emitter,
     CaptureProgressComponent,
     navigatorId,
     verbose,
-  };
+    isNativeNavigator,
+  } = config;
 
   class SharedElementSceneView extends React.PureComponent<PropsType> {
     private subscriptions: {
@@ -82,11 +85,12 @@ function createSharedElementScene(
     } = {};
     private sceneData: SharedElementSceneData = new SharedElementSceneData(
       Component,
-      () => config.sharedElements || Component.sharedElements,
+      () => sharedElements || Component.sharedElements,
       this.props.route,
       navigatorId,
       rendererData.nestingDepth,
-      verbose
+      verbose,
+      isNativeNavigator ?? false
     );
 
     static readonly config = config;
@@ -107,22 +111,24 @@ function createSharedElementScene(
       };
     }
 
-    private onTransitionStart = (event: any) => {
-      const closing: boolean = event.data.closing;
-      rendererData.startTransition(
-        closing,
-        navigatorId,
-        rendererData.nestingDepth
+    private onTransitionStart = ({ data: { closing } }: any) => {
+      rendererData.updateSceneState(
+        closing ? "startClosingTransition" : "startOpenTransition",
+        this.sceneData
       );
-      //rendererData.updateSceneState(this.sceneData, "willFocus");
     };
 
     private onTransitionEnd = ({ data: { closing } }: any) => {
-      rendererData.endTransition(
-        closing,
-        navigatorId,
-        rendererData.nestingDepth
+      rendererData.updateSceneState(
+        closing ? "endClosingTransition" : "endOpenTransition",
+        this.sceneData
       );
+      if (isNativeNavigator) {
+        //console.log("onDidFocus: ", this.props.route);
+        if (this.sceneData.updateRoute(this.props.route)) {
+          rendererData.updateSceneState("didFocus", this.sceneData);
+        }
+      }
     };
 
     componentWillUnmount() {
@@ -159,21 +165,23 @@ function createSharedElementScene(
       //console.log("onWillFocus: ", route);
       if (isActiveRoute(navigation, route)) {
         this.sceneData.updateRoute(route);
-        rendererData.updateSceneState(this.sceneData, "willFocus");
-        InteractionManager.runAfterInteractions(() => {
-          //console.log("onDidFocus: ", this.props.route);
-          this.sceneData.updateRoute(this.props.route);
-          rendererData.updateSceneState(this.sceneData, "didFocus");
-        });
+        rendererData.updateSceneState("willFocus", this.sceneData);
+        if (!isNativeNavigator) {
+          InteractionManager.runAfterInteractions(() => {
+            //console.log("onDidFocus: ", this.props.route);
+            this.sceneData.updateRoute(this.props.route);
+            rendererData.updateSceneState("didFocus", this.sceneData);
+          });
+        }
       }
     };
 
     private onWillBlur = () => {
       const { route } = this.props;
 
-      //console.log("onWillBlur: ", route);
+      // console.log("onWillBlur: ", route);
       this.sceneData.updateRoute(route);
-      //rendererData.updateSceneState(this.sceneData, "willBlur");
+      //rendererData.updateSceneState("willBlur", this.sceneData);
     };
   }
 

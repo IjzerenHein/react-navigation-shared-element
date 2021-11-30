@@ -61,7 +61,8 @@ function createSharedElementScene(
         routeFromNavigation(this.props.navigation),
         navigatorId,
         rendererData.nestingDepth,
-        verbose
+        verbose,
+        false
       );
 
     componentDidMount() {
@@ -109,7 +110,7 @@ function createSharedElementScene(
       //console.log('onWillFocus: ', navigation.state, activeRoute);
       if (navigation.state.routeName === activeRoute.routeName) {
         this.sceneData.updateRoute(routeFromNavigation(navigation));
-        rendererData.updateSceneState(this.sceneData, "willFocus");
+        rendererData.updateSceneState("willFocus", this.sceneData);
       }
     };
 
@@ -119,7 +120,7 @@ function createSharedElementScene(
       if (navigation.state.routeName === activeRoute.routeName) {
         // console.log('onDidFocus: ', this.sceneData.name, navigation);
         this.sceneData.updateRoute(routeFromNavigation(navigation));
-        rendererData.updateSceneState(this.sceneData, "didFocus");
+        rendererData.updateSceneState("didFocus", this.sceneData);
       }
     };
 
@@ -129,7 +130,7 @@ function createSharedElementScene(
       //console.log('onWillBlur: ', navigation.state, activeRoute);
       if (navigation.state.routeName === activeRoute.routeName) {
         this.sceneData.updateRoute(routeFromNavigation(navigation));
-        rendererData.updateSceneState(this.sceneData, "willBlur");
+        rendererData.updateSceneState("willBlur", this.sceneData);
       }
     };
   }
