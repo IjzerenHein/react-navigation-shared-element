@@ -1,5 +1,5 @@
 diff --git a/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js b/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js
-index f16159c..61ec5dc 100644
+index f16159c..db8eb03 100644
 --- a/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js
 +++ b/node_modules/@react-navigation/native-stack/lib/commonjs/views/NativeStackView.native.js
 @@ -73,7 +73,8 @@ const MaybeNestedStack = ({
@@ -12,7 +12,15 @@ index f16159c..61ec5dc 100644
      }, /*#__PURE__*/React.createElement(_elements.HeaderShownContext.Provider, {
        value: true
      }, /*#__PURE__*/React.createElement(_elements.HeaderHeightContext.Provider, {
-@@ -131,6 +132,7 @@ const SceneView = ({
+@@ -91,6 +92,7 @@ const SceneView = ({
+   descriptor,
+   previousDescriptor,
+   index,
++  onWillAppear,
+   onWillDisappear,
+   onAppear,
+   onDisappear,
+@@ -131,6 +133,7 @@ const SceneView = ({
    return /*#__PURE__*/React.createElement(_reactNativeScreens.Screen, {
      key: route.key,
      enabled: true,
@@ -20,8 +28,32 @@ index f16159c..61ec5dc 100644
      style: _reactNative.StyleSheet.absoluteFill,
      gestureEnabled: isAndroid ? // This prop enables handling of system back gestures on Android
      // Since we handle them in JS side, we disable this
+@@ -142,6 +145,7 @@ const SceneView = ({
+     statusBarAnimation: statusBarAnimation,
+     statusBarHidden: statusBarHidden,
+     statusBarStyle: statusBarStyle,
++    onWillAppear: onWillAppear,
+     onWillDisappear: onWillDisappear,
+     onAppear: onAppear,
+     onDisappear: onDisappear,
+@@ -197,6 +201,15 @@ function NativeStackViewInner({
+       index: index,
+       descriptor: descriptor,
+       previousDescriptor: previousDescriptor,
++      onWillAppear: () => {
++        navigation.emit({
++          type: 'transitionStart',
++          data: {
++            closing: false
++          },
++          target: route.key
++        });
++      },
+       onWillDisappear: () => {
+         navigation.emit({
+           type: 'transitionStart',
 diff --git a/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js b/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js
-index 4467d0b..b026fae 100644
+index 4467d0b..9d078dc 100644
 --- a/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js
 +++ b/node_modules/@react-navigation/native-stack/lib/module/views/NativeStackView.native.js
 @@ -51,7 +51,8 @@ const MaybeNestedStack = ({
@@ -34,7 +66,15 @@ index 4467d0b..b026fae 100644
      }, /*#__PURE__*/React.createElement(HeaderShownContext.Provider, {
        value: true
      }, /*#__PURE__*/React.createElement(HeaderHeightContext.Provider, {
-@@ -109,6 +110,7 @@ const SceneView = ({
+@@ -69,6 +70,7 @@ const SceneView = ({
+   descriptor,
+   previousDescriptor,
+   index,
++  onWillAppear,
+   onWillDisappear,
+   onAppear,
+   onDisappear,
+@@ -109,6 +111,7 @@ const SceneView = ({
    return /*#__PURE__*/React.createElement(Screen, {
      key: route.key,
      enabled: true,
@@ -42,8 +82,32 @@ index 4467d0b..b026fae 100644
      style: StyleSheet.absoluteFill,
      gestureEnabled: isAndroid ? // This prop enables handling of system back gestures on Android
      // Since we handle them in JS side, we disable this
+@@ -120,6 +123,7 @@ const SceneView = ({
+     statusBarAnimation: statusBarAnimation,
+     statusBarHidden: statusBarHidden,
+     statusBarStyle: statusBarStyle,
++    onWillAppear: onWillAppear,
+     onWillDisappear: onWillDisappear,
+     onAppear: onAppear,
+     onDisappear: onDisappear,
+@@ -175,6 +179,15 @@ function NativeStackViewInner({
+       index: index,
+       descriptor: descriptor,
+       previousDescriptor: previousDescriptor,
++      onWillAppear: () => {
++        navigation.emit({
++          type: 'transitionStart',
++          data: {
++            closing: false
++          },
++          target: route.key
++        });
++      },
+       onWillDisappear: () => {
+         navigation.emit({
+           type: 'transitionStart',
 diff --git a/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx b/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx
-index 9c7455f..c2d9428 100644
+index 9c7455f..8d1219e 100644
 --- a/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx
 +++ b/node_modules/@react-navigation/native-stack/src/views/NativeStackView.native.tsx
 @@ -103,7 +103,7 @@ const MaybeNestedStack = ({
@@ -55,7 +119,23 @@ index 9c7455f..c2d9428 100644
            <HeaderShownContext.Provider value>
              <HeaderHeightContext.Provider value={headerHeight}>
                <HeaderConfig {...options} route={route} canGoBack />
-@@ -176,6 +176,7 @@ const SceneView = ({
+@@ -122,6 +122,7 @@ type SceneViewProps = {
+   index: number;
+   descriptor: NativeStackDescriptor;
+   previousDescriptor?: NativeStackDescriptor;
++  onWillAppear: () => void;
+   onWillDisappear: () => void;
+   onAppear: () => void;
+   onDisappear: () => void;
+@@ -132,6 +133,7 @@ const SceneView = ({
+   descriptor,
+   previousDescriptor,
+   index,
++  onWillAppear,
+   onWillDisappear,
+   onAppear,
+   onDisappear,
+@@ -176,6 +178,7 @@ const SceneView = ({
      <Screen
        key={route.key}
        enabled
@@ -63,3 +143,25 @@ index 9c7455f..c2d9428 100644
        style={StyleSheet.absoluteFill}
        gestureEnabled={
          isAndroid
+@@ -191,6 +194,7 @@ const SceneView = ({
+       statusBarAnimation={statusBarAnimation}
+       statusBarHidden={statusBarHidden}
+       statusBarStyle={statusBarStyle}
++      onWillAppear={onWillAppear}
+       onWillDisappear={onWillDisappear}
+       onAppear={onAppear}
+       onDisappear={onDisappear}
+@@ -280,6 +284,13 @@ function NativeStackViewInner({ state, navigation, descriptors }: Props) {
+             index={index}
+             descriptor={descriptor}
+             previousDescriptor={previousDescriptor}
++            onWillAppear={() => {
++              navigation.emit({
++                type: 'transitionStart',
++                data: { closing: false },
++                target: route.key,
++              });
++            }}
+             onWillDisappear={() => {
+               navigation.emit({
+                 type: 'transitionStart',
