@@ -4,15 +4,17 @@ import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
 
-type Issue = "android" | "ios" | "v4" | "v5" | "v6";
+type Issue = "android" | "ios" | "v4" | "v5" | "v6" | "native";
 
 type Props = {
   title: string;
   ComponentV4?: React.ComponentType<any> | null;
   Component?: React.ComponentType<any> | null;
+  ComponentNative?: React.ComponentType<any> | null;
   issue?: boolean | Issue[];
   onPress?: () => any;
   v4?: boolean;
+  native?: boolean;
 };
 
 function onPressInvalidTest() {
@@ -23,9 +25,21 @@ function onPressInvalidTest() {
 }
 
 export const Test = (props: Props) => {
-  const { title, onPress, Component, ComponentV4, v4, issue } = props;
-  const isValid = (v4 && ComponentV4) || (!v4 && Component);
-  if (!Component && !ComponentV4) {
+  const {
+    title,
+    onPress,
+    Component,
+    ComponentNative,
+    ComponentV4,
+    v4,
+    native,
+    issue,
+  } = props;
+  const isValid =
+    (v4 && ComponentV4) ||
+    (!v4 && !native && Component) ||
+    (native && ComponentNative);
+  if (!Component && !ComponentV4 && !ComponentNative) {
     return (
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionText}>{title.toUpperCase()}</Text>

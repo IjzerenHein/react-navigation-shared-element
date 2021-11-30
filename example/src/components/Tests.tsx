@@ -20,7 +20,7 @@ type Props = {
 export const Tests = (props: Props) => {
   const insets = useSafeAreaInsets();
   const [test, setTest] = React.useState<any>(undefined);
-  const [v4, setV4] = React.useState(false);
+  const [tabIndex, setTabIndex] = React.useState(1);
 
   return (
     <View style={styles.container}>
@@ -29,17 +29,20 @@ export const Tests = (props: Props) => {
         backgroundColor="transparent"
         barStyle={test ? "dark-content" : "light-content"}
       />
-      {test && (v4 ? <test.props.ComponentV4 /> : <test.props.Component />)}
+      {test && (tabIndex === 0 ? <test.props.ComponentV4 /> : undefined)}
+      {test && (tabIndex === 1 ? <test.props.Component /> : undefined)}
+      {test && (tabIndex === 2 ? <test.props.ComponentNative /> : undefined)}
       {!test && (
         <View style={[styles.header, { paddingTop: insets.top }]}>
           <Text style={styles.title}>react-navigation-shared-element</Text>
           <SegmentControl
             style={styles.segments}
-            selectedIndex={v4 ? 0 : 1}
-            onValueChange={(index) => setV4(index === 0)}
+            selectedIndex={tabIndex}
+            onValueChange={(index) => setTabIndex(index)}
           >
-            <Segment label="Navigation 4" />
-            <Segment label="Navigation 5/6" />
+            <Segment label="Stack 4" />
+            <Segment label="Stack 5/6" />
+            <Segment label="Native Stack" />
           </SegmentControl>
         </View>
       )}
@@ -47,7 +50,8 @@ export const Tests = (props: Props) => {
         <ScrollView style={styles.content}>
           {React.Children.map(props.children, (test) =>
             React.cloneElement(test, {
-              v4,
+              v4: tabIndex === 0,
+              native: tabIndex === 2,
               onPress: (Component: React.ComponentType<any>) => setTest(test),
             })
           )}

@@ -2,9 +2,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element";
 
-import { MainScreen, DetailScreen } from "../screens";
+import { CardScreen, DetailPagerScreen } from "../screens";
 
-const name = "NativeStack";
+const name = "CardView";
 
 const Stack = createSharedElementNativeStackNavigator({
   name,
@@ -14,8 +14,8 @@ const Stack = createSharedElementNativeStackNavigator({
 export default () => (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name={name} component={MainScreen} />
-      <Stack.Screen name="Detail" component={DetailScreen} />
+      <Stack.Screen name={name} component={CardScreen} />
+      <Stack.Screen name="Detail" component={DetailPagerScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

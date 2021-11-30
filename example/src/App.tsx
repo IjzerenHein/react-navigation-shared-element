@@ -10,16 +10,23 @@ import BottomTabsV4 from "./tests/BottomTabs.v4";
 import BottomTabs2 from "./tests/BottomTabs2";
 import BottomTabs2V4 from "./tests/BottomTabs2.v4";
 import CardView from "./tests/CardView";
+import CardViewNative from "./tests/CardView.nativestack";
 import CardViewV4 from "./tests/CardView.v4";
 import DefaultStack from "./tests/DefaultStack";
+import DefaultStackNative from "./tests/DefaultStack.nativestack";
 import DefaultStackV4 from "./tests/DefaultStack.v4";
+import Fade from "./tests/Fade";
+import FadeNative from "./tests/Fade.nativestack";
+import FadeV4 from "./tests/Fade.v4";
 import FadeFromBottomAndroid from "./tests/FadeFromBottomAndroid";
+import FadeFromBottomAndroidNative from "./tests/FadeFromBottomAndroid.nativestack";
 import FadeFromBottomAndroidV4 from "./tests/FadeFromBottomAndroid.v4";
 import ForwardOnly from "./tests/ForwardOnly";
 import ForwardOnlyV4 from "./tests/ForwardOnly.v4";
 import ImageBackground from "./tests/ImageBackground";
 import ImageBackgroundV4 from "./tests/ImageBackground.v4";
 import ListView from "./tests/ListView";
+import ListViewNative from "./tests/ListView.nativestack";
 import ListViewV4 from "./tests/ListView.v4";
 import MaterialTopTabs from "./tests/MaterialTopTabs";
 import MaterialTopTabsV4 from "./tests/MaterialTopTabs.v4";
@@ -29,7 +36,6 @@ import ModalSlideFromBottomIOS from "./tests/ModalSlideFromBottomIOS";
 import ModalSlideFromBottomIOSV4 from "./tests/ModalSlideFromBottomIOS.v4";
 import ModalStack from "./tests/ModalStack";
 import ModalStackV4 from "./tests/ModalStack.v4";
-import NativeStack from "./tests/NativeStack";
 import NestedStack from "./tests/NestedStack";
 import NestedStackV4 from "./tests/NestedStack.v4";
 import NestedStack2 from "./tests/NestedStack2";
@@ -56,14 +62,30 @@ if (Platform.OS === "android") {
 export default () => (
   <SafeAreaProvider>
     <Tests>
-      <Test title="NativeStack" Component={NativeStack} />
       <Test
         title="DefaultStack"
         ComponentV4={DefaultStackV4}
         Component={DefaultStack}
+        ComponentNative={DefaultStackNative}
       />
-      <Test title="CardView" ComponentV4={CardViewV4} Component={CardView} />
-      <Test title="ListView" ComponentV4={ListViewV4} Component={ListView} />
+      <Test
+        title="CardView"
+        ComponentV4={CardViewV4}
+        Component={CardView}
+        ComponentNative={CardViewNative}
+      />
+      <Test
+        title="ListView"
+        ComponentV4={ListViewV4}
+        Component={ListView}
+        ComponentNative={ListViewNative}
+      />
+      <Test
+        title="Fade"
+        ComponentV4={FadeV4}
+        Component={Fade}
+        ComponentNative={FadeNative}
+      />
       <Test
         title="SlideFromRightIOS"
         ComponentV4={SlideFromRightIOSV4}
@@ -83,6 +105,7 @@ export default () => (
         title="FadeFromBottomAndroid"
         ComponentV4={FadeFromBottomAndroidV4}
         Component={FadeFromBottomAndroid}
+        ComponentNative={FadeFromBottomAndroidNative}
       />
       <Test
         title="ForwardOnly"
