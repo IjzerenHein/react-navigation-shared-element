@@ -57,7 +57,7 @@ export default class SharedElementRendererData
   private scenes: SceneRoute[] = [];
   private updateSubscribers = new Set<SharedElementRendererUpdateHandler>();
 
-  // Data for detecting route changes. `route` indicates the route being
+  // Data for detecting route changes. `nextRoute` indicates the route being
   // navigated to (being shown). `prevRoute` indicates the route the navigator
   // is coming from (being hidden). `routeAnimValue` is the Animated.Value,
   // going from 0 (prev route shown) to 1 (new route shown). All three need
@@ -65,6 +65,7 @@ export default class SharedElementRendererData
   // This data is collected through a combination of `focus`, `startTransition`
   // and `endTransition` events that are emitted by the router.
   private route: SharedElementRoute | null = null;
+  private nextRoute: SharedElementRoute | null = null;
   private prevRoute: SharedElementRoute | null = null;
   private routeAnimValue: SharedElementAnimatedValue;
   private isTransitionStarted: boolean = false;
@@ -74,7 +75,7 @@ export default class SharedElementRendererData
 
   private sharedElements: SharedElementsStrictConfig | null = null;
   private isShowing: boolean = true;
-  private scene: SharedElementSceneData | null = null;
+  private nextScene: SharedElementSceneData | null = null;
   private prevScene: SharedElementSceneData | null = null;
   private sceneAnimValue: SharedElementAnimatedValue;
 
@@ -120,25 +121,29 @@ export default class SharedElementRendererData
     const { navigatorId, nestingDepth } = scene;
     if (this.debug)
       console.debug(
-        `[${navigatorId}]startTransition, closing: ${closing}, nestingDepth: ${nestingDepth}`
+        `[${navigatorId}]startTransition, closing: ${closing}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
       );
 
-    if (!this.isTransitionStarted || this.route) {
-      this.prevRoute = this.route;
-      this.route = null;
-      this.routeAnimValue = null;
+    if (scene.route) {
+      if (!this.route && !closing) this.route = scene.route;
+      if (!this.prevRoute && closing) this.prevRoute = scene.route;
+      if (!this.nextRoute && !closing) this.nextRoute = scene.route;
+    }
 
-      // When a transition wasn't completely fully, but a new transition
-      // has already started, then the `willBlur` event is not called.
-      // For this particular case, we capture the animation-value of the
-      // last (previous) scene that is now being hidden.
-      if (this.isTransitionStarted) {
-        const scene = this.getScene(this.prevRoute);
-        if (scene) {
-          this.routeAnimValue = scene.getAnimValue(true);
-        }
+    // Try to get the animated-value from the routes
+    if (closing && this.prevRoute) {
+      const scene = this.getScene(this.prevRoute);
+      if (scene?.navigatorId === navigatorId) {
+        this.routeAnimValue = scene?.getAnimValue(false);
       }
+    } /* else if (!closing && this.nextRoute) {
+      const scene = this.getScene(this.nextRoute);
+      if (scene?.navigatorId === navigatorId) {
+        this.routeAnimValue = scene?.getAnimValue(false);
+      }
+    }*/
 
+    if (!this.isTransitionStarted || this.nextRoute) {
       this.isTransitionStarted = true;
       this.isTransitionClosing = closing;
       this.transitionNavigatorId = navigatorId;
@@ -152,6 +157,16 @@ export default class SharedElementRendererData
         this.transitionNestingDepth = nestingDepth;
       }
     }
+
+    console.log(
+      `Prev-route: ${this.prevRoute?.name}, Next-route:  ${this.nextRoute?.name}, anim-value: ${this.routeAnimValue}`
+    );
+
+    // Update transition
+    if (this.prevRoute && this.nextRoute && this.routeAnimValue) {
+      this.updateSceneListeners();
+      this.updateSharedElements();
+    }
   }
 
   private endTransition(scene: SharedElementSceneData, closing: boolean) {
@@ -160,7 +175,7 @@ export default class SharedElementRendererData
     const { navigatorId, nestingDepth } = scene;
     if (this.debug)
       console.debug(
-        `[${navigatorId}]endTransition, closing: ${closing}, nestingDepth: ${nestingDepth}`
+        `[${navigatorId}]endTransition, closing: ${closing}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
       );
 
     if (
@@ -172,7 +187,9 @@ export default class SharedElementRendererData
 
     this.isTransitionStarted = false;
 
-    if (this.prevRoute != null) {
+    // End transition
+    if (this.nextRoute || this.prevRoute || this.routeAnimValue) {
+      this.nextRoute = null;
       this.prevRoute = null;
       this.routeAnimValue = null;
       this.updateSceneListeners();
@@ -187,36 +204,38 @@ export default class SharedElementRendererData
       );
     this.registerScene(scene);
 
-    // Wait for a transition start, before starting any animations
-    if (!this.isTransitionStarted) return;
-
-    // Use the animation value from the navigator that
-    // started the transition
-    if (this.prevRoute) {
-      const routeScene = this.isTransitionClosing
-        ? this.getScene(this.prevRoute)
-        : scene;
-      if (routeScene?.navigatorId === this.transitionNavigatorId) {
-        this.routeAnimValue = routeScene?.getAnimValue(
-          this.isTransitionClosing
-        );
-      }
-    }
+    if (!this.route) this.route = scene.route;
+    if (!this.prevRoute) this.prevRoute = this.route;
 
     // In case of nested navigators, multiple scenes will become
     // activated. Make sure to use the scene that is nested most deeply,
     // as this will be the one visible to the user
-    if (!this.route) {
-      this.route = scene.route;
+    if (!this.nextRoute) {
+      this.nextRoute = scene.route;
     } else {
-      const routeScene = this.getScene(this.route);
-      if (routeScene && routeScene.nestingDepth <= scene.nestingDepth) {
-        this.route = scene.route;
+      const nextScene = this.getScene(this.nextRoute);
+      if (nextScene && nextScene.nestingDepth <= scene.nestingDepth) {
+        this.nextRoute = scene.route;
+      }
+    }
+
+    // Try to get the animated-value from the routes
+    if (this.isTransitionStarted) {
+      if (this.isTransitionClosing && this.prevRoute) {
+        const scene = this.getScene(this.prevRoute);
+        if (scene?.navigatorId === this.transitionNavigatorId) {
+          this.routeAnimValue = scene?.getAnimValue(true);
+        }
+      } else if (!this.isTransitionClosing && this.nextRoute) {
+        const scene = this.getScene(this.nextRoute);
+        if (scene?.navigatorId === this.transitionNavigatorId) {
+          this.routeAnimValue = scene?.getAnimValue(false);
+        }
       }
     }
 
     // Update transition
-    if (this.prevRoute && this.route && this.routeAnimValue) {
+    if (this.prevRoute && this.nextRoute && this.routeAnimValue) {
       this.updateSceneListeners();
       this.updateSharedElements();
     }
@@ -228,7 +247,7 @@ export default class SharedElementRendererData
         `[${scene.navigatorId}]didFocus, scene: "${scene.name}", depth: ${scene.nestingDepth}`
       );
 
-    if (!this.route || this.prevRoute) {
+    if (!this.route || !this.prevRoute) {
       this.route = scene.route;
     } else {
       const routeScene = this.getScene(this.route);
@@ -236,6 +255,7 @@ export default class SharedElementRendererData
         this.route = scene.route;
       }
     }
+
     this.registerScene(scene);
   }
 
@@ -282,7 +302,7 @@ export default class SharedElementRendererData
     this.scenes.forEach((sceneRoute) => {
       const { scene, subscription } = sceneRoute;
       const isActive =
-        (this.route && this.route.key === scene.route.key) ||
+        (this.nextRoute && this.nextRoute.key === scene.route.key) ||
         (this.prevRoute && this.prevRoute.key === scene.route.key);
       if (isActive && !subscription) {
         sceneRoute.subscription = scene.addUpdateListener(() => {
@@ -306,30 +326,40 @@ export default class SharedElementRendererData
   }
 
   private updateSharedElements() {
-    const { route, prevRoute, routeAnimValue } = this;
-    const scene = this.getScene(route);
+    const { nextRoute, prevRoute, routeAnimValue } = this;
+    const nextScene = this.getScene(nextRoute);
     const prevScene = this.getScene(prevRoute);
     const sceneAnimValue = routeAnimValue;
 
     // Update current scene & previous scene
     if (
-      scene === this.scene &&
+      nextScene === this.nextScene &&
       prevScene === this.prevScene &&
       sceneAnimValue === this.sceneAnimValue
     )
       return;
-    this.scene = scene;
+    console.log(
+      `Next scene changed: ${
+        nextScene === this.nextScene ? "NO" : "YES"
+      }, Prev scene changed: ${
+        prevScene === this.prevScene ? "NO" : "YES"
+      }, Anim-value changed: ${
+        sceneAnimValue === this.sceneAnimValue ? "NO" : "YES"
+      }`
+    );
+
+    this.nextScene = nextScene;
     this.prevScene = prevScene;
     this.sceneAnimValue = sceneAnimValue;
 
     // Update shared elements
     let sharedElements: SharedElementsStrictConfig | null = null;
     let isShowing = true;
-    if (sceneAnimValue && scene && prevScene && route && prevRoute) {
-      sharedElements = getSharedElements(scene, prevScene, true);
+    if (sceneAnimValue && nextScene && prevScene && nextRoute && prevRoute) {
+      sharedElements = getSharedElements(nextScene, prevScene, true);
       if (!sharedElements) {
         isShowing = false;
-        sharedElements = getSharedElements(prevScene, scene, false);
+        sharedElements = getSharedElements(prevScene, nextScene, false);
       }
     }
     if (this.sharedElements !== sharedElements) {
@@ -337,11 +367,11 @@ export default class SharedElementRendererData
         if (sharedElements) {
           console.debug(
             `Transition start: "${prevScene?.name}" -> "${
-              scene?.name
+              nextScene?.name
             }", elements: ${JSON.stringify(sharedElements, undefined, 2)}`
           );
         } else {
-          console.debug(`Transition end: "${scene?.name}"`);
+          console.debug(`Transition end: "${nextScene?.name}"`);
         }
       }
       this.sharedElements = sharedElements;
@@ -370,23 +400,23 @@ export default class SharedElementRendererData
   }
 
   getTransitions(): SharedElementTransitionProps[] {
-    const { sharedElements, prevScene, scene, isShowing, sceneAnimValue } =
+    const { sharedElements, prevScene, nextScene, isShowing, sceneAnimValue } =
       this;
 
-    if (!sharedElements || !scene || !prevScene) return NO_SHARED_ELEMENTS;
+    if (!sharedElements || !nextScene || !prevScene) return NO_SHARED_ELEMENTS;
     return sharedElements.map(({ id, otherId, ...other }) => {
       const startId = isShowing ? otherId || id : id;
       const endId = isShowing ? id : otherId || id;
       return {
-        key: scene.route.key,
+        key: nextScene.route.key,
         position: sceneAnimValue,
         start: {
           ancestor: (prevScene ? prevScene.getAncestor() : undefined) || null,
           node: (prevScene ? prevScene.getNode(startId) : undefined) || null,
         },
         end: {
-          ancestor: (scene ? scene.getAncestor() : undefined) || null,
-          node: (scene ? scene.getNode(endId) : undefined) || null,
+          ancestor: (nextScene ? nextScene.getAncestor() : undefined) || null,
+          node: (nextScene ? nextScene.getNode(endId) : undefined) || null,
         },
         ...other,
       };
