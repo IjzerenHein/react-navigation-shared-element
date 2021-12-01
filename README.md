@@ -38,7 +38,6 @@ The following versions or react-navigation and the stack navigator are supported
 ## Demo App
 
 - [./example](./example)
-- [react-navigation-shared-element-demo](https://github.com/IjzerenHein/react-navigation-shared-element-demo)
 
 ## Videos
 
