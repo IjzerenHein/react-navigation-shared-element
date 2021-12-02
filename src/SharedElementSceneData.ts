@@ -1,3 +1,4 @@
+import type { ISharedElementRendererData } from "./SharedElementRendererData";
 import {
   SharedElementNode,
   SharedElementEventSubscription,
@@ -31,7 +32,8 @@ export type SharedElementSceneEventType =
   | "startOpenTransition"
   | "startClosingTransition"
   | "endOpenTransition"
-  | "endClosingTransition";
+  | "endClosingTransition"
+  | "updateAnimValue";
 
 export default class SharedElementSceneData {
   private updateSubscribers = new Set<SharedElementSceneUpdateHandler>();
@@ -47,6 +49,7 @@ export default class SharedElementSceneData {
   public readonly debug: boolean;
   public readonly route: SharedElementRoute;
   public readonly isNativeNavigator: boolean;
+  public readonly rendererData: ISharedElementRendererData;
 
   constructor(
     Component: SharedElementSceneComponent,
@@ -55,7 +58,8 @@ export default class SharedElementSceneData {
     navigatorId: string,
     nestingDepth: number,
     debug: boolean,
-    isNativeNavigator: boolean
+    isNativeNavigator: boolean,
+    rendererData: ISharedElementRendererData
   ) {
     this.getSharedElements = getSharedElements;
     this.route = route;
@@ -68,6 +72,7 @@ export default class SharedElementSceneData {
       (Component.constructor ? Component.constructor.name : undefined) ||
       "";
     this.isNativeNavigator = isNativeNavigator;
+    this.rendererData = rendererData;
   }
 
   public updateRoute(route: SharedElementRoute) {

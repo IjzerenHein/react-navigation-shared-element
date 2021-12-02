@@ -62,7 +62,8 @@ function createSharedElementScene(
         navigatorId,
         rendererData.nestingDepth,
         verbose,
-        false
+        false,
+        rendererData
       );
 
     componentDidMount() {

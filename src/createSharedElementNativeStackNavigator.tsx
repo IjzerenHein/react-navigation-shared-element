@@ -41,8 +41,31 @@ function CaptureProgressComponent(props: {
   sceneData: SharedElementSceneData;
 }): React.ReactElement<any, any> {
   const { progress } = useTransitionProgress();
-  // console.log("ONPROGRESS", progress);
+  /* const [isClosing, setClosing] = React.useState<boolean | undefined>();
+
+  const onClosing = React.useCallback((state: { value: number }) => {
+    setClosing(() => !!state.value);
+  }, []);
+
+  React.useLayoutEffect(() => {
+    const id = closing.addListener(onClosing);
+    return () => closing.removeListener(id);
+  }, [closing]);
+
+  if (isClosing !== undefined) {
+    props.sceneData.setAnimValue(progress);
+    props.sceneData.rendererData.updateSceneState(
+      isClosing ? "updateClosingAnimValue" : "updateOpenAnimValue",
+      props.sceneData
+    );
+  }*/
+
   props.sceneData.setAnimValue(progress);
+  props.sceneData.rendererData.updateSceneState(
+    "updateAnimValue",
+    props.sceneData
+  );
+
   // @ts-ignore
   return null;
 }

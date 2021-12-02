@@ -90,7 +90,8 @@ function createSharedElementScene(config: {
       navigatorId,
       rendererData.nestingDepth,
       verbose,
-      isNativeNavigator ?? false
+      isNativeNavigator ?? false,
+      rendererData
     );
 
     static readonly config = config;

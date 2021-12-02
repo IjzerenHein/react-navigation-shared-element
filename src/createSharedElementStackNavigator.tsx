@@ -49,6 +49,10 @@ function CaptureProgressComponent(props: {
     <CardAnimationContext.Consumer>
       {(value: StackCardInterpolationProps | undefined) => {
         props.sceneData.setAnimValue(value?.current?.progress);
+        props.sceneData.rendererData.updateSceneState(
+          "updateAnimValue",
+          props.sceneData
+        );
         return null;
       }}
     </CardAnimationContext.Consumer>

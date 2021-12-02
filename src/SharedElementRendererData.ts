@@ -90,8 +90,8 @@ export default class SharedElementRendererData
         return this.willFocusScene(scene);
       case "didFocus":
         return this.didFocusScene(scene);
-      /*case "willBlur":
-        return this.willBlurScene(scene);*/
+      case "willBlur":
+        return this.willBlurScene(scene);
       case "startOpenTransition":
         return this.startTransition(scene, false);
       case "startClosingTransition":
@@ -100,6 +100,8 @@ export default class SharedElementRendererData
         return this.endTransition(scene, false);
       case "endClosingTransition":
         return this.endTransition(scene, true);
+      case "updateAnimValue":
+        return this.updateAnimValue(scene);
     }
   }
 
@@ -113,6 +115,14 @@ export default class SharedElementRendererData
 
   get debug() {
     return this.debugRefCount > 0;
+  }
+
+  private updateAnimValue(scene: SharedElementSceneData) {
+    /* const { navigatorId, nestingDepth } = scene;
+    if (this.debug)
+      console.debug(
+        `[${navigatorId}]updateAnimValue, closing: ${closing}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
+      ); */
   }
 
   private startTransition(scene: SharedElementSceneData, closing: boolean) {
@@ -136,12 +146,12 @@ export default class SharedElementRendererData
       if (scene?.navigatorId === navigatorId) {
         this.routeAnimValue = scene?.getAnimValue(false);
       }
-    } /* else if (!closing && this.nextRoute) {
-      const scene = this.getScene(this.nextRoute);
-      if (scene?.navigatorId === navigatorId) {
-        this.routeAnimValue = scene?.getAnimValue(false);
-      }
-    }*/
+    } // else if (!closing && this.nextRoute) {
+    // const scene = this.getScene(this.nextRoute);
+    // if (scene?.navigatorId === navigatorId) {
+    //  this.routeAnimValue = scene?.getAnimValue(false);
+    // }
+    // }
 
     if (!this.isTransitionStarted || this.nextRoute) {
       this.isTransitionStarted = true;
@@ -259,31 +269,12 @@ export default class SharedElementRendererData
     this.registerScene(scene);
   }
 
-  /*private willBlurScene(scene: SharedElementSceneData): void {
+  private willBlurScene(scene: SharedElementSceneData): void {
     if (this.debug)
       console.debug(
         `[${scene.navigatorId}]willBlur, scene: "${scene.name}", depth: ${scene.nestingDepth}`
       );
-
-    // Wait for a transition start, before starting any animations
-    if (!this.isTransitionStarted) return;
-
-    // Use the animation value from the navigator that
-    // started the transition
-    if (
-      this.isTransitionClosing &&
-      scene.navigatorId === this.transitionNavigatorId &&
-      !this.routeAnimValue
-    ) {
-      this.routeAnimValue = scene.getAnimValue(this.isTransitionClosing);
-    }
-
-    // Update transition
-    if (this.prevRoute && this.route && this.routeAnimValue) {
-      this.updateSceneListeners();
-      this.updateSharedElements();
-    }
-  }*/
+  }
 
   private registerScene(scene: SharedElementSceneData) {
     this.scenes.push({
