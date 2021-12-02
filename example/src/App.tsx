@@ -50,7 +50,7 @@ export default () => (
       <Test {...BottomTabs} />
       <Test {...BottomTabs2} />
       <Test {...MaterialTopTabs} />
-      <Test {...SafeAreaView} issue />
+      <Test {...SafeAreaView} issue={["v4", "v6"]} />
       <Test {...WrongIds} />
       <Test {...ImageBackground} issue />
       <Test {...TextInputStack} />

@@ -1,6 +1,10 @@
+import * as React from "react";
+import { Platform } from "react-native";
+
+import { Test } from "../../components";
 import createComponent from "./test-native";
 
-export default [
+const nativeAnimations: React.ComponentProps<typeof Test>[] = [
   {
     title: "Animation: default",
     Component: null,
@@ -20,10 +24,14 @@ export default [
     ComponentNative: createComponent("fade_from_bottom"),
   },
   {
-    title: "Animation: flip",
+    title: "Animation: flip (modal)",
     Component: null,
     ComponentV4: null,
-    ComponentNative: createComponent("flip"),
+    ComponentNative:
+      Platform.OS === "ios"
+        ? createComponent("flip", { presentation: "modal" })
+        : null,
+    issue: true,
   },
   {
     title: "Animation: none",
@@ -35,13 +43,17 @@ export default [
     title: "Animation: simple_push",
     Component: null,
     ComponentV4: null,
-    ComponentNative: createComponent("simple_push"),
+    ComponentNative:
+      Platform.OS === "ios" ? createComponent("simple_push") : null,
   },
   {
-    title: "Animation: slide_from_bottom",
+    title: "Animation: slide_from_bottom (modal)",
     Component: null,
     ComponentV4: null,
-    ComponentNative: createComponent("slide_from_bottom"),
+    ComponentNative: createComponent("slide_from_bottom", {
+      presentation: "modal",
+    }),
+    issue: true,
   },
   {
     title: "Animation: slide_from_right",
@@ -53,6 +65,9 @@ export default [
     title: "Animation: slide_from_left",
     Component: null,
     ComponentV4: null,
-    ComponentNative: createComponent("slide_from_left"),
+    ComponentNative:
+      Platform.OS === "android" ? createComponent("slide_from_left") : null,
   },
 ];
+
+export default nativeAnimations;

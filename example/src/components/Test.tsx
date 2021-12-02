@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
@@ -17,18 +17,11 @@ type Props = {
   native?: boolean;
 };
 
-function onPressInvalidTest(Component?: React.ComponentType<any> | null) {
-  if (Component === null) {
-    Alert.alert(
-      "Not supported",
-      "This test is not supported by this stack-navigator"
-    );
-  } else {
-    Alert.alert(
-      "No test available",
-      "Please help out by creating a PR for this test-case."
-    );
-  }
+function onPressInvalidTest(_Component?: React.ComponentType<any> | null) {
+  Alert.alert(
+    "No test available",
+    "Please help out by creating a PR for this test-case."
+  );
 }
 
 export const Test = (props: Props) => {
@@ -52,7 +45,8 @@ export const Test = (props: Props) => {
     issue === true ||
     (Array.isArray(issue) &&
       ((v4 && issue.includes("v4")) ||
-        (!v4 && (issue.includes("v5") || issue.includes("v6")))));
+        (!v4 && !native && (issue.includes("v5") || issue.includes("v6"))) ||
+        (native && issue.includes("native"))));
   return (
     <TouchableOpacity
       style={styles.container}
@@ -61,11 +55,7 @@ export const Test = (props: Props) => {
     >
       <Text style={[styles.text, !isValid && styles.textInvalid]}>{title}</Text>
       {hasIssue ? (
-        <View style={styles.badgeContainer}>
-          <Text style={styles.badge}>
-            {`issue${Array.isArray(issue) ? ": " + issue.join(",") : ""}`}
-          </Text>
-        </View>
+        <Icon name="information-circle" color={Colors.red} size={26} />
       ) : undefined}
       <Icon
         style={[styles.icon, !isValid && styles.iconInvalid]}
@@ -111,16 +101,5 @@ const styles = StyleSheet.create({
     flex: 1,
     marginStart: 20,
     opacity: 0.5,
-  },
-  badgeContainer: {
-    backgroundColor: Colors.red,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 16,
-  },
-  badge: {
-    fontSize: 12,
-    fontWeight: "bold",
-    color: Colors.white,
   },
 });

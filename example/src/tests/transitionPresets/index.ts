@@ -1,7 +1,10 @@
+import * as React from "react";
+
+import { Test } from "../../components";
 import createComponent from "./test";
 import createComponentV4 from "./test-v4";
 
-export default [
+const transitionPresets: React.ComponentProps<typeof Test>[] = [
   {
     title: "Preset: SlideFromRightIOS",
     Component: createComponent("SlideFromRightIOS"),
@@ -19,6 +22,7 @@ export default [
     Component: createComponent("ModalPresentationIOS"),
     ComponentV4: createComponentV4("ModalPresentationIOS"),
     ComponentNative: null,
+    issue: true,
   },
   {
     title: "Preset: FadeFromBottomAndroid",
@@ -49,6 +53,7 @@ export default [
     Component: createComponent("ModalTransition"),
     ComponentV4: createComponentV4("ModalTransition"),
     ComponentNative: null,
+    issue: ["v6"],
   },
   {
     title: "Preset: BottomSheetAndroid",
@@ -63,3 +68,5 @@ export default [
     ComponentNative: null,
   },
 ];
+
+export default transitionPresets;
