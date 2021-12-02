@@ -48,13 +48,19 @@ export const Tests = (props: Props) => {
       )}
       {!test && (
         <ScrollView style={styles.content}>
-          {React.Children.map(props.children, (test) =>
-            React.cloneElement(test, {
+          {React.Children.map(props.children, (test) => {
+            if (tabIndex === 0 && test.props.ComponentV4 === null)
+              return undefined;
+            if (tabIndex === 1 && test.props.Component === null)
+              return undefined;
+            if (tabIndex === 2 && test.props.ComponentNative === null)
+              return undefined;
+            return React.cloneElement(test, {
               v4: tabIndex === 0,
               native: tabIndex === 2,
               onPress: (Component: React.ComponentType<any>) => setTest(test),
-            })
-          )}
+            });
+          })}
         </ScrollView>
       )}
       <View

@@ -17,11 +17,18 @@ type Props = {
   native?: boolean;
 };
 
-function onPressInvalidTest() {
-  Alert.alert(
-    "No test available",
-    "Please help out by creating a PR for this test-case."
-  );
+function onPressInvalidTest(Component?: React.ComponentType<any> | null) {
+  if (Component === null) {
+    Alert.alert(
+      "Not supported",
+      "This test is not supported by this stack-navigator"
+    );
+  } else {
+    Alert.alert(
+      "No test available",
+      "Please help out by creating a PR for this test-case."
+    );
+  }
 }
 
 export const Test = (props: Props) => {
@@ -35,17 +42,12 @@ export const Test = (props: Props) => {
     native,
     issue,
   } = props;
-  const isValid =
-    (v4 && ComponentV4) ||
-    (!v4 && !native && Component) ||
-    (native && ComponentNative);
-  if (!Component && !ComponentV4 && !ComponentNative) {
-    return (
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionText}>{title.toUpperCase()}</Text>
-      </View>
-    );
-  }
+  const ActiveComponent = v4
+    ? ComponentV4
+    : native
+    ? ComponentNative
+    : Component;
+  const isValid = !!ActiveComponent;
   const hasIssue =
     issue === true ||
     (Array.isArray(issue) &&
@@ -55,7 +57,7 @@ export const Test = (props: Props) => {
     <TouchableOpacity
       style={styles.container}
       activeOpacity={0.5}
-      onPress={isValid ? onPress : onPressInvalidTest}
+      onPress={isValid ? onPress : () => onPressInvalidTest(ActiveComponent)}
     >
       <Text style={[styles.text, !isValid && styles.textInvalid]}>{title}</Text>
       {hasIssue ? (
