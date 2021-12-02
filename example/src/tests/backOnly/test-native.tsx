@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
-import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element";
+import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element/build/native-stack";
 
 import { MainScreen, DetailScreen } from "../../screens";
 import { getDetailSharedElements } from "../../screens/getDetailSharedElements";

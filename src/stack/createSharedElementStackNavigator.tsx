@@ -24,18 +24,18 @@ import type {
 import * as React from "react";
 import { Platform } from "react-native";
 
-import { useSharedElementFocusEvents } from "./SharedElementFocusEvents";
-import SharedElementRendererContext from "./SharedElementRendererContext";
-import SharedElementRendererData from "./SharedElementRendererData";
-import { SharedElementRendererProxy } from "./SharedElementRendererProxy";
-import SharedElementRendererView from "./SharedElementRendererView";
-import SharedElementSceneData from "./SharedElementSceneData";
-import createSharedElementScene from "./createSharedElementScene";
+import { useSharedElementFocusEvents } from "../SharedElementFocusEvents";
+import SharedElementRendererContext from "../SharedElementRendererContext";
+import SharedElementRendererData from "../SharedElementRendererData";
+import { SharedElementRendererProxy } from "../SharedElementRendererProxy";
+import SharedElementRendererView from "../SharedElementRendererView";
+import SharedElementSceneData from "../SharedElementSceneData";
+import createSharedElementScene from "../createSharedElementScene";
 import {
   SharedElementSceneComponent,
   SharedElementsComponentConfig,
-} from "./types";
-import { EventEmitter } from "./utils/EventEmitter";
+} from "../types";
+import { EventEmitter } from "../utils/EventEmitter";
 
 let _navigatorId = 1;
 

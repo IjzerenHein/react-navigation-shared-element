@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { TransitionPresets } from "@react-navigation/stack";
 import * as React from "react";
-import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element";
+import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element/build/native-stack";
 
 import { MainScreen, DetailScreen, createScreen } from "../../screens";
 import * as options from "./options";

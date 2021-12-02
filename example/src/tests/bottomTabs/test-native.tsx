@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
-import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element";
+import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element/build/native-stack";
 
 import { TabBarIcon } from "../../components";
 import { MainScreen, DetailScreen } from "../../screens";

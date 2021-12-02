@@ -1,5 +1,5 @@
 import { Route, NavigationState } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import type { StackNavigationProp } from "@react-navigation/stack";
 import hoistNonReactStatics from "hoist-non-react-statics";
 import * as React from "react";
 import { View, StyleSheet, InteractionManager } from "react-native";
