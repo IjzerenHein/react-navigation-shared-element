@@ -178,11 +178,20 @@ function createSharedElementScene(config: {
     };
 
     private onWillBlur = () => {
-      const { route } = this.props;
+      const { navigation, route } = this.props;
 
       // console.log("onWillBlur: ", route);
-      this.sceneData.updateRoute(route);
-      //rendererData.updateSceneState("willBlur", this.sceneData);
+      if (!isActiveRoute(navigation, route)) {
+        this.sceneData.updateRoute(route);
+        rendererData.updateSceneState("willBlur", this.sceneData);
+        /*if (!isNativeNavigator) {
+          InteractionManager.runAfterInteractions(() => {
+            //console.log("onDidBlur: ", this.props.route);
+            this.sceneData.updateRoute(this.props.route);
+            rendererData.updateSceneState("didBlur", this.sceneData);
+          });
+        }*/
+      }
     };
   }
 
