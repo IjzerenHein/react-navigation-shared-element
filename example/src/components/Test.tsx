@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
 
-type Issue = "android" | "ios" | "v4" | "v5" | "v6" | "native";
+type Issue = "v4" | "v6" | "native";
 
 type Props = {
   title: string;
@@ -45,7 +45,7 @@ export const Test = (props: Props) => {
     issue === true ||
     (Array.isArray(issue) &&
       ((v4 && issue.includes("v4")) ||
-        (!v4 && !native && (issue.includes("v5") || issue.includes("v6"))) ||
+        (!v4 && !native && issue.includes("v6")) ||
         (native && issue.includes("native"))));
   return (
     <TouchableOpacity
