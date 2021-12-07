@@ -5,14 +5,6 @@ React Navigation bindings for [react-native-shared-element](https://github.com/I
 ![react-navigation-shared-element-gif-iOS](rnse-ios.gif)
 ![react-navigation-shared-element-gif-Android](rnse-android.gif)
 
-# ⭐️ ⭐️ Support native-stack development! ⭐️ ⭐️
-
-Do you like this library and would you like to support it? [Due to popular demand we've created a money-pool](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14) to implement support for [@react-navigation/native-stack](https://reactnavigation.org/docs/native-stack-navigator/). All funds will be used to implement this feature as well as for continued development this library and [react-native-shared-element](https://github.com/IjzerenHein/react-native-shared-element).
-
-https://paypal.me/pools/c/8Cyt3ED5wV
-
-Many thanks to all the sponsors so far! ❤️
-
 ## Documentation
 
 - [Shared element for the React Navigation 5/6 API](./docs/API.md)
@@ -31,7 +23,7 @@ The following versions or react-navigation and the stack navigator are supported
 
 ## Things to know
 
-- `react-navigation-shared-element` uses the [JS based Stack Navigator](https://reactnavigation.org/docs/stack-navigator). The [Native Stack Navigator](https://reactnavigation.org/docs/native-stack-navigator) is not yet supported and it is not yet clear whether this can be supported in the future.
+- `react-navigation-shared-element` uses the [JS based Stack Navigator](https://reactnavigation.org/docs/stack-navigator). The [Native Stack Navigator](https://reactnavigation.org/docs/native-stack-navigator) is currently [under development here](https://github.com/IjzerenHein/react-navigation-shared-element/tree/native-stack). Also see [this issue](https://github.com/IjzerenHein/react-navigation-shared-element/issues/14).
 - [React Navigation 6 `Group` components](https://reactnavigation.org/docs/group/) are not yet supported.
 - On [detaching inactive screens](https://reactnavigation.org/docs/stack-navigator/#detachinactivescreens) a blink may occur on Android. Because of this `detachInactiveScreens` is set to `false` by default on Android.
 
