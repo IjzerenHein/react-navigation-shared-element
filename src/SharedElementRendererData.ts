@@ -85,24 +85,70 @@ export default class SharedElementRendererData
     eventType: SharedElementSceneEventType,
     scene: SharedElementSceneData
   ): void {
-    switch (eventType) {
-      case "willFocus":
-        return this.willFocusScene(scene);
-      case "didFocus":
-        return this.didFocusScene(scene);
-      case "willBlur":
-        return this.willBlurScene(scene);
-      case "startOpenTransition":
-        return this.startTransition(scene, false);
-      case "startClosingTransition":
-        return this.startTransition(scene, true);
-      case "endOpenTransition":
-        return this.endTransition(scene, false);
-      case "endClosingTransition":
-        return this.endTransition(scene, true);
-      case "updateAnimValue":
-        return this.updateAnimValue(scene);
+    if (this.debug) {
+      const { navigatorId, nestingDepth } = scene;
+      console.debug(
+        `[${navigatorId}]${eventType}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
+      );
     }
+
+    // Initialize current route if needed
+    if (!this.route && scene.route) this.route = scene.route;
+    if (!this.prevRoute && this.route) this.prevRoute = this.route;
+
+    const isNative = false;
+    if (isNative) {
+      switch (eventType) {
+        case "willFocus":
+          // TODO
+          break;
+        case "willBlur":
+          // TODO
+          break;
+        /* case "startOpenTransition":
+        case "startClosingTransition":
+          {
+            const closing = eventType === "startClosingTransition";
+            this.startSceneTransition(scene, closing);
+          }
+          break; */
+        case "endOpenTransition":
+        case "endClosingTransition":
+          // const closing = eventType === "endClosingTransition";
+          // this.endSceneTransition(scene, closing);
+          this.endTransitions();
+          break;
+        /* case "updateAnimValue":
+          break; */
+      }
+    } else {
+      // Traditional implementation
+      switch (eventType) {
+        case "willFocus":
+          this.registerScene(scene);
+          this.updateNextRoute(scene);
+          break;
+        case "didFocus":
+          this.route = scene.route;
+          this.registerScene(scene);
+          break;
+        case "startOpenTransition":
+        case "startClosingTransition":
+          {
+            const closing = eventType === "startClosingTransition";
+            this.startSceneTransition(scene, closing);
+          }
+          break;
+        case "endOpenTransition":
+        case "endClosingTransition":
+          // const closing = eventType === "endClosingTransition";
+          // this.endSceneTransition(scene, closing);
+          this.endTransitions();
+          break;
+      }
+    }
+
+    this.startTransitionsIfNeeded();
   }
 
   addDebugRef(): number {
@@ -117,22 +163,30 @@ export default class SharedElementRendererData
     return this.debugRefCount > 0;
   }
 
-  private updateAnimValue(scene: SharedElementSceneData) {
-    /* const { navigatorId, nestingDepth } = scene;
-    if (this.debug)
-      console.debug(
-        `[${navigatorId}]updateAnimValue, closing: ${closing}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
-      ); */
+  private startTransitionsIfNeeded() {
+    if (this.prevRoute && this.nextRoute && this.routeAnimValue) {
+      this.updateSceneListeners();
+      this.updateSharedElements();
+    }
   }
 
-  private startTransition(scene: SharedElementSceneData, closing: boolean) {
+  private endTransitions() {
+    if (this.nextRoute || this.prevRoute || this.routeAnimValue) {
+      this.nextRoute = null;
+      this.prevRoute = null;
+      this.routeAnimValue = null;
+      this.updateSceneListeners();
+      this.updateSharedElements();
+    }
+  }
+
+  private startSceneTransition(
+    scene: SharedElementSceneData,
+    closing: boolean
+  ) {
     // NOTE: For react-navigation 4, only the navigatorId and nestingDepth fields are supported
     // so do not use any of the other fields here, because doing so will [break stuff](https://www.youtube.com/watch?v=ZpUYjpKg9KY)
-    const { navigatorId, nestingDepth } = scene;
-    if (this.debug)
-      console.debug(
-        `[${navigatorId}]startTransition, closing: ${closing}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
-      );
+    /* const { navigatorId, nestingDepth } = scene;
 
     if (scene.route) {
       if (!this.route && !closing) this.route = scene.route;
@@ -172,21 +226,14 @@ export default class SharedElementRendererData
       `Prev-route: ${this.prevRoute?.name}, Next-route:  ${this.nextRoute?.name}, anim-value: ${this.routeAnimValue}`
     );
 
-    // Update transition
-    if (this.prevRoute && this.nextRoute && this.routeAnimValue) {
-      this.updateSceneListeners();
-      this.updateSharedElements();
-    }
+    this.startTransitionsIfNeeded();
+     */
   }
 
-  private endTransition(scene: SharedElementSceneData, closing: boolean) {
+  /* private endSceneTransition(scene: SharedElementSceneData, closing: boolean) {
     // NOTE: For react-navigation 4, only the navigatorId and nestingDepth fields are supported
     // so do not use any of the other fields here, because doing so will [break stuff](https://www.youtube.com/watch?v=ZpUYjpKg9KY)
-    const { navigatorId, nestingDepth } = scene;
-    if (this.debug)
-      console.debug(
-        `[${navigatorId}]endTransition, closing: ${closing}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
-      );
+    // const { navigatorId } = scene;
 
     if (
       !this.isTransitionStarted ||
@@ -197,26 +244,11 @@ export default class SharedElementRendererData
 
     this.isTransitionStarted = false;
 
-    // End transition
-    if (this.nextRoute || this.prevRoute || this.routeAnimValue) {
-      this.nextRoute = null;
-      this.prevRoute = null;
-      this.routeAnimValue = null;
-      this.updateSceneListeners();
-      this.updateSharedElements();
-    }
-  }
+    // End transitions
+    this.endTransitions();
+  } */
 
-  private willFocusScene(scene: SharedElementSceneData): void {
-    if (this.debug)
-      console.debug(
-        `[${scene.navigatorId}]willFocus, scene: "${scene.name}", depth: ${scene.nestingDepth}, closing: ${this.isTransitionClosing}`
-      );
-    this.registerScene(scene);
-
-    if (!this.route) this.route = scene.route;
-    if (!this.prevRoute) this.prevRoute = this.route;
-
+  private updateNextRoute(scene: SharedElementSceneData) {
     // In case of nested navigators, multiple scenes will become
     // activated. Make sure to use the scene that is nested most deeply,
     // as this will be the one visible to the user
@@ -228,9 +260,14 @@ export default class SharedElementRendererData
         this.nextRoute = scene.route;
       }
     }
+  }
+
+  private willFocusScene(scene: SharedElementSceneData) {
+    this.registerScene(scene);
+    this.updateNextRoute(scene);
 
     // Try to get the animated-value from the routes
-    if (this.isTransitionStarted) {
+    /* if (this.isTransitionStarted) {
       if (this.isTransitionClosing && this.prevRoute) {
         const scene = this.getScene(this.prevRoute);
         if (scene?.navigatorId === this.transitionNavigatorId) {
@@ -242,21 +279,19 @@ export default class SharedElementRendererData
           this.routeAnimValue = scene?.getAnimValue(false);
         }
       }
-    }
+    } */
 
-    // Update transition
-    if (this.prevRoute && this.nextRoute && this.routeAnimValue) {
-      this.updateSceneListeners();
-      this.updateSharedElements();
-    }
+    /* if (this.nextRoute && this.prevRoute && !this.routeAnimValue) {
+      const nextScene = this.getScene(this.nextRoute);
+      const prevScene = this.getScene(this.prevRoute);
+      this.routeAnimValue =
+        nextScene?.getAnimValue(false) ?? prevScene?.getAnimValue(false);
+    }*/
+
+    this.startTransitionsIfNeeded();
   }
 
-  private didFocusScene(scene: SharedElementSceneData): void {
-    if (this.debug)
-      console.debug(
-        `[${scene.navigatorId}]didFocus, scene: "${scene.name}", depth: ${scene.nestingDepth}`
-      );
-
+  /* private didFocusScene(scene: SharedElementSceneData) {
     if (!this.route || !this.prevRoute) {
       this.route = scene.route;
     } else {
@@ -267,14 +302,7 @@ export default class SharedElementRendererData
     }
 
     this.registerScene(scene);
-  }
-
-  private willBlurScene(scene: SharedElementSceneData): void {
-    if (this.debug)
-      console.debug(
-        `[${scene.navigatorId}]willBlur, scene: "${scene.name}", depth: ${scene.nestingDepth}`
-      );
-  }
+  } */
 
   private registerScene(scene: SharedElementSceneData) {
     this.scenes.push({
@@ -394,7 +422,11 @@ export default class SharedElementRendererData
     const { sharedElements, prevScene, nextScene, isShowing, sceneAnimValue } =
       this;
 
-    if (!sharedElements || !nextScene || !prevScene) return NO_SHARED_ELEMENTS;
+    if (!sharedElements || !nextScene || !prevScene) {
+      console.log("NO TRANSITIONS");
+      return NO_SHARED_ELEMENTS;
+    }
+    console.log("TRANSITIONS: ", sharedElements.length);
     return sharedElements.map(({ id, otherId, ...other }) => {
       const startId = isShowing ? otherId || id : id;
       const endId = isShowing ? id : otherId || id;
