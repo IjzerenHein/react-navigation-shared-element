@@ -40,8 +40,8 @@ export const Tests = (props: Props) => {
             selectedIndex={tabIndex}
             onValueChange={(index) => setTabIndex(index)}
           >
-            <Segment label="Stack 4" />
-            <Segment label="Stack 5/6" />
+            <Segment label="Stack (v4)" />
+            <Segment label="Stack" />
             <Segment label="Native Stack" />
           </SegmentControl>
         </View>
