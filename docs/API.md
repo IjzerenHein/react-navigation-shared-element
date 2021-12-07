@@ -17,7 +17,7 @@ Install the latest shared-element libraries.
 $ yarn add react-navigation-shared-element react-native-shared-element
 ```
 
-Enure that the [native extensions are linked into your project](https://github.com/IjzerenHein/react-native-shared-element#installation). This will be already done for you when using Expo 👍
+Ensure that the [native extensions are linked into your project](https://github.com/IjzerenHein/react-native-shared-element#installation). This will be already done for you when using Expo 👍
 
 Finally, make sure that [react-navigation is installed and working correctly.](https://reactnavigation.org/docs/getting-started#installation)
 
