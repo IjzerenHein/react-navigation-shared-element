@@ -27,7 +27,7 @@ const stackNavigator = createSharedElementStackNavigator(
 
 ```jsx
 // react-navigation-shared-element@3
-import { createSharedElementStackNavigator, SharedElement } from 'react-navigation-shared-element/build/v4';
+import { createSharedElementStackNavigator, SharedElement } from 'react-navigation-shared-element/stack-v4';
 
 const stackNavigator = createSharedElementStackNavigator(
   ...
@@ -83,7 +83,7 @@ import { createSharedElementNavigator4, SharedElement } from 'react-navigation-s
 **After**
 
 ```jsx
-import { createSharedElementNavigator, SharedElement } from 'react-navigation-shared-element/build/v4';
+import { createSharedElementNavigator, SharedElement } from 'react-navigation-shared-element/stack-v4';
 ```
 
 

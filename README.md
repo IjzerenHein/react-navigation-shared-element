@@ -17,7 +17,7 @@ The following versions or react-navigation and the stack navigator are supported
 
 | Version                                                                       | React-Navigation | Comments                                                                                                                                                              |
 | ----------------------------------------------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 3.x                                                                           | 4, 5 & 6             | Import from `react-navigation-shared-element/build/v4` to use it with 4.x. |
+| 3.x                                                                           | 4, 5 & 6             | Import from `react-navigation-shared-element/stack-v4` to use it with 4.x. |
 | [2.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v2) | 3 & 4            | This version is compatible with `react-navigation-stack@2`.                                                                                                           |
 | [1.x](https://github.com/IjzerenHein/react-navigation-shared-element/tree/v1) | 3 & 4            | This version is compatible with `react-navigation-stack@1`.                                                                                                           |
 

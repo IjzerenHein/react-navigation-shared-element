@@ -32,7 +32,7 @@ In order to enable shared element transitions, the following steps need to be pe
 ```jsx
 // App.js
 import { NavigationContainer } from '@react-navigation/native';
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element/stack';
 
 const Stack = createSharedElementStackNavigator();
 
@@ -57,7 +57,7 @@ const App = () => {
 
 ```jsx
 // ListScreen.js
-import { SharedElement } from 'react-navigation-shared-element';
+import { SharedElement } from 'react-navigation-shared-element/stack';
 
 class ListScreen extends React.Component {
   renderItem(item) {
@@ -129,7 +129,7 @@ The return value should be either `undefined` or an array of shared-element conf
 
 ```jsx
 import { NavigationContainer } from '@react-navigation/native';
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element/stack';
 
 const Stack = createSharedElementStackNavigator();
 

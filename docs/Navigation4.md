@@ -30,14 +30,14 @@ $ yarn add react-navigation@4 react-navigation-stack@2
 
 In order to enable shared element transitions, the following steps need to be performed
 
-- Import from `react-navigation-shared-element/build/v4`
+- Import from `react-navigation-shared-element/stack-v4`
 - Create a stack-navigator using `createSharedElementStackNavigator`
 - Wrap your component with `<SharedElement>` and provide a unique `id`
 - Define a static `sharedElements` config on the Screen that you want to animate
 
 ```jsx
 // App4x.js
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element/build/v4';
+import { createSharedElementStackNavigator } from 'react-navigation-shared-element/stack-v4';
 
 const stackNavigator = createSharedElementStackNavigator(
   {
@@ -54,7 +54,7 @@ const AppContainer = createAppContainer(stackNavigator);
 
 ```jsx
 // ListScreen.js
-import { SharedElement } from 'react-navigation-shared-element/build/v4';
+import { SharedElement } from 'react-navigation-shared-element/stack-v4';
 
 class ListScreen extends React.Component {
   renderItem(item) {
