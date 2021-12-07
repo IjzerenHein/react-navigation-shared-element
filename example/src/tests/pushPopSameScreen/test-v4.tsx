@@ -2,7 +2,7 @@ import { createAppContainer } from "react-navigation";
 import {
   createSharedElementStackNavigator,
   SharedElementsComponentConfig,
-} from "react-navigation-shared-element/build/v4";
+} from "react-navigation-shared-element/stack-v4";
 
 import { Item, items } from "../../data";
 import { createScreen, DetailScreen } from "../../screens";

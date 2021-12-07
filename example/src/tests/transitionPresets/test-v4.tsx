@@ -1,5 +1,5 @@
 import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element/stack-v4";
 import { TransitionPresets } from "react-navigation-stack";
 
 import { createScreen, MainScreen, DetailScreen } from "../../screens";

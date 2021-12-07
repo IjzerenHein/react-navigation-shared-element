@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element/build/native-stack";
+import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element/native-stack";
 
 import { createScreen, MainScreen, DetailScreen } from "../../screens";
 import * as options from "./options";

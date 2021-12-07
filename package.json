@@ -37,7 +37,10 @@
   "homepage": "https://github.com/IjzerenHein/react-navigation-shared-element#readme",
   "files": [
     "src/",
-    "build/"
+    "build/",
+    "stack/",
+    "native-stack/",
+    "stack-v4/"
   ],
   "dependencies": {
     "hoist-non-react-statics": "^3.3.2"

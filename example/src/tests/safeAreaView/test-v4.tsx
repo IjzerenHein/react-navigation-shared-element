@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element/stack-v4";
 
 import { createScreen, MainScreen, DetailScreen } from "../../screens";
 import * as options from "./options";

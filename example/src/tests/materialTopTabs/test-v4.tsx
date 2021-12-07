@@ -1,5 +1,5 @@
 import { createAppContainer } from "react-navigation";
-import { createSharedElementStackNavigator } from "react-navigation-shared-element/build/v4";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element/stack-v4";
 import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 
 import { createScreen, MainScreen, DetailScreen } from "../../screens";

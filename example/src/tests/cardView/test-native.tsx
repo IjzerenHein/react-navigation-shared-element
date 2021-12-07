@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
-import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element/build/native-stack";
+import { createSharedElementNativeStackNavigator } from "react-navigation-shared-element/native-stack";
 
 import { CardScreen, DetailPagerScreen } from "../../screens";
 import * as options from "./options";

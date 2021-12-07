@@ -5,7 +5,7 @@ import { createAppContainer } from "react-navigation";
 import {
   SharedElement,
   createSharedElementStackNavigator,
-} from "react-navigation-shared-element/build/v4";
+} from "react-navigation-shared-element/stack-v4";
 import { HeaderBackButton } from "react-navigation-stack";
 
 import * as options from "./options";
