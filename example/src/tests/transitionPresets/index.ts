@@ -22,7 +22,7 @@ const transitionPresets: React.ComponentProps<typeof Test>[] = [
     Component: createComponent("ModalPresentationIOS"),
     ComponentV4: createComponentV4("ModalPresentationIOS"),
     ComponentNative: null,
-    issue: true,
+    issue: "Layout is measured to far to the top",
   },
   {
     title: "Preset: FadeFromBottomAndroid",
@@ -53,7 +53,9 @@ const transitionPresets: React.ComponentProps<typeof Test>[] = [
     Component: createComponent("ModalTransition"),
     ComponentV4: createComponentV4("ModalTransition"),
     ComponentNative: null,
-    issue: ["v6"],
+    issue: {
+      v6: "Layout is measured to far to the top",
+    },
   },
   {
     title: "Preset: BottomSheetAndroid",

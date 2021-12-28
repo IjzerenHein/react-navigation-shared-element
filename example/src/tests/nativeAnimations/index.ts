@@ -31,7 +31,7 @@ const nativeAnimations: React.ComponentProps<typeof Test>[] = [
       Platform.OS === "ios"
         ? createComponent("flip", { presentation: "modal" })
         : null,
-    issue: true,
+    issue: "TODO",
   },
   {
     title: "Animation: none",
@@ -53,7 +53,7 @@ const nativeAnimations: React.ComponentProps<typeof Test>[] = [
     ComponentNative: createComponent("slide_from_bottom", {
       presentation: "modal",
     }),
-    issue: true,
+    issue: "TODO",
   },
   {
     title: "Animation: slide_from_right",

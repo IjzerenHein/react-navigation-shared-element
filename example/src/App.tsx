@@ -51,7 +51,7 @@ export default () => (
       <Test {...ModalStack} />
       <Test
         {...ModalIOS13PageSheet}
-        issue="Modal layout is measured all the way to the top"
+        issue="Layout is measured too far to the top"
       />
       <Test {...BottomTabs} />
       <Test
@@ -63,7 +63,7 @@ export default () => (
       <Test {...MaterialTopTabs} />
       <Test
         {...SafeAreaView}
-        issue="Layout is measured incorrectly because SafeAreaView applies the layout in the next cycle"
+        issue="Layout is measured incorrectly because SafeAreaView applies the restricted layout in a delayed manner"
       />
       <Test {...WrongIds} />
       <Test
