@@ -46,11 +46,6 @@ type SceneRoute = {
   subscription: SharedElementEventSubscription | null;
 };
 
-/**
- * TODO
- * - [ ] Not all lifecycle events not emitted by stack when using gestures (close modal)
- */
-
 export default class SharedElementRendererData
   implements ISharedElementRendererData
 {
@@ -64,7 +59,7 @@ export default class SharedElementRendererData
   // to be set in order for a shared-element transition to happen.
   // This data is collected through a combination of `focus`, `startTransition`
   // and `endTransition` events that are emitted by the router.
-  private route: SharedElementRoute | null = null;
+  private route: SharedElementRoute | null = null; // TODO: might be able to remove this
   private nextRoute: SharedElementRoute | null = null;
   private prevRoute: SharedElementRoute | null = null;
   private routeAnimValue: SharedElementAnimatedValue;
@@ -72,7 +67,6 @@ export default class SharedElementRendererData
   private isTransitionClosing: boolean = false;
   private transitionNavigatorId: string = "";
   private transitionNestingDepth: number = -1;
-
   private sharedElements: SharedElementsStrictConfig | null = null;
   private isShowing: boolean = true;
   private nextScene: SharedElementSceneData | null = null;
@@ -88,67 +82,127 @@ export default class SharedElementRendererData
     if (this.debug) {
       const { navigatorId, nestingDepth } = scene;
       console.debug(
-        `[${navigatorId}]${eventType}, nestingDepth: ${nestingDepth}, scene: "${scene.name}"`
+        `[${navigatorId}:${nestingDepth}] - ${eventType}: "${scene.name}" (${scene.route?.key})`
       );
     }
 
     // Initialize current route if needed
     if (!this.route && scene.route) this.route = scene.route;
-    if (!this.prevRoute && this.route) this.prevRoute = this.route;
 
-    const isNative = false;
+    // TODO: determine native path based on navigator
+    const isNative = true;
     if (isNative) {
       switch (eventType) {
+        case "updateAnimValue":
+          // Capture opening anim-value before open transition is started
+          if (!this.isTransitionStarted) this.nextRoute = scene.route;
+          break;
         case "willFocus":
-          // TODO
-          break;
-        case "willBlur":
-          // TODO
-          break;
-        /* case "startOpenTransition":
-        case "startClosingTransition":
-          {
-            const closing = eventType === "startClosingTransition";
-            this.startSceneTransition(scene, closing);
+          this.registerScene(scene);
+          if (
+            !this.isTransitionStarted &&
+            this.nextRoute?.key === scene.route.key
+          ) {
+            this.isTransitionStarted = true;
+            this.isTransitionClosing = false;
+            this.prevRoute = this.route;
+            this.routeAnimValue = scene.getAnimValue(false);
           }
-          break; */
-        case "endOpenTransition":
-        case "endClosingTransition":
-          // const closing = eventType === "endClosingTransition";
-          // this.endSceneTransition(scene, closing);
-          this.endTransitions();
           break;
-        /* case "updateAnimValue":
-          break; */
+        case "startClosingTransition":
+          if (
+            !this.isTransitionStarted &&
+            !this.isTransitionClosing &&
+            !this.prevRoute
+          ) {
+            this.isTransitionClosing = true;
+            this.prevRoute = scene.route;
+          }
+          break;
+        case "startOpenTransition":
+          if (this.isTransitionClosing && this.prevRoute) {
+            this.isTransitionStarted = true;
+            this.nextRoute = scene.route;
+            this.routeAnimValue = scene.getAnimValue(false);
+          }
+          break;
+        case "endOpenTransition":
+          this.endTransitions();
+          this.route = scene.route;
+          break;
       }
     } else {
       // Traditional implementation
       switch (eventType) {
         case "willFocus":
           this.registerScene(scene);
+          if (!this.isTransitionStarted) return;
+          // Use the animation value from the navigator that
+          // started the transition
+          if (this.prevRoute) {
+            const routeScene = this.isTransitionClosing
+              ? this.getScene(this.prevRoute)
+              : scene;
+            if (routeScene?.navigatorId === this.transitionNavigatorId) {
+              this.routeAnimValue = routeScene?.getAnimValue(
+                this.isTransitionClosing
+              );
+            }
+          }
           this.updateNextRoute(scene);
           break;
         case "didFocus":
           this.route = scene.route;
+          this.updateNextRoute(scene, !!this.prevRoute);
           this.registerScene(scene);
           break;
         case "startOpenTransition":
         case "startClosingTransition":
-          {
-            const closing = eventType === "startClosingTransition";
-            this.startSceneTransition(scene, closing);
+          if (!this.isTransitionStarted || this.nextRoute) {
+            this.prevRoute = this.nextRoute ?? this.route;
+            this.nextRoute = null;
+            this.routeAnimValue = null;
+
+            // When a transition wasn't completely fully, but a new transition
+            // has already started, then the `willBlur` event is not called.
+            // For this particular case, we capture the animation-value of the
+            // last (previous) scene that is now being hidden.
+            if (this.isTransitionStarted) {
+              const scene = this.getScene(this.prevRoute);
+              if (scene) this.routeAnimValue = scene.getAnimValue(true);
+            }
+
+            this.isTransitionStarted = true;
+            this.isTransitionClosing = eventType === "startClosingTransition";
+            this.transitionNavigatorId = scene.navigatorId;
+            this.transitionNestingDepth = scene.nestingDepth;
+          } else {
+            // When navigators are nested, `startTransition` may be called multiple
+            // times. In such as case, we want to use the most shallow navigator,
+            // as that is the one doing the transition.
+            if (scene.nestingDepth < this.transitionNestingDepth) {
+              this.transitionNavigatorId = scene.navigatorId;
+              this.transitionNestingDepth = scene.nestingDepth;
+            }
           }
           break;
         case "endOpenTransition":
         case "endClosingTransition":
-          // const closing = eventType === "endClosingTransition";
-          // this.endSceneTransition(scene, closing);
-          this.endTransitions();
+          if (
+            this.isTransitionStarted &&
+            this.transitionNavigatorId === scene.navigatorId
+          ) {
+            this.endTransitions();
+          }
           break;
       }
     }
 
-    this.startTransitionsIfNeeded();
+    // Start transitions if needed
+    if (this.prevRoute && this.nextRoute && this.routeAnimValue) {
+      this.updateSceneListeners();
+      this.updateSharedElements();
+    }
   }
 
   addDebugRef(): number {
@@ -163,14 +217,9 @@ export default class SharedElementRendererData
     return this.debugRefCount > 0;
   }
 
-  private startTransitionsIfNeeded() {
-    if (this.prevRoute && this.nextRoute && this.routeAnimValue) {
-      this.updateSceneListeners();
-      this.updateSharedElements();
-    }
-  }
-
   private endTransitions() {
+    this.isTransitionStarted = false;
+    this.isTransitionClosing = false;
     if (this.nextRoute || this.prevRoute || this.routeAnimValue) {
       this.nextRoute = null;
       this.prevRoute = null;
@@ -180,79 +229,11 @@ export default class SharedElementRendererData
     }
   }
 
-  private startSceneTransition(
-    scene: SharedElementSceneData,
-    closing: boolean
-  ) {
-    // NOTE: For react-navigation 4, only the navigatorId and nestingDepth fields are supported
-    // so do not use any of the other fields here, because doing so will [break stuff](https://www.youtube.com/watch?v=ZpUYjpKg9KY)
-    /* const { navigatorId, nestingDepth } = scene;
-
-    if (scene.route) {
-      if (!this.route && !closing) this.route = scene.route;
-      if (!this.prevRoute && closing) this.prevRoute = scene.route;
-      if (!this.nextRoute && !closing) this.nextRoute = scene.route;
-    }
-
-    // Try to get the animated-value from the routes
-    if (closing && this.prevRoute) {
-      const scene = this.getScene(this.prevRoute);
-      if (scene?.navigatorId === navigatorId) {
-        this.routeAnimValue = scene?.getAnimValue(false);
-      }
-    } // else if (!closing && this.nextRoute) {
-    // const scene = this.getScene(this.nextRoute);
-    // if (scene?.navigatorId === navigatorId) {
-    //  this.routeAnimValue = scene?.getAnimValue(false);
-    // }
-    // }
-
-    if (!this.isTransitionStarted || this.nextRoute) {
-      this.isTransitionStarted = true;
-      this.isTransitionClosing = closing;
-      this.transitionNavigatorId = navigatorId;
-      this.transitionNestingDepth = nestingDepth;
-    } else {
-      // When navigators are nested, `startTransition` may be called multiple
-      // times. In such as case, we want to use the most shallow navigator,
-      // as that is the one doing the transition.
-      if (nestingDepth < this.transitionNestingDepth) {
-        this.transitionNavigatorId = navigatorId;
-        this.transitionNestingDepth = nestingDepth;
-      }
-    }
-
-    console.log(
-      `Prev-route: ${this.prevRoute?.name}, Next-route:  ${this.nextRoute?.name}, anim-value: ${this.routeAnimValue}`
-    );
-
-    this.startTransitionsIfNeeded();
-     */
-  }
-
-  /* private endSceneTransition(scene: SharedElementSceneData, closing: boolean) {
-    // NOTE: For react-navigation 4, only the navigatorId and nestingDepth fields are supported
-    // so do not use any of the other fields here, because doing so will [break stuff](https://www.youtube.com/watch?v=ZpUYjpKg9KY)
-    // const { navigatorId } = scene;
-
-    if (
-      !this.isTransitionStarted ||
-      this.transitionNavigatorId !== navigatorId
-    ) {
-      return;
-    }
-
-    this.isTransitionStarted = false;
-
-    // End transitions
-    this.endTransitions();
-  } */
-
-  private updateNextRoute(scene: SharedElementSceneData) {
+  private updateNextRoute(scene: SharedElementSceneData, force?: boolean) {
     // In case of nested navigators, multiple scenes will become
     // activated. Make sure to use the scene that is nested most deeply,
     // as this will be the one visible to the user
-    if (!this.nextRoute) {
+    if (!this.nextRoute || force) {
       this.nextRoute = scene.route;
     } else {
       const nextScene = this.getScene(this.nextRoute);
@@ -261,48 +242,6 @@ export default class SharedElementRendererData
       }
     }
   }
-
-  private willFocusScene(scene: SharedElementSceneData) {
-    this.registerScene(scene);
-    this.updateNextRoute(scene);
-
-    // Try to get the animated-value from the routes
-    /* if (this.isTransitionStarted) {
-      if (this.isTransitionClosing && this.prevRoute) {
-        const scene = this.getScene(this.prevRoute);
-        if (scene?.navigatorId === this.transitionNavigatorId) {
-          this.routeAnimValue = scene?.getAnimValue(true);
-        }
-      } else if (!this.isTransitionClosing && this.nextRoute) {
-        const scene = this.getScene(this.nextRoute);
-        if (scene?.navigatorId === this.transitionNavigatorId) {
-          this.routeAnimValue = scene?.getAnimValue(false);
-        }
-      }
-    } */
-
-    /* if (this.nextRoute && this.prevRoute && !this.routeAnimValue) {
-      const nextScene = this.getScene(this.nextRoute);
-      const prevScene = this.getScene(this.prevRoute);
-      this.routeAnimValue =
-        nextScene?.getAnimValue(false) ?? prevScene?.getAnimValue(false);
-    }*/
-
-    this.startTransitionsIfNeeded();
-  }
-
-  /* private didFocusScene(scene: SharedElementSceneData) {
-    if (!this.route || !this.prevRoute) {
-      this.route = scene.route;
-    } else {
-      const routeScene = this.getScene(this.route);
-      if (routeScene && routeScene.nestingDepth <= scene.nestingDepth) {
-        this.route = scene.route;
-      }
-    }
-
-    this.registerScene(scene);
-  } */
 
   private registerScene(scene: SharedElementSceneData) {
     this.scenes.push({
@@ -423,10 +362,8 @@ export default class SharedElementRendererData
       this;
 
     if (!sharedElements || !nextScene || !prevScene) {
-      console.log("NO TRANSITIONS");
       return NO_SHARED_ELEMENTS;
     }
-    console.log("TRANSITIONS: ", sharedElements.length);
     return sharedElements.map(({ id, otherId, ...other }) => {
       const startId = isShowing ? otherId || id : id;
       const endId = isShowing ? id : otherId || id;
