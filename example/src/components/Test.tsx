@@ -4,14 +4,18 @@ import { StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import { Colors } from "./Colors";
 import { Icon } from "./Icon";
 
-type Issue = "v4" | "v6" | "native";
-
 type Props = {
   title: string;
   ComponentV4?: React.ComponentType<any> | null;
   Component?: React.ComponentType<any> | null;
   ComponentNative?: React.ComponentType<any> | null;
-  issue?: boolean | Issue[];
+  issue?:
+    | string
+    | {
+        v4?: string;
+        v6?: string;
+        native?: string;
+      };
   onPress?: () => any;
   v4?: boolean;
   native?: boolean;
@@ -41,12 +45,26 @@ export const Test = (props: Props) => {
     ? ComponentNative
     : Component;
   const isValid = !!ActiveComponent;
-  const hasIssue =
-    issue === true ||
-    (Array.isArray(issue) &&
-      ((v4 && issue.includes("v4")) ||
-        (!v4 && !native && issue.includes("v6")) ||
-        (native && issue.includes("native"))));
+  const issueText =
+    typeof issue === "string"
+      ? issue
+      : v4 && issue?.v4
+      ? issue.v4
+      : native && issue?.native
+      ? issue?.native
+      : !v4 && !native && issue?.v6
+      ? issue?.v6
+      : undefined;
+  const issueEnv =
+    typeof issue === "string"
+      ? "All stacks"
+      : v4 && issue?.v4
+      ? "Stack (v4)"
+      : native && issue?.native
+      ? "Native Stack (v6)"
+      : !v4 && !native && issue?.v6
+      ? "Stack (v5/6)"
+      : undefined;
   return (
     <TouchableOpacity
       style={styles.container}
@@ -54,8 +72,12 @@ export const Test = (props: Props) => {
       onPress={isValid ? onPress : () => onPressInvalidTest(ActiveComponent)}
     >
       <Text style={[styles.text, !isValid && styles.textInvalid]}>{title}</Text>
-      {hasIssue ? (
-        <Icon name="information-circle" color={Colors.red} size={26} />
+      {issueText ? (
+        <TouchableOpacity
+          onPress={() => Alert.alert(`Issue on: ${issueEnv}`, issueText)}
+        >
+          <Icon name="information-circle" color={Colors.red} size={26} />
+        </TouchableOpacity>
       ) : undefined}
       <Icon
         style={[styles.icon, !isValid && styles.iconInvalid]}

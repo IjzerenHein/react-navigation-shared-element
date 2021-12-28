@@ -42,17 +42,34 @@ export default () => (
       ))}
       <Test {...ForwardOnly} />
       <Test {...BackOnly} />
-      <Test {...PushPopSameScreen} issue={["v4"]} />
+      <Test
+        {...PushPopSameScreen}
+        issue={{ v6: "No transition occurs when navigating back" }}
+      />
       <Test {...NestedStack} />
       <Test {...NestedStack2} />
       <Test {...ModalStack} />
-      <Test {...ModalIOS13PageSheet} issue />
+      <Test
+        {...ModalIOS13PageSheet}
+        issue="Modal layout is measured all the way to the top"
+      />
       <Test {...BottomTabs} />
-      <Test {...BottomTabs2} />
+      <Test
+        {...BottomTabs2}
+        issue={{
+          v4: "Transition doesn't always happen when navigating forward",
+        }}
+      />
       <Test {...MaterialTopTabs} />
-      <Test {...SafeAreaView} issue={["v4", "v6"]} />
+      <Test
+        {...SafeAreaView}
+        issue="Layout is measured incorrectly because SafeAreaView applies the layout in the next cycle"
+      />
       <Test {...WrongIds} />
-      <Test {...ImageBackground} issue />
+      <Test
+        {...ImageBackground}
+        issue="Image is stretched instead of resized and revealed"
+      />
       <Test {...TextInputStack} />
     </Tests>
   </SafeAreaProvider>
