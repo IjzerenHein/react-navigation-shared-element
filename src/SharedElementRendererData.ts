@@ -316,10 +316,18 @@ export default class SharedElementRendererData
     let sharedElements: SharedElementsStrictConfig | null = null;
     let isShowing = true;
     if (sceneAnimValue && scene && prevScene && route && prevRoute) {
-      sharedElements = getSharedElements(scene, prevScene, true);
+      sharedElements = getSharedElements(
+        scene,
+        prevScene,
+        !this.isTransitionClosing
+      );
       if (!sharedElements) {
         isShowing = false;
-        sharedElements = getSharedElements(prevScene, scene, false);
+        sharedElements = getSharedElements(
+          prevScene,
+          scene,
+          !this.isTransitionClosing
+        );
       }
     }
     if (this.sharedElements !== sharedElements) {

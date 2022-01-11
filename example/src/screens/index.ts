@@ -1,5 +1,6 @@
 export * from "./MainScreen";
 export * from "./DetailScreen";
+export * from "./DetailScreenWithMore";
 export * from "./DetailScreenImageBackground";
 export * from "./DetailPagerScreen";
 export * from "./ListScreen";

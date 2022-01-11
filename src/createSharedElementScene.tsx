@@ -56,7 +56,7 @@ function isActiveRoute(
     : // @ts-ignore: dangerouslyGetState is provided for navigation 5 compatibility
       navigation.dangerouslyGetState();
   const activeRoute = getActiveRoute(state);
-  return route.name === activeRoute.name;
+  return route.key === activeRoute.key;
 }
 
 function createSharedElementScene(
