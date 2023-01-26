@@ -55,7 +55,7 @@
     "eslint": "^7.32.0",
     "expo-module-scripts": "^2.0.0",
     "prettier": "^2.4.1",
-    "react-native-shared-element": "^0.8.3",
+    "react-native-shared-element": "^0.8.8",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-navigation-tabs": "^2.11.1"
