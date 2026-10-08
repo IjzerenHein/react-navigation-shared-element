@@ -12,7 +12,11 @@ export class EventEmitter {
   addListener(name: string, callback: (any) => any): () => void {
     this.listeners[name] = this.listeners[name] || [];
     this.listeners[name].push(callback);
-    return () =>
+    let removed = false;
+    return () => {
+      if (removed) return;
+      removed = true;
       this.listeners[name].splice(this.listeners[name].indexOf(callback), 1);
+    };
   }
 }
